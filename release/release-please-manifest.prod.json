@@ -1,4 +1,5 @@
 {
+	"packages/tools-core": "0.0.1",
 	"apps/ts-to-openapi": "0.0.1",
 	"apps/ts-to-schema": "0.0.1"
 }

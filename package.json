@@ -47,6 +47,7 @@
 		"release-please": "17.1.0"
 	},
 	"workspaces": [
+		"packages/tools-core",
 		"apps/ts-to-openapi",
 		"apps/ts-to-schema"
 	],

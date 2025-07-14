@@ -14,8 +14,14 @@ import type {
 	IUnauthorizedResponse
 } from "@twin.org/api-models";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { ArrayHelper, GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
+import {
+	type IPackageJson,
+	JsonSchemaHelper,
+	type IJsonSchema,
+	type JsonTypeName
+} from "@twin.org/tools-core";
 import { HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { Command } from "commander";
 import { createGenerator } from "ts-json-schema-generator";
@@ -26,16 +32,13 @@ import {
 } from "./httpStatusCodeMap";
 import type { IInputPath } from "../models/IInputPath";
 import type { IInputResult } from "../models/IInputResult";
-import type { IJsonSchema } from "../models/IJsonSchema";
 import type { IOpenApi } from "../models/IOpenApi";
 import type { IOpenApiExample } from "../models/IOpenApiExample";
 import type { IOpenApiHeader } from "../models/IOpenApiHeader";
 import type { IOpenApiResponse } from "../models/IOpenApiResponse";
 import type { IOpenApiSecurityScheme } from "../models/IOpenApiSecurityScheme";
-import type { IPackageJson } from "../models/IPackageJson";
 import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig";
 import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint";
-import type { JsonTypeName } from "../models/jsonTypeName";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -208,7 +211,23 @@ export async function tsToOpenApi(
 	}
 
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-openapi.progress.generatingSchemas"));
-	const schemas = await generateSchemas(typeRoots, types, workingDirectory);
+
+	const autoExpandTypes = config.autoExpandTypes ?? [];
+	const defaultExpandTypes = ["ObjectOrArray<.*>"];
+	for (const defaultType of defaultExpandTypes) {
+		if (!autoExpandTypes.includes(defaultType)) {
+			autoExpandTypes.push(defaultType);
+		}
+	}
+
+	const schemas = await generateSchemas(typeRoots, types, autoExpandTypes, workingDirectory);
+
+	for (const type in schemas) {
+		if (Is.object<IJsonSchema>(config.overrides?.[type])) {
+			CLIDisplay.task(I18n.formatMessage("commands.ts-to-openapi.progress.overridingSchema"));
+			schemas[type] = config.overrides?.[type];
+		}
+	}
 
 	const usedCommonResponseTypes: string[] = [];
 
@@ -721,7 +740,7 @@ async function finaliseOutput(
 	}
 
 	for (const type in finalSchemas) {
-		processArrays(finalSchemas[type]);
+		JsonSchemaHelper.processArrays(finalSchemas[type]);
 	}
 
 	const schemaKeys = Object.keys(finalSchemas);
@@ -763,7 +782,7 @@ async function finaliseOutput(
 	// eslint-disable-next-line unicorn/better-regex
 	json = json.replace(/#\/components\/schemas\/(.*)\[\]/g, "#/components/schemas/ListOf$1");
 
-	json = normaliseTypeName(json);
+	json = JsonSchemaHelper.normaliseTypeName(json);
 
 	// Remove external references
 	for (const finalExternal in finalExternals) {
@@ -932,6 +951,7 @@ async function processPackageRestDetails(restRoutes: IRestRoute[]): Promise<IInp
 async function generateSchemas(
 	modelDirWildcards: string[],
 	types: string[],
+	autoExpandTypes: string[],
 	outputWorkingDir: string
 ): Promise<{
 	[id: string]: IJsonSchema;
@@ -967,7 +987,7 @@ async function generateSchemas(
 
 		if (schema.definitions) {
 			for (const def in schema.definitions) {
-				const defSub = normaliseTypeName(def);
+				const defSub = JsonSchemaHelper.normaliseTypeName(def);
 
 				allSchemas[defSub] = schema.definitions[def] as IJsonSchema;
 			}
@@ -976,7 +996,8 @@ async function generateSchemas(
 
 	const referencedSchemas: { [id: string]: IJsonSchema } = {};
 
-	extractTypes(allSchemas, types, referencedSchemas);
+	JsonSchemaHelper.extractTypes(allSchemas, [...types, ...autoExpandTypes], referencedSchemas);
+	JsonSchemaHelper.expandTypes(referencedSchemas, autoExpandTypes);
 
 	for (const arraySingularType of arraySingularTypes) {
 		referencedSchemas[`${arraySingularType}[]`] = {
@@ -988,82 +1009,6 @@ async function generateSchemas(
 	}
 
 	return referencedSchemas;
-}
-
-/**
- * Extract the required types from all the known schemas.
- * @param allSchemas All the known schemas.
- * @param requiredTypes The required types.
- * @param referencedSchemas The references schemas.
- * @internal
- */
-function extractTypes(
-	allSchemas: { [id: string]: IJsonSchema },
-	requiredTypes: string[],
-	referencedSchemas: { [id: string]: IJsonSchema }
-): void {
-	for (const type of requiredTypes) {
-		if (allSchemas[type] && !referencedSchemas[type]) {
-			referencedSchemas[type] = allSchemas[type];
-
-			extractTypesFromSchema(allSchemas, allSchemas[type], referencedSchemas);
-		}
-	}
-}
-
-/**
- * Extract type from properties definition.
- * @param allTypes All the known types.
- * @param schema The schema to extract from.
- * @param output The output types.
- * @internal
- */
-function extractTypesFromSchema(
-	allTypes: { [id: string]: IJsonSchema },
-	schema: IJsonSchema,
-	output: { [id: string]: IJsonSchema }
-): void {
-	const additionalTypes = [];
-
-	if (Is.stringValue(schema.$ref)) {
-		additionalTypes.push(normaliseTypeName(schema.$ref).replace("#/definitions/", ""));
-	} else if (Is.object<IJsonSchema>(schema.items)) {
-		if (Is.arrayValue<IJsonSchema>(schema.items)) {
-			for (const itemSchema of schema.items) {
-				extractTypesFromSchema(allTypes, itemSchema, output);
-			}
-		} else {
-			extractTypesFromSchema(allTypes, schema.items, output);
-		}
-	} else if (Is.object(schema.properties) || Is.object(schema.additionalProperties)) {
-		if (Is.object(schema.properties)) {
-			for (const prop in schema.properties) {
-				const p = schema.properties[prop];
-				if (Is.object<IJsonSchema>(p)) {
-					extractTypesFromSchema(allTypes, p, output);
-				}
-			}
-		}
-		if (Is.object(schema.additionalProperties)) {
-			extractTypesFromSchema(allTypes, schema.additionalProperties, output);
-		}
-	} else if (Is.arrayValue(schema.anyOf)) {
-		for (const prop of schema.anyOf) {
-			if (Is.object<IJsonSchema>(prop)) {
-				extractTypesFromSchema(allTypes, prop, output);
-			}
-		}
-	} else if (Is.arrayValue(schema.oneOf)) {
-		for (const prop of schema.oneOf) {
-			if (Is.object<IJsonSchema>(prop)) {
-				extractTypesFromSchema(allTypes, prop, output);
-			}
-		}
-	}
-
-	if (additionalTypes.length > 0) {
-		extractTypes(allTypes, additionalTypes, output);
-	}
 }
 
 /**
@@ -1268,86 +1213,4 @@ async function loadPackages(
 	}
 
 	return restRoutes;
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaObject The schema object to process.
- */
-function processArrays(schemaObject?: IJsonSchema): void {
-	if (Is.object<IJsonSchema>(schemaObject)) {
-		// latest specs have singular items in `items` property
-		// and multiple items in prefixItems, so update the schema accordingly
-		// https://www.learnjsonschema.com/2020-12/applicator/items/
-		// https://www.learnjsonschema.com/2020-12/applicator/prefixitems/
-		const schemaItems = schemaObject.items;
-		if (Is.array<IJsonSchema>(schemaItems) || Is.object<IJsonSchema>(schemaItems)) {
-			schemaObject.prefixItems = ArrayHelper.fromObjectOrArray<IJsonSchema>(schemaItems);
-			delete schemaObject.items;
-		}
-		const additionalItems = schemaObject.additionalItems;
-		if (Is.array<IJsonSchema>(additionalItems) || Is.object<IJsonSchema>(additionalItems)) {
-			schemaObject.items = ArrayHelper.fromObjectOrArray<IJsonSchema>(additionalItems)[0];
-			delete schemaObject.additionalItems;
-		}
-
-		processSchemaDictionary(schemaObject.properties);
-		processArrays(schemaObject.additionalProperties);
-		processSchemaArray(schemaObject.allOf);
-		processSchemaArray(schemaObject.anyOf);
-		processSchemaArray(schemaObject.oneOf);
-	}
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaDictionary The schema object to process.
- */
-function processSchemaDictionary(schemaDictionary?: { [key: string]: IJsonSchema }): void {
-	if (Is.object(schemaDictionary)) {
-		for (const item of Object.values(schemaDictionary)) {
-			if (Is.object<IJsonSchema>(item)) {
-				processArrays(item);
-			}
-		}
-	}
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaArray The schema object to process.
- */
-function processSchemaArray(schemaArray?: IJsonSchema[]): void {
-	if (Is.arrayValue(schemaArray)) {
-		for (const item of schemaArray) {
-			if (Is.object<IJsonSchema>(item)) {
-				processArrays(item);
-			}
-		}
-	}
-}
-
-/**
- * Cleanup TypeScript markers from the type name.
- * @param typeName The definition string to clean up.
- * @returns The cleaned up definition string.
- */
-function normaliseTypeName(typeName: string): string {
-	// Remove the partial markers
-	let sTypeName = typeName.replace(/^Partial<(.*?)>/g, "$1");
-	sTypeName = sTypeName.replace(/Partial%3CI(.*?)%3E/g, "$1");
-
-	// Remove the omit markers
-	sTypeName = sTypeName.replace(/^Omit<(.*?),.*>/g, "$1");
-	sTypeName = sTypeName.replace(/Omit%3CI(.*?)%2C.*%3E/g, "$1");
-
-	// Remove the pick markers
-	sTypeName = sTypeName.replace(/^Pick<(.*?),.*>/g, "$1");
-	sTypeName = sTypeName.replace(/Pick%3CI(.*?)%2C.*%3E/g, "$1");
-
-	// Cleanup the generic markers
-	sTypeName = sTypeName.replace(/</g, "%3C").replace(/>/g, "%3E");
-	sTypeName = sTypeName.replace(/%3Cunknown%3E/g, "");
-
-	return sTypeName;
 }

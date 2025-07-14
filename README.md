@@ -2,6 +2,10 @@
 
 This mono-repository contains some of the tooling packages that the rest of the TWIN packages depend on.
 
+## Packages
+
+- [tools-core](packages/tools-core/README.md) - Shared components for the tools.
+
 ## Apps
 
 - [ts-to-openapi](packages/ts-to-openapi/README.md) - Tool to convert TypeScript REST route definitions to OpenAPI Specifications.

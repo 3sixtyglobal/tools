@@ -26,6 +26,7 @@
 				"creatingWorkingDir": "Creating Working Directory",
 				"creatingSecuritySchemas": "Creating Security Schemas",
 				"generatingSchemas": "Generating Schemas",
+				"overridingSchema": "Overriding Schema",
 				"finalisingSchemas": "Finalising Schemas",
 				"writingOutputFile": "Writing Output File",
 				"models": "Models",
