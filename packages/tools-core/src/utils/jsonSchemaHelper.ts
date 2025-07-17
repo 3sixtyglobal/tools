@@ -16,7 +16,7 @@ export class JsonSchemaHelper {
 	 * Process arrays in the schema object.
 	 * @param schemaObject The schema object to process.
 	 */
-	public static processArrays(schemaObject?: IJsonSchema): void {
+	public static processArrays(schemaObject: IJsonSchema): void {
 		if (Is.object<IJsonSchema>(schemaObject)) {
 			// latest specs have singular items in `items` property
 			// and multiple items in prefixItems, so update the schema accordingly
@@ -161,18 +161,23 @@ export class JsonSchemaHelper {
 	 */
 	public static extractTypes(
 		allSchemas: { [id: string]: IJsonSchema },
-		requiredTypes: string[],
+		requiredTypes: (string | RegExp)[],
 		referencedSchemas: { [id: string]: IJsonSchema }
 	): void {
 		for (const typeKey of Object.keys(allSchemas)) {
-			for (const requiredType of requiredTypes) {
-				if (new RegExp(requiredType).test(typeKey) && !referencedSchemas[typeKey]) {
-					referencedSchemas[typeKey] = allSchemas[typeKey];
-					JsonSchemaHelper.extractTypesFromSchema(
-						allSchemas,
-						allSchemas[typeKey],
-						referencedSchemas
-					);
+			if (!referencedSchemas[typeKey]) {
+				for (const requiredType of requiredTypes) {
+					if (
+						(Is.regexp(requiredType) && new RegExp(requiredType).test(typeKey)) ||
+						(Is.stringValue(requiredType) && requiredType === typeKey)
+					) {
+						referencedSchemas[typeKey] = allSchemas[typeKey];
+						JsonSchemaHelper.extractTypesFromSchema(
+							allSchemas,
+							allSchemas[typeKey],
+							referencedSchemas
+						);
+					}
 				}
 			}
 		}

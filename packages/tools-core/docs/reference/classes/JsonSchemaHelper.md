@@ -24,13 +24,13 @@ The JSON Schema version used.
 
 ### processArrays()
 
-> `static` **processArrays**(`schemaObject?`): `void`
+> `static` **processArrays**(`schemaObject`): `void`
 
 Process arrays in the schema object.
 
 #### Parameters
 
-##### schemaObject?
+##### schemaObject
 
 `AnySchemaObject`
 
@@ -144,7 +144,7 @@ All the known schemas.
 
 ##### requiredTypes
 
-`string`[]
+(`string` \| `RegExp`)[]
 
 The required types.
 

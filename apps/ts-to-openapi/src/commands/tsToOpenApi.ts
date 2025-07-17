@@ -17,9 +17,15 @@ import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import {
-	type IPackageJson,
 	JsonSchemaHelper,
+	OpenApiHelper,
 	type IJsonSchema,
+	type IOpenApi,
+	type IOpenApiExample,
+	type IOpenApiHeader,
+	type IOpenApiResponse,
+	type IOpenApiSecurityScheme,
+	type IPackageJson,
 	type JsonTypeName
 } from "@twin.org/tools-core";
 import { HttpStatusCode, MimeTypes } from "@twin.org/web";
@@ -32,11 +38,6 @@ import {
 } from "./httpStatusCodeMap";
 import type { IInputPath } from "../models/IInputPath";
 import type { IInputResult } from "../models/IInputResult";
-import type { IOpenApi } from "../models/IOpenApi";
-import type { IOpenApiExample } from "../models/IOpenApiExample";
-import type { IOpenApiHeader } from "../models/IOpenApiHeader";
-import type { IOpenApiResponse } from "../models/IOpenApiResponse";
-import type { IOpenApiSecurityScheme } from "../models/IOpenApiSecurityScheme";
 import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig";
 import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint";
 
@@ -158,7 +159,7 @@ export async function tsToOpenApi(
 	);
 
 	const openApi: IOpenApi = {
-		openapi: "3.1.0",
+		openapi: OpenApiHelper.API_VERSION,
 		info: {
 			title: config.title,
 			description: config.description,
@@ -213,7 +214,7 @@ export async function tsToOpenApi(
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-openapi.progress.generatingSchemas"));
 
 	const autoExpandTypes = config.autoExpandTypes ?? [];
-	const defaultExpandTypes = ["ObjectOrArray<.*>"];
+	const defaultExpandTypes = ["/ObjectOrArray<.*>/"];
 	for (const defaultType of defaultExpandTypes) {
 		if (!autoExpandTypes.includes(defaultType)) {
 			autoExpandTypes.push(defaultType);
@@ -996,7 +997,14 @@ async function generateSchemas(
 
 	const referencedSchemas: { [id: string]: IJsonSchema } = {};
 
-	JsonSchemaHelper.extractTypes(allSchemas, [...types, ...autoExpandTypes], referencedSchemas);
+	JsonSchemaHelper.extractTypes(
+		allSchemas,
+		[
+			...types,
+			...autoExpandTypes.map(t => (t.startsWith("/") && t.endsWith("/") ? new RegExp(t) : t))
+		],
+		referencedSchemas
+	);
 	JsonSchemaHelper.expandTypes(referencedSchemas, autoExpandTypes);
 
 	for (const arraySingularType of arraySingularTypes) {

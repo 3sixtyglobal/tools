@@ -127,7 +127,7 @@ export async function tsToSchema(
 			CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.generatingSchema"));
 
 			const autoExpandTypes = config.autoExpandTypes ?? [];
-			const defaultExpandTypes = ["ObjectOrArray<.*>"];
+			const defaultExpandTypes = ["/ObjectOrArray<.*>/"];
 			for (const defaultType of defaultExpandTypes) {
 				if (!autoExpandTypes.includes(defaultType)) {
 					autoExpandTypes.push(defaultType);
@@ -209,7 +209,11 @@ async function generateSchemas(
 
 	const referencedSchemas: { [id: string]: IJsonSchema } = {};
 
-	JsonSchemaHelper.extractTypes(allSchemas, [type, ...autoExpandTypes], referencedSchemas);
+	JsonSchemaHelper.extractTypes(
+		allSchemas,
+		[type, ...autoExpandTypes.map(t => (t.startsWith("/") && t.endsWith("/") ? new RegExp(t) : t))],
+		referencedSchemas
+	);
 	JsonSchemaHelper.expandTypes(referencedSchemas, autoExpandTypes);
 
 	return referencedSchemas;
