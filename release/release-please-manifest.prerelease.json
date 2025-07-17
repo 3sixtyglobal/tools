@@ -1,5 +1,5 @@
 {
-	"packages/tools-core": "0.0.2-next.1",
-	"apps/ts-to-openapi": "0.0.2-next.1",
-	"apps/ts-to-schema": "0.0.2-next.1"
+	"packages/tools-core": "0.0.2-next.2",
+	"apps/ts-to-openapi": "0.0.2-next.2",
+	"apps/ts-to-schema": "0.0.2-next.2"
 }

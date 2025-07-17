@@ -1,5 +1,19 @@
 # @twin.org/ts-to-schema - Changelog
 
+## [0.0.2-next.2](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.1...ts-to-schema-v0.0.2-next.2) (2025-07-17)
+
+
+### Features
+
+* improve auto expand types ([6181d1d](https://github.com/twinfoundation/tools/commit/6181d1daded1f91323195cf7efbc2f1881f38b41))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.2-next.1 to 0.0.2-next.2
+
 ## [0.0.2-next.1](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.0...ts-to-schema-v0.0.2-next.1) (2025-07-14)
 
 
