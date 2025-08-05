@@ -723,8 +723,6 @@ async function finaliseOutput(
 					finalName = finalName.slice(1);
 				}
 
-				finalName = finalName.replace("<", "_").replace(">", "_");
-
 				if (finalName.endsWith("[]")) {
 					finalName = `ListOf${finalName.slice(0, -2)}`;
 				}

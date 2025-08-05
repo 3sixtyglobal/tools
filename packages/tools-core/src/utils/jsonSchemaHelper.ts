@@ -76,22 +76,26 @@ export class JsonSchemaHelper {
 	 */
 	public static normaliseTypeName(typeName: string): string {
 		// Remove the partial markers
-		let sTypeName = typeName.replace(/^Partial<(.*?)>/g, "$1");
+		let sTypeName = typeName.replace(/^Partial<I(.*?)>/g, "$1");
 		sTypeName = sTypeName.replace(/Partial%3CI(.*?)%3E/g, "$1");
 
 		// Remove the omit markers
-		sTypeName = sTypeName.replace(/^Omit<(.*?),.*>/g, "$1");
+		sTypeName = sTypeName.replace(/^Omit<I(.*?),.*>/g, "$1");
 		sTypeName = sTypeName.replace(/Omit%3CI(.*?)%2C.*%3E/g, "$1");
 
 		// Remove the pick markers
-		sTypeName = sTypeName.replace(/^Pick<(.*?),.*>/g, "$1");
+		sTypeName = sTypeName.replace(/^Pick<I(.*?),.*>/g, "$1");
 		sTypeName = sTypeName.replace(/Pick%3CI(.*?)%2C.*%3E/g, "$1");
+
+		// Cleanup the generic markers
+		sTypeName = sTypeName.replace(/^(.*?)<I(.*?)>/g, "$1<$2>");
+		sTypeName = sTypeName.replace(/(.*?)%3CI(.*?)%3E/g, "$1<$2>");
 
 		// Cleanup the unknown markers
 		sTypeName = sTypeName.replace(/<unknown>/g, "");
 		sTypeName = sTypeName.replace(/%3Cunknown%3E/g, "");
 
-		// Replace the generic markers with the base URL
+		// Replace the other url markers
 		sTypeName = sTypeName.replace(/%7C/g, "|").replace(/%3C/g, "<").replace(/%3E/g, ">");
 
 		return sTypeName;
