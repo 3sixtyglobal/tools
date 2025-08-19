@@ -209,11 +209,7 @@ async function generateSchemas(
 
 	const referencedSchemas: { [id: string]: IJsonSchema } = {};
 
-	JsonSchemaHelper.extractTypes(
-		allSchemas,
-		[type, ...autoExpandTypes.map(t => (t.startsWith("/") && t.endsWith("/") ? new RegExp(t) : t))],
-		referencedSchemas
-	);
+	JsonSchemaHelper.extractTypes(allSchemas, [type, ...autoExpandTypes], referencedSchemas);
 	JsonSchemaHelper.expandTypes(referencedSchemas, autoExpandTypes);
 
 	return referencedSchemas;

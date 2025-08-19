@@ -144,7 +144,7 @@ All the known schemas.
 
 ##### requiredTypes
 
-(`string` \| `RegExp`)[]
+`string`[]
 
 The required types.
 

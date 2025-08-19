@@ -165,16 +165,18 @@ export class JsonSchemaHelper {
 	 */
 	public static extractTypes(
 		allSchemas: { [id: string]: IJsonSchema },
-		requiredTypes: (string | RegExp)[],
+		requiredTypes: string[],
 		referencedSchemas: { [id: string]: IJsonSchema }
 	): void {
 		for (const typeKey of Object.keys(allSchemas)) {
 			if (!referencedSchemas[typeKey]) {
 				for (const requiredType of requiredTypes) {
-					if (
-						(Is.regexp(requiredType) && new RegExp(requiredType).test(typeKey)) ||
-						(Is.stringValue(requiredType) && requiredType === typeKey)
-					) {
+					const regex =
+						requiredType.startsWith("/") && requiredType.endsWith("/")
+							? new RegExp(requiredType.slice(1, -1))
+							: new RegExp(requiredType);
+
+					if (regex.test(typeKey)) {
 						referencedSchemas[typeKey] = allSchemas[typeKey];
 						JsonSchemaHelper.extractTypesFromSchema(
 							allSchemas,
@@ -216,7 +218,11 @@ export class JsonSchemaHelper {
 				const typeName = JsonSchemaHelper.normaliseTypeName(
 					schema.$ref.replace("#/definitions/", "")
 				);
-				if (new RegExp(expandedType).test(typeName) && allSchemas[typeName]) {
+				const regex =
+					expandedType.startsWith("/") && expandedType.endsWith("/")
+						? new RegExp(expandedType.slice(1, -1))
+						: new RegExp(expandedType);
+				if (regex.test(typeName) && allSchemas[typeName]) {
 					delete schema.$ref;
 					Object.assign(schema, allSchemas[typeName]);
 					break;
