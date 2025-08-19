@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.4](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.3...tools-core-v0.0.2-next.4) (2025-08-19)
+
+
+### Features
+
+* update framework core ([559cb98](https://github.com/twinfoundation/tools/commit/559cb98612c05a05458b37462cda806b9591b18a))
+
 ## [0.0.2-next.3](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.2...tools-core-v0.0.2-next.3) (2025-08-05)
 
 
