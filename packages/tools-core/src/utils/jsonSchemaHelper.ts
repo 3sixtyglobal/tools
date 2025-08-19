@@ -4,7 +4,7 @@ import { ArrayHelper, Is } from "@twin.org/core";
 import type { IJsonSchema } from "../models/IJsonSchema";
 
 /**
- * Helper class for JSON Schema processing. It provides methods to process arrays and clean up type names.
+ * Helper class for JSON Schema processing.
  */
 export class JsonSchemaHelper {
 	/**
