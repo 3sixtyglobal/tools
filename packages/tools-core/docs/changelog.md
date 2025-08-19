@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.5](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.4...tools-core-v0.0.2-next.5) (2025-08-19)
+
+
+### Features
+
+* correctly handle auto expand types ([57fce0f](https://github.com/twinfoundation/tools/commit/57fce0f9ec4a0876665d70adc6e885f6feb3caf7))
+
 ## [0.0.2-next.4](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.3...tools-core-v0.0.2-next.4) (2025-08-19)
 
 
