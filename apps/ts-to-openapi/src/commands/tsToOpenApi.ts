@@ -637,6 +637,7 @@ export async function tsToOpenApi(
 		openApi,
 		securitySchemes,
 		config.externalReferences,
+		autoExpandTypes,
 		outputFile
 	);
 }
@@ -648,6 +649,7 @@ export async function tsToOpenApi(
  * @param openApi The OpenAPI spec.
  * @param securitySchemes The security schemes.
  * @param externalReferences The external references.
+ * @param autoExpandTypes The auto expand types.
  * @param outputFile The output file.
  */
 async function finaliseOutput(
@@ -656,6 +658,7 @@ async function finaliseOutput(
 	openApi: IOpenApi,
 	securitySchemes: { [name: string]: IOpenApiSecurityScheme },
 	externalReferences: { [type: string]: string } | undefined,
+	autoExpandTypes: string[],
 	outputFile: string
 ): Promise<void> {
 	CLIDisplay.break();
@@ -706,6 +709,16 @@ async function finaliseOutput(
 					);
 					break;
 				}
+			}
+		}
+
+		// We can remove any auto expand types from the final schema as they
+		// will have been expanded inline so no need to keep them
+		for (const autoExpandType of autoExpandTypes) {
+			const regExp = JsonSchemaHelper.autoExpandToRegEx(autoExpandType);
+			if (regExp.test(schema)) {
+				skipSchema = true;
+				break;
 			}
 		}
 

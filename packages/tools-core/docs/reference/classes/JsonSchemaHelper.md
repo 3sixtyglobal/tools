@@ -209,3 +209,25 @@ The types to expand.
 #### Returns
 
 `void`
+
+***
+
+### autoExpandToRegEx()
+
+> `static` **autoExpandToRegEx**(`autoExpand`): `RegExp`
+
+Convert a string auto expand pattern to a regular expression.
+
+#### Parameters
+
+##### autoExpand
+
+`string`
+
+The auto expand pattern.
+
+#### Returns
+
+`RegExp`
+
+The regular expression.

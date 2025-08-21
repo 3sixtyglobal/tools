@@ -218,10 +218,7 @@ export class JsonSchemaHelper {
 				const typeName = JsonSchemaHelper.normaliseTypeName(
 					schema.$ref.replace("#/definitions/", "")
 				);
-				const regex =
-					expandedType.startsWith("/") && expandedType.endsWith("/")
-						? new RegExp(expandedType.slice(1, -1))
-						: new RegExp(expandedType);
+				const regex = JsonSchemaHelper.autoExpandToRegEx(expandedType);
 				if (regex.test(typeName) && allSchemas[typeName]) {
 					delete schema.$ref;
 					Object.assign(schema, allSchemas[typeName]);
@@ -261,5 +258,16 @@ export class JsonSchemaHelper {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Convert a string auto expand pattern to a regular expression.
+	 * @param autoExpand The auto expand pattern.
+	 * @returns The regular expression.
+	 */
+	public static autoExpandToRegEx(autoExpand: string): RegExp {
+		return autoExpand.startsWith("/") && autoExpand.endsWith("/")
+			? new RegExp(autoExpand.slice(1, -1))
+			: new RegExp(autoExpand);
 	}
 }
