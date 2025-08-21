@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.6](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.5...tools-core-v0.0.2-next.6) (2025-08-21)
+
+
+### Features
+
+* remove auto expanded types from final output ([18e05dc](https://github.com/twinfoundation/tools/commit/18e05dc88f71a0a27b79d1d076b1261b42d2c4c2))
+
 ## [0.0.2-next.5](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.4...tools-core-v0.0.2-next.5) (2025-08-19)
 
 

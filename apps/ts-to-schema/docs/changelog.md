@@ -1,5 +1,19 @@
 # @twin.org/ts-to-schema - Changelog
 
+## [0.0.2-next.6](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.5...ts-to-schema-v0.0.2-next.6) (2025-08-21)
+
+
+### Miscellaneous Chores
+
+* **ts-to-schema:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.2-next.5 to 0.0.2-next.6
+
 ## [0.0.2-next.5](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.4...ts-to-schema-v0.0.2-next.5) (2025-08-19)
 
 
