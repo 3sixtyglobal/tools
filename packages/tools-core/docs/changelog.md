@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.7](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.6...tools-core-v0.0.2-next.7) (2025-08-29)
+
+
+### Features
+
+* eslint migration to flat config ([25acfcf](https://github.com/twinfoundation/tools/commit/25acfcf4c4e0c496fffeaf67659fe171bc15199a))
+
 ## [0.0.2-next.6](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.5...tools-core-v0.0.2-next.6) (2025-08-21)
 
 
