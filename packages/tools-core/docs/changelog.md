@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.8](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.7...tools-core-v0.0.2-next.8) (2025-09-05)
+
+
+### Features
+
+* tighten the types included with the regex matching ([e54909b](https://github.com/twinfoundation/tools/commit/e54909bded4a19d00560dd3ec783e9146580bda3))
+
 ## [0.0.2-next.7](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.6...tools-core-v0.0.2-next.7) (2025-08-29)
 
 

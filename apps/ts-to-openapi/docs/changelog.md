@@ -1,5 +1,19 @@
 # @twin.org/ts-to-openapi - Changelog
 
+## [0.0.2-next.8](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.2-next.7...ts-to-openapi-v0.0.2-next.8) (2025-09-05)
+
+
+### Features
+
+* tighten the types included with the regex matching ([e54909b](https://github.com/twinfoundation/tools/commit/e54909bded4a19d00560dd3ec783e9146580bda3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.2-next.7 to 0.0.2-next.8
+
 ## [0.0.2-next.7](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.2-next.6...ts-to-openapi-v0.0.2-next.7) (2025-08-29)
 
 
