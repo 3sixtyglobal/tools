@@ -171,10 +171,7 @@ export class JsonSchemaHelper {
 		for (const typeKey of Object.keys(allSchemas)) {
 			if (!referencedSchemas[typeKey]) {
 				for (const requiredType of requiredTypes) {
-					const regex =
-						requiredType.startsWith("/") && requiredType.endsWith("/")
-							? new RegExp(requiredType.slice(1, -1))
-							: new RegExp(requiredType);
+					const regex = JsonSchemaHelper.stringToRegEx(requiredType);
 
 					if (regex.test(typeKey)) {
 						referencedSchemas[typeKey] = allSchemas[typeKey];
@@ -218,7 +215,7 @@ export class JsonSchemaHelper {
 				const typeName = JsonSchemaHelper.normaliseTypeName(
 					schema.$ref.replace("#/definitions/", "")
 				);
-				const regex = JsonSchemaHelper.autoExpandToRegEx(expandedType);
+				const regex = JsonSchemaHelper.stringToRegEx(expandedType);
 				if (regex.test(typeName) && allSchemas[typeName]) {
 					delete schema.$ref;
 					Object.assign(schema, allSchemas[typeName]);
@@ -261,13 +258,13 @@ export class JsonSchemaHelper {
 	}
 
 	/**
-	 * Convert a string auto expand pattern to a regular expression.
-	 * @param autoExpand The auto expand pattern.
+	 * Convert a string pattern to a regular expression.
+	 * @param matchPattern The pattern to convert.
 	 * @returns The regular expression.
 	 */
-	public static autoExpandToRegEx(autoExpand: string): RegExp {
-		return autoExpand.startsWith("/") && autoExpand.endsWith("/")
-			? new RegExp(autoExpand.slice(1, -1))
-			: new RegExp(autoExpand);
+	public static stringToRegEx(matchPattern: string): RegExp {
+		return matchPattern.startsWith("/") && matchPattern.endsWith("/")
+			? new RegExp(matchPattern.slice(1, -1))
+			: new RegExp(`^${matchPattern}$`);
 	}
 }

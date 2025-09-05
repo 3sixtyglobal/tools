@@ -715,7 +715,7 @@ async function finaliseOutput(
 		// We can remove any auto expand types from the final schema as they
 		// will have been expanded inline so no need to keep them
 		for (const autoExpandType of autoExpandTypes) {
-			const regExp = JsonSchemaHelper.autoExpandToRegEx(autoExpandType);
+			const regExp = JsonSchemaHelper.stringToRegEx(autoExpandType);
 			if (regExp.test(schema)) {
 				skipSchema = true;
 				break;
