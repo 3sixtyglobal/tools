@@ -1,5 +1,19 @@
 # @twin.org/ts-to-openapi - Changelog
 
+## [0.0.2-next.9](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.2-next.8...ts-to-openapi-v0.0.2-next.9) (2025-09-23)
+
+
+### Features
+
+* add support for authentication property ([ba002c2](https://github.com/twinfoundation/tools/commit/ba002c2c641618ffe7664269179bca6e9fbc9655))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.2-next.8 to 0.0.2-next.9
+
 ## [0.0.2-next.8](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.2-next.7...ts-to-openapi-v0.0.2-next.8) (2025-09-05)
 
 
