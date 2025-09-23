@@ -452,13 +452,15 @@ export async function tsToOpenApi(
 				// If there are any properties other than body, query, pathParams and headers
 				// we should throw an error as we don't know what to do with them
 				const otherKeys = Object.keys(requestObject.properties).filter(
-					k => !["body", "query", "pathParams", "headers"].includes(k)
+					k => !["body", "query", "pathParams", "headers", "authentication"].includes(k)
 				);
 				if (otherKeys.length > 0) {
 					throw new GeneralError("commands", "commands.ts-to-openapi.unsupportedProperties", {
 						keys: otherKeys.join(", ")
 					});
 				}
+
+				delete requestObject.properties.authentication;
 
 				// If there is a path params object convert these to params
 				if (Is.object<IJsonSchema>(requestObject.properties.pathParams)) {
