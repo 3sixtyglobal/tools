@@ -79,5 +79,13 @@
 	],
 	"bin": {
 		"ts-to-openapi": "bin/index.js"
-	}
+	},
+	"keywords": [
+		"twin",
+		"trade",
+		"iota",
+		"framework",
+		"blockchain",
+		"tools"
+	]
 }
