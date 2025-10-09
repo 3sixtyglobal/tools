@@ -1,5 +1,19 @@
 # @twin.org/ts-to-schema - Changelog
 
+## [0.0.2-next.10](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.9...ts-to-schema-v0.0.2-next.10) (2025-10-09)
+
+
+### Features
+
+* add validate-locales ([97bb11f](https://github.com/twinfoundation/tools/commit/97bb11fd9e6ed400e7fa69671075ba78f36ca6e6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.2-next.9 to 0.0.2-next.10
+
 ## [0.0.2-next.9](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.2-next.8...ts-to-schema-v0.0.2-next.9) (2025-09-23)
 
 

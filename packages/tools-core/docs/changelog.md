@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-next.10](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.9...tools-core-v0.0.2-next.10) (2025-10-09)
+
+
+### Features
+
+* add validate-locales ([97bb11f](https://github.com/twinfoundation/tools/commit/97bb11fd9e6ed400e7fa69671075ba78f36ca6e6))
+
 ## [0.0.2-next.9](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.2-next.8...tools-core-v0.0.2-next.9) (2025-09-23)
 
 
