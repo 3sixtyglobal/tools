@@ -15,11 +15,12 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist coverage",
-		"build": "tsc",
+		"build": "tspc",
 		"dev": "nodemon --watch src --ext ts --exec \"npm run build && npm run bundle:esm\"",
 		"merge-locales": "merge-locales",
 		"test": "vitest --run --config ./vitest.config.ts --no-cache",
-		"test:build": "tsc -p ./tests/tsconfig.json --noEmit",
+		"test:build": "tspc -p ./tests/tsconfig.json --noEmit",
+		"validate-locales": "validate-locales",
 		"coverage": "vitest --run --coverage --config ./vitest.config.ts --no-cache",
 		"bundle:esm": "rollup --config rollup.config.mjs --environment MODULE:esm",
 		"bundle:cjs": "rollup --config rollup.config.mjs --environment MODULE:cjs",
@@ -27,9 +28,8 @@
 		"docs:clean": "rimraf docs/reference",
 		"docs:generate": "typedoc",
 		"docs": "npm run docs:clean && npm run docs:generate",
-		"dist": "npm run clean && npm run build && npm run merge-locales && npm run test:build && npm run test && npm run bundle && npm run docs",
-		"dist:no-test": "npm run clean && npm run build && npm run merge-locales && npm run bundle && npm run docs",
-		"prepare": "ts-patch install -s"
+		"dist": "npm run clean && npm run build && npm run merge-locales && npm run validate-locales && npm run test:build && npm run test && npm run bundle && npm run docs",
+		"dist:no-test": "npm run clean && npm run build && npm run merge-locales && npm run bundle && npm run docs"
 	},
 	"dependencies": {
 		"@twin.org/api-models": "next",
@@ -46,6 +46,7 @@
 		"@twin.org/merge-locales": "next",
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
+		"@twin.org/validate-locales": "next",
 		"@types/node": "24.5.2",
 		"@vitest/coverage-v8": "3.2.4",
 		"copyfiles": "2.4.1",
@@ -87,5 +88,9 @@
 		"framework",
 		"blockchain",
 		"tools"
-	]
+	],
+	"bugs": {
+		"url": "git+https://github.com/twinfoundation/tools/issues"
+	},
+	"homepage": "https://twindev.org"
 }

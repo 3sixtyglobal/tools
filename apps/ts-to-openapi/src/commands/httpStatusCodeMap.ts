@@ -44,7 +44,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IBadRequestResponse>(),
 		example: {
 			name: "GeneralError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				foo: "bar"
 			}
@@ -55,7 +55,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IUnauthorizedResponse>(),
 		example: {
 			name: "UnauthorizedError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	},
 	forbidden: {
@@ -63,7 +63,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IForbiddenResponse>(),
 		example: {
 			name: "NotImplementedError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				method: "aMethod"
 			}
@@ -74,7 +74,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<INotFoundResponse>(),
 		example: {
 			name: "NotFoundError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				notFoundId: "1"
 			}
@@ -85,7 +85,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IConflictResponse>(),
 		example: {
 			name: "ConflictError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				conflicts: ["1"]
 			}
@@ -96,7 +96,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IInternalServerErrorResponse>(),
 		example: {
 			name: "InternalServerError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	},
 	unprocessableEntity: {
@@ -104,7 +104,7 @@ export const HTTP_STATUS_CODE_MAP: {
 		responseType: nameof<IUnprocessableEntityResponse>(),
 		example: {
 			name: "UnprocessableError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	}
 };
