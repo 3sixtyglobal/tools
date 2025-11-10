@@ -2,17 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type {
-	ICreatedResponse,
-	IHttpRequest,
-	IHttpResponse,
-	INoContentResponse,
-	IOkResponse,
-	IRestRoute,
-	IRestRouteEntryPoint,
-	ITag,
-	IUnauthorizedResponse
-} from "@twin.org/api-models";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
@@ -35,11 +24,14 @@ import {
 	HTTP_STATUS_CODE_MAP,
 	getHttpExampleFromType,
 	getHttpStatusCodeFromType
-} from "./httpStatusCodeMap";
-import type { IInputPath } from "../models/IInputPath";
-import type { IInputResult } from "../models/IInputResult";
-import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig";
-import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint";
+} from "./httpStatusCodeMap.js";
+import type { IInputPath } from "../models/IInputPath.js";
+import type { IInputResult } from "../models/IInputResult.js";
+import type { IRestRoute } from "../models/IRestRoute.js";
+import type { IRestRouteEntryPoint } from "../models/IRestRouteEntryPoints.js";
+import type { ITag } from "../models/ITag.js";
+import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig.js";
+import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint.js";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -151,7 +143,11 @@ export async function tsToOpenApi(
 		path.join(workingDirectory, "tsconfig.json"),
 		JSON.stringify(
 			{
-				compilerOptions: {}
+				compilerOptions: {
+					module: "nodenext",
+					moduleResolution: "nodenext",
+					target: "ES2022"
+				}
 			},
 			undefined,
 			"\t"
@@ -254,7 +250,7 @@ export async function tsToOpenApi(
 			if (pathSpecificAuthSecurity.length > 0) {
 				responseTypes.push({
 					statusCode: HttpStatusCode.unauthorized,
-					type: nameof<IUnauthorizedResponse>()
+					type: "UnauthorizedResponse"
 				});
 			}
 
@@ -265,7 +261,11 @@ export async function tsToOpenApi(
 
 					if (Is.arrayValue(responseType.examples)) {
 						for (const example of responseType.examples) {
-							if (Is.object<IHttpResponse>(example.response)) {
+							if (
+								Is.object<{ headers: { [id: string]: string | string[] }; body: unknown }>(
+									example.response
+								)
+							) {
 								if (Is.objectValue(example.response.headers)) {
 									headers ??= {};
 									const headersSchema = schemas[responseType.type].properties
@@ -347,8 +347,7 @@ export async function tsToOpenApi(
 						code: responseType.statusCode,
 						description,
 						content:
-							responseType.type === nameof<ICreatedResponse>() ||
-							responseType.type === nameof<INoContentResponse>()
+							responseType.type === "CreatedResponse" || responseType.type === "NoContentResponse"
 								? undefined
 								: {
 										[mimeType]: {
@@ -433,8 +432,11 @@ export async function tsToOpenApi(
 				style: "simple"
 			}));
 
-			const requestExample: IHttpRequest | undefined = inputPath.requestExamples?.[0]
-				?.request as IHttpRequest;
+			const requestExample = inputPath.requestExamples?.[0]?.request as {
+				pathParams: { [id: string]: string };
+				headers: { [id: string]: string };
+				query: { [id: string]: string };
+			};
 
 			if (Is.object(requestExample?.pathParams)) {
 				for (const pathOrQueryParam of pathQueryHeaderParams) {
@@ -452,15 +454,13 @@ export async function tsToOpenApi(
 				// If there are any properties other than body, query, pathParams and headers
 				// we should throw an error as we don't know what to do with them
 				const otherKeys = Object.keys(requestObject.properties).filter(
-					k => !["body", "query", "pathParams", "headers", "authentication"].includes(k)
+					k => !["body", "query", "pathParams", "headers"].includes(k)
 				);
 				if (otherKeys.length > 0) {
 					throw new GeneralError("commands", "commands.ts-to-openapi.unsupportedProperties", {
 						keys: otherKeys.join(", ")
 					});
 				}
-
-				delete requestObject.properties.authentication;
 
 				// If there is a path params object convert these to params
 				if (Is.object<IJsonSchema>(requestObject.properties.pathParams)) {
@@ -906,7 +906,7 @@ async function processPackageRestDetails(restRoutes: IRestRoute[]): Promise<IInp
 			// But only if we haven't got a response already for different content type
 			if (responseType.length === 0) {
 				responseType.push({
-					type: nameof<IOkResponse>(),
+					type: "OkResponse",
 					statusCode: HttpStatusCode.ok
 				});
 			}
@@ -1175,7 +1175,7 @@ async function loadPackages(
 			pkgJson.name
 		);
 
-		const pkg = await import(`file://${path.join(rootFolder, "dist/esm/index.mjs")}`);
+		const pkg = await import(`file://${path.join(rootFolder, "dist/es/index.js")}`);
 
 		if (!Is.array(pkg.restEntryPoints)) {
 			throw new GeneralError("commands", "commands.ts-to-openapi.missingRestRoutesEntryPoints", {

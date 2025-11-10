@@ -3,9 +3,8 @@
 import { mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@twin.org/cli-core";
-import { I18n } from "@twin.org/core";
-import { tsToOpenApi } from "../../src/commands/tsToOpenApi";
-import type { ITsToOpenApiConfig } from "../../src/models/ITsToOpenApiConfig";
+import { tsToOpenApi } from "../../src/commands/tsToOpenApi.js";
+import type { ITsToOpenApiConfig } from "../../src/models/ITsToOpenApiConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");
@@ -19,8 +18,6 @@ describe("TSToOpenApi", () => {
 		await rm(TEST_DATA_LOCATION, { recursive: true, force: true });
 		await mkdir(TEST_CONFIG_LOCATION, { recursive: true });
 		await mkdir(TEST_WORKING_LOCATION, { recursive: true });
-
-		I18n.addDictionary("en", await import("../../dist/locales/en.json"));
 	});
 
 	afterAll(async () => {

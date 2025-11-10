@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonLdNodeObject } from "./IJsonLdDocument";
+import type { IJsonLdNodeObject } from "./IJsonLdDocument.js";
 
 /**
  * Object with an external schema type.

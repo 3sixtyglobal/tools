@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IJsonSchema } from "@twin.org/tools-core";
-import type { ITsToOpenApiConfigEntryPoint } from "./ITsToOpenApiConfigEntryPoint";
+import type { ITsToOpenApiConfigEntryPoint } from "./ITsToOpenApiConfigEntryPoint.js";
 
 /**
  * Configuration for the API.

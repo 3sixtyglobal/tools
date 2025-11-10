@@ -3,8 +3,8 @@
 import { rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@twin.org/cli-core";
-import { CLI } from "../src/cli";
-import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig";
+import { CLI } from "../src/cli.js";
+import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");

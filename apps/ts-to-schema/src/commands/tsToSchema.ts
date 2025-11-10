@@ -7,7 +7,7 @@ import { GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
 import { type IJsonSchema, JsonSchemaHelper } from "@twin.org/tools-core";
 import type { Command } from "commander";
 import { createGenerator } from "ts-json-schema-generator";
-import type { ITsToSchemaConfig } from "../models/ITsToSchemaConfig";
+import type { ITsToSchemaConfig } from "../models/ITsToSchemaConfig.js";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -103,7 +103,11 @@ export async function tsToSchema(
 		path.join(workingDirectory, "tsconfig.json"),
 		JSON.stringify(
 			{
-				compilerOptions: {}
+				compilerOptions: {
+					module: "nodenext",
+					moduleResolution: "nodenext",
+					target: "ES2022"
+				}
 			},
 			undefined,
 			"\t"

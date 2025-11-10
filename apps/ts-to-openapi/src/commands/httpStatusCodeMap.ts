@@ -1,19 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IAcceptedResponse,
-	IBadRequestResponse,
-	IConflictResponse,
-	ICreatedResponse,
-	IForbiddenResponse,
-	IInternalServerErrorResponse,
-	INoContentResponse,
-	INotFoundResponse,
-	IOkResponse,
-	IUnauthorizedResponse,
-	IUnprocessableEntityResponse
-} from "@twin.org/api-models";
-import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
 
 export const HTTP_STATUS_CODE_MAP: {
@@ -25,23 +11,23 @@ export const HTTP_STATUS_CODE_MAP: {
 } = {
 	ok: {
 		code: HttpStatusCode.ok,
-		responseType: nameof<IOkResponse>()
+		responseType: "OkResponse"
 	},
 	created: {
 		code: HttpStatusCode.created,
-		responseType: nameof<ICreatedResponse>()
+		responseType: "CreatedResponse"
 	},
 	accepted: {
 		code: HttpStatusCode.accepted,
-		responseType: nameof<IAcceptedResponse>()
+		responseType: "AcceptedResponse"
 	},
 	noContent: {
 		code: HttpStatusCode.noContent,
-		responseType: nameof<INoContentResponse>()
+		responseType: "NoContentResponse"
 	},
 	badRequest: {
 		code: HttpStatusCode.badRequest,
-		responseType: nameof<IBadRequestResponse>(),
+		responseType: "BadRequestResponse",
 		example: {
 			name: "GeneralError",
 			message: "errorMessage",
@@ -52,7 +38,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	unauthorized: {
 		code: HttpStatusCode.unauthorized,
-		responseType: nameof<IUnauthorizedResponse>(),
+		responseType: "UnauthorizedResponse",
 		example: {
 			name: "UnauthorizedError",
 			message: "errorMessage"
@@ -60,7 +46,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	forbidden: {
 		code: HttpStatusCode.forbidden,
-		responseType: nameof<IForbiddenResponse>(),
+		responseType: "ForbiddenResponse",
 		example: {
 			name: "NotImplementedError",
 			message: "errorMessage",
@@ -71,7 +57,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	notFound: {
 		code: HttpStatusCode.notFound,
-		responseType: nameof<INotFoundResponse>(),
+		responseType: "NotFoundResponse",
 		example: {
 			name: "NotFoundError",
 			message: "errorMessage",
@@ -82,7 +68,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	conflict: {
 		code: HttpStatusCode.conflict,
-		responseType: nameof<IConflictResponse>(),
+		responseType: "ConflictResponse",
 		example: {
 			name: "ConflictError",
 			message: "errorMessage",
@@ -93,7 +79,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	internalServerError: {
 		code: HttpStatusCode.internalServerError,
-		responseType: nameof<IInternalServerErrorResponse>(),
+		responseType: "InternalServerErrorResponse",
 		example: {
 			name: "InternalServerError",
 			message: "errorMessage"
@@ -101,7 +87,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	unprocessableEntity: {
 		code: HttpStatusCode.unprocessableEntity,
-		responseType: nameof<IUnprocessableEntityResponse>(),
+		responseType: "UnprocessableEntityResponse",
 		example: {
 			name: "UnprocessableError",
 			message: "errorMessage"

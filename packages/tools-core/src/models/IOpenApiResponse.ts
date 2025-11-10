@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IOpenApiExample } from "./IOpenApiExample";
-import type { IOpenApiHeader } from "./IOpenApiHeader";
+import type { IOpenApiExample } from "./IOpenApiExample.js";
+import type { IOpenApiHeader } from "./IOpenApiHeader.js";
 
 /**
  * The Open API config definition.

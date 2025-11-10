@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ArrayHelper, Is } from "@twin.org/core";
-import type { IJsonSchema } from "../models/IJsonSchema";
+import { Is } from "@twin.org/core";
+import type { IJsonSchema } from "../models/IJsonSchema.js";
 
 /**
  * Helper class for JSON Schema processing.
@@ -18,18 +18,40 @@ export class JsonSchemaHelper {
 	 */
 	public static processArrays(schemaObject: IJsonSchema): void {
 		if (Is.object<IJsonSchema>(schemaObject)) {
-			// latest specs have singular items in `items` property
-			// and multiple items in prefixItems, so update the schema accordingly
+			// new json schema version has prefixItems instead of items for arrays with fixed ordering
+			// so convert any old style schemas that use items as an array
+			// prefixItems validates fixed positions and is an array
+			// items validates the rest and is an object
+			// additionalItems no longer exists
 			// https://www.learnjsonschema.com/2020-12/applicator/items/
 			// https://www.learnjsonschema.com/2020-12/applicator/prefixitems/
-			const schemaItems = schemaObject.items;
-			if (Is.array<IJsonSchema>(schemaItems) || Is.object<IJsonSchema>(schemaItems)) {
-				schemaObject.prefixItems = ArrayHelper.fromObjectOrArray<IJsonSchema>(schemaItems);
-				schemaObject.items = false;
-			}
-			const additionalItems = schemaObject.additionalItems;
-			if (Is.array<IJsonSchema>(additionalItems) || Is.object<IJsonSchema>(additionalItems)) {
-				schemaObject.items = ArrayHelper.fromObjectOrArray<IJsonSchema>(additionalItems)[0];
+			if (Is.array(schemaObject.items)) {
+				if (Is.array(schemaObject.additionalItems)) {
+					// If the items are an array then this is fixed ordering
+					// so move to prefixItems and then do the same for additionalItems
+					schemaObject.prefixItems = schemaObject.items;
+					delete schemaObject.items;
+					schemaObject.items = schemaObject.additionalItems;
+					delete schemaObject.additionalItems;
+				} else if (
+					Is.integer(schemaObject.minItems) &&
+					Is.integer(schemaObject.maxItems) &&
+					schemaObject.minItems === schemaObject.maxItems &&
+					schemaObject.maxItems === schemaObject.items.length
+				) {
+					// There is a fixed number of items which matches the items array length
+					// so move construct an allOf to enforce the fixed length
+					schemaObject.items = { allOf: schemaObject.items };
+					delete schemaObject.minItems;
+					delete schemaObject.maxItems;
+				} else {
+					// no additional items so wrap in an anyOf
+					schemaObject.items = { anyOf: schemaObject.items };
+				}
+			} else {
+				// It's an object, so we should just leave this as is
+				// as we can't convert to prefixItems, but should
+				// remove any additionalItems as this is not valid
 				delete schemaObject.additionalItems;
 			}
 

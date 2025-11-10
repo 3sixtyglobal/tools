@@ -1,12 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonLdContainerType } from "./IJsonLdContainerType";
-import type { IJsonLdContainerTypeArray } from "./IJsonLdContainerTypeArray";
-import type { IJsonLdContextDefinitionRoot } from "./IJsonLdContextDefinitionRoot";
-import type { IJsonLdIncludedBlock } from "./IJsonLdIncludedBlock";
-import type { IJsonLdListOrSetItem } from "./IJsonLdListOrSetItem";
-import type { IJsonLdNodeObject } from "./IJsonLdNodeObject";
-import type { IJsonLdValueObject } from "./IJsonLdValueObject";
+import type { IJsonLdContainerType } from "./IJsonLdContainerType.js";
+import type { IJsonLdContainerTypeArray } from "./IJsonLdContainerTypeArray.js";
+import type { IJsonLdContextDefinitionRoot } from "./IJsonLdContextDefinitionRoot.js";
+import type { IJsonLdIncludedBlock } from "./IJsonLdIncludedBlock.js";
+import type { IJsonLdListOrSetItem } from "./IJsonLdListOrSetItem.js";
+import type { IJsonLdNodeObject } from "./IJsonLdNodeObject.js";
+import type { IJsonLdValueObject } from "./IJsonLdValueObject.js";
 
 /**
  * This is a copy of the types from the npm jsonld package. This is necessary as the JSON schema generators

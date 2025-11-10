@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonSchema } from "./IJsonSchema";
-import type { IOpenApiPathMethod } from "./IOpenApiPathMethod";
-import type { IOpenApiSecurityScheme } from "./IOpenApiSecurityScheme";
+import type { IJsonSchema } from "./IJsonSchema.js";
+import type { IOpenApiPathMethod } from "./IOpenApiPathMethod.js";
+import type { IOpenApiSecurityScheme } from "./IOpenApiSecurityScheme.js";
 
 /**
  * The Open API config definition.
