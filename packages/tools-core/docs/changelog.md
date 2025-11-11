@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.2](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.1...tools-core-v0.0.3-next.2) (2025-11-11)
+
+
+### Bug Fixes
+
+* additionalItems object check ([ca81668](https://github.com/twinfoundation/tools/commit/ca81668e1ee0d2b1a479215265e651932d7b76de))
+
 ## [0.0.3-next.1](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.0...tools-core-v0.0.3-next.1) (2025-11-10)
 
 
