@@ -26,13 +26,12 @@ export class JsonSchemaHelper {
 			// https://www.learnjsonschema.com/2020-12/applicator/items/
 			// https://www.learnjsonschema.com/2020-12/applicator/prefixitems/
 			if (Is.array(schemaObject.items)) {
-				if (Is.array(schemaObject.additionalItems)) {
+				if (Is.object(schemaObject.additionalItems)) {
 					// If the items are an array then this is fixed ordering
 					// so move to prefixItems and then do the same for additionalItems
 					schemaObject.prefixItems = schemaObject.items;
 					delete schemaObject.items;
 					schemaObject.items = schemaObject.additionalItems;
-					delete schemaObject.additionalItems;
 				} else if (
 					Is.integer(schemaObject.minItems) &&
 					Is.integer(schemaObject.maxItems) &&
@@ -48,12 +47,11 @@ export class JsonSchemaHelper {
 					// no additional items so wrap in an anyOf
 					schemaObject.items = { anyOf: schemaObject.items };
 				}
-			} else {
-				// It's an object, so we should just leave this as is
-				// as we can't convert to prefixItems, but should
-				// remove any additionalItems as this is not valid
-				delete schemaObject.additionalItems;
 			}
+
+			// We can't use additionalItems in the new schema version
+			// so just remove it after processing
+			delete schemaObject.additionalItems;
 
 			JsonSchemaHelper.processSchemaDictionary(schemaObject.properties);
 			JsonSchemaHelper.processArrays(schemaObject.additionalProperties);
