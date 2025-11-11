@@ -250,7 +250,7 @@ export async function tsToOpenApi(
 			if (pathSpecificAuthSecurity.length > 0) {
 				responseTypes.push({
 					statusCode: HttpStatusCode.unauthorized,
-					type: "UnauthorizedResponse"
+					type: "IUnauthorizedResponse"
 				});
 			}
 
@@ -347,7 +347,7 @@ export async function tsToOpenApi(
 						code: responseType.statusCode,
 						description,
 						content:
-							responseType.type === "CreatedResponse" || responseType.type === "NoContentResponse"
+							responseType.type === "ICreatedResponse" || responseType.type === "INoContentResponse"
 								? undefined
 								: {
 										[mimeType]: {
@@ -906,7 +906,7 @@ async function processPackageRestDetails(restRoutes: IRestRoute[]): Promise<IInp
 			// But only if we haven't got a response already for different content type
 			if (responseType.length === 0) {
 				responseType.push({
-					type: "OkResponse",
+					type: "IOkResponse",
 					statusCode: HttpStatusCode.ok
 				});
 			}

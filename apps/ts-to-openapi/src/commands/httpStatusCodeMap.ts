@@ -11,23 +11,23 @@ export const HTTP_STATUS_CODE_MAP: {
 } = {
 	ok: {
 		code: HttpStatusCode.ok,
-		responseType: "OkResponse"
+		responseType: "IOkResponse"
 	},
 	created: {
 		code: HttpStatusCode.created,
-		responseType: "CreatedResponse"
+		responseType: "ICreatedResponse"
 	},
 	accepted: {
 		code: HttpStatusCode.accepted,
-		responseType: "AcceptedResponse"
+		responseType: "IAcceptedResponse"
 	},
 	noContent: {
 		code: HttpStatusCode.noContent,
-		responseType: "NoContentResponse"
+		responseType: "INoContentResponse"
 	},
 	badRequest: {
 		code: HttpStatusCode.badRequest,
-		responseType: "BadRequestResponse",
+		responseType: "IBadRequestResponse",
 		example: {
 			name: "GeneralError",
 			message: "errorMessage",
@@ -38,7 +38,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	unauthorized: {
 		code: HttpStatusCode.unauthorized,
-		responseType: "UnauthorizedResponse",
+		responseType: "IUnauthorizedResponse",
 		example: {
 			name: "UnauthorizedError",
 			message: "errorMessage"
@@ -46,7 +46,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	forbidden: {
 		code: HttpStatusCode.forbidden,
-		responseType: "ForbiddenResponse",
+		responseType: "IForbiddenResponse",
 		example: {
 			name: "NotImplementedError",
 			message: "errorMessage",
@@ -57,7 +57,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	notFound: {
 		code: HttpStatusCode.notFound,
-		responseType: "NotFoundResponse",
+		responseType: "INotFoundResponse",
 		example: {
 			name: "NotFoundError",
 			message: "errorMessage",
@@ -68,7 +68,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	conflict: {
 		code: HttpStatusCode.conflict,
-		responseType: "ConflictResponse",
+		responseType: "IConflictResponse",
 		example: {
 			name: "ConflictError",
 			message: "errorMessage",
@@ -79,7 +79,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	internalServerError: {
 		code: HttpStatusCode.internalServerError,
-		responseType: "InternalServerErrorResponse",
+		responseType: "IInternalServerErrorResponse",
 		example: {
 			name: "InternalServerError",
 			message: "errorMessage"
@@ -87,7 +87,7 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	unprocessableEntity: {
 		code: HttpStatusCode.unprocessableEntity,
-		responseType: "UnprocessableEntityResponse",
+		responseType: "IUnprocessableEntityResponse",
 		example: {
 			name: "UnprocessableError",
 			message: "errorMessage"
