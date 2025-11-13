@@ -1,5 +1,19 @@
 # @twin.org/ts-to-openapi - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.2...ts-to-openapi-v0.0.3-next.3) (2025-11-11)
+
+
+### Bug Fixes
+
+* correct type naming ([99980c5](https://github.com/twinfoundation/tools/commit/99980c58ac3f61be5df2fae0d00676532ada5a64))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.2 to 0.0.3-next.3
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.1...ts-to-openapi-v0.0.3-next.2) (2025-11-11)
 
 
