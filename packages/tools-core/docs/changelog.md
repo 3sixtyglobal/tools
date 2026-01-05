@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.4](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.3...tools-core-v0.0.3-next.4) (2026-01-05)
+
+
+### Miscellaneous Chores
+
+* **tools-core:** Synchronize repo versions
+
 ## [0.0.3-next.3](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.2...tools-core-v0.0.3-next.3) (2025-11-11)
 
 
