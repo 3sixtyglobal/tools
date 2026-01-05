@@ -1003,7 +1003,7 @@ async function generateSchemas(
 			for (const def in schema.definitions) {
 				const defSub = JsonSchemaHelper.normaliseTypeName(def);
 
-				allSchemas[defSub] = schema.definitions[def] as IJsonSchema;
+				allSchemas[defSub] ??= schema.definitions[def] as IJsonSchema;
 			}
 		}
 	}
