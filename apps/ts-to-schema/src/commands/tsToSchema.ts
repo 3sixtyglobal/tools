@@ -116,6 +116,16 @@ export async function tsToSchema(
 
 	CLIDisplay.break();
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.writingSchemas"));
+
+	const autoExpandTypes = config.autoExpandTypes ?? [];
+	const defaultExpandTypes = ["/ObjectOrArray<.*>/"];
+	for (const defaultType of defaultExpandTypes) {
+		if (!autoExpandTypes.includes(defaultType)) {
+			autoExpandTypes.push(defaultType);
+		}
+	}
+
+	let combinedSchemas: { [id: string]: IJsonSchema } = {};
 	for (const typeSource of config.types) {
 		const typeSourceParts = typeSource.split("/");
 		const type = StringHelper.pascalCase(
@@ -129,20 +139,16 @@ export async function tsToSchema(
 			schemaObject = config.overrides?.[type];
 		} else {
 			CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.generatingSchema"));
+			CLIDisplay.value(I18n.formatMessage("commands.ts-to-schema.progress.models"), typeSource, 1);
 
-			const autoExpandTypes = config.autoExpandTypes ?? [];
-			const defaultExpandTypes = ["/ObjectOrArray<.*>/"];
-			for (const defaultType of defaultExpandTypes) {
-				if (!autoExpandTypes.includes(defaultType)) {
-					autoExpandTypes.push(defaultType);
+			if (!combinedSchemas[type]) {
+				const schemas = await generateSchemas(typeSource, type, autoExpandTypes, workingDirectory);
+				if (Is.empty(schemas[type])) {
+					throw new GeneralError("commands", "commands.ts-to-schema.schemaNotFound", { type });
 				}
+				combinedSchemas = { ...combinedSchemas, ...schemas };
 			}
-
-			const schemas = await generateSchemas(typeSource, type, autoExpandTypes, workingDirectory);
-			if (Is.empty(schemas[type])) {
-				throw new GeneralError("commands", "commands.ts-to-schema.schemaNotFound", { type });
-			}
-			schemaObject = schemas[type];
+			schemaObject = combinedSchemas[type];
 		}
 
 		schemaObject = finaliseSchema(schemaObject, config.baseUrl, type);
@@ -193,7 +199,6 @@ async function generateSchemas(
 }> {
 	const allSchemas: { [id: string]: IJsonSchema } = {};
 
-	CLIDisplay.value(I18n.formatMessage("commands.ts-to-schema.progress.models"), typeSource, 1);
 	const generator = createGenerator({
 		path: typeSource,
 		type,
@@ -202,7 +207,7 @@ async function generateSchemas(
 		expose: "all"
 	});
 
-	const schema = generator.createSchema("*");
+	const schema = generator.createSchema(type);
 
 	if (schema.definitions) {
 		for (const def in schema.definitions) {
