@@ -1,5 +1,19 @@
 # @twin.org/ts-to-openapi - Changelog
 
+## [0.0.3-next.5](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.4...ts-to-openapi-v0.0.3-next.5) (2026-01-06)
+
+
+### Bug Fixes
+
+* speed up schema generation ([#64](https://github.com/twinfoundation/tools/issues/64)) ([2dc1829](https://github.com/twinfoundation/tools/commit/2dc1829965cb5917d6672bc633e47788a361b071))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.4 to 0.0.3-next.5
+
 ## [0.0.3-next.4](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.3...ts-to-openapi-v0.0.3-next.4) (2026-01-05)
 
 
