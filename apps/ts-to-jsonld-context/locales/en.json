@@ -1,0 +1,34 @@
+{
+	"error": {
+		"commands": {
+			"ts-to-jsonld-context": {
+				"configFailed": "Configuration failed to load.",
+				"noJsonLdProps": "No JSON-LD properties found for property \"{propertyName}\"."
+			}
+		}
+	},
+	"commands": {
+		"ts-to-jsonld-context": {
+			"options": {
+				"config": {
+					"param": "'<'config'>'",
+					"description": "Path to the JSON configuration file."
+				},
+				"output-file": {
+					"param": "'<'output-file'>'",
+					"description": "The file to write the JSON-LD Context to."
+				}
+			},
+			"progress": {
+				"loadingConfigJson": "Loading Config JSON"
+			},
+			"labels": {
+				"configJson": "Config JSON",
+				"outputFile": "Output File",
+				"writingOutputFile": "Writing Output File",
+				"model": "Model",
+				"property": "Property"
+			}
+		}
+	}
+}

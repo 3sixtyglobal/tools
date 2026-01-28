@@ -10,27 +10,27 @@
 	"packages": {
 		"packages/tools-core": {
 			"package-name": "tools-core",
-			"changelog-path": "docs/changelog.md",
-			"extra-files": [
-				"src/index.ts"
-			]
+			"changelog-path": "docs/changelog.md"
 		},
 		"apps/ts-to-openapi": {
 			"package-name": "ts-to-openapi",
 			"changelog-path": "docs/changelog.md",
 			"extra-files": [
-				"src/cli.ts",
-				"tests/cli.spec.ts",
-				"src/index.ts"
+				"src/cli.ts"
 			]
 		},
 		"apps/ts-to-schema": {
 			"package-name": "ts-to-schema",
 			"changelog-path": "docs/changelog.md",
 			"extra-files": [
-				"src/cli.ts",
-				"tests/cli.spec.ts",
-				"src/index.ts"
+				"src/cli.ts"
+			]
+		},
+		"apps/ts-to-jsonld-context": {
+			"package-name": "ts-to-jsonld-context",
+			"changelog-path": "docs/changelog.md",
+			"extra-files": [
+				"src/cli.ts"
 			]
 		}
 	},
@@ -42,7 +42,8 @@
 			"components": [
 				"tools-core",
 				"ts-to-openapi",
-				"ts-to-schema"
+				"ts-to-schema",
+				"ts-to-jsonld-context"
 			]
 		}
 	]

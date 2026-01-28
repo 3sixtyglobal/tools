@@ -54,7 +54,8 @@
 	"workspaces": [
 		"packages/tools-core",
 		"apps/ts-to-openapi",
-		"apps/ts-to-schema"
+		"apps/ts-to-schema",
+		"apps/ts-to-jsonld-context"
 	],
 	"type": "module",
 	"bugs": {
