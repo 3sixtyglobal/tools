@@ -121,12 +121,26 @@ export async function tsToJsonLdContext(
 
 	finalObject["@context"][config.prefix] = config.contextUrl;
 
+	const usedNamespaces: string[] = ObjectHelper.clone(context.namespaces);
+	const idx = usedNamespaces.indexOf(config.prefix);
+	if (idx !== -1) {
+		usedNamespaces.splice(idx, 1);
+	}
+
 	if (Is.objectValue(config.additionalContextUrls)) {
 		for (const [key, value] of Object.entries(config.additionalContextUrls)) {
 			if (context.namespaces.includes(key)) {
 				finalObject["@context"][key] = value;
+				const idx2 = usedNamespaces.indexOf(key);
+				usedNamespaces.splice(idx2, 1);
 			}
 		}
+	}
+
+	if (usedNamespaces.length > 0) {
+		throw new GeneralError("commands", "commands.ts-to-jsonld-context.namespaceNotInConfig", {
+			namespaces: usedNamespaces.join(", ")
+		});
 	}
 
 	if (Is.objectValue(config.fixedMappings)) {
@@ -203,39 +217,55 @@ function visit(
 							});
 						}
 
-						if (
-							Is.stringValue(jsonLdProps.namespace) &&
-							!context.namespaces.includes(jsonLdProps.namespace)
-						) {
-							context.namespaces.push(jsonLdProps.namespace);
+						const contextInfo: {
+							"@id"?: string;
+							"@type"?: string;
+							"@container"?: string;
+						} = {};
+
+						const usedNamespaces: (string | undefined)[] = [];
+
+						if (Is.objectValue(jsonLdProps.propertyId)) {
+							usedNamespaces.push(jsonLdProps.propertyId.namespace);
+							contextInfo["@id"] =
+								`${jsonLdProps.propertyId.namespace ?? config.prefix}:${jsonLdProps.propertyId.id}`;
+						} else if (Is.object(jsonLdProps.propertyId)) {
+							contextInfo["@id"] = `${config.prefix}:${propertyName}`;
 						}
+
+						usedNamespaces.push(jsonLdProps.namespace);
 
 						if (Is.objectValue(jsonLdProps.propertyType)) {
 							let fullType =
 								jsonLdProps.propertyType.type === "json" ? "@json" : jsonLdProps.propertyType.type;
+
 							if (Is.stringValue(jsonLdProps.propertyType.namespace)) {
 								fullType = `${jsonLdProps.propertyType.namespace}:${jsonLdProps.propertyType.type}`;
 
-								if (!context.namespaces.includes(jsonLdProps.propertyType.namespace)) {
-									context.namespaces.push(jsonLdProps.propertyType.namespace);
-								}
+								usedNamespaces.push(jsonLdProps.propertyType.namespace);
 							}
 
-							context.properties[propertyName] = {
-								"@id": `${config.prefix}:${propertyName}`,
-								"@type": fullType
-							};
-						} else if (Is.boolean(jsonLdProps.idOnly)) {
-							context.properties[propertyName] = {
-								"@id": `${config.prefix}:${propertyName}`
-							};
+							if (!Is.stringValue(contextInfo["@id"])) {
+								contextInfo["@id"] = `${config.prefix}:${propertyName}`;
+							}
+							contextInfo["@type"] = fullType;
 						}
 
 						if (Is.stringValue(jsonLdProps.container)) {
-							context.properties[propertyName] = {
-								"@id": `${config.prefix}:${propertyName}`,
-								"@container": `@${jsonLdProps.container}`
-							};
+							if (!Is.stringValue(contextInfo["@id"])) {
+								contextInfo["@id"] = `${config.prefix}:${propertyName}`;
+							}
+							contextInfo["@container"] = `@${jsonLdProps.container}`;
+						}
+
+						if (Is.objectValue(contextInfo)) {
+							context.properties[propertyName] = contextInfo;
+						}
+
+						for (const ns of usedNamespaces) {
+							if (Is.stringValue(ns) && !context.namespaces.includes(ns)) {
+								context.namespaces.push(ns);
+							}
 						}
 
 						CLIDisplay.value(
@@ -337,30 +367,42 @@ function extractJsonLdProps(comments: string[]): IJsonLdProps {
 	const jsonLdProps: IJsonLdProps = {};
 
 	for (const comment of comments) {
-		const idMatch = /json-ld id/.exec(comment);
-		if (idMatch) {
-			jsonLdProps.idOnly = true;
+		if (/^json-ld id$/.exec(comment)) {
+			jsonLdProps.propertyId = {};
 		} else {
-			const namespaceMatch = /json-ld namespace:(.*)/.exec(comment);
-			if (namespaceMatch) {
-				jsonLdProps.namespace = namespaceMatch[1];
+			const idWithNamespaceAndType = /^json-ld id:(.*):(.*)$/.exec(comment);
+			if (idWithNamespaceAndType) {
+				jsonLdProps.propertyId = {
+					namespace: idWithNamespaceAndType[1],
+					id: idWithNamespaceAndType[2]
+				};
 			} else {
-				const containerMatch = /json-ld container:(.*)/.exec(comment);
-				if (containerMatch) {
-					jsonLdProps.container = containerMatch[1];
+				const idMatch = /^json-ld id:(.*)$/.exec(comment);
+				if (idMatch) {
+					jsonLdProps.propertyId = { id: idMatch[1] };
 				} else {
-					const typeMatch = /json-ld type:(.*):(.*)/.exec(comment);
-					if (typeMatch) {
-						jsonLdProps.propertyType = {
-							namespace: typeMatch[1],
-							type: typeMatch[2]
-						};
+					const namespaceMatch = /^json-ld namespace:(.*)/.exec(comment);
+					if (namespaceMatch) {
+						jsonLdProps.namespace = namespaceMatch[1];
 					} else {
-						const typeMatch2 = /json-ld type:(.*)/.exec(comment);
-						if (typeMatch2) {
-							jsonLdProps.propertyType = {
-								type: typeMatch2[1]
-							};
+						const containerMatch = /^json-ld container:(.*)$/.exec(comment);
+						if (containerMatch) {
+							jsonLdProps.container = containerMatch[1];
+						} else {
+							const typeMatch = /^json-ld type:(.*):(.*)$/.exec(comment);
+							if (typeMatch) {
+								jsonLdProps.propertyType = {
+									namespace: typeMatch[1],
+									type: typeMatch[2]
+								};
+							} else {
+								const typeMatch2 = /^json-ld type:(.*)$/.exec(comment);
+								if (typeMatch2) {
+									jsonLdProps.propertyType = {
+										type: typeMatch2[1]
+									};
+								}
+							}
 						}
 					}
 				}

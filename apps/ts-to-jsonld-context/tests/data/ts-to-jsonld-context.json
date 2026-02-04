@@ -1,0 +1,14 @@
+{
+	"prefix": "twin-supply-chain",
+	"contextUrl": "https://schema.twindev.org/supply-chain",
+	"additionalContextUrls": {
+		"unece": "https://vocabulary.uncefact.org/",
+		"dcterms": "http://purl.org/dc/terms/",
+		"xsd": "http://www.w3.org/2001/XMLSchema#"
+	},
+	"fixedMappings": {
+		"id": "@id",
+		"type": "@type"
+	},
+	"types": ["../tests/data/ISystemEvent.ts", "../tests/data/IEventObject.ts"]
+}

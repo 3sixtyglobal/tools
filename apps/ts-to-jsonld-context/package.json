@@ -42,6 +42,7 @@
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@twin.org/validate-locales": "next",
+		"@twin.org/data-json-ld": "next",
 		"@types/node": "24.10.0",
 		"@vitest/coverage-v8": "4.0.8",
 		"copyfiles": "2.4.1",

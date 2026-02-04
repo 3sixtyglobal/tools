@@ -3,7 +3,8 @@
 		"commands": {
 			"ts-to-jsonld-context": {
 				"configFailed": "Configuration failed to load.",
-				"noJsonLdProps": "No JSON-LD properties found for property \"{propertyName}\"."
+				"noJsonLdProps": "No JSON-LD properties found for property \"{propertyName}\".",
+				"namespaceNotInConfig": "The following namespaces were used in the models but not defined in the configuration file: {namespaces}."
 			}
 		}
 	},

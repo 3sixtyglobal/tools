@@ -6,9 +6,12 @@
  */
 export interface IJsonLdProps {
 	/**
-	 * Include only the property.
+	 * The id of the property.
 	 */
-	idOnly?: boolean;
+	propertyId?: {
+		namespace?: string;
+		id?: string;
+	};
 
 	/**
 	 * The namespace of the property.

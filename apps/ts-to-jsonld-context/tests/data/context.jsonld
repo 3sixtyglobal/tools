@@ -1,0 +1,38 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "twin-supply-chain": "https://schema.twindev.org/supply-chain",
+    "unece": "https://vocabulary.uncefact.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "type": "@type",
+    "EventObject": "twin-supply-chain:EventObject",
+    "SystemEvent": "twin-supply-chain:SystemEvent",
+    "date": {
+      "@id": "dcterms:date",
+      "@type": "xsd:dateTimestamp"
+    },
+    "detail": {
+      "@id": "twin-supply-chain:detail",
+      "@type": "@json"
+    },
+    "object": {
+      "@id": "twin-supply-chain:object",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "twin-supply-chain:source",
+      "@type": "@id"
+    },
+    "target": {
+      "@id": "twin-supply-chain:target",
+      "@type": "@id"
+    },
+    "typeCode": {
+      "@id": "unece:typeCode",
+      "@type": "xsd:string"
+    }
+  }
+}
