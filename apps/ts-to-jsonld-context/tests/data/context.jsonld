@@ -10,21 +10,39 @@
     "type": "@type",
     "EventObject": "twin-supply-chain:EventObject",
     "SystemEvent": "twin-supply-chain:SystemEvent",
+    "classification": {
+      "@id": "unece:eventTypeCode",
+      "@type": "xsd:string",
+      "@container": "@list"
+    },
     "date": {
       "@id": "dcterms:date",
       "@type": "xsd:dateTimestamp"
+    },
+    "defaultMappedId": {
+      "@id": "twin-supply-chain:defaultMappedId"
     },
     "detail": {
       "@id": "twin-supply-chain:detail",
       "@type": "@json"
     },
+    "numberOfItems": {
+      "@id": "https://schema.org/numberOfItems"
+    },
     "object": {
       "@id": "twin-supply-chain:object",
       "@type": "@id"
     },
+    "renamedId": {
+      "@id": "twin-supply-chain:eventIdentifier"
+    },
     "source": {
       "@id": "twin-supply-chain:source",
       "@type": "@id"
+    },
+    "tags": {
+      "@id": "twin-supply-chain:tags",
+      "@container": "@set"
     },
     "target": {
       "@id": "twin-supply-chain:target",
@@ -32,6 +50,10 @@
     },
     "typeCode": {
       "@id": "unece:typeCode",
+      "@type": "xsd:string"
+    },
+    "typedOnly": {
+      "@id": "twin-supply-chain:typedOnly",
       "@type": "xsd:string"
     }
   }

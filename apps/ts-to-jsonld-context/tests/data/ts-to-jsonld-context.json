@@ -10,5 +10,5 @@
 		"id": "@id",
 		"type": "@type"
 	},
-	"types": ["../tests/data/ISystemEvent.ts", "../tests/data/IEventObject.ts"]
+	"types": ["./tests/data/ISystemEvent.ts", "./tests/data/IEventObject.ts"]
 }

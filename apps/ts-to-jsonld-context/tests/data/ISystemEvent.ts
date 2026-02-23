@@ -50,4 +50,36 @@ export interface ISystemEvent extends IJsonLdNodeObject {
 	 * json-ld type:xsd:dateTimestamp
 	 */
 	date: string;
+
+	/**
+	 * json-ld id:https://schema.org/numberOfItems
+	 */
+	numberOfItems: number;
+
+	/**
+	 * json-ld id
+	 */
+	defaultMappedId: string;
+
+	/**
+	 * json-ld id:eventIdentifier
+	 */
+	renamedId: string;
+
+	/**
+	 * json-ld type:xsd:string
+	 */
+	typedOnly: string;
+
+	/**
+	 * json-ld container:set
+	 */
+	tags: string[];
+
+	/**
+	 * json-ld id:unece:eventTypeCode
+	 * json-ld type:xsd:string
+	 * json-ld container:list
+	 */
+	classification: string[];
 }

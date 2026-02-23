@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { rm, mkdir, writeFile } from "node:fs/promises";
+import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@twin.org/cli-core";
 import { CLI } from "../src/cli.js";
@@ -10,6 +10,8 @@ const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");
 const TEST_WORKING_LOCATION = path.join(TEST_DATA_LOCATION, "work");
 const TEST_OUTPUT_FOLDER = path.join(TEST_DATA_LOCATION, "output");
+const TEST_FIXTURE_CONFIG_FILE = path.join(__dirname, "data", "ts-to-jsonld-context.json");
+const TEST_FIXTURE_OUTPUT_FILE = path.join(__dirname, "data", "context.jsonld");
 let writeBuffer: string[] = [];
 let errorBuffer: string[] = [];
 
@@ -77,5 +79,64 @@ describe("CLI", () => {
 			}
 		);
 		expect(res).toEqual(0);
+	});
+
+	test("Can run fixture config and validate generated context output", async () => {
+		const cli = new CLI();
+		const expectedContext = JSON.parse(await readFile(TEST_FIXTURE_OUTPUT_FILE, "utf8"));
+
+		const res = await cli.run(
+			["node", "script", TEST_FIXTURE_CONFIG_FILE, TEST_FIXTURE_OUTPUT_FILE],
+			"./dist/locales",
+			{
+				overrideOutputWidth: 1000
+			}
+		);
+
+		expect(res).toEqual(0);
+
+		const generatedContext = JSON.parse(await readFile(TEST_FIXTURE_OUTPUT_FILE, "utf8"));
+		expect(generatedContext).toEqual(expectedContext);
+	});
+
+	test("Can include ignored property when it has explicit json-ld comment", async () => {
+		const cli = new CLI();
+		const typeFile = path.join(TEST_WORKING_LOCATION, "IEntity.ts");
+		const outputFile = path.join(TEST_WORKING_LOCATION, "ignored-with-comment.context.jsonld");
+
+		await writeFile(
+			typeFile,
+			`export interface IEntity {
+	/**
+	 * json-ld id:customEntityId
+	 */
+	id: string;
+}
+`
+		);
+
+		const config: ITsToJsonLdContextConfig = {
+			prefix: "twin-test",
+			contextUrl: "https://schema.twindev.org/test/",
+			fixedMappings: {
+				id: "@id",
+				type: "@type"
+			},
+			types: [typeFile]
+		};
+
+		const configFile = path.join(TEST_CONFIG_LOCATION, "ignored-with-comment.config.json");
+		await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
+
+		const res = await cli.run(["node", "script", configFile, outputFile], "./dist/locales", {
+			overrideOutputWidth: 1000
+		});
+
+		expect(res).toEqual(0);
+
+		const generatedContext = JSON.parse(await readFile(outputFile, "utf8"));
+		expect(generatedContext["@context"].id).toEqual({
+			"@id": "twin-test:customEntityId"
+		});
 	});
 });

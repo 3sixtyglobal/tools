@@ -90,6 +90,14 @@ export async function tsToJsonLdContext(
 	outputFile: string
 ): Promise<void> {
 	const program = ts.createProgram(config.types, {});
+	const ignoredJsonLdPropertyNames = collectJsonLdPropertyNames(program);
+
+	if (Is.objectValue(config.fixedMappings)) {
+		for (const propertyName of Object.keys(config.fixedMappings)) {
+			ignoredJsonLdPropertyNames.add(propertyName);
+		}
+	}
+
 	const context: { types: string[]; namespaces: string[]; properties: { [id: string]: unknown } } =
 		{
 			types: [],
@@ -105,7 +113,15 @@ export async function tsToJsonLdContext(
 		if (config.types.some(file => resolvedFilename.endsWith(path.resolve(file)))) {
 			CLIDisplay.task("Processing", resolvedFilename);
 
-			visit(config, sourceFile, sourceFile, context, program, processedTypes);
+			visit(
+				config,
+				sourceFile,
+				sourceFile,
+				context,
+				program,
+				processedTypes,
+				ignoredJsonLdPropertyNames
+			);
 			CLIDisplay.break();
 		}
 	}
@@ -137,7 +153,7 @@ export async function tsToJsonLdContext(
 		}
 	}
 
-	if (usedNamespaces.length > 0) {
+	if (usedNamespaces.filter(ns => !ns?.startsWith("http")).length > 0) {
 		throw new GeneralError("commands", "commands.ts-to-jsonld-context.namespaceNotInConfig", {
 			namespaces: usedNamespaces.join(", ")
 		});
@@ -151,7 +167,9 @@ export async function tsToJsonLdContext(
 
 	for (const typeName of context.types) {
 		const noPrefixType = StringHelper.stripPrefix(typeName);
-		finalObject["@context"][noPrefixType] = `${config.prefix}:${noPrefixType}`;
+		if (!noPrefixType.startsWith("JsonLd")) {
+			finalObject["@context"][noPrefixType] = `${config.prefix}:${noPrefixType}`;
+		}
 	}
 
 	for (const [propertyName, propertyValue] of Object.entries(context.properties).sort((a, b) =>
@@ -179,6 +197,7 @@ export async function tsToJsonLdContext(
  * @param context.properties The properties collected in the context.
  * @param program The TypeScript program for resolving inherited interfaces.
  * @param processedTypes The types that have already been processed.
+ * @param ignoredJsonLdPropertyNames The JSON-LD property names to ignore in validation.
  */
 function visit(
 	config: ITsToJsonLdContextConfig,
@@ -186,7 +205,8 @@ function visit(
 	sourceFile: ts.SourceFile,
 	context: { types: string[]; namespaces: string[]; properties: { [id: string]: unknown } },
 	program: ts.Program,
-	processedTypes: { [typeName: string]: IJsonLdProps }
+	processedTypes: { [typeName: string]: IJsonLdProps },
+	ignoredJsonLdPropertyNames: Set<string>
 ): void {
 	let jsonLdProps: IJsonLdProps = {};
 
@@ -205,11 +225,12 @@ function visit(
 
 					if (Is.stringValue(propertyName)) {
 						const jsDocComments: string[] = extractComments(member);
+						const hasJsonLdComment = jsDocComments.some(comment => /^json-ld\s+/.test(comment));
 
 						jsonLdProps = extractJsonLdProps(jsDocComments);
 
 						if (
-							!["@context", "type", "id", "@type", "@id"].includes(propertyName) &&
+							!ignoredJsonLdPropertyNames.has(propertyName) &&
 							!Is.objectValue(jsonLdProps)
 						) {
 							throw new GeneralError("commands", "commands.ts-to-jsonld-context.noJsonLdProps", {
@@ -258,6 +279,10 @@ function visit(
 							contextInfo["@container"] = `@${jsonLdProps.container}`;
 						}
 
+						if (hasJsonLdComment && !Is.stringValue(contextInfo["@id"])) {
+							contextInfo["@id"] = `${config.prefix}:${propertyName}`;
+						}
+
 						if (Is.objectValue(contextInfo)) {
 							context.properties[propertyName] = contextInfo;
 						}
@@ -295,7 +320,8 @@ function visit(
 									result.sourceFile,
 									context,
 									program,
-									processedTypes
+									processedTypes,
+									ignoredJsonLdPropertyNames
 								);
 							}
 						}
@@ -306,8 +332,37 @@ function visit(
 	}
 
 	ts.forEachChild(node, child =>
-		visit(config, child, sourceFile, context, program, processedTypes)
+		visit(config, child, sourceFile, context, program, processedTypes, ignoredJsonLdPropertyNames)
 	);
+}
+
+/**
+ * Collect all property names from interfaces prefixed with JsonLd.
+ * @param program The TypeScript program.
+ * @returns The JSON-LD property names to ignore in validation.
+ */
+function collectJsonLdPropertyNames(program: ts.Program): Set<string> {
+	const ignoredPropertyNames = new Set<string>();
+
+	for (const sourceFile of program.getSourceFiles()) {
+		ts.forEachChild(sourceFile, node => {
+			if (
+				ts.isInterfaceDeclaration(node) &&
+				(node.name.text.startsWith("JsonLd") || node.name.text.startsWith("IJsonLd"))
+			) {
+				for (const member of node.members) {
+					if (ts.isPropertySignature(member)) {
+						const propertyName = member.name?.getText(sourceFile).replace(/["']/g, "");
+						if (Is.stringValue(propertyName)) {
+							ignoredPropertyNames.add(propertyName);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	return ignoredPropertyNames;
 }
 
 /**
