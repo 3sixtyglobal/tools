@@ -209,7 +209,7 @@ function visit(
 						jsonLdProps = extractJsonLdProps(jsDocComments);
 
 						if (
-							!["@context", "type", "id"].includes(propertyName) &&
+							!["@context", "type", "id", "@type", "@id"].includes(propertyName) &&
 							!Is.objectValue(jsonLdProps)
 						) {
 							throw new GeneralError("commands", "commands.ts-to-jsonld-context.noJsonLdProps", {
