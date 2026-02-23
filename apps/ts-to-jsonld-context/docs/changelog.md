@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.8](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.7...ts-to-jsonld-context-v0.0.3-next.8) (2026-02-23)
+
+
+### Features
+
+* skip [@id](https://github.com/id) and [@type](https://github.com/type) properties ([c4c1dc3](https://github.com/twinfoundation/tools/commit/c4c1dc3a83fffc7f05c024daf148b0914f7db55a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.7 to 0.0.3-next.8
+
 ## [0.0.3-next.7](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.6...ts-to-jsonld-context-v0.0.3-next.7) (2026-02-04)
 
 
