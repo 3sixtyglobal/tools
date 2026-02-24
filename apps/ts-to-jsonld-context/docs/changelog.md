@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.0.3-next.9](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.8...ts-to-jsonld-context-v0.0.3-next.9) (2026-02-24)
+
+
+### Features
+
+* add support for default jsonld object properties ([c9e389a](https://github.com/twinfoundation/tools/commit/c9e389a7ae53f5059cfc708d8d2aabc998ede10b))
+
+
+### Bug Fixes
+
+* namespace only properties to just include external reference ([c329eed](https://github.com/twinfoundation/tools/commit/c329eed27194888794595a5be7b8a00be7fdf67f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.8 to 0.0.3-next.9
+
 ## [0.0.3-next.8](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.7...ts-to-jsonld-context-v0.0.3-next.8) (2026-02-23)
 
 
