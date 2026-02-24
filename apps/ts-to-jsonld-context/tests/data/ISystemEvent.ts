@@ -82,4 +82,10 @@ export interface ISystemEvent extends IJsonLdNodeObject {
 	 * json-ld container:list
 	 */
 	classification: string[];
+
+	/**
+	 * The date/time of when the stream was modified.
+	 * json-ld namespace:sch
+	 */
+	dateModified?: string;
 }

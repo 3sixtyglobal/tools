@@ -10,6 +10,7 @@ const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");
 const TEST_WORKING_LOCATION = path.join(TEST_DATA_LOCATION, "work");
 const TEST_OUTPUT_FOLDER = path.join(TEST_DATA_LOCATION, "output");
+const TEST_LOCALES_LOCATION = path.resolve("./dist/locales");
 const TEST_FIXTURE_CONFIG_FILE = path.join(__dirname, "data", "ts-to-jsonld-context.json");
 const TEST_FIXTURE_OUTPUT_FILE = path.join(__dirname, "data", "context.jsonld");
 let writeBuffer: string[] = [];
@@ -73,7 +74,7 @@ describe("CLI", () => {
 		await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
 		const res = await cli.run(
 			["node", "script", configFile, TEST_OUTPUT_FOLDER],
-			"./dist/locales",
+			TEST_LOCALES_LOCATION,
 			{
 				overrideOutputWidth: 1000
 			}
@@ -87,7 +88,7 @@ describe("CLI", () => {
 
 		const res = await cli.run(
 			["node", "script", TEST_FIXTURE_CONFIG_FILE, TEST_FIXTURE_OUTPUT_FILE],
-			"./dist/locales",
+			TEST_LOCALES_LOCATION,
 			{
 				overrideOutputWidth: 1000
 			}
@@ -128,7 +129,7 @@ describe("CLI", () => {
 		const configFile = path.join(TEST_CONFIG_LOCATION, "ignored-with-comment.config.json");
 		await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
 
-		const res = await cli.run(["node", "script", configFile, outputFile], "./dist/locales", {
+		const res = await cli.run(["node", "script", configFile, outputFile], TEST_LOCALES_LOCATION, {
 			overrideOutputWidth: 1000
 		});
 

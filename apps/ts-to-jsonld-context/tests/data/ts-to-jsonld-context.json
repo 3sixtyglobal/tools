@@ -4,7 +4,8 @@
 	"additionalContextUrls": {
 		"unece": "https://vocabulary.uncefact.org/",
 		"dcterms": "http://purl.org/dc/terms/",
-		"xsd": "http://www.w3.org/2001/XMLSchema#"
+		"xsd": "http://www.w3.org/2001/XMLSchema#",
+		"sch": "http://schema.org/"
 	},
 	"fixedMappings": {
 		"id": "@id",
