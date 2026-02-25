@@ -90,11 +90,11 @@ export async function tsToJsonLdContext(
 	outputFile: string
 ): Promise<void> {
 	const program = ts.createProgram(config.types, {});
-	const ignoredJsonLdPropertyNames = collectJsonLdPropertyNames(program);
+	const ignoredPropertyNames = new Set<string>(["@context", "type", "@type", "id", "@id"]);
 
 	if (Is.objectValue(config.fixedMappings)) {
 		for (const propertyName of Object.keys(config.fixedMappings)) {
-			ignoredJsonLdPropertyNames.add(propertyName);
+			ignoredPropertyNames.add(propertyName);
 		}
 	}
 
@@ -113,15 +113,7 @@ export async function tsToJsonLdContext(
 		if (config.types.some(file => resolvedFilename.endsWith(path.resolve(file)))) {
 			CLIDisplay.task("Processing", resolvedFilename);
 
-			visit(
-				config,
-				sourceFile,
-				sourceFile,
-				context,
-				program,
-				processedTypes,
-				ignoredJsonLdPropertyNames
-			);
+			visit(config, sourceFile, sourceFile, context, program, processedTypes, ignoredPropertyNames);
 			CLIDisplay.break();
 		}
 	}
@@ -333,35 +325,6 @@ function visit(
 	ts.forEachChild(node, child =>
 		visit(config, child, sourceFile, context, program, processedTypes, ignoredJsonLdPropertyNames)
 	);
-}
-
-/**
- * Collect all property names from interfaces prefixed with JsonLd.
- * @param program The TypeScript program.
- * @returns The JSON-LD property names to ignore in validation.
- */
-function collectJsonLdPropertyNames(program: ts.Program): Set<string> {
-	const ignoredPropertyNames = new Set<string>();
-
-	for (const sourceFile of program.getSourceFiles()) {
-		ts.forEachChild(sourceFile, node => {
-			if (
-				ts.isInterfaceDeclaration(node) &&
-				(node.name.text.startsWith("JsonLd") || node.name.text.startsWith("IJsonLd"))
-			) {
-				for (const member of node.members) {
-					if (ts.isPropertySignature(member)) {
-						const propertyName = member.name?.getText(sourceFile).replace(/["']/g, "");
-						if (Is.stringValue(propertyName)) {
-							ignoredPropertyNames.add(propertyName);
-						}
-					}
-				}
-			}
-		});
-	}
-
-	return ignoredPropertyNames;
 }
 
 /**
