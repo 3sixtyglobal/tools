@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.10](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.9...ts-to-jsonld-context-v0.0.3-next.10) (2026-02-25)
+
+
+### Miscellaneous Chores
+
+* **ts-to-jsonld-context:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.9 to 0.0.3-next.10
+
 ## [0.0.3-next.9](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.8...ts-to-jsonld-context-v0.0.3-next.9) (2026-02-24)
 
 

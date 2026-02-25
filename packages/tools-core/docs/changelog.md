@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.10](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.9...tools-core-v0.0.3-next.10) (2026-02-25)
+
+
+### Features
+
+* remove additionalProperties ([f9b5d81](https://github.com/twinfoundation/tools/commit/f9b5d81e952468f9579593cb979f2b84db6f0dfa))
+
 ## [0.0.3-next.9](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.8...tools-core-v0.0.3-next.9) (2026-02-24)
 
 
