@@ -53,6 +53,13 @@ export class JsonSchemaHelper {
 			// so just remove it after processing
 			delete schemaObject.additionalItems;
 
+			// Since we are generating JSON-LD schemas we need to support
+			// additional properties to allow for object expansion
+			// but don't change anything that has specific additional properties defined
+			if (schemaObject.additionalProperties === false) {
+				delete schemaObject.additionalProperties;
+			}
+
 			JsonSchemaHelper.processSchemaDictionary(schemaObject.properties);
 			JsonSchemaHelper.processArrays(schemaObject.additionalProperties);
 			JsonSchemaHelper.processSchemaArray(schemaObject.allOf);
