@@ -29,4 +29,10 @@ export interface ITsToJsonLdContextConfig {
 	 * The source files to generate the types from.
 	 */
 	types: string[];
+
+	/**
+	 * Whether to include protected properties in the generated context.
+	 * @default false
+	 */
+	includeProtected?: boolean;
 }

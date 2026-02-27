@@ -119,13 +119,16 @@ export async function tsToJsonLdContext(
 	}
 
 	const finalObject: {
-		"@context": { [key: string]: unknown; "@version": number; "@protected": boolean };
+		"@context": { [key: string]: unknown; "@version": number; "@protected"?: boolean };
 	} = {
 		"@context": {
-			"@version": 1.1,
-			"@protected": true
+			"@version": 1.1
 		}
 	};
+
+	if (config.includeProtected ?? false) {
+		finalObject["@context"]["@protected"] = true;
+	}
 
 	finalObject["@context"][config.prefix] = config.contextUrl;
 
@@ -249,8 +252,6 @@ function visit(
 							contextInfo["@id"] = `${config.prefix}:${propertyName}`;
 						}
 
-						usedNamespaces.push(jsonLdProps.namespace);
-
 						if (Is.objectValue(jsonLdProps.propertyType)) {
 							let fullType =
 								jsonLdProps.propertyType.type === "json" ? "@json" : jsonLdProps.propertyType.type;
@@ -275,6 +276,9 @@ function visit(
 						}
 
 						if (Is.objectValue(contextInfo)) {
+							if (Is.stringValue(jsonLdProps.namespace)) {
+								usedNamespaces.push(jsonLdProps.namespace);
+							}
 							context.properties[propertyName] = contextInfo;
 						}
 
@@ -289,6 +293,10 @@ function visit(
 							propertyName,
 							1
 						);
+
+						if (Is.objectValue(contextInfo)) {
+							CLIDisplay.value("", JSON.stringify(contextInfo), 2);
+						}
 					}
 				}
 			});

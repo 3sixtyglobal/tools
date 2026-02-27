@@ -140,4 +140,45 @@ describe("CLI", () => {
 			"@id": "twin-test:customEntityId"
 		});
 	});
+
+	test("Can keep referenced additional context urls and omit unused ones", async () => {
+		const cli = new CLI();
+		const outputFile = path.join(
+			TEST_WORKING_LOCATION,
+			"additional-context-pruning.context.jsonld"
+		);
+
+		const config: ITsToJsonLdContextConfig = {
+			prefix: "twin-supply-chain",
+			contextUrl: "https://schema.twindev.org/supply-chain",
+			additionalContextUrls: {
+				unece: "https://vocabulary.uncefact.org/",
+				dcterms: "http://purl.org/dc/terms/",
+				xsd: "http://www.w3.org/2001/XMLSchema#",
+				sch: "http://schema.org/",
+				unused: "https://example.com/unused#"
+			},
+			fixedMappings: {
+				id: "@id",
+				type: "@type"
+			},
+			types: [
+				path.join(__dirname, "data", "ISystemEvent.ts"),
+				path.join(__dirname, "data", "IEventObject.ts")
+			]
+		};
+
+		const configFile = path.join(TEST_CONFIG_LOCATION, "additional-context-pruning.config.json");
+		await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
+
+		const res = await cli.run(["node", "script", configFile, outputFile], TEST_LOCALES_LOCATION, {
+			overrideOutputWidth: 1000
+		});
+
+		expect(res).toEqual(0);
+
+		const generatedContext = JSON.parse(await readFile(outputFile, "utf8"));
+		expect(generatedContext["@context"].sch).toBeUndefined();
+		expect(generatedContext["@context"].unused).toBeUndefined();
+	});
 });

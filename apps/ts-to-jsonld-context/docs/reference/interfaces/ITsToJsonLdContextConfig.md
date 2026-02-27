@@ -49,3 +49,17 @@ Fixed mappings to include in the context.
 > **types**: `string`[]
 
 The source files to generate the types from.
+
+***
+
+### includeProtected?
+
+> `optional` **includeProtected**: `boolean`
+
+Whether to include protected properties in the generated context.
+
+#### Default
+
+```ts
+false
+```
