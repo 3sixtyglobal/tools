@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.12](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.11...ts-to-jsonld-context-v0.0.3-next.12) (2026-02-27)
+
+
+### Features
+
+* json-ld-protected ([#77](https://github.com/twinfoundation/tools/issues/77)) ([77bdf8c](https://github.com/twinfoundation/tools/commit/77bdf8c0c524e99c7f5b2245aeac029594dd656f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.11 to 0.0.3-next.12
+
 ## [0.0.3-next.11](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.10...ts-to-jsonld-context-v0.0.3-next.11) (2026-02-25)
 
 
