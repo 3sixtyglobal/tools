@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.13](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.12...tools-core-v0.0.3-next.13) (2026-03-05)
+
+
+### Bug Fixes
+
+* work for schema generator spread defect ([1a705ff](https://github.com/twinfoundation/tools/commit/1a705ffc74b353f652e74ea43454164a2f6740bf))
+
 ## [0.0.3-next.12](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.11...tools-core-v0.0.3-next.12) (2026-02-27)
 
 
