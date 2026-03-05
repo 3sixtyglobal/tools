@@ -88,8 +88,25 @@ export class JsonSchemaHelper {
 	 */
 	public static processSchemaArray(schemaArray?: IJsonSchema[]): void {
 		if (Is.arrayValue(schemaArray)) {
+			const seenSignatures = new Set<string>();
 			for (const item of schemaArray) {
 				if (Is.object<IJsonSchema>(item)) {
+					const signature = JSON.stringify(item);
+					// There is a bug in JSON schema generator where spread tuple produce the same output
+					// e.g. [typeA, ...typeB] and [...typeA, typeB] can produce the same items schema
+					// in the legacy shape { items: { typeA }, additionalItems: [typeB] }.
+					// For duplicate signatures we normalize one entry to the alternate approximation
+					// so we don't emit identical duplicated anyOf/oneOf branches.
+					if (
+						seenSignatures.has(signature) &&
+						Is.array(item.items) &&
+						Is.object(item.additionalItems)
+					) {
+						const originalItems = item.items;
+						item.items = [item.additionalItems];
+						item.additionalItems = originalItems[0];
+					}
+					seenSignatures.add(signature);
 					JsonSchemaHelper.processArrays(item);
 				}
 			}
