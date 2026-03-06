@@ -1,5 +1,19 @@
 # @twin.org/ts-to-openapi - Changelog
 
+## [0.0.3-next.13](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.12...ts-to-openapi-v0.0.3-next.13) (2026-03-05)
+
+
+### Miscellaneous Chores
+
+* **ts-to-openapi:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.12 to 0.0.3-next.13
+
 ## [0.0.3-next.12](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.11...ts-to-openapi-v0.0.3-next.12) (2026-02-27)
 
 
