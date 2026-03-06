@@ -65,6 +65,10 @@ export class JsonSchemaHelper {
 			JsonSchemaHelper.processSchemaArray(schemaObject.allOf);
 			JsonSchemaHelper.processSchemaArray(schemaObject.anyOf);
 			JsonSchemaHelper.processSchemaArray(schemaObject.oneOf);
+
+			if (Is.stringValue(schemaObject.$ref)) {
+				schemaObject.$ref = JsonSchemaHelper.normaliseTypeName(schemaObject.$ref);
+			}
 		}
 	}
 
