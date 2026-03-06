@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.14](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.13...tools-core-v0.0.3-next.14) (2026-03-06)
+
+
+### Bug Fixes
+
+* improve schema output ([9e53cbe](https://github.com/twinfoundation/tools/commit/9e53cbe26e6272323d72c65e277b7d24521fdbba))
+
 ## [0.0.3-next.13](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.12...tools-core-v0.0.3-next.13) (2026-03-05)
 
 
