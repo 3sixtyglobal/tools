@@ -1,11 +1,11 @@
 # TWIN TypeScript to OpenApi
 
-This tool is used to read the REST route definitions from `@twin.org` packages and convert them into an OpenAPI specification in JSON format.
+This app generates OpenAPI specifications from REST route definitions so API contracts can be shared, validated, and published with a consistent structure.
 
 ## Installation
 
 ```shell
-npm install @twin.org/ts-to-openapi
+npm install -D @twin.org/ts-to-openapi
 ```
 
 ## Examples

@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/tools",
 	"version": "0.0.0",
-	"description": "Tools",
+	"description": "Tooling workspace for generating API specs, schemas, and JSON-LD contexts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/tools.git"

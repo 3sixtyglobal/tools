@@ -1,11 +1,11 @@
 # TWIN TypeScript to JSON-LD Context
 
-This tool is used to convert TypeScript definitions to JSON-LD Contexts.
+This app generates JSON-LD contexts from source model definitions so semantic data can be published and consumed with predictable linked data terms.
 
 ## Installation
 
 ```shell
-npm install @twin.org/ts-to-jsonld-context
+npm install -D @twin.org/ts-to-jsonld-context
 ```
 
 ## Examples

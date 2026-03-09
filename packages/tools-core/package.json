@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/tools-core",
 	"version": "0.0.3-next.14",
-	"description": "Shared components for the tools",
+	"description": "Shared utilities and models for tooling packages",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/tools.git",

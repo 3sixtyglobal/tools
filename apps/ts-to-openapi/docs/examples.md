@@ -1,63 +1,44 @@
-# @twin.org/ts-to-openapi - Examples
+# TypeScript to OpenAPI CLI Usage
 
-## Command Line Tool
+Use this CLI to generate an OpenAPI document from TypeScript REST route metadata and schema definitions.
 
-First install the tool with the following script.
+## Running
 
-```shell
-npm install @twin.org/ts-to-openapi
-```
-
-You can then run the tool from the command line e.g.
+To install and run the CLI locally use the following commands:
 
 ```shell
+npm install @twin.org/ts-to-openapi -g
 ts-to-openapi
 ```
 
-You should see the following response:
+or run directly using NPX:
 
 ```shell
-TypeScript to OpenAPI
-=====================
-
-Usage:
-        ts-to-openapi <config-json> <output-api-json>
-Error: You must specify the config json
+npx "@twin.org/ts-to-openapi"
 ```
 
-As you can see you must provide both a configuration file, and an output file.
-
-An example configuration file looks as follows:
-
-```json
-{
-  "title": "TWIN - Test Endpoints",
-  "version": "1.0.0",
-  "description": "REST API for TWIN - Test Endpoints.",
-  "licenseName": "Apache 2.0 License",
-  "licenseUrl": "https://opensource.org/licenses/Apache-2.0",
-  "servers": ["https://localhost"],
-  "authMethods": ["jwtBearer"],
-  "restRoutes": [
-    {
-      "package": "@twin.org/logging-service",
-      "version": "next"
-    },
-    {
-      "package": "@twin.org/identity-service",
-      "version": "next"
-    }
-  ]
-}
-```
-
-If you save the example as `config.json` and then want the output in `output.json` you would use the following command line:
+## Help
 
 ```shell
-ts-to-openapi config.json output.json
+⚙️  TWIN TypeScript To OpenAPI v0.0.3-next.12
+
+Usage: ts-to-openapi
+
+Arguments:
+  config         Path to the JSON configuration file.
+  output-file    The JSON file to write the OpenAPI spec.
+
+Options:
+  -V, --version  output the version number
+  --lang <lang>  The language to display the output in. (default: "en")
+  -h, --help     display help for command
 ```
 
-When running this command you should see the following output:
+## Example
+
+```shell
+ts-to-openapi ./config/openapi.json ./dist/openapi.json
+```
 
 ```shell
 TypeScript to OpenAPI
@@ -68,13 +49,6 @@ Output API JSON: output.json
 Loading Config JSON: config.json
 Creating security schemas
 Loading Modules: @twin.org/logging-service@next @twin.org/identity-service@next
-
-added 43 packages, and audited 44 packages in 2s
-
-1 package is looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
 
 Reading Package JSON: @twin.org/logging-service
 Importing Module: @twin.org/logging-service

@@ -1,17 +1,37 @@
-# @twin.org/ts-to-jsonld-context - Examples
+# TypeScript to JSON-LD Context CLI Usage
 
-## Command Line Tool
+Use this CLI to derive JSON-LD context mappings from annotated TypeScript interfaces.
 
-First install the tool with the following script.
+## Running
+
+To install and run the CLI locally use the following commands:
 
 ```shell
-npm install @twin.org/ts-to-jsonld-context
+npm install @twin.org/ts-to-jsonld-context -g
+ts-to-jsonld-context
 ```
 
-You can then run the tool from the command line e.g.
+or run directly using NPX:
 
 ```shell
-ts-to-jsonld-context
+npx "@twin.org/ts-to-jsonld-context"
+```
+
+## Help
+
+```shell
+⚙️  TWIN TypeScript To JSON-LD Context v0.0.3-next.12
+
+Usage: ts-to-jsonld-context
+
+Arguments:
+  config         Path to the JSON configuration file.
+  output-file    The file to write the JSON-LD Context to.
+
+Options:
+  -V, --version  output the version number
+  --lang <lang>  The language to display the output in. (default: "en")
+  -h, --help     display help for command
 ```
 
 Reads the comments from the model properties to generate the definitions.

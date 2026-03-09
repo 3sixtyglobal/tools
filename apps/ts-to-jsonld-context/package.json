@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/ts-to-jsonld-context",
 	"version": "0.0.3-next.14",
-	"description": "Tool to convert TypeScript definitions to JSON-LD contexts",
+	"description": "Generate JSON-LD contexts from source model definitions",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/tools.git",

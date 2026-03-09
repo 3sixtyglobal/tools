@@ -1,11 +1,11 @@
 # TWIN Tools Core
 
-Shared components for the tools.
+This package provides shared utilities and models for tooling packages. It centralises common behaviours so command line apps and supporting modules can build on one dependable foundation.
 
 ## Installation
 
 ```shell
-npm install @twin.org/tools-core-models
+npm install @twin.org/tools-core
 ```
 
 ## Examples
