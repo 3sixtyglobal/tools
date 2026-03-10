@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.15](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.14...ts-to-jsonld-context-v0.0.3-next.15) (2026-03-10)
+
+
+### Features
+
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/twinfoundation/tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.14 to 0.0.3-next.15
+
 ## [0.0.3-next.14](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.13...ts-to-jsonld-context-v0.0.3-next.14) (2026-03-06)
 
 

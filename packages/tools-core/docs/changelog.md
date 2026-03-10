@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.15](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.14...tools-core-v0.0.3-next.15) (2026-03-10)
+
+
+### Features
+
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/twinfoundation/tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+
 ## [0.0.3-next.14](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.13...tools-core-v0.0.3-next.14) (2026-03-06)
 
 
