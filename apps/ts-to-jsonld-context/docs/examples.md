@@ -41,7 +41,7 @@ Reads the comments from the model properties to generate the definitions.
 ```ts
 /**
  * The index of the entry.
- * json-ld type:schema:Integer
+ * @json-ld type:schema:Integer
  */
 index: number;
 ```
@@ -58,7 +58,7 @@ will produce
 ```ts
 /**
  * The object to associate with the entry as JSON-LD.
- * json-ld type:json
+ * @json-ld type:json
  */
 entryObject: IJsonLdNodeObject;
 ```
@@ -79,7 +79,7 @@ If the property refers to an external namespace defined in the config, property 
 ```ts
 /**
  * The identity of the user which added the entry to the stream.
- * json-ld namespace:twin-common
+ * @json-ld namespace:twin-common
  */
 userIdentity?: string;
 ```
@@ -91,7 +91,7 @@ For a container type:
 ```ts
 /**
  * Entries in the stream.
- * json-ld container:set
+ * @json-ld container:set
  */
 entries?: IAuditableItemStreamEntry[];
 ```
@@ -112,7 +112,7 @@ For a plain id mapping:
 ```ts
 /**
  * Entries in the stream.
- * json-ld id
+ * @json-ld id
  */
 foo: unknown;
 ```
@@ -130,7 +130,7 @@ For an id with name:
 ```ts
 /**
  * Entries in the stream.
- * json-ld id:bar
+ * @json-ld id:bar
  */
 foo: unknown;
 ```
@@ -148,7 +148,7 @@ For an id with namespace and name:
 ```ts
 /**
  * Entries in the stream.
- * json-ld id:dee:bar
+ * @json-ld id:dee:bar
  */
 foo: unknown;
 ```

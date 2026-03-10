@@ -22,68 +22,68 @@ export interface ISystemEvent {
 	type: "SystemEvent";
 
 	/**
-	 * json-ld id:unece:typeCode
-	 * json-ld type:xsd:string
+	 * @json-ld id:unece:typeCode
+	 * @json-ld type:xsd:string
 	 */
 	typeCode: "add" | "create" | "notify" | "updated";
 
 	/**
 	 *
-	 * json-ld type:@id
+	 * @json-ld type:@id
 	 */
 	source: IEventObject;
 
 	/**
-	 * json-ld type:@id
+	 * @json-ld type:@id
 	 */
 	object: IEventObject;
 
 	/**
-	 * json-ld type:@id
+	 * @json-ld type:@id
 	 */
 	target?: IEventObject;
 
 	/**
-	 * json-ld id:dcterms:date
-	 * json-ld type:xsd:dateTimestamp
+	 * @json-ld id:dcterms:date
+	 * @json-ld type:xsd:dateTimestamp
 	 */
 	date: string;
 
 	/**
-	 * json-ld id:https://schema.org/numberOfItems
+	 * @json-ld id:https://schema.org/numberOfItems
 	 */
 	numberOfItems: number;
 
 	/**
-	 * json-ld id
+	 * @json-ld id
 	 */
 	defaultMappedId: string;
 
 	/**
-	 * json-ld id:eventIdentifier
+	 * @json-ld id:eventIdentifier
 	 */
 	renamedId: string;
 
 	/**
-	 * json-ld type:xsd:string
+	 * @json-ld type:xsd:string
 	 */
 	typedOnly: string;
 
 	/**
-	 * json-ld container:set
+	 * @json-ld container:set
 	 */
 	tags: string[];
 
 	/**
-	 * json-ld id:unece:eventTypeCode
-	 * json-ld type:xsd:string
-	 * json-ld container:list
+	 * @json-ld id:unece:eventTypeCode
+	 * @json-ld type:xsd:string
+	 * @json-ld container:list
 	 */
 	classification: string[];
 
 	/**
 	 * The date/time of when the stream was modified.
-	 * json-ld namespace:sch
+	 * @json-ld namespace:sch
 	 */
 	dateModified?: string;
 }

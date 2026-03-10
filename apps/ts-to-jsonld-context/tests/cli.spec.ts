@@ -109,7 +109,7 @@ describe("CLI", () => {
 			typeFile,
 			`export interface IEntity {
 	/**
-	 * json-ld id:customEntityId
+	 * @json-ld id:customEntityId
 	 */
 	id: string;
 }

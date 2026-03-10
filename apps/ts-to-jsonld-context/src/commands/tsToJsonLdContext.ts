@@ -219,9 +219,9 @@ function visit(
 					const propertyName = member.name?.getText(sourceFile).replace(/["']/g, "");
 
 					if (Is.stringValue(propertyName)) {
-						const jsDocComments: string[] = extractComments(member);
+						const jsDocTags = extractTags(member);
 
-						jsonLdProps = extractJsonLdProps(jsDocComments);
+						jsonLdProps = extractJsonLdProps(jsDocTags);
 
 						if (!ignoredJsonLdPropertyNames.has(propertyName) && !Is.objectValue(jsonLdProps)) {
 							throw new GeneralError("commands", "commands.ts-to-jsonld-context.noJsonLdProps", {
@@ -363,24 +363,40 @@ function findInterfaceByName(
 }
 
 /**
- * Extract JSDoc comments from a property signature.
+ * Extract JSDoc tags from a property signature.
  * @param member The property signature member.
- * @returns The extracted comments.
+ * @returns The extracted tags.
  */
-function extractComments(member: ts.Node): string[] {
-	const jsDocComments: string[] = [];
+function extractTags(member: ts.Node): { tag: string; value: string }[] {
+	const jsDocTags: { tag: string; value: string }[] = [];
 	const jsDocs = ObjectHelper.propertyGet<ts.JSDoc[] | undefined>(member, "jsDoc");
 
 	if (Is.arrayValue(jsDocs)) {
 		for (const doc of jsDocs) {
-			if (Is.string(doc.comment)) {
-				jsDocComments.push(...doc.comment.split("\n").map(part => part.trim()));
-			} else if (Is.arrayValue<string>(doc.comment)) {
-				jsDocComments.push(...doc.comment.map(part => part.text));
+			if (Is.arrayValue(doc.tags)) {
+				for (const tag of doc.tags) {
+					const tagName = tag.tagName?.escapedText?.toString().trim();
+					if (Is.stringValue(tagName)) {
+						let tagValue = "";
+						if (Is.string(tag.comment)) {
+							tagValue = tag.comment.trim();
+						} else if (Is.arrayValue<string>(tag.comment)) {
+							tagValue = tag.comment
+								.map(part => part.text)
+								.join("")
+								.trim();
+						}
+
+						jsDocTags.push({
+							tag: tagName,
+							value: tagValue
+						});
+					}
+				}
 			}
 		}
 	}
-	return jsDocComments;
+	return jsDocTags;
 }
 
 /**
@@ -414,36 +430,40 @@ function parseQualifiedValue(value: string): { namespace?: string; id: string } 
 }
 
 /**
- * Extract JSON-LD properties from comments.
- * @param comments The comments to extract from.
+ * Extract JSON-LD properties from tags.
+ * @param tags The tags to extract from.
  * @returns The extracted JSON-LD properties.
  */
-function extractJsonLdProps(comments: string[]): IJsonLdProps {
+function extractJsonLdProps(tags: { tag: string; value: string }[]): IJsonLdProps {
 	const jsonLdProps: IJsonLdProps = {};
 
-	for (const comment of comments) {
-		if (/^json-ld id$/.exec(comment)) {
-			jsonLdProps.propertyId = {};
-		} else {
-			const idMatch = /^json-ld id:(.*)$/.exec(comment);
-			if (idMatch) {
-				jsonLdProps.propertyId = parseQualifiedValue(idMatch[1]);
+	for (const tag of tags) {
+		if (tag.tag === "json-ld") {
+			const value = tag.value;
+
+			if (/^id$/.exec(value)) {
+				jsonLdProps.propertyId = {};
 			} else {
-				const namespaceMatch = /^json-ld namespace:(.*)/.exec(comment);
-				if (namespaceMatch) {
-					jsonLdProps.namespace = namespaceMatch[1];
+				const idMatch = /^id:(.*)$/.exec(value);
+				if (idMatch) {
+					jsonLdProps.propertyId = parseQualifiedValue(idMatch[1]);
 				} else {
-					const containerMatch = /^json-ld container:(.*)$/.exec(comment);
-					if (containerMatch) {
-						jsonLdProps.container = containerMatch[1];
+					const namespaceMatch = /^namespace:(.*)/.exec(value);
+					if (namespaceMatch) {
+						jsonLdProps.namespace = namespaceMatch[1];
 					} else {
-						const typeMatch = /^json-ld type:(.*)$/.exec(comment);
-						if (typeMatch) {
-							const parsedType = parseQualifiedValue(typeMatch[1]);
-							jsonLdProps.propertyType = {
-								type: parsedType.id,
-								namespace: parsedType.namespace
-							};
+						const containerMatch = /^container:(.*)$/.exec(value);
+						if (containerMatch) {
+							jsonLdProps.container = containerMatch[1];
+						} else {
+							const typeMatch = /^type:(.*)$/.exec(value);
+							if (typeMatch) {
+								const parsedType = parseQualifiedValue(typeMatch[1]);
+								jsonLdProps.propertyType = {
+									type: parsedType.id,
+									namespace: parsedType.namespace
+								};
+							}
 						}
 					}
 				}

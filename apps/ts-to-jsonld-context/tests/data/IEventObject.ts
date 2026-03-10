@@ -10,7 +10,7 @@ export interface IEventObject {
 	id: string;
 	type: string;
 	/**
-	 * json-ld type:@json
+	 * @json-ld type:@json
 	 */
 	detail: { [id: string]: IJsonLdNodePrimitive };
 }
