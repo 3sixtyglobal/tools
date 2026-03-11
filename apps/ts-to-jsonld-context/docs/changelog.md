@@ -145,4 +145,4 @@
   * dependencies
     * @twin.org/tools-core bumped from 0.0.3-next.5 to 0.0.3-next.6
 
-## @twin.org/ts-to-jsonld-context - Changelog
+## Changelog

@@ -8,9 +8,9 @@ This app generates JSON-LD contexts from source model definitions so semantic da
 npm install -D @twin.org/ts-to-jsonld-context
 ```
 
-## Examples
+## Usage
 
-Usage of the tool is shown in the examples [docs/examples.md](docs/examples.md)
+Usage of the tool is shown in the examples [docs/usage.md](docs/usage.md)
 
 ## Reference
 

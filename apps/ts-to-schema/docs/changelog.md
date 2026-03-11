@@ -1,4 +1,4 @@
-# @twin.org/ts-to-schema - Changelog
+# Changelog
 
 ## [0.0.3-next.15](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.3-next.14...ts-to-schema-v0.0.3-next.15) (2026-03-10)
 

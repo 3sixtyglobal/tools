@@ -8,9 +8,9 @@ This app generates OpenAPI specifications from REST route definitions so API con
 npm install -D @twin.org/ts-to-openapi
 ```
 
-## Examples
+## Usage
 
-Usage of the tool is shown in the examples [docs/examples.md](docs/examples.md)
+Usage of the tool is shown in the examples [docs/usage.md](docs/usage.md)
 
 ## Reference
 

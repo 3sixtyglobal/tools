@@ -8,9 +8,9 @@ This app generates JSON Schemas from source model definitions to support validat
 npm install -D @twin.org/ts-to-schema
 ```
 
-## Examples
+## Usage
 
-Usage of the tool is shown in the examples [docs/examples.md](docs/examples.md)
+Usage of the tool is shown in the examples [docs/usage.md](docs/usage.md)
 
 ## Reference
 

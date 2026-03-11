@@ -1,4 +1,4 @@
-# @twin.org/ts-to-openapi - Changelog
+# Changelog
 
 ## [0.0.3-next.15](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.14...ts-to-openapi-v0.0.3-next.15) (2026-03-10)
 
