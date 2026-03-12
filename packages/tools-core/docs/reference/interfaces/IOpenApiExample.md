@@ -4,7 +4,7 @@ The Open API config definition.
 
 ## Properties
 
-### summary?
+### summary? {#summary}
 
 > `optional` **summary**: `string`
 
@@ -12,7 +12,7 @@ The summary of the example.
 
 ***
 
-### value
+### value {#value}
 
 > **value**: `unknown`
 

@@ -4,7 +4,7 @@ Configuration for the tool.
 
 ## Properties
 
-### baseUrl
+### baseUrl {#baseurl}
 
 > **baseUrl**: `string`
 
@@ -12,7 +12,7 @@ The base url for the type references e.g. https://schema.twindev.org/my-namespac
 
 ***
 
-### types
+### types {#types}
 
 > **types**: `string`[]
 
@@ -20,7 +20,7 @@ The source files to generate the types from.
 
 ***
 
-### externalReferences?
+### externalReferences? {#externalreferences}
 
 > `optional` **externalReferences**: `object`
 
@@ -32,7 +32,7 @@ External type references.
 
 ***
 
-### overrides?
+### overrides? {#overrides}
 
 > `optional` **overrides**: `object`
 
@@ -44,7 +44,7 @@ Override for specific types, to be used when the type cannot be generated automa
 
 ***
 
-### autoExpandTypes?
+### autoExpandTypes? {#autoexpandtypes}
 
 > `optional` **autoExpandTypes**: `string`[]
 

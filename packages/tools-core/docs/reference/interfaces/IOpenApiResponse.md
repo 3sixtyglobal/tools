@@ -4,7 +4,7 @@ The Open API config definition.
 
 ## Properties
 
-### description?
+### description? {#description}
 
 > `optional` **description**: `string`
 
@@ -12,7 +12,7 @@ Descriptions for the response.
 
 ***
 
-### content?
+### content? {#content}
 
 > `optional` **content**: `object`
 
@@ -24,7 +24,7 @@ Content for the response.
 
 ***
 
-### headers?
+### headers? {#headers}
 
 > `optional` **headers**: `object`
 

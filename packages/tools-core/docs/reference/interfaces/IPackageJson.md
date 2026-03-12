@@ -4,7 +4,7 @@ Configuration for each individual package.
 
 ## Properties
 
-### name
+### name {#name}
 
 > **name**: `string`
 
@@ -12,7 +12,7 @@ The name of the package.
 
 ***
 
-### dependencies?
+### dependencies? {#dependencies}
 
 > `optional` **dependencies**: `object`
 

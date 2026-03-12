@@ -4,7 +4,7 @@ The Open API config definition.
 
 ## Properties
 
-### operationId
+### operationId {#operationid}
 
 > **operationId**: `string`
 
@@ -12,7 +12,7 @@ The operation id.
 
 ***
 
-### summary
+### summary {#summary}
 
 > **summary**: `string`
 
@@ -20,7 +20,7 @@ Summary.
 
 ***
 
-### tags?
+### tags? {#tags}
 
 > `optional` **tags**: `string`[]
 
@@ -28,7 +28,7 @@ Tags.
 
 ***
 
-### parameters?
+### parameters? {#parameters}
 
 > `optional` **parameters**: `object`[]
 
@@ -72,7 +72,7 @@ Parameters.
 
 ***
 
-### requestBody?
+### requestBody? {#requestbody}
 
 > `optional` **requestBody**: `object`
 
@@ -96,7 +96,7 @@ Request body.
 
 ***
 
-### responses?
+### responses? {#responses}
 
 > `optional` **responses**: `object`
 
@@ -108,7 +108,7 @@ Response body.
 
 ***
 
-### security?
+### security? {#security}
 
 > `optional` **security**: `object`[]
 

@@ -4,7 +4,7 @@ The Open API config definition.
 
 ## Properties
 
-### schema?
+### schema? {#schema}
 
 > `optional` **schema**: `object`
 
@@ -16,7 +16,7 @@ The schema of the header.
 
 ***
 
-### description?
+### description? {#description}
 
 > `optional` **description**: `string`
 
@@ -24,7 +24,7 @@ The description of the header.
 
 ***
 
-### format?
+### format? {#format}
 
 > `optional` **format**: `string`
 

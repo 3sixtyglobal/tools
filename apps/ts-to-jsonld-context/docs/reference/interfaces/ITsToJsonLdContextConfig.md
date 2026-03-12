@@ -4,7 +4,7 @@ Configuration for the tool.
 
 ## Properties
 
-### prefix
+### prefix {#prefix}
 
 > **prefix**: `string`
 
@@ -12,7 +12,7 @@ The prefix to use for the context e.g. twin-common.
 
 ***
 
-### contextUrl
+### contextUrl {#contexturl}
 
 > **contextUrl**: `string`
 
@@ -20,7 +20,7 @@ The base URL for the context e.g. https://schema.twindev.org/common/
 
 ***
 
-### additionalContextUrls?
+### additionalContextUrls? {#additionalcontexturls}
 
 > `optional` **additionalContextUrls**: `object`
 
@@ -32,7 +32,7 @@ Additional context URLs to include in the context.
 
 ***
 
-### fixedMappings?
+### fixedMappings? {#fixedmappings}
 
 > `optional` **fixedMappings**: `object`
 
@@ -44,7 +44,7 @@ Fixed mappings to include in the context.
 
 ***
 
-### types
+### types {#types}
 
 > **types**: `string`[]
 
@@ -52,7 +52,7 @@ The source files to generate the types from.
 
 ***
 
-### includeProtected?
+### includeProtected? {#includeprotected}
 
 > `optional` **includeProtected**: `boolean`
 

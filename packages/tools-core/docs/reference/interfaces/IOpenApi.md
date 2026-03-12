@@ -4,7 +4,7 @@ The Open API config definition.
 
 ## Properties
 
-### openapi
+### openapi {#openapi}
 
 > **openapi**: `string`
 
@@ -12,7 +12,7 @@ The open api version.
 
 ***
 
-### info
+### info {#info}
 
 > **info**: `object`
 
@@ -44,7 +44,7 @@ Info.
 
 ***
 
-### servers?
+### servers? {#servers}
 
 > `optional` **servers**: `object`[]
 
@@ -56,7 +56,7 @@ The servers for the endpoints.
 
 ***
 
-### tags?
+### tags? {#tags}
 
 > `optional` **tags**: `object`[]
 
@@ -72,7 +72,7 @@ Tags for the endpoints.
 
 ***
 
-### paths
+### paths {#paths}
 
 > **paths**: `object`
 
@@ -84,7 +84,7 @@ The paths.
 
 ***
 
-### components?
+### components? {#components}
 
 > `optional` **components**: `object`
 

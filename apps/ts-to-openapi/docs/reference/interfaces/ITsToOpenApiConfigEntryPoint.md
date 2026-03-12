@@ -4,7 +4,7 @@ Configuration for the API.
 
 ## Properties
 
-### name
+### name {#name}
 
 > **name**: `string`
 
@@ -12,7 +12,7 @@ Match the name of the exported entry point.
 
 ***
 
-### baseRoutePath?
+### baseRoutePath? {#baseroutepath}
 
 > `optional` **baseRoutePath**: `string`
 
@@ -20,7 +20,7 @@ The base route path to use, defaults to the one in the entry point.
 
 ***
 
-### operationIdDistinguisher?
+### operationIdDistinguisher? {#operationiddistinguisher}
 
 > `optional` **operationIdDistinguisher**: `string`
 

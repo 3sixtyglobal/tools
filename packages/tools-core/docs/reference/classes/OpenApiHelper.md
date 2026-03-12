@@ -14,7 +14,7 @@ Helper class for OpenAPI processing.
 
 ## Properties
 
-### API\_VERSION
+### API\_VERSION {#api_version}
 
 > `readonly` `static` **API\_VERSION**: `"3.1.1"` = `"3.1.1"`
 

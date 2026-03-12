@@ -14,7 +14,7 @@ Helper class for JSON Schema processing.
 
 ## Properties
 
-### SCHEMA\_VERSION
+### SCHEMA\_VERSION {#schema_version}
 
 > `readonly` `static` **SCHEMA\_VERSION**: `"https://json-schema.org/draft/2020-12/schema"` = `"https://json-schema.org/draft/2020-12/schema"`
 
@@ -22,7 +22,7 @@ The JSON Schema version used.
 
 ## Methods
 
-### processArrays()
+### processArrays() {#processarrays}
 
 > `static` **processArrays**(`schemaObject`): `void`
 
@@ -42,7 +42,7 @@ The schema object to process.
 
 ***
 
-### processSchemaDictionary()
+### processSchemaDictionary() {#processschemadictionary}
 
 > `static` **processSchemaDictionary**(`schemaDictionary?`): `void`
 
@@ -60,7 +60,7 @@ The schema object to process.
 
 ***
 
-### processSchemaArray()
+### processSchemaArray() {#processschemaarray}
 
 > `static` **processSchemaArray**(`schemaArray?`): `void`
 
@@ -80,7 +80,7 @@ The schema object to process.
 
 ***
 
-### normaliseTypeName()
+### normaliseTypeName() {#normalisetypename}
 
 > `static` **normaliseTypeName**(`typeName`): `string`
 
@@ -102,7 +102,7 @@ The cleaned up definition string.
 
 ***
 
-### extractTypesFromSchema()
+### extractTypesFromSchema() {#extracttypesfromschema}
 
 > `static` **extractTypesFromSchema**(`allTypes`, `schema`, `output`): `void`
 
@@ -130,7 +130,7 @@ The output types.
 
 ***
 
-### extractTypes()
+### extractTypes() {#extracttypes}
 
 > `static` **extractTypes**(`allSchemas`, `requiredTypes`, `referencedSchemas`): `void`
 
@@ -158,7 +158,7 @@ The references schemas.
 
 ***
 
-### expandTypes()
+### expandTypes() {#expandtypes}
 
 > `static` **expandTypes**(`schemas`, `expandedTypes`): `void`
 
@@ -182,7 +182,7 @@ The types to expand.
 
 ***
 
-### expandSchemaTypes()
+### expandSchemaTypes() {#expandschematypes}
 
 > `static` **expandSchemaTypes**(`allSchemas`, `schema`, `expandedTypes`): `void`
 
@@ -212,7 +212,7 @@ The types to expand.
 
 ***
 
-### stringToRegEx()
+### stringToRegEx() {#stringtoregex}
 
 > `static` **stringToRegEx**(`matchPattern`): `RegExp`
 

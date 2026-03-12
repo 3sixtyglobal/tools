@@ -4,7 +4,7 @@ The Open API config definition for security scheme.
 
 ## Properties
 
-### type?
+### type? {#type}
 
 > `optional` **type**: `string`
 
@@ -12,7 +12,7 @@ The type of the security schema.
 
 ***
 
-### scheme?
+### scheme? {#scheme}
 
 > `optional` **scheme**: `string`
 
@@ -20,7 +20,7 @@ The scheme method.
 
 ***
 
-### bearerFormat?
+### bearerFormat? {#bearerformat}
 
 > `optional` **bearerFormat**: `string`
 
@@ -28,7 +28,7 @@ The bearer format.
 
 ***
 
-### in?
+### in? {#in}
 
 > `optional` **in**: `string`
 
@@ -36,7 +36,7 @@ Where is the token located.
 
 ***
 
-### name?
+### name? {#name}
 
 > `optional` **name**: `string`
 
