@@ -2804,3 +2804,27 @@ The raw tag key.
 `string`
 
 The schema key.
+
+***
+
+### extractTupleElementType() {#extracttupleelementtype}
+
+> `static` **extractTupleElementType**(`element`): `TypeNode` \| `undefined`
+
+Extract the inner type node from a named or rest tuple element.
+Named tuple members and rest elements both wrap an inner type node; this unwraps them.
+Plain type nodes are returned as-is.
+
+#### Parameters
+
+##### element
+
+`TypeNode`
+
+The tuple element.
+
+#### Returns
+
+`TypeNode` \| `undefined`
+
+The inner type node.

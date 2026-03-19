@@ -1,69 +1,18 @@
-# Class: Utility
+# Class: JsDoc
 
-General-purpose utility methods for working with TypeScript AST nodes.
-
-Enum-related helpers live in TypeScriptEnum.
-Reference-mapping regex helpers live in TypeScriptRegEx.
+General-purpose utility methods for working with JsDoc.
 
 ## Constructors
 
 ### Constructor
 
-> **new Utility**(): `Utility`
+> **new JsDoc**(): `JsDoc`
 
 #### Returns
 
-`Utility`
+`JsDoc`
 
 ## Methods
-
-### isTypeNameInput() {#istypenameinput}
-
-> `static` **isTypeNameInput**(`value`): `boolean`
-
-Determine whether an input value is a valid TypeScript type identifier.
-An identifier must start with a letter, underscore, or dollar sign and contain only
-alphanumerics, underscores, or dollar signs thereafter.
-
-#### Parameters
-
-##### value
-
-`string`
-
-The value to inspect.
-
-#### Returns
-
-`boolean`
-
-True if the value looks like a type name.
-
-***
-
-### extractTupleElementType() {#extracttupleelementtype}
-
-> `static` **extractTupleElementType**(`element`): `TypeNode` \| `undefined`
-
-Extract the inner type node from a named or rest tuple element.
-Named tuple members and rest elements both wrap an inner type node; this unwraps them.
-Plain type nodes are returned as-is.
-
-#### Parameters
-
-##### element
-
-`TypeNode`
-
-The tuple element.
-
-#### Returns
-
-`TypeNode` \| `undefined`
-
-The inner type node.
-
-***
 
 ### getNodeJsDocDescription() {#getnodejsdocdescription}
 

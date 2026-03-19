@@ -10,6 +10,7 @@
 - [ImportTypeQuerySchemaResolver](classes/ImportTypeQuerySchemaResolver.md)
 - [IndexSignaturePatternResolver](classes/IndexSignaturePatternResolver.md)
 - [IntersectionSchemaMerger](classes/IntersectionSchemaMerger.md)
+- [JsDoc](classes/JsDoc.md)
 - [JsonSchemaBuilder](classes/JsonSchemaBuilder.md)
 - [MappedTypeSchemaResolver](classes/MappedTypeSchemaResolver.md)
 - [ObjectTransformer](classes/ObjectTransformer.md)
@@ -17,7 +18,6 @@
 - [Resolver](classes/Resolver.md)
 - [TemplateLiteralPatternBuilder](classes/TemplateLiteralPatternBuilder.md)
 - [TypeScriptToSchema](classes/TypeScriptToSchema.md)
-- [Utility](classes/Utility.md)
 - [UtilityTypeSchemaMapper](classes/UtilityTypeSchemaMapper.md)
 
 ## Interfaces
