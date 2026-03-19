@@ -3,5 +3,5 @@
 	"$id": "https://schema.twindev.org/test/TypeSimpleUnion",
 	"description": "A simple union type alias.",
 	"title": "TypeSimpleUnion",
-	"anyOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
+	"oneOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
 }

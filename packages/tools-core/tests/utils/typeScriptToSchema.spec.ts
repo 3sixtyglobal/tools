@@ -328,6 +328,41 @@ describe("TypeScriptToSchema", () => {
 		);
 	});
 
+	test("can generate oneOf schema for intersection with never-discriminated object union branches", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/test-data/discriminatedUnion/IQuestion.ts"
+		);
+
+		const outputDir = fs.mkdtempSync(
+			path.join("tests", "utils", "test-data", "discriminatedUnion", "output-")
+		);
+		try {
+			for (const [title, schema] of Object.entries(generatedSchemas)) {
+				const generatedPath = path.join(outputDir, `${title}.json`);
+				fs.writeFileSync(generatedPath, `${JSON.stringify(schema, undefined, "\t")}\n`, "utf8");
+
+				const expectedPath = path.join(
+					"tests",
+					"utils",
+					"test-data",
+					"discriminatedUnion",
+					`${title}.json`
+				);
+				expect(fs.existsSync(expectedPath)).toBe(true);
+
+				const expectedSchema = JSON.parse(fs.readFileSync(expectedPath, "utf8")) as IJsonSchema;
+				expect(schema).toEqual(expectedSchema);
+			}
+		} finally {
+			fs.rmSync(outputDir, { recursive: true, force: true });
+		}
+	});
+
 	test("can generate a schema with null types", async () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};

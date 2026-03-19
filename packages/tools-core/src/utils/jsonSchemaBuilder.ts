@@ -930,7 +930,12 @@ export class JsonSchemaBuilder {
 						typeNode.types,
 						mappedUnionTypes
 					) ||
-					JsonSchemaBuilder.isLiteralTagDiscriminatedObjectUnion(context, mappedUnionTypes)
+					JsonSchemaBuilder.isLiteralTagDiscriminatedObjectUnion(context, mappedUnionTypes) ||
+					JsonSchemaBuilder.isDisjointPrimitiveKeywordUnion(
+						typeNode,
+						typeNode.types,
+						mappedUnionTypes
+					)
 				) {
 					return {
 						oneOf: mappedUnionTypes
@@ -979,6 +984,72 @@ export class JsonSchemaBuilder {
 	}
 
 	/**
+	 * Determine whether a union of primitive keyword branches is pairwise disjoint.
+	 * @param unionTypeNode The union node being mapped.
+	 * @param unionTypeNodes The original union branch type nodes.
+	 * @param unionSchemas The mapped union branch schemas.
+	 * @returns True if every branch is a primitive keyword schema and no branches overlap.
+	 */
+	public static isDisjointPrimitiveKeywordUnion(
+		unionTypeNode: ts.UnionTypeNode,
+		unionTypeNodes: ts.NodeArray<ts.TypeNode>,
+		unionSchemas: IJsonSchema[]
+	): boolean {
+		if (unionSchemas.length < 2 || unionSchemas.length !== unionTypeNodes.length) {
+			return false;
+		}
+
+		let unionContainer: ts.Node = unionTypeNode;
+		while (ts.isParenthesizedTypeNode(unionContainer.parent)) {
+			unionContainer = unionContainer.parent;
+		}
+
+		if (
+			!ts.isTypeAliasDeclaration(unionContainer.parent) ||
+			unionContainer.parent.type !== unionContainer
+		) {
+			// Keep nested/property unions as anyOf; only top-level alias unions are promoted.
+			return false;
+		}
+
+		const primitiveKinds = new Set<ts.SyntaxKind>([
+			ts.SyntaxKind.StringKeyword,
+			ts.SyntaxKind.NumberKeyword,
+			ts.SyntaxKind.BooleanKeyword,
+			ts.SyntaxKind.NullKeyword
+		]);
+
+		if (!unionTypeNodes.every(unionBranchType => primitiveKinds.has(unionBranchType.kind))) {
+			// Mixed or non-primitive unions can overlap in value space.
+			return false;
+		}
+
+		const schemaTypeDomains = unionSchemas.map(schema => {
+			if (schema.type === "integer") {
+				return "number";
+			}
+
+			return Is.stringValue(schema.type) ? schema.type : undefined;
+		});
+
+		if (
+			schemaTypeDomains.some(
+				schemaType =>
+					schemaType !== "string" &&
+					schemaType !== "number" &&
+					schemaType !== "boolean" &&
+					schemaType !== "null"
+			)
+		) {
+			// Only primitive keyword domains are considered disjoint enough for oneOf.
+			return false;
+		}
+
+		// oneOf is safe when every branch maps to a unique primitive domain.
+		return new Set(schemaTypeDomains).size === unionSchemas.length;
+	}
+
+	/**
 	 * Determine whether a union of schemas represents mutually exclusive object branches.
 	 * @param context The generation context.
 	 * @param unionTypeNodes The union branch type nodes for cross-checking with the mapped schemas.
@@ -994,6 +1065,10 @@ export class JsonSchemaBuilder {
 			return false;
 		}
 
+		const branchInfos: {
+			requiredKeys: Set<string>;
+			forbiddenKeys: Set<string>;
+		}[] = [];
 		let hasNeverDiscriminator = false;
 
 		for (const unionTypeNode of unionTypeNodes) {
@@ -1005,40 +1080,61 @@ export class JsonSchemaBuilder {
 				return false;
 			}
 
-			const hasNeverProperty = branchMembers.some(member => {
-				if (!ts.isPropertySignature(member) || !member.type) {
-					return false;
-				}
-				return member.type.kind === ts.SyntaxKind.NeverKeyword;
-			});
+			const branchInfo: {
+				requiredKeys: Set<string>;
+				forbiddenKeys: Set<string>;
+			} = {
+				requiredKeys: new Set<string>(),
+				forbiddenKeys: new Set<string>()
+			};
 
-			if (hasNeverProperty) {
-				hasNeverDiscriminator = true;
+			for (const member of branchMembers) {
+				if (ts.isPropertySignature(member) && member.type && member.name) {
+					const propertyName = JsonSchemaBuilder.extractPropertyName(context, member.name);
+					if (propertyName) {
+						if (member.type.kind === ts.SyntaxKind.NeverKeyword) {
+							// never marks a property as impossible in this branch.
+							branchInfo.forbiddenKeys.add(propertyName);
+							hasNeverDiscriminator = true;
+						} else if (!member.questionToken) {
+							// Required non-never keys are the positive branch signals.
+							branchInfo.requiredKeys.add(propertyName);
+						}
+					}
+				}
 			}
+
+			branchInfos.push(branchInfo);
 		}
 
 		if (!hasNeverDiscriminator) {
 			return false;
 		}
 
-		const requiredKeys = new Set<string>();
-
-		for (const schema of unionSchemas) {
-			const resolvedSchema =
-				JsonSchemaBuilder.resolveLocalSchemaReference(context, schema) ?? schema;
-			if (
-				resolvedSchema.type !== "object" ||
-				!Is.array<string>(resolvedSchema.required) ||
-				resolvedSchema.required.length !== 1
-			) {
+		for (const branchInfo of branchInfos) {
+			if (branchInfo.requiredKeys.size === 0 && branchInfo.forbiddenKeys.size === 0) {
+				// Require each branch to contribute at least one discriminating signal.
 				return false;
 			}
+		}
 
-			const requiredKey = resolvedSchema.required[0];
-			if (requiredKeys.has(requiredKey)) {
-				return false;
+		for (let i = 0; i < branchInfos.length; i++) {
+			for (let j = i + 1; j < branchInfos.length; j++) {
+				const firstBranch = branchInfos[i];
+				const secondBranch = branchInfos[j];
+
+				const firstExcludesSecond = [...firstBranch.requiredKeys].some(requiredKey =>
+					secondBranch.forbiddenKeys.has(requiredKey)
+				);
+				const secondExcludesFirst = [...secondBranch.requiredKeys].some(requiredKey =>
+					firstBranch.forbiddenKeys.has(requiredKey)
+				);
+
+				if (!firstExcludesSecond && !secondExcludesFirst) {
+					// Branch pairs must be mutually exclusive in at least one direction.
+					return false;
+				}
 			}
-			requiredKeys.add(requiredKey);
 		}
 
 		return true;
@@ -1124,6 +1220,27 @@ export class JsonSchemaBuilder {
 		context: ITypeScriptToSchemaContext,
 		unionTypeNode: ts.TypeNode
 	): ts.NodeArray<ts.TypeElement> | undefined {
+		const findTypeMembersInSourceFile = (
+			sourceFile: ts.SourceFile,
+			typeName: string
+		): ts.NodeArray<ts.TypeElement> | undefined => {
+			for (const statement of sourceFile.statements) {
+				if (ts.isInterfaceDeclaration(statement) && statement.name.text === typeName) {
+					return statement.members;
+				}
+
+				if (
+					ts.isTypeAliasDeclaration(statement) &&
+					statement.name.text === typeName &&
+					ts.isTypeLiteralNode(statement.type)
+				) {
+					return statement.type.members;
+				}
+			}
+
+			return undefined;
+		};
+
 		// { discriminator: "a"; other: string }  (inline type literal as union branch)
 		if (ts.isTypeLiteralNode(unionTypeNode)) {
 			return unionTypeNode.members;
@@ -1144,24 +1261,37 @@ export class JsonSchemaBuilder {
 			? unionTypeNode.typeName.text
 			: unionTypeNode.typeName.right.text;
 
-		for (const statement of sourceFile.statements) {
-			// interface BranchType { discriminator: "a"; other: string; }
-			if (ts.isInterfaceDeclaration(statement) && statement.name.text === typeName) {
-				return statement.members;
-			}
-
-			if (
-				// type BranchType = { discriminator: "a"; other: string }
-				ts.isTypeAliasDeclaration(statement) &&
-				statement.name.text === typeName &&
-				// { discriminator: "a"; other: string }  (must be a type literal alias)
-				ts.isTypeLiteralNode(statement.type)
-			) {
-				return statement.type.members;
-			}
+		const localMembers = findTypeMembersInSourceFile(sourceFile, typeName);
+		if (localMembers) {
+			return localMembers;
 		}
 
-		return undefined;
+		const importedTypeReference = JsonSchemaBuilder.findImportedTypeReference(context, typeName);
+		if (!importedTypeReference?.moduleSpecifier.startsWith(".")) {
+			return undefined;
+		}
+
+		const resolvedImportPath = JsonSchemaBuilder.resolveImportDeclarationSourceFile(
+			sourceFile.fileName,
+			importedTypeReference.moduleSpecifier
+		);
+		if (!resolvedImportPath) {
+			return undefined;
+		}
+
+		const importedSource = FileUtils.readFile(resolvedImportPath);
+		if (!importedSource) {
+			return undefined;
+		}
+
+		const importedSourceFile = ts.createSourceFile(
+			resolvedImportPath,
+			importedSource,
+			ts.ScriptTarget.Latest,
+			true
+		);
+
+		return findTypeMembersInSourceFile(importedSourceFile, importedTypeReference.candidateTypeName);
 	}
 
 	/**
