@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/tools-core",
-	"version": "0.0.3-next.17",
+	"version": "0.0.3-next.18",
 	"description": "Shared utilities and models for tooling packages",
 	"repository": {
 		"type": "git",
@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@twin.org/core": "next",
-		"@twin.org/tools-models": "0.0.3-next.17",
+		"@twin.org/tools-models": "0.0.3-next.18",
 		"@twin.org/nameof": "next",
 		"glob": "13.0.6"
 	},

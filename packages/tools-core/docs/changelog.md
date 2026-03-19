@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.18](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.17...tools-core-v0.0.3-next.18) (2026-03-19)
+
+
+### Features
+
+* add jsdoc default value to schema ([7886a84](https://github.com/twinfoundation/tools/commit/7886a84961e692d2054f223e2e99205a654b76a6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.17 to 0.0.3-next.18
+
 ## [0.0.3-next.17](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.16...tools-core-v0.0.3-next.17) (2026-03-19)
 
 
