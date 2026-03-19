@@ -376,6 +376,40 @@ The mapped schema.
 
 ***
 
+### isDisjointPrimitiveKeywordUnion() {#isdisjointprimitivekeywordunion}
+
+> `static` **isDisjointPrimitiveKeywordUnion**(`unionTypeNode`, `unionTypeNodes`, `unionSchemas`): `boolean`
+
+Determine whether a union of primitive keyword branches is pairwise disjoint.
+
+#### Parameters
+
+##### unionTypeNode
+
+`UnionTypeNode`
+
+The union node being mapped.
+
+##### unionTypeNodes
+
+`NodeArray`\<`TypeNode`\>
+
+The original union branch type nodes.
+
+##### unionSchemas
+
+`IJsonSchema`[]
+
+The mapped union branch schemas.
+
+#### Returns
+
+`boolean`
+
+True if every branch is a primitive keyword schema and no branches overlap.
+
+***
+
 ### isNeverDiscriminatedObjectUnion() {#isneverdiscriminatedobjectunion}
 
 > `static` **isNeverDiscriminatedObjectUnion**(`context`, `unionTypeNodes`, `unionSchemas`): `boolean`
