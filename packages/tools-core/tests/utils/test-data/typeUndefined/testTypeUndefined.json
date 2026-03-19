@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeUndefined",
+	"description": "Test undefined type handling.",
+	"title": "TestTypeUndefined",
+	"type": "object",
+	"properties": {
+		"stringOrUndefined": {
+			"description": "Keeps the string branch and drops undefined.",
+			"type": "string"
+		},
+		"stringOrVoid": {
+			"description": "Keeps the string branch and drops void.",
+			"type": "string"
+		},
+		"nullOrUndefined": {
+			"description": "Keeps the null branch and drops undefined.",
+			"type": "null"
+		},
+		"nullOrVoid": {
+			"description": "Keeps the null branch and drops void.",
+			"type": "null"
+		}
+	},
+	"required": ["stringOrUndefined", "stringOrVoid", "nullOrUndefined", "nullOrVoid"]
+}

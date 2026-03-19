@@ -1,0 +1,68 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ExtendPartialInherited",
+	"title": "ExtendPartialInherited",
+	"description": "Interface extending Partial of the doubly-inherited interface, testing that all inherited properties are optional.",
+	"type": "object",
+	"properties": {
+		"own": {
+			"type": "string",
+			"description": "Own required field."
+		}
+	},
+	"required": ["own"],
+	"allOf": [
+		{
+			"$comment": "Inlined utility base type DoubleInheritanceB so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Intermediate interface extending A.",
+			"type": "object",
+			"properties": {
+				"@context": {
+					"$comment": "Inherited from DoubleInheritanceA",
+					"type": "string",
+					"description": "The context for the policy."
+				},
+				"@type": {
+					"$comment": "Inherited from DoubleInheritanceB",
+					"const": "Offer",
+					"description": "The type must be \"Offer\"."
+				},
+				"uid": {
+					"$comment": "Inherited from DoubleInheritanceA",
+					"type": "string",
+					"description": "The unique identifier for the policy."
+				},
+				"profile": {
+					"$comment": "Inherited from DoubleInheritanceA",
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					],
+					"description": "The profile(s) this policy conforms to."
+				},
+				"assigner": {
+					"$comment": "Inherited from DoubleInheritanceB",
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					],
+					"description": "The assigner of the offer."
+				}
+			}
+		}
+	]
+}

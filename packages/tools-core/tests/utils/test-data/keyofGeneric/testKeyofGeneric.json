@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestKeyofGeneric",
+	"description": "Coverage for unresolved generic keyof operands.",
+	"title": "TestKeyofGeneric",
+	"type": "object",
+	"properties": {
+		"genericKey": {
+			"type": "string",
+			"description": "Generic keyof operand cannot be fully resolved to concrete keys."
+		},
+		"label": {
+			"type": "string",
+			"description": "A regular property that should still be generated."
+		}
+	},
+	"required": ["genericKey", "label"]
+}

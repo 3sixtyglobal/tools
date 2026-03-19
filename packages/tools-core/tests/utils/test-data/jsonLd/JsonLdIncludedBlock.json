@@ -1,0 +1,17 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/json-ld/JsonLdIncludedBlock",
+	"title": "JsonLdIncludedBlock",
+	"description": "An included block is used to provide a set of node objects.",
+	"anyOf": [
+		{
+			"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+		},
+		{
+			"type": "array",
+			"items": {
+				"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+			}
+		}
+	]
+}

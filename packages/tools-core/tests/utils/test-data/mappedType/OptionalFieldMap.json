@@ -1,0 +1,15 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/OptionalFieldMap",
+	"description": "Optional mapped type with fixed keys.",
+	"title": "OptionalFieldMap",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"label": {
+			"type": "string"
+		}
+	}
+}

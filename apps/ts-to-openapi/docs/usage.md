@@ -20,7 +20,7 @@ npx "@twin.org/ts-to-openapi"
 ## Help
 
 ```shell
-⚙️  TWIN TypeScript To OpenAPI v0.0.3-next.12
+⚙️  TWIN TypeScript To OpenAPI v0.0.3-next.15
 
 Usage: ts-to-openapi
 

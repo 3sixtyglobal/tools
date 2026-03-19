@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$comment": "Inlined utility base type SourceModel so utility transformations can operate on concrete properties instead of a $ref.",
+	"$id": "https://schema.twindev.org/test/SourceMirror",
+	"description": "Homomorphic mapped type preserving source properties.",
+	"title": "SourceMirror",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"count": {
+			"type": "number"
+		},
+		"active": {
+			"type": "boolean"
+		}
+	},
+	"required": ["id", "count"]
+}

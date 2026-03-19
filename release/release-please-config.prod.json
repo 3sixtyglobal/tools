@@ -8,6 +8,10 @@
 	"initial-version": "0.0.1",
 	"versioning": "default",
 	"packages": {
+		"packages/tools-models": {
+			"package-name": "tools-models",
+			"changelog-path": "docs/changelog.md"
+		},
 		"packages/tools-core": {
 			"package-name": "tools-core",
 			"changelog-path": "docs/changelog.md"
@@ -40,6 +44,7 @@
 			"type": "linked-versions",
 			"groupName": "repo",
 			"components": [
+				"tools-models",
 				"tools-core",
 				"ts-to-openapi",
 				"ts-to-schema",

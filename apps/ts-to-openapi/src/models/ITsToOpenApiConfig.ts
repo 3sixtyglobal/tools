@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonSchema } from "@twin.org/tools-core";
 import type { ITsToOpenApiConfigEntryPoint } from "./ITsToOpenApiConfigEntryPoint.js";
 
 /**
@@ -71,16 +70,4 @@ export interface ITsToOpenApiConfig {
 	 * External type references
 	 */
 	externalReferences?: { [id: string]: string };
-
-	/**
-	 * Override for specific types, to be used when the type cannot be generated automatically, or is generated incorrectly.
-	 */
-	overrides?: {
-		[id: string]: IJsonSchema;
-	};
-
-	/**
-	 * The types to automatically expand inline in type definitions, reg ex string matches.
-	 */
-	autoExpandTypes?: string[];
 }

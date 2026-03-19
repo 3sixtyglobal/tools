@@ -1,0 +1,19 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/PrefixedSourceMirror",
+	"description": "Mapped type remapping source keys with a template literal.",
+	"title": "PrefixedSourceMirror",
+	"type": "object",
+	"properties": {
+		"api_id": {
+			"type": "string"
+		},
+		"api_count": {
+			"type": "number"
+		},
+		"api_active": {
+			"type": "boolean"
+		}
+	},
+	"required": ["api_id", "api_count"]
+}

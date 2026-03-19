@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestOptionalProps",
+	"description": "Mixed optional and required props.",
+	"title": "TestOptionalProps",
+	"type": "object",
+	"properties": {
+		"requiredName": {
+			"type": "string",
+			"description": "Required string."
+		},
+		"optionalCount": {
+			"type": "number",
+			"description": "Optional numeric value."
+		},
+		"isEnabled": {
+			"type": "boolean",
+			"description": "Required boolean."
+		}
+	},
+	"required": ["requiredName", "isEnabled"]
+}

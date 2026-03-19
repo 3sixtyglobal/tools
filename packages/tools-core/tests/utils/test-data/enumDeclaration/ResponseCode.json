@@ -1,0 +1,7 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ResponseCode",
+	"description": "Numeric HTTP-like code enum declaration.",
+	"title": "ResponseCode",
+	"oneOf": [{ "const": 200 }, { "const": 201 }, { "const": 409 }]
+}

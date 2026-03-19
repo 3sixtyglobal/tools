@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestLiteralBooleanType",
+	"title": "TestLiteralBooleanType",
+	"description": "Coverage for boolean literal type nodes — true and false as distinct const types rather than the broad boolean keyword.",
+	"type": "object",
+	"properties": {
+		"trueLiteral": {
+			"const": true,
+			"description": "Literal true type maps to a const true schema."
+		},
+		"falseLiteral": {
+			"const": false,
+			"description": "Literal false type maps to a const false schema."
+		}
+	},
+	"required": ["trueLiteral", "falseLiteral"]
+}

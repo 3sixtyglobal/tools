@@ -10,6 +10,10 @@
 	"prerelease": true,
 	"prerelease-type": "next",
 	"packages": {
+		"packages/tools-models": {
+			"package-name": "tools-models",
+			"changelog-path": "docs/changelog.md"
+		},
 		"packages/tools-core": {
 			"package-name": "tools-core",
 			"changelog-path": "docs/changelog.md"
@@ -42,6 +46,7 @@
 			"type": "linked-versions",
 			"groupName": "repo",
 			"components": [
+				"tools-models",
 				"tools-core",
 				"ts-to-openapi",
 				"ts-to-schema",

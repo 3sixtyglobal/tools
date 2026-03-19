@@ -20,7 +20,7 @@ npx "@twin.org/ts-to-schema"
 ## Help
 
 ```shell
-⚙️  TWIN TypeScript To Schema v0.0.3-next.12
+⚙️  TWIN TypeScript To Schema v0.0.3-next.15
 
 Usage: ts-to-schema
 
@@ -40,6 +40,7 @@ Options:
 {
   "baseUrl": "https://schema.twindev.org/my-namespace/",
   "sourceFiles": ["./dist/types/*.d.ts"],
-  "types": ["MyType1", "MyType2"]
+  "types": ["MyType1", "MyType2"],
+  "suppressPackageWarnings": ["jose"]
 }
 ```

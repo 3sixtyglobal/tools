@@ -1,0 +1,25 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeNull",
+	"description": "Test null type handling.",
+	"title": "TestTypeNull",
+	"type": "object",
+	"properties": {
+		"nullableString": {
+			"description": "Can be a string or null.",
+			"anyOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"nullOnly": {
+			"description": "Must be null.",
+			"type": "null"
+		}
+	},
+	"required": ["nullableString", "nullOnly"]
+}

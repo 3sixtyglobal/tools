@@ -14,18 +14,11 @@ let writeBuffer: string[] = [];
 let errorBuffer: string[] = [];
 
 describe("CLI", () => {
-	beforeAll(async () => {
+	beforeEach(async () => {
 		await rm(TEST_DATA_LOCATION, { recursive: true, force: true });
 		await mkdir(TEST_CONFIG_LOCATION, { recursive: true });
 		await mkdir(TEST_WORKING_LOCATION, { recursive: true });
-	});
 
-	afterAll(async () => {
-		await rm(TEST_CONFIG_LOCATION, { recursive: true, force: true });
-		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
-	});
-
-	beforeEach(() => {
 		writeBuffer = [];
 		errorBuffer = [];
 
@@ -36,6 +29,11 @@ describe("CLI", () => {
 		CLIDisplay.writeError = (buffer: string | Uint8Array): void => {
 			errorBuffer.push(...buffer.toString().split("\n"));
 		};
+	});
+
+	afterEach(async () => {
+		await rm(TEST_CONFIG_LOCATION, { recursive: true, force: true });
+		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
 	});
 
 	test("Can fail to run with no command line arguments", async () => {

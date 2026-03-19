@@ -1,0 +1,23 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/json-ld/JsonLdLanguageMap",
+	"title": "JsonLdLanguageMap",
+	"description": "A language map is used to associate a language with a value in a way that allows easy programmatic access.",
+	"type": "object",
+	"additionalProperties": {
+		"anyOf": [
+			{
+				"type": "null"
+			},
+			{
+				"type": "string"
+			},
+			{
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			}
+		]
+	}
+}

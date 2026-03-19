@@ -2,20 +2,26 @@
 
 ## Classes
 
-- [JsonSchemaHelper](classes/JsonSchemaHelper.md)
-- [OpenApiHelper](classes/OpenApiHelper.md)
+- [Constants](classes/Constants.md)
+- [DiagnosticReporter](classes/DiagnosticReporter.md)
+- [DisallowedTypeGuard](classes/DisallowedTypeGuard.md)
+- [Enum](classes/Enum.md)
+- [FileUtils](classes/FileUtils.md)
+- [ImportTypeQuerySchemaResolver](classes/ImportTypeQuerySchemaResolver.md)
+- [IndexSignaturePatternResolver](classes/IndexSignaturePatternResolver.md)
+- [IntersectionSchemaMerger](classes/IntersectionSchemaMerger.md)
+- [JsonSchemaBuilder](classes/JsonSchemaBuilder.md)
+- [MappedTypeSchemaResolver](classes/MappedTypeSchemaResolver.md)
+- [ObjectTransformer](classes/ObjectTransformer.md)
+- [RegEx](classes/RegEx.md)
+- [Resolver](classes/Resolver.md)
+- [TemplateLiteralPatternBuilder](classes/TemplateLiteralPatternBuilder.md)
+- [TypeScriptToSchema](classes/TypeScriptToSchema.md)
+- [Utility](classes/Utility.md)
+- [UtilityTypeSchemaMapper](classes/UtilityTypeSchemaMapper.md)
 
 ## Interfaces
 
-- [IOpenApi](interfaces/IOpenApi.md)
-- [IOpenApiExample](interfaces/IOpenApiExample.md)
-- [IOpenApiHeader](interfaces/IOpenApiHeader.md)
-- [IOpenApiPathMethod](interfaces/IOpenApiPathMethod.md)
-- [IOpenApiResponse](interfaces/IOpenApiResponse.md)
-- [IOpenApiSecurityScheme](interfaces/IOpenApiSecurityScheme.md)
-- [IPackageJson](interfaces/IPackageJson.md)
-
-## Type Aliases
-
-- [IJsonSchema](type-aliases/IJsonSchema.md)
-- [JsonTypeName](type-aliases/JsonTypeName.md)
+- [ITypeScriptToSchemaContext](interfaces/ITypeScriptToSchemaContext.md)
+- [ITypeScriptToSchemaDiagnostics](interfaces/ITypeScriptToSchemaDiagnostics.md)
+- [ITypeScriptToSchemaOptions](interfaces/ITypeScriptToSchemaOptions.md)

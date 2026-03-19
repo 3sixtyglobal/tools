@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestConditionalType",
+	"description": "Test conditional type handling.",
+	"title": "TestConditionalType",
+	"type": "object",
+	"properties": {
+		"objectResult": {
+			"description": "Reference to object conditional type.",
+			"$ref": "https://schema.twindev.org/test/ConditionalObject"
+		},
+		"primitiveResult": {
+			"description": "Reference to primitive conditional type.",
+			"$ref": "https://schema.twindev.org/test/ConditionalPrimitive"
+		}
+	},
+	"required": ["objectResult", "primitiveResult"]
+}

@@ -6,6 +6,7 @@ Together, these modules support a consistent workflow for producing OpenAPI spec
 
 ## Packages
 
+- [tools-models](packages/tools-models/README.md) - Shared models for tooling packages.
 - [tools-core](packages/tools-core/README.md) - Shared utilities and models for tooling packages.
 
 ## Apps

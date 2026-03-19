@@ -1,0 +1,16 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/FilteredSourceMirror",
+	"description": "Mapped type filtering keys via a conditional extends check against a literal union.",
+	"title": "FilteredSourceMirror",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"count": {
+			"type": "number"
+		}
+	},
+	"required": ["id", "count"]
+}

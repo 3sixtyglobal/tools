@@ -57,3 +57,9 @@ The source files to generate the types from.
 > `optional` **includeProtected**: `boolean`
 
 Whether to include protected properties in the generated context.
+
+#### Default
+
+```ts
+false
+```

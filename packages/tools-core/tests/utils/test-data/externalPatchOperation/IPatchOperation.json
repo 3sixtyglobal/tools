@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/core/PatchOperation",
+	"description": "Interface describing a patch operation to add a property.",
+	"title": "PatchOperation",
+	"type": "object",
+	"properties": {
+		"op": {
+			"description": "The operation that was performed on the item.",
+			"anyOf": [
+				{ "const": "add" },
+				{ "const": "remove" },
+				{ "const": "replace" },
+				{ "const": "move" },
+				{ "const": "copy" },
+				{ "const": "test" }
+			]
+		},
+		"path": {
+			"type": "string",
+			"description": "The path to the object that was changed."
+		},
+		"from": {
+			"type": "string",
+			"description": "The path the value was copied or moved from."
+		},
+		"value": {
+			"description": "The value to add."
+		}
+	},
+	"required": ["op", "path"]
+}

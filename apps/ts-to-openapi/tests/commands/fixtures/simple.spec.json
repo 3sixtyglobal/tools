@@ -1,0 +1,615 @@
+{
+	"openapi": "3.1.1",
+	"info": {
+		"title": "TWIN Node",
+		"description": "REST API for TWIN - API Server.",
+		"version": "1.0.0",
+		"license": {
+			"name": "Apache 2.0 License",
+			"url": "https://opensource.org/licenses/Apache-2.0"
+		}
+	},
+	"servers": [
+		{
+			"url": "https://node-api.twindev.org"
+		}
+	],
+	"tags": [
+		{
+			"name": "Info",
+			"description": "Information endpoints for the REST server."
+		}
+	],
+	"paths": {
+		"/": {
+			"get": {
+				"operationId": "serverRoot",
+				"summary": "Get the root text page",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The root text for the server.",
+						"content": {
+							"text/plain": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerRootResponse"
+								},
+								"examples": {
+									"serverRootResponse": {
+										"summary": "The response for the root request.",
+										"value": "API Server - 1.0.0"
+									}
+								}
+							}
+						},
+						"headers": {
+							"content-type": {
+								"schema": {
+									"type": "string"
+								},
+								"description": "e.g. text/plain"
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/favicon.ico": {
+			"get": {
+				"operationId": "serverFavIcon",
+				"summary": "Get the favicon for the server",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The favicon for the server.",
+						"content": {
+							"image/x-icon": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerFavIconResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/info": {
+			"get": {
+				"operationId": "serverInformation",
+				"summary": "Get the information for the server",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The information about the server.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerInfo"
+								},
+								"examples": {
+									"informationResponse": {
+										"summary": "The response for the information request.",
+										"value": {
+											"name": "API Server",
+											"version": "1.0.0"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/livez": {
+			"get": {
+				"operationId": "serverLivez",
+				"summary": "Get the livez status for the server",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The livez of the server.",
+						"content": {
+							"text/plain": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerLivezResponse"
+								},
+								"examples": {
+									"livezResponseOK": {
+										"summary": "The response for the liveness request.",
+										"value": "ok"
+									},
+									"livezResponseFailure": {
+										"summary": "The response for the liveness request with errors.",
+										"value": "failed"
+									}
+								}
+							}
+						},
+						"headers": {
+							"content-type": {
+								"schema": {
+									"type": "string"
+								},
+								"description": "e.g. text/plain"
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"operationId": "serverHealth",
+				"summary": "Get the health for the server",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The health of the server.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthInfo"
+								},
+								"examples": {
+									"healthResponseOK": {
+										"summary": "The response for the health request.",
+										"value": {
+											"status": "ok",
+											"components": [
+												{
+													"name": "Database",
+													"status": "ok"
+												},
+												{
+													"name": "Storage",
+													"status": "ok"
+												}
+											]
+										}
+									},
+									"healthResponseWarning": {
+										"summary": "The response for the health request with warnings.",
+										"value": {
+											"status": "warning",
+											"components": [
+												{
+													"name": "Database",
+													"status": "warning",
+													"details": "The database is running slow."
+												},
+												{
+													"name": "Storage",
+													"status": "ok"
+												}
+											]
+										}
+									},
+									"healthResponseError": {
+										"summary": "The response for the health request with errors.",
+										"value": {
+											"status": "error",
+											"components": [
+												{
+													"name": "Database",
+													"status": "ok"
+												},
+												{
+													"name": "Storage",
+													"status": "error",
+													"details": "The storage is full."
+												}
+											]
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/spec": {
+			"get": {
+				"operationId": "serverSpec",
+				"summary": "Get the OpenAPI specification for the endpoints",
+				"tags": ["Info"],
+				"responses": {
+					"200": {
+						"description": "The OpenAPI spec for the endpoints.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerSpecResponse"
+								},
+								"examples": {
+									"specResponse": {
+										"summary": "The response for the spec request.",
+										"value": {
+											"openapi": "3.1.0",
+											"info": {},
+											"paths": {}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Error": {
+				"title": "Error",
+				"description": "Model to describe serialized error.",
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name for the error."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message for the error."
+					},
+					"source": {
+						"type": "string",
+						"description": "The source of the error."
+					},
+					"properties": {
+						"type": "object",
+						"additionalProperties": {},
+						"description": "Any additional information for the error."
+					},
+					"stack": {
+						"type": "string",
+						"description": "The stack trace for the error."
+					},
+					"cause": {
+						"$ref": "#/components/schemas/Error"
+					}
+				},
+				"required": ["name", "message"]
+			},
+			"HealthComponentInfo": {
+				"title": "HealthComponentInfo",
+				"description": "The health component information.",
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the component."
+					},
+					"status": {
+						"$ref": "#/components/schemas/HealthStatus"
+					},
+					"details": {
+						"type": "string",
+						"description": "The details for the status."
+					}
+				},
+				"required": ["name", "status"]
+			},
+			"HealthInfo": {
+				"title": "HealthInfo",
+				"description": "The status of the server.",
+				"type": "object",
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/HealthStatus"
+					},
+					"components": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/HealthComponentInfo"
+						},
+						"description": "The status of the components."
+					}
+				},
+				"required": ["status"]
+			},
+			"HealthStatus": {
+				"title": "HealthStatus",
+				"description": "The health status of the component.",
+				"anyOf": [
+					{
+						"const": "ok",
+						"description": "OK."
+					},
+					{
+						"const": "warning",
+						"description": "Warning."
+					},
+					{
+						"const": "error",
+						"description": "Error."
+					}
+				]
+			},
+			"ServerFavIconResponse": {
+				"type": "array",
+				"items": {
+					"type": "number"
+				},
+				"description": "The favicon for the server."
+			},
+			"ServerInfo": {
+				"title": "ServerInfo",
+				"description": "The information about the server.",
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The application name."
+					},
+					"version": {
+						"type": "string",
+						"description": "The version of the server."
+					}
+				},
+				"required": ["name", "version"]
+			},
+			"ServerLivezResponse": {
+				"anyOf": [
+					{
+						"const": "ok"
+					},
+					{
+						"const": "failed"
+					}
+				],
+				"description": "The livez information for the server."
+			},
+			"ServerRootResponse": {
+				"type": "string",
+				"description": "The root text for the server."
+			},
+			"ServerSpecResponse": {
+				"description": "The spec for the server."
+			}
+		},
+		"securitySchemes": {
+			"jwtBearerAuthScheme": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	}
+}

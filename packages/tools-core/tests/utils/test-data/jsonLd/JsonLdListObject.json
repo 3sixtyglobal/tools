@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/json-ld/JsonLdListObject",
+	"title": "JsonLdListObject",
+	"description": "A list represents an ordered set of values.",
+	"type": "object",
+	"properties": {
+		"@list": {
+			"anyOf": [
+				{
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdListOrSetItem"
+				},
+				{
+					"type": "array",
+					"items": {
+						"$ref": "https://schema.twindev.org/json-ld/JsonLdListOrSetItem"
+					}
+				}
+			]
+		},
+		"@index": {
+			"type": "string"
+		}
+	},
+	"required": ["@list"]
+}

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/GenericAliasModel",
+	"description": "Generic interface model using a default type parameter.",
+	"title": "GenericAliasModel",
+	"type": "object",
+	"properties": {
+		"count": {
+			"type": "number",
+			"description": "Numeric generic property."
+		},
+		"history": {
+			"type": "array",
+			"description": "Historical generic values.",
+			"items": {
+				"type": "number"
+			}
+		}
+	},
+	"required": ["count"]
+}

@@ -1,0 +1,38 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestDiagnosticsCoverage",
+	"title": "TestDiagnosticsCoverage",
+	"type": "object",
+	"properties": {
+		"inferredObj": {
+			"type": "object",
+			"properties": {
+				"ok": {
+					"const": true
+				}
+			},
+			"required": ["ok"]
+		},
+		"inferredTuple": {
+			"type": "array"
+		},
+		"inferredFnType": {},
+		"unsupportedTemplate": {
+			"type": "string"
+		},
+		"unsupportedUtility": {},
+		"unsupportedImport": {},
+		"ok": {
+			"type": "string"
+		}
+	},
+	"required": [
+		"inferredObj",
+		"inferredTuple",
+		"inferredFnType",
+		"unsupportedTemplate",
+		"unsupportedUtility",
+		"unsupportedImport",
+		"ok"
+	]
+}

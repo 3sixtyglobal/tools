@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonSchema } from "@twin.org/tools-core";
 
 /**
  * Configuration for the tool.
@@ -22,14 +21,7 @@ export interface ITsToSchemaConfig {
 	externalReferences?: { [id: string]: string };
 
 	/**
-	 * Override for specific types, to be used when the type cannot be generated automatically, or is generated incorrectly.
+	 * Package names where diagnostics should be suppressed, e.g. jose.
 	 */
-	overrides?: {
-		[id: string]: IJsonSchema;
-	};
-
-	/**
-	 * The types to automatically expand inline in type definitions, reg ex string matches.
-	 */
-	autoExpandTypes?: string[];
+	suppressPackageWarnings?: string[];
 }

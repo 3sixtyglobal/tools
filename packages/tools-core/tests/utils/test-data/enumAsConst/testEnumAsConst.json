@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestEnumAsConst",
+	"description": "The test enum as const.",
+	"title": "TestEnumAsConst",
+	"oneOf": [
+		{ "const": "ok", "description": "OK." },
+		{ "const": "warning", "description": "Warning." },
+		{ "const": "error", "description": "Error." }
+	]
+}

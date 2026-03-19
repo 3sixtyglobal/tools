@@ -1,0 +1,35 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypedArray",
+	"description": "Coverage for native typed array references.",
+	"title": "TestTypedArray",
+	"type": "object",
+	"properties": {
+		"arrayBuffer": { "type": "array", "items": { "type": "number" } },
+		"sharedArrayBuffer": { "type": "array", "items": { "type": "number" } },
+		"readonlyValues": { "type": "array", "items": { "type": "number" } },
+		"int8": { "type": "array", "items": { "type": "number" } },
+		"uint8": { "type": "array", "items": { "type": "number" } },
+		"uint8Clamped": { "type": "array", "items": { "type": "number" } },
+		"int16": { "type": "array", "items": { "type": "number" } },
+		"uint16": { "type": "array", "items": { "type": "number" } },
+		"int32": { "type": "array", "items": { "type": "number" } },
+		"uint32": { "type": "array", "items": { "type": "number" } },
+		"float32": { "type": "array", "items": { "type": "number" } },
+		"float64": { "type": "array", "items": { "type": "number" } }
+	},
+	"required": [
+		"arrayBuffer",
+		"sharedArrayBuffer",
+		"readonlyValues",
+		"int8",
+		"uint8",
+		"uint8Clamped",
+		"int16",
+		"uint16",
+		"int32",
+		"uint32",
+		"float32",
+		"float64"
+	]
+}

@@ -1,0 +1,44 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ExtendPickFromInherited",
+	"title": "ExtendPickFromInherited",
+	"description": "Interface extending Pick from a doubly-inherited type, testing the Pick utility path with inherited comments.",
+	"type": "object",
+	"properties": {
+		"own": {
+			"type": "boolean",
+			"description": "Own required field."
+		}
+	},
+	"required": ["own"],
+	"allOf": [
+		{
+			"$comment": "Inlined utility base type DoubleInheritanceB so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Intermediate interface extending A.",
+			"type": "object",
+			"properties": {
+				"@type": {
+					"$comment": "Inherited from DoubleInheritanceB",
+					"const": "Offer",
+					"description": "The type must be \"Offer\"."
+				},
+				"profile": {
+					"$comment": "Inherited from DoubleInheritanceA",
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					],
+					"description": "The profile(s) this policy conforms to."
+				}
+			},
+			"required": ["@type"]
+		}
+	]
+}

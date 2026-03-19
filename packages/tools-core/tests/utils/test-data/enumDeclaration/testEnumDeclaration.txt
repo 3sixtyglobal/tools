@@ -1,0 +1,36 @@
+/**
+ * NOTE: This fixture is stored as plain text because project compiler/lint rules
+ * disallow enum declarations in checked TypeScript test fixture files.
+ */
+
+/**
+ * Response state represented as a string enum declaration.
+ */
+export enum ResponseState {
+	Success = "success",
+	Failed = "failed"
+}
+
+/**
+ * Numeric HTTP-like code enum declaration.
+ */
+export enum ResponseCode {
+	Ok = 200,
+	Accepted,
+	Conflict = 409
+}
+
+/**
+ * Test enum declaration handling.
+ */
+export interface TestEnumDeclaration {
+	/**
+	 * Enum declaration reference.
+	 */
+	state: ResponseState;
+
+	/**
+	 * Numeric enum declaration reference.
+	 */
+	code: ResponseCode;
+}

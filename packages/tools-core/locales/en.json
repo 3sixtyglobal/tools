@@ -1,3 +1,32 @@
 {
-	"error": {}
+	"error": {
+		"jsonSchemaBuilder": {
+			"invalidJsonSchemaTagKey": "Ignoring invalid @json-schema tag key \"{rawKey}\". Mapped key \"{schemaKey}\" is not supported by JSON Schema.",
+			"missingTypeReferenceSchema": "Unable to resolve type \"{typeName}\"{importSource} required as base type for utility type. Ensure the type is in the configured packages list or its external package exports TypeScript source files that can be parsed via the AST."
+		}
+	},
+	"jsonSchemaBuilder": {
+		"diagnostic": {
+			"symbolValuedProperty": "Skipping symbol-typed property \"{propertyName}\".",
+			"symbolKeyedMember": "Skipping symbol-keyed member \"{memberName}\".",
+			"unsupportedComputedPropertyName": "Skipping unsupported computed property name \"{propertyName}\".",
+			"functionTypedProperty": "Skipping function-typed property \"{propertyName}\".",
+			"unsupportedIndexSignature": "Skipping index signature with unsupported key type \"{keyType}\".",
+			"unresolvedKeyofOperand": "Could not resolve keyof operand \"{operand}\".",
+			"unmappedTypeNode": "Unsupported TypeScript type node kind \"{kind}\"; the type will be omitted.",
+			"unresolvedMappedTypeRemap": "Could not resolve mapped type key remap for \"{typeName}\"; falling back to additionalProperties.",
+			"unsupportedImportTypeForm": "Skipping unsupported import type form \"{argument}\".",
+			"unresolvedImportTypeQualifier": "Could not resolve import type qualifier for \"{argument}\".",
+			"unresolvedTypeQueryTarget": "Could not resolve type query target \"{target}\".",
+			"unsupportedInferredExpressionKind": "Skipping unsupported inferred expression kind \"{kind}\".",
+			"unsupportedInferredObjectComputedKey": "Skipping inferred object property with unsupported computed key \"{propertyName}\".",
+			"unsupportedInferredObjectSpread": "Skipping inferred object spread expression \"{expression}\".",
+			"unsupportedInferredObjectMemberKind": "Skipping inferred object member kind \"{kind}\".",
+			"unsupportedInferredTupleElement": "Skipping unsupported inferred tuple element kind \"{kind}\".",
+			"unsupportedTemplateLiteralSpan": "Could not derive a regex pattern for template literal type \"{type}\"; falling back to string.",
+			"unsupportedTypeElementMember": "Skipping unsupported type member kind \"{kind}\".",
+			"unsupportedUtilityType": "Skipping unsupported utility type \"{utilityType}\".",
+			"excludedEnclosingObjectDisallowedType": "Excluding enclosing object \"{enclosingObjectName}\" because property \"{propertyName}\" uses disallowed type \"{disallowedTypeName}\"."
+		}
+	}
 }

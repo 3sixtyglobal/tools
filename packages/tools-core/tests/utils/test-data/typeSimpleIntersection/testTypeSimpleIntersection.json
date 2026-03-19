@@ -1,0 +1,16 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TypeSimpleIntersection",
+	"description": "A simple object intersection type alias.",
+	"title": "TypeSimpleIntersection",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"description": {
+			"type": "string"
+		}
+	},
+	"required": ["id", "description"]
+}
