@@ -178,6 +178,14 @@
 			"type": "string",
 			"default": "fallback"
 		},
+		"jsDocDefaultTag": {
+			"type": "string",
+			"default": "jsdoc-fallback"
+		},
+		"jsDocDefaultNumberTag": {
+			"type": "number",
+			"default": 42
+		},
 		"ifTag": {
 			"type": "string",
 			"if": {

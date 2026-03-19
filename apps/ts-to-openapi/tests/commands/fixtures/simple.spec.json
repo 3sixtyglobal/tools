@@ -476,7 +476,6 @@
 	"components": {
 		"schemas": {
 			"Error": {
-				"title": "Error",
 				"description": "Model to describe serialized error.",
 				"type": "object",
 				"properties": {
@@ -508,7 +507,6 @@
 				"required": ["name", "message"]
 			},
 			"HealthComponentInfo": {
-				"title": "HealthComponentInfo",
 				"description": "The health component information.",
 				"type": "object",
 				"properties": {
@@ -527,7 +525,6 @@
 				"required": ["name", "status"]
 			},
 			"HealthInfo": {
-				"title": "HealthInfo",
 				"description": "The status of the server.",
 				"type": "object",
 				"properties": {
@@ -545,7 +542,6 @@
 				"required": ["status"]
 			},
 			"HealthStatus": {
-				"title": "HealthStatus",
 				"description": "The health status of the component.",
 				"anyOf": [
 					{
@@ -570,7 +566,6 @@
 				"description": "The favicon for the server."
 			},
 			"ServerInfo": {
-				"title": "ServerInfo",
 				"description": "The information about the server.",
 				"type": "object",
 				"properties": {

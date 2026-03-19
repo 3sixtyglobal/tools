@@ -3320,7 +3320,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/ConflictResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3454,7 +3454,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3576,7 +3576,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3669,7 +3669,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3789,7 +3789,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4058,8 +4058,26 @@
 					}
 				}
 			},
+			"ConflictResponse": {
+				"type": "object",
+				"properties": {
+					"conflicts": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"description": "The conflicting items."
+					}
+				},
+				"required": ["conflicts"],
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Error"
+					}
+				],
+				"description": "The body which contains the error."
+			},
 			"Error": {
-				"title": "Error",
 				"description": "Model to describe serialized error.",
 				"type": "object",
 				"properties": {
@@ -4091,7 +4109,6 @@
 				"required": ["name", "message"]
 			},
 			"HealthComponentInfo": {
-				"title": "HealthComponentInfo",
 				"description": "The health component information.",
 				"type": "object",
 				"properties": {
@@ -4110,7 +4127,6 @@
 				"required": ["name", "status"]
 			},
 			"HealthInfo": {
-				"title": "HealthInfo",
 				"description": "The status of the server.",
 				"type": "object",
 				"properties": {
@@ -4128,7 +4144,6 @@
 				"required": ["status"]
 			},
 			"HealthStatus": {
-				"title": "HealthStatus",
 				"description": "The health status of the component.",
 				"anyOf": [
 					{
@@ -4462,6 +4477,21 @@
 				"required": ["expiry"],
 				"description": "The login response details."
 			},
+			"NotFoundResponse": {
+				"type": "object",
+				"properties": {
+					"notFoundId": {
+						"type": "string",
+						"description": "The id if the item that was not found."
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Error"
+					}
+				],
+				"description": "The body which contains the error."
+			},
 			"RefreshTokenResponse": {
 				"type": "object",
 				"properties": {
@@ -4481,7 +4511,6 @@
 				"description": "The favicon for the server."
 			},
 			"ServerInfo": {
-				"title": "ServerInfo",
 				"description": "The information about the server.",
 				"type": "object",
 				"properties": {

@@ -5,7 +5,6 @@ import type { IJsonSchema } from "@twin.org/tools-models";
 import { FileUtils } from "./fileUtils.js";
 import { JsonSchemaBuilder } from "./jsonSchemaBuilder.js";
 import { Resolver } from "./resolver.js";
-import { Utility } from "./utility.js";
 import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaContext.js";
 import type { ITypeScriptToSchemaOptions } from "../models/ITypeScriptToSchemaOptions.js";
 
@@ -76,7 +75,7 @@ export class TypeScriptToSchema {
 					}
 				}
 			}
-		} else if (Utility.isTypeNameInput(sourceFileOrTypeName)) {
+		} else if (this.isTypeNameInput(sourceFileOrTypeName)) {
 			const declarationResult = Resolver.resolveTypeDeclarationAst(
 				context.packageName,
 				sourceFileOrTypeName
@@ -101,7 +100,7 @@ export class TypeScriptToSchema {
 			}
 		}
 
-		if (Utility.isTypeNameInput(sourceFileOrTypeName)) {
+		if (this.isTypeNameInput(sourceFileOrTypeName)) {
 			const requestedTitle = StringHelper.stripPrefix(sourceFileOrTypeName);
 			const requestedSchema = context.schemas[context.packageName][requestedTitle];
 			if (requestedSchema) {
@@ -139,5 +138,17 @@ export class TypeScriptToSchema {
 			sourcePath =>
 				sourcePath.includes(packagePath) || sourcePath.endsWith(packagePathNoTrailingSlash)
 		);
+	}
+
+	/**
+	 * Determine whether an input value is a valid TypeScript type identifier.
+	 * An identifier must start with a letter, underscore, or dollar sign and contain only
+	 * alphanumerics, underscores, or dollar signs thereafter.
+	 * @param value The value to inspect.
+	 * @returns True if the value looks like a type name.
+	 * @internal
+	 */
+	private isTypeNameInput(value: string): boolean {
+		return /^[A-Za-z_$][A-Za-z0-9_$]*$/u.test(value);
 	}
 }

@@ -147,6 +147,16 @@ export interface JsonSchemaTagsTest {
 	defaultTag?: string;
 
 	/**
+	 * @default "jsdoc-fallback"
+	 */
+	jsDocDefaultTag?: string;
+
+	/**
+	 * @default 42
+	 */
+	jsDocDefaultNumberTag?: number;
+
+	/**
 	 * @json-schema if:{"type":"string"}
 	 */
 	ifTag?: string;

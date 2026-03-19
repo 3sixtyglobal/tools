@@ -141,6 +141,34 @@ The extracted key/value pairs.
 
 ***
 
+### getNodeTagComment() {#getnodetagcomment}
+
+> `static` **getNodeTagComment**(`node`, `tagName`): `string` \| `undefined`
+
+Read the plain comment text for the first matching JSDoc tag on a node.
+
+#### Parameters
+
+##### node
+
+`Node`
+
+The node to inspect.
+
+##### tagName
+
+`string`
+
+The tag name to filter by (e.g., 'default').
+
+#### Returns
+
+`string` \| `undefined`
+
+The trimmed comment text, or undefined when absent.
+
+***
+
 ### parseTagValue() {#parsetagvalue}
 
 > `static` **parseTagValue**(`value`): `unknown`

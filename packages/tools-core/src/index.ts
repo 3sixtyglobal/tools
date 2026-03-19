@@ -18,5 +18,5 @@ export * from "./utils/regEx.js";
 export * from "./utils/resolver.js";
 export * from "./utils/templateLiteralPatternBuilder.js";
 export * from "./utils/typeScriptToSchema.js";
-export * from "./utils/utility.js";
+export * from "./utils/jsDoc.js";
 export * from "./utils/utilityTypeSchemaMapper.js";

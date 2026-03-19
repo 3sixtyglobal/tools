@@ -3392,7 +3392,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/ConflictResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3526,7 +3526,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3648,7 +3648,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3741,7 +3741,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -3861,7 +3861,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4332,7 +4332,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4537,7 +4537,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4750,7 +4750,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4872,7 +4872,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -7512,7 +7512,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -7710,7 +7710,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -7851,7 +7851,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -9015,7 +9015,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -9200,7 +9200,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -9317,7 +9317,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -10973,7 +10973,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -11231,7 +11231,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -11359,7 +11359,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -11465,7 +11465,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -11834,7 +11834,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12033,7 +12033,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12150,7 +12150,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12289,7 +12289,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12425,7 +12425,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12667,7 +12667,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -12856,7 +12856,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -13034,7 +13034,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Error"
+									"$ref": "#/components/schemas/NotFoundResponse"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -16947,7 +16947,6 @@
 	"components": {
 		"schemas": {
 			"ActivityLogDates": {
-				"title": "ActivityLogDates",
 				"description": "Activity log dates.",
 				"type": "object",
 				"properties": {
@@ -16963,7 +16962,6 @@
 				"required": ["startDate"]
 			},
 			"ActivityLogDetails": {
-				"title": "ActivityLogDetails",
 				"description": "The details related to the processing of an Activity",
 				"type": "object",
 				"properties": {
@@ -16995,7 +16993,6 @@
 				"required": ["id", "generator", "dateCreated", "dateModified"]
 			},
 			"ActivityLogEntry": {
-				"title": "ActivityLogEntry",
 				"description": "The details related to the processing of an Activity",
 				"type": "object",
 				"properties": {
@@ -17073,7 +17070,6 @@
 				]
 			},
 			"ActivityProcessingStatus": {
-				"title": "ActivityProcessingStatus",
 				"description": "The type exported.",
 				"anyOf": [
 					{
@@ -17433,14 +17429,16 @@
 					},
 					"disableEncryption": {
 						"type": "boolean",
-						"description": "Disables encryption if enabled by default."
+						"description": "Disables encryption if enabled by default.",
+						"default": false
 					},
 					"compress": {
 						"$ref": "https://schema.twindev.org/blob-storage/BlobStorageCompressionType"
 					},
 					"overrideVaultKeyId": {
 						"type": "string",
-						"description": "Use a different vault key id for encryption, if not provided the default vault key id will be used."
+						"description": "Use a different vault key id for encryption, if not provided the default vault key id will be used.",
+						"default": "undefined"
 					},
 					"namespace": {
 						"type": "string",
@@ -17479,7 +17477,6 @@
 				"description": "The response payload containing the DS Protocol compliant catalog with participantId,\nor a CatalogError if no datasets are found (404).\nPer DS Protocol: Single participant returns flat catalog, multiple participants return nested catalogs."
 			},
 			"CoerceType": {
-				"title": "CoerceType",
 				"description": "The types the extracted data can be coerced to.",
 				"anyOf": [
 					{
@@ -17535,8 +17532,26 @@
 				],
 				"description": "Transfer Process (DSP compliant) with state COMPLETED, or error."
 			},
+			"ConflictResponse": {
+				"type": "object",
+				"properties": {
+					"conflicts": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"description": "The conflicting items."
+					}
+				},
+				"required": ["conflicts"],
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Error"
+					}
+				],
+				"description": "The body which contains the error."
+			},
 			"DataAssetItemList": {
-				"title": "DataAssetItemList",
 				"description": "Interface describing a list of entities that are within a Data Asset.\nPagination is handled via HTTP Link headers.",
 				"type": "object",
 				"properties": {
@@ -17740,7 +17755,6 @@
 				"description": "The body parameters."
 			},
 			"Error": {
-				"title": "Error",
 				"description": "Model to describe serialized error.",
 				"type": "object",
 				"properties": {
@@ -17772,7 +17786,6 @@
 				"required": ["name", "message"]
 			},
 			"FilteringQuery": {
-				"title": "FilteringQuery",
 				"description": "A query over a data asset that to be processed by a Dataspace Data Plane App.",
 				"type": "object",
 				"properties": {
@@ -17816,7 +17829,6 @@
 				"description": "Transfer Process (DSP compliant) with current state, or error."
 			},
 			"HealthComponentInfo": {
-				"title": "HealthComponentInfo",
 				"description": "The health component information.",
 				"type": "object",
 				"properties": {
@@ -17835,7 +17847,6 @@
 				"required": ["name", "status"]
 			},
 			"HealthInfo": {
-				"title": "HealthInfo",
 				"description": "The status of the server.",
 				"type": "object",
 				"properties": {
@@ -17853,7 +17864,6 @@
 				"required": ["status"]
 			},
 			"HealthStatus": {
-				"title": "HealthStatus",
 				"description": "The health status of the component.",
 				"anyOf": [
 					{
@@ -18172,7 +18182,6 @@
 				"description": "The parameters from the body."
 			},
 			"LogEntry": {
-				"title": "LogEntry",
 				"description": "Interface describing a log entry.",
 				"type": "object",
 				"properties": {
@@ -18203,7 +18212,6 @@
 				"required": ["level", "source", "message"]
 			},
 			"LogLevel": {
-				"title": "LogLevel",
 				"description": "The log levels.",
 				"anyOf": [
 					{
@@ -18273,7 +18281,6 @@
 				"description": "The login response details."
 			},
 			"MetricType": {
-				"title": "MetricType",
 				"description": "The types of metrics.",
 				"anyOf": [
 					{
@@ -18362,6 +18369,21 @@
 					}
 				},
 				"description": "The data to be used in the update."
+			},
+			"NotFoundResponse": {
+				"type": "object",
+				"properties": {
+					"notFoundId": {
+						"type": "string",
+						"description": "The id if the item that was not found."
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Error"
+					}
+				],
+				"description": "The body which contains the error."
 			},
 			"PapCreateRequest": {
 				"description": "The body of the request - the policy to create (id will be auto-generated if not provided).",
@@ -18599,7 +18621,6 @@
 				"description": "The state of the policy or an error."
 			},
 			"PolicyNegotiation": {
-				"title": "PolicyNegotiation",
 				"description": "Interface describing a rights management policy negotiation.",
 				"type": "object",
 				"properties": {
@@ -18720,7 +18741,6 @@
 				"description": "Transfer Process (DSP compliant) with state REQUESTED, or error."
 			},
 			"Rule": {
-				"title": "Rule",
 				"description": "Rule defining how to extract data from an object.",
 				"type": "object",
 				"properties": {
@@ -18743,7 +18763,6 @@
 				"required": ["source", "target"]
 			},
 			"RuleGroup": {
-				"title": "RuleGroup",
 				"description": "Group of rules for extraction.",
 				"type": "object",
 				"properties": {
@@ -18773,7 +18792,6 @@
 				"description": "The favicon for the server."
 			},
 			"ServerInfo": {
-				"title": "ServerInfo",
 				"description": "The information about the server.",
 				"type": "object",
 				"properties": {
@@ -18807,7 +18825,6 @@
 				"description": "The spec for the server."
 			},
 			"SortDirection": {
-				"title": "SortDirection",
 				"description": "The sort directions.",
 				"anyOf": [
 					{
@@ -18843,7 +18860,6 @@
 				"description": "Transfer Process (DSP compliant) with state SUSPENDED, or error."
 			},
 			"SyncChange": {
-				"title": "SyncChange",
 				"description": "The object definition for a sync change.",
 				"type": "object",
 				"properties": {
@@ -18861,7 +18877,6 @@
 				"required": ["operation", "id"]
 			},
 			"SyncChangeOperation": {
-				"title": "SyncChangeOperation",
 				"description": "The operations for a change",
 				"anyOf": [
 					{
@@ -18875,7 +18890,6 @@
 				]
 			},
 			"SyncChangeSet": {
-				"title": "SyncChangeSet",
 				"description": "The object definition for a sync change set.",
 				"type": "object",
 				"properties": {
@@ -18938,7 +18952,6 @@
 				"description": "The body of the response."
 			},
 			"SynchronisedEntityCore": {
-				"title": "SynchronisedEntityCore",
 				"description": "The base definition for synchronised entries.",
 				"type": "object",
 				"properties": {
@@ -18950,7 +18963,6 @@
 				"required": ["dateModified"]
 			},
 			"TaskApp": {
-				"title": "TaskApp",
 				"description": "Denotes a task associated with a Dataspace App",
 				"type": "object",
 				"properties": {
@@ -19023,7 +19035,6 @@
 				"description": "The response payload."
 			},
 			"TelemetryMetric": {
-				"title": "TelemetryMetric",
 				"description": "Interface describing a telemetry metric.",
 				"type": "object",
 				"properties": {
@@ -19050,7 +19061,6 @@
 				"required": ["id", "label", "type"]
 			},
 			"TelemetryMetricValue": {
-				"title": "TelemetryMetricValue",
 				"description": "Interface describing a telemetry metric value.",
 				"type": "object",
 				"properties": {
@@ -19126,7 +19136,6 @@
 				"description": "Transfer Process (DSP compliant) with state TERMINATED, or error."
 			},
 			"TrustVerificationInfo": {
-				"title": "TrustVerificationInfo",
 				"description": "Interface describing a trust verifier information.",
 				"type": "object",
 				"properties": {
@@ -19175,7 +19184,8 @@
 					},
 					"maxAllowListSize": {
 						"type": "number",
-						"description": "The maximum size of the allow list."
+						"description": "The maximum size of the allow list.",
+						"default": 100
 					},
 					"namespace": {
 						"type": "string",
@@ -19204,11 +19214,13 @@
 				"properties": {
 					"includeData": {
 						"type": "boolean",
-						"description": "The flag to include the data."
+						"description": "The flag to include the data.",
+						"default": true
 					},
 					"includeAllowList": {
 						"type": "boolean",
-						"description": "The flag to include the allow list."
+						"description": "The flag to include the allow list.",
+						"default": true
 					}
 				},
 				"description": "The body optional param."
@@ -19252,7 +19264,6 @@
 				"description": "The data to be updated."
 			},
 			"VerifyDepth": {
-				"title": "VerifyDepth",
 				"description": "How deep to verify the signatures.",
 				"anyOf": [
 					{

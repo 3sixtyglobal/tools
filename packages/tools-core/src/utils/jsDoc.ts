@@ -4,44 +4,9 @@ import { Is } from "@twin.org/core";
 import * as ts from "typescript";
 
 /**
- * General-purpose utility methods for working with TypeScript AST nodes.
- *
- * Enum-related helpers live in TypeScriptEnum.
- * Reference-mapping regex helpers live in TypeScriptRegEx.
+ * General-purpose utility methods for working with JsDoc.
  */
-export class Utility {
-	/**
-	 * Determine whether an input value is a valid TypeScript type identifier.
-	 * An identifier must start with a letter, underscore, or dollar sign and contain only
-	 * alphanumerics, underscores, or dollar signs thereafter.
-	 * @param value The value to inspect.
-	 * @returns True if the value looks like a type name.
-	 */
-	public static isTypeNameInput(value: string): boolean {
-		return /^[A-Za-z_$][A-Za-z0-9_$]*$/u.test(value);
-	}
-
-	/**
-	 * Extract the inner type node from a named or rest tuple element.
-	 * Named tuple members and rest elements both wrap an inner type node; this unwraps them.
-	 * Plain type nodes are returned as-is.
-	 * @param element The tuple element.
-	 * @returns The inner type node.
-	 */
-	public static extractTupleElementType(element: ts.TypeNode): ts.TypeNode | undefined {
-		// label: string  (named tuple member, e.g. [label: string, count: number])
-		if (ts.isNamedTupleMember(element)) {
-			return element.type;
-		}
-
-		// ...string[]  (rest element in a tuple, e.g. [first: string, ...rest: string[]])
-		if (ts.isRestTypeNode(element)) {
-			return element.type;
-		}
-
-		return element;
-	}
-
+export class JsDoc {
 	/**
 	 * Extract the JSDoc description comment for an AST node.
 	 * Only top-level JSDoc block comments are considered; inline tags are ignored.
@@ -97,7 +62,7 @@ export class Utility {
 		const output: { [id: string]: string } = {};
 		for (const jsDocTag of ts.getJSDocTags(node)) {
 			if (jsDocTag.tagName.text === tagName) {
-				const commentText = Utility.getJSDocTagCommentText(jsDocTag);
+				const commentText = JsDoc.getJSDocTagCommentText(jsDocTag);
 				if (commentText) {
 					const separatorIndex = commentText.indexOf(":");
 					if (separatorIndex > 0) {
@@ -112,6 +77,25 @@ export class Utility {
 		}
 
 		return output;
+	}
+
+	/**
+	 * Read the plain comment text for the first matching JSDoc tag on a node.
+	 * @param node The node to inspect.
+	 * @param tagName The tag name to filter by (e.g., 'default').
+	 * @returns The trimmed comment text, or undefined when absent.
+	 */
+	public static getNodeTagComment(node: ts.Node, tagName: string): string | undefined {
+		for (const jsDocTag of ts.getJSDocTags(node)) {
+			if (jsDocTag.tagName.text === tagName) {
+				const commentText = JsDoc.getJSDocTagCommentText(jsDocTag)?.trim();
+				if (commentText) {
+					return commentText;
+				}
+			}
+		}
+
+		return undefined;
 	}
 
 	/**

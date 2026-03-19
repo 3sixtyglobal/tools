@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, Is, ObjectHelper, JsonHelper, StringHelper } from "@twin.org/core";
+import { GeneralError, Is, JsonHelper, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { type IJsonSchema, JsonSchemaTagNames } from "@twin.org/tools-models";
 import * as ts from "typescript";
@@ -12,12 +12,12 @@ import { FileUtils } from "./fileUtils.js";
 import { ImportTypeQuerySchemaResolver } from "./importTypeQuerySchemaResolver.js";
 import { IndexSignaturePatternResolver } from "./indexSignaturePatternResolver.js";
 import { IntersectionSchemaMerger } from "./intersectionSchemaMerger.js";
+import { JsDoc } from "./jsDoc.js";
 import { MappedTypeSchemaResolver } from "./mappedTypeSchemaResolver.js";
 import { ObjectTransformer } from "./objectTransformer.js";
 import { RegEx } from "./regEx.js";
 import { Resolver } from "./resolver.js";
 import { TemplateLiteralPatternBuilder } from "./templateLiteralPatternBuilder.js";
-import { Utility } from "./utility.js";
 import { UtilityTypeSchemaMapper } from "./utilityTypeSchemaMapper.js";
 import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaContext.js";
 
@@ -324,7 +324,12 @@ export class JsonSchemaBuilder {
 	 * @throws GeneralError Thrown when a tag key is not supported by IJsonSchema.
 	 */
 	public static applyJsonSchemaTags(schema: Partial<IJsonSchema>, node: ts.Node): void {
-		const tags = Utility.getNodeTags(node, "json-schema");
+		const defaultTagComment = JsDoc.getNodeTagComment(node, "default");
+		if (defaultTagComment !== undefined && schema.default === undefined) {
+			schema.default = JsDoc.parseTagValue(defaultTagComment);
+		}
+
+		const tags = JsDoc.getNodeTags(node, "json-schema");
 		for (const [rawKey, rawValue] of Object.entries(tags)) {
 			const schemaKey = JsonSchemaBuilder.mapJsonSchemaTagKey(rawKey);
 			if (!JsonSchemaBuilder.isAllowedJsonSchemaTagKey(schemaKey)) {
@@ -333,7 +338,7 @@ export class JsonSchemaBuilder {
 					schemaKey
 				});
 			}
-			const parsedValue = Utility.parseTagValue(rawValue);
+			const parsedValue = JsDoc.parseTagValue(rawValue);
 			ObjectHelper.propertySet(schema, schemaKey, parsedValue);
 		}
 	}
@@ -365,7 +370,7 @@ export class JsonSchemaBuilder {
 			title
 		};
 
-		const description = Utility.getNodeJsDocDescription(statement);
+		const description = JsDoc.getNodeJsDocDescription(statement);
 		if (description) {
 			schema.description = description;
 		}
@@ -482,7 +487,7 @@ export class JsonSchemaBuilder {
 							: undefined;
 
 						if (memberName && memberTypeSchema) {
-							const memberDescription = Utility.getNodeJsDocDescription(member);
+							const memberDescription = JsDoc.getNodeJsDocDescription(member);
 							if (memberDescription) {
 								memberTypeSchema.description = memberDescription;
 							}
@@ -2745,7 +2750,7 @@ export class JsonSchemaBuilder {
 		let restIndex = -1;
 
 		for (const [index, element] of tupleTypeNode.elements.entries()) {
-			const tupleElementType = Utility.extractTupleElementType(element);
+			const tupleElementType = JsonSchemaBuilder.extractTupleElementType(element);
 			if (!tupleElementType) {
 				return undefined;
 			}
@@ -4643,5 +4648,26 @@ export class JsonSchemaBuilder {
 		}
 
 		return key;
+	}
+
+	/**
+	 * Extract the inner type node from a named or rest tuple element.
+	 * Named tuple members and rest elements both wrap an inner type node; this unwraps them.
+	 * Plain type nodes are returned as-is.
+	 * @param element The tuple element.
+	 * @returns The inner type node.
+	 */
+	public static extractTupleElementType(element: ts.TypeNode): ts.TypeNode | undefined {
+		// label: string  (named tuple member, e.g. [label: string, count: number])
+		if (ts.isNamedTupleMember(element)) {
+			return element.type;
+		}
+
+		// ...string[]  (rest element in a tuple, e.g. [first: string, ...rest: string[]])
+		if (ts.isRestTypeNode(element)) {
+			return element.type;
+		}
+
+		return element;
 	}
 }

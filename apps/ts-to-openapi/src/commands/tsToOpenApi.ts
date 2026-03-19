@@ -4,7 +4,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { GeneralError, I18n, Is, JsonHelper, ObjectHelper, StringHelper } from "@twin.org/core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { TypeScriptToSchema, Constants } from "@twin.org/tools-core";
 import {
@@ -631,7 +631,6 @@ async function finaliseOutput(
 
 	removeStandardSchemas(finalSchemas);
 	applyRefOnlySchemaSubstitutions(openApi, substituteSchemas);
-	applyEquivalentResponseSubstitutions(openApi, finalSchemas, substituteSchemas);
 
 	const sortedSchemas = buildSortedPrunedSchemas(openApi, finalSchemas);
 
@@ -809,28 +808,6 @@ function applyRefOnlySchemaSubstitutions(
  * @param finalSchemas The final schemas map.
  * @param substituteSchemas The collected schema substitutions.
  */
-function applyEquivalentResponseSubstitutions(
-	openApi: IOpenApi,
-	finalSchemas: { [id: string]: IJsonSchema },
-	substituteSchemas: { from: string; to: string }[]
-): void {
-	const equivalentResponseSchemaSubstitutions =
-		findEquivalentResponseSchemaSubstitutions(finalSchemas);
-
-	if (equivalentResponseSchemaSubstitutions.length > 0) {
-		rewriteSchemaRefs(openApi.paths, equivalentResponseSchemaSubstitutions);
-		rewriteSchemaRefs(finalSchemas, equivalentResponseSchemaSubstitutions);
-
-		for (const substitution of equivalentResponseSchemaSubstitutions) {
-			delete finalSchemas[substitution.from];
-			substituteSchemas.push({
-				from: substitution.from,
-				to: `#/components/schemas/${substitution.to}`
-			});
-		}
-	}
-}
-
 /**
  * Build sorted and tidied schemas from the current OpenAPI references.
  * @param openApi The OpenAPI document.
@@ -848,6 +825,7 @@ function buildSortedPrunedSchemas(
 	const sortedSchemas: { [id: string]: IJsonSchema } = {};
 	for (const key of prunedSchemaKeys) {
 		tidySchemaProperties(prunedSchemas[key], false);
+		delete prunedSchemas[key].title;
 		sortedSchemas[key] = prunedSchemas[key];
 	}
 
@@ -890,47 +868,6 @@ function pruneToReferencedSchemas(
 	}
 
 	return prunedSchemas;
-}
-
-/**
- * Find response wrapper schemas that are structurally identical to a canonical non-response schema.
- * @param schemas The candidate component schemas.
- * @returns The schema substitutions.
- */
-function findEquivalentResponseSchemaSubstitutions(schemas: {
-	[id: string]: IJsonSchema;
-}): { from: string; to: string }[] {
-	const substitutions: { from: string; to: string }[] = [];
-	const schemaEntries = Object.entries(schemas);
-
-	for (const [schemaName, schema] of schemaEntries) {
-		if (schemaName.endsWith("Response")) {
-			const canonicalEntry = schemaEntries
-				.filter(([candidateName, candidateSchema]) => {
-					if (
-						candidateName === schemaName ||
-						candidateName.endsWith("Response") ||
-						StringHelper.stripPrefix(candidateName) !== "Error"
-					) {
-						return false;
-					}
-
-					return JsonHelper.canonicalize(candidateSchema) === JsonHelper.canonicalize(schema);
-				})
-				.sort(([candidateNameA], [candidateNameB]) =>
-					candidateNameA.localeCompare(candidateNameB)
-				)[0];
-
-			if (canonicalEntry) {
-				substitutions.push({
-					from: schemaName,
-					to: canonicalEntry[0]
-				});
-			}
-		}
-	}
-
-	return substitutions;
 }
 
 /**
@@ -1281,30 +1218,7 @@ function resolveResponseSchemaRefName(
 		return undefined;
 	}
 
-	if (isErrorResponseType(typeName) && resolveSchema(schemas, "Error")) {
-		return "Error";
-	}
-
 	return typeName;
-}
-
-/**
- * Determine whether a response type should be canonicalised to the shared Error schema.
- * @param typeName The response type name.
- * @returns True if the type represents an error response wrapper.
- */
-function isErrorResponseType(typeName: string): boolean {
-	const strippedTypeName = StringHelper.stripPrefix(typeName);
-
-	for (const responseDetails of Object.values(HTTP_STATUS_CODE_MAP)) {
-		if (responseDetails.responseType === typeName) {
-			return responseDetails.code >= HttpStatusCode.badRequest;
-		}
-	}
-
-	return /(?:^Bad.*Response$|^UnauthorizedResponse$|^ForbiddenResponse$|^NotFoundResponse$|^ConflictResponse$|^Unprocessable.*Response$|ErrorResponse$)/u.test(
-		strippedTypeName
-	);
 }
 
 /**

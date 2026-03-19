@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { Is } from "@twin.org/core";
 import * as ts from "typescript";
-import { Utility } from "./utility.js";
+import { JsDoc } from "./jsDoc.js";
 
 /**
  * Utility methods for extracting enum values from TypeScript AST nodes.
@@ -82,7 +82,7 @@ export class Enum {
 				.map<{ value: string | number; description?: string } | null>(prop => {
 					const assignment = prop as ts.PropertyAssignment;
 					const initializer = assignment.initializer;
-					const description = Utility.getNodeJsDocDescription(assignment);
+					const description = JsDoc.getNodeJsDocDescription(assignment);
 
 					// "a"  (string literal initializer)
 					if (ts.isStringLiteral(initializer)) {
@@ -126,7 +126,7 @@ export class Enum {
 			if (resolvedValue !== undefined) {
 				entries.push({
 					value: resolvedValue,
-					description: Utility.getNodeJsDocDescription(member)
+					description: JsDoc.getNodeJsDocDescription(member)
 				});
 
 				if (Is.number(resolvedValue)) {
