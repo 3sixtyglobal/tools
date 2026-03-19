@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.19](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.18...ts-to-openapi-v0.0.3-next.19) (2026-03-19)
+
+
+### Bug Fixes
+
+* output all referenced schemas for packages ([8c0580a](https://github.com/twinfoundation/tools/commit/8c0580a5c2c7c1f5b581401100a043950b54379a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.18 to 0.0.3-next.19
+    * @twin.org/tools-models bumped from 0.0.3-next.18 to 0.0.3-next.19
+
 ## [0.0.3-next.18](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.17...ts-to-openapi-v0.0.3-next.18) (2026-03-19)
 
 
