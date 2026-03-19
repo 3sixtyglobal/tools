@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#response-object
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A short summary of the meaning of the response.
 
@@ -26,7 +26,7 @@ A description of the response.
 
 ### headers? {#headers}
 
-> `optional` **headers**: `object`
+> `optional` **headers?**: `object`
 
 The headers for the response.
 
@@ -38,7 +38,7 @@ The headers for the response.
 
 ### content? {#content}
 
-> `optional` **content**: `object`
+> `optional` **content?**: `object`
 
 The content for the response.
 
@@ -50,7 +50,7 @@ The content for the response.
 
 ### links? {#links}
 
-> `optional` **links**: `object`
+> `optional` **links?**: `object`
 
 Design-time links from this response.
 

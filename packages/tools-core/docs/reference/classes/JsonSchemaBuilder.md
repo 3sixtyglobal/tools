@@ -254,7 +254,7 @@ The object property schema map and required list.
 
 ##### patternProperties?
 
-> `optional` **patternProperties**: `object`
+> `optional` **patternProperties?**: `object`
 
 ###### Index Signature
 
@@ -262,11 +262,11 @@ The object property schema map and required list.
 
 ##### additionalProperties?
 
-> `optional` **additionalProperties**: `IJsonSchema`
+> `optional` **additionalProperties?**: `IJsonSchema`
 
 ##### propertyNames?
 
-> `optional` **propertyNames**: `IJsonSchema`
+> `optional` **propertyNames?**: `IJsonSchema`
 
 ***
 
@@ -706,9 +706,9 @@ Extract a referenced type name from an import type qualifier.
 
 ##### qualifier
 
-The import type qualifier.
+`EntityName` \| `undefined`
 
-`EntityName` | `undefined`
+The import type qualifier.
 
 #### Returns
 
@@ -1154,9 +1154,9 @@ Find a variable declaration by name in a source file.
 
 ##### sourceFile
 
-The source file to search.
+`SourceFile` \| `undefined`
 
-`SourceFile` | `undefined`
+The source file to search.
 
 ##### variableName
 
@@ -1746,9 +1746,9 @@ The base object schema.
 
 ##### keyToAdd
 
-The key being added by the utility.
+`"type"` \| `"id"` \| `"@id"` \| `"@type"` \| `"@context"`
 
-`"type"` | `"id"` | `"@id"` | `"@type"` | `"@context"`
+The key being added by the utility.
 
 #### Returns
 
@@ -1920,6 +1920,34 @@ The mapped schema.
 
 ***
 
+### annotateUtilityInlineSchema() {#annotateutilityinlineschema}
+
+> `static` **annotateUtilityInlineSchema**(`schema`, `baseTypeDescription`): `IJsonSchema`
+
+Add a comment to schemas inlined for utility type transformations.
+
+#### Parameters
+
+##### schema
+
+`IJsonSchema`
+
+The schema to annotate.
+
+##### baseTypeDescription
+
+`string`
+
+The utility base type description.
+
+#### Returns
+
+`IJsonSchema`
+
+The annotated schema.
+
+***
+
 ### resolveUtilityBaseObjectSchema() {#resolveutilitybaseobjectschema}
 
 > `static` **resolveUtilityBaseObjectSchema**(`context`, `baseTypeNode`): `IJsonSchema` \| `undefined`
@@ -1939,6 +1967,38 @@ The generation context.
 `TypeNode`
 
 The utility base type node.
+
+#### Returns
+
+`IJsonSchema` \| `undefined`
+
+The resolved object schema.
+
+#### Throws
+
+GeneralError when a named type reference cannot be resolved to a schema.
+
+***
+
+### resolveMappedUtilityBaseObjectSchema() {#resolvemappedutilitybaseobjectschema}
+
+> `static` **resolveMappedUtilityBaseObjectSchema**(`context`, `mappedSchema`): `IJsonSchema` \| `undefined`
+
+Resolve a mapped utility schema to an object schema when possible.
+
+#### Parameters
+
+##### context
+
+[`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
+
+The generation context.
+
+##### mappedSchema
+
+`IJsonSchema`
+
+The mapped schema.
 
 #### Returns
 
@@ -2041,6 +2101,74 @@ The resolved object schema.
 
 ***
 
+### findImportedTypeReference() {#findimportedtypereference}
+
+> `static` **findImportedTypeReference**(`context`, `typeName`): \{ `moduleSpecifier`: `string`; `candidateTypeName`: `string`; \} \| `undefined`
+
+Find an imported type reference from the active source file by local or exported symbol name.
+
+#### Parameters
+
+##### context
+
+[`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
+
+The generation context.
+
+##### typeName
+
+`string`
+
+The local or exported type name to find.
+
+#### Returns
+
+\{ `moduleSpecifier`: `string`; `candidateTypeName`: `string`; \} \| `undefined`
+
+The module specifier and exported candidate type name when found.
+
+***
+
+### resolveImportedObjectTypeSchemaForUtility() {#resolveimportedobjecttypeschemaforutility}
+
+> `static` **resolveImportedObjectTypeSchemaForUtility**(`context`, `moduleSpecifier`, `candidateTypeName`, `title`): `IJsonSchema` \| `undefined`
+
+Resolve an imported object schema for utility type application.
+
+#### Parameters
+
+##### context
+
+[`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
+
+The generation context.
+
+##### moduleSpecifier
+
+`string`
+
+The module where the type is imported from.
+
+##### candidateTypeName
+
+`string`
+
+The exported candidate type name.
+
+##### title
+
+`string`
+
+The stripped title of the requested type.
+
+#### Returns
+
+`IJsonSchema` \| `undefined`
+
+The resolved object schema.
+
+***
+
 ### mapObjectTypeFromLocalDeclaration() {#mapobjecttypefromlocaldeclaration}
 
 > `static` **mapObjectTypeFromLocalDeclaration**(`context`, `typeName`): `IJsonSchema` \| `undefined`
@@ -2085,9 +2213,9 @@ The generation context.
 
 ##### keysTypeNode
 
-The keys type node.
+`TypeNode` \| `undefined`
 
-`TypeNode` | `undefined`
+The keys type node.
 
 #### Returns
 
@@ -2141,9 +2269,9 @@ The generation context.
 
 ##### constraintTypeNode
 
-The mapped type constraint.
+`TypeNode` \| `undefined`
 
-`TypeNode` | `undefined`
+The mapped type constraint.
 
 #### Returns
 
@@ -2197,9 +2325,9 @@ The current generation context.
 
 ##### typeParameters
 
-The generic type parameters for the declaration.
+`NodeArray`\<`TypeParameterDeclaration`\> \| `undefined`
 
-`NodeArray`\<`TypeParameterDeclaration`\> | `undefined`
+The generic type parameters for the declaration.
 
 ##### typeArguments?
 
@@ -2423,9 +2551,9 @@ The mapped schema.
 
 ##### optionalToken
 
-The mapped type optional token.
+`QuestionToken` \| `PlusToken` \| `MinusToken` \| `undefined`
 
-`QuestionToken` | `PlusToken` | `MinusToken` | `undefined`
+The mapped type optional token.
 
 #### Returns
 
@@ -2455,9 +2583,9 @@ The generated property keys.
 
 ##### optionalToken
 
-The mapped type optional token.
+`QuestionToken` \| `PlusToken` \| `MinusToken` \| `undefined`
 
-`QuestionToken` | `PlusToken` | `MinusToken` | `undefined`
+The mapped type optional token.
 
 #### Returns
 

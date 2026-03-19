@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#oauth-flow-object
 
 ### authorizationUrl? {#authorizationurl}
 
-> `optional` **authorizationUrl**: `string`
+> `optional` **authorizationUrl?**: `string`
 
 The authorization URL for this flow.
 
@@ -18,7 +18,7 @@ The authorization URL for this flow.
 
 ### deviceAuthorizationUrl? {#deviceauthorizationurl}
 
-> `optional` **deviceAuthorizationUrl**: `string`
+> `optional` **deviceAuthorizationUrl?**: `string`
 
 The device authorization URL for this flow.
 
@@ -26,7 +26,7 @@ The device authorization URL for this flow.
 
 ### tokenUrl? {#tokenurl}
 
-> `optional` **tokenUrl**: `string`
+> `optional` **tokenUrl?**: `string`
 
 The token URL for this flow.
 
@@ -34,7 +34,7 @@ The token URL for this flow.
 
 ### refreshUrl? {#refreshurl}
 
-> `optional` **refreshUrl**: `string`
+> `optional` **refreshUrl?**: `string`
 
 The refresh URL for this flow.
 

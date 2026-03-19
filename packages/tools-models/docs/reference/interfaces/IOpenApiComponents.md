@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#components-object
 
 ### schemas? {#schemas}
 
-> `optional` **schemas**: `object`
+> `optional` **schemas?**: `object`
 
 Reusable schemas.
 
@@ -22,7 +22,7 @@ Reusable schemas.
 
 ### responses? {#responses}
 
-> `optional` **responses**: `object`
+> `optional` **responses?**: `object`
 
 Reusable responses.
 
@@ -34,7 +34,7 @@ Reusable responses.
 
 ### parameters? {#parameters}
 
-> `optional` **parameters**: `object`
+> `optional` **parameters?**: `object`
 
 Reusable parameters.
 
@@ -46,7 +46,7 @@ Reusable parameters.
 
 ### examples? {#examples}
 
-> `optional` **examples**: `object`
+> `optional` **examples?**: `object`
 
 Reusable examples.
 
@@ -58,7 +58,7 @@ Reusable examples.
 
 ### requestBodies? {#requestbodies}
 
-> `optional` **requestBodies**: `object`
+> `optional` **requestBodies?**: `object`
 
 Reusable request bodies.
 
@@ -70,7 +70,7 @@ Reusable request bodies.
 
 ### headers? {#headers}
 
-> `optional` **headers**: `object`
+> `optional` **headers?**: `object`
 
 Reusable headers.
 
@@ -82,7 +82,7 @@ Reusable headers.
 
 ### securitySchemes? {#securityschemes}
 
-> `optional` **securitySchemes**: `object`
+> `optional` **securitySchemes?**: `object`
 
 Reusable security schemes.
 
@@ -94,7 +94,7 @@ Reusable security schemes.
 
 ### pathItems? {#pathitems}
 
-> `optional` **pathItems**: `object`
+> `optional` **pathItems?**: `object`
 
 Reusable path items.
 
@@ -106,7 +106,7 @@ Reusable path items.
 
 ### mediaTypes? {#mediatypes}
 
-> `optional` **mediaTypes**: `object`
+> `optional` **mediaTypes?**: `object`
 
 Reusable media types.
 

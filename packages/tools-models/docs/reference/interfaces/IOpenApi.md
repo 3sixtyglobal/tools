@@ -22,7 +22,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### $self? {#self}
 
-> `optional` **$self**: `string`
+> `optional` **$self?**: `string`
 
 The self-assigned URI of the document.
 
@@ -46,7 +46,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### jsonSchemaDialect? {#jsonschemadialect}
 
-> `optional` **jsonSchemaDialect**: `string`
+> `optional` **jsonSchemaDialect?**: `string`
 
 The default JSON Schema dialect URI.
 
@@ -58,7 +58,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### servers? {#servers}
 
-> `optional` **servers**: [`IOpenApiServer`](IOpenApiServer.md)[]
+> `optional` **servers?**: [`IOpenApiServer`](IOpenApiServer.md)[]
 
 Connectivity information for target servers.
 
@@ -70,7 +70,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### paths? {#paths}
 
-> `optional` **paths**: `object`
+> `optional` **paths?**: `object`
 
 Available paths and operations.
 
@@ -86,7 +86,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### webhooks? {#webhooks}
 
-> `optional` **webhooks**: `object`
+> `optional` **webhooks?**: `object`
 
 Incoming webhooks keyed by name.
 
@@ -102,7 +102,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### components? {#components}
 
-> `optional` **components**: [`IOpenApiComponents`](IOpenApiComponents.md)
+> `optional` **components?**: [`IOpenApiComponents`](IOpenApiComponents.md)
 
 Reusable components.
 
@@ -114,7 +114,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### security? {#security}
 
-> `optional` **security**: [`IOpenApiSecurityRequirement`](IOpenApiSecurityRequirement.md)[]
+> `optional` **security?**: [`IOpenApiSecurityRequirement`](IOpenApiSecurityRequirement.md)[]
 
 API-wide security requirements.
 
@@ -126,7 +126,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### tags? {#tags}
 
-> `optional` **tags**: [`IOpenApiTag`](IOpenApiTag.md)[]
+> `optional` **tags?**: [`IOpenApiTag`](IOpenApiTag.md)[]
 
 Tags used by the API description.
 
@@ -138,7 +138,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields
 
 ### externalDocs? {#externaldocs}
 
-> `optional` **externalDocs**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
+> `optional` **externalDocs?**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
 
 Additional external documentation.
 

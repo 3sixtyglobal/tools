@@ -14,6 +14,86 @@ Utility helpers for TypeScript file and directory paths.
 
 ## Methods
 
+### fileExists() {#fileexists}
+
+> `static` **fileExists**(`filePath`): `boolean`
+
+Does the file exist.
+
+#### Parameters
+
+##### filePath
+
+`string`
+
+The file path.
+
+#### Returns
+
+`boolean`
+
+True if the file exists.
+
+***
+
+### readFile() {#readfile}
+
+> `static` **readFile**(`filePath`): `string`
+
+Read the file.
+
+#### Parameters
+
+##### filePath
+
+`string`
+
+The file path.
+
+#### Returns
+
+`string`
+
+The file contents.
+
+***
+
+### resolvePath() {#resolvepath}
+
+> `static` **resolvePath**(`filePath`): `string`
+
+Resolve a path.
+
+#### Parameters
+
+##### filePath
+
+`string`
+
+The file path.
+
+#### Returns
+
+`string`
+
+The resolved path.
+
+***
+
+### getCurrentWorkingDirectory() {#getcurrentworkingdirectory}
+
+> `static` **getCurrentWorkingDirectory**(): `string`
+
+Get the current working directory.
+
+#### Returns
+
+`string`
+
+The current working directory.
+
+***
+
 ### normalizeFilePath() {#normalizefilepath}
 
 > `static` **normalizeFilePath**(`filePath`): `string`

@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#external-documentation-object
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description of the target documentation.
 

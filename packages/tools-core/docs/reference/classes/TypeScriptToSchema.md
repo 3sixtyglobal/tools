@@ -74,9 +74,9 @@ The schema or source path associated with the diagnostic.
 
 ##### fileName
 
-The source filename associated with the diagnostic.
+`string` \| `undefined`
 
-`string` | `undefined`
+The source filename associated with the diagnostic.
 
 ##### packageName
 

@@ -8,7 +8,7 @@ https://spec.openapis.org/oas/latest.html#responses-object
 
 ## Indexable
 
-\[`code`: `string`\]: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiResponse`](IOpenApiResponse.md) \| `undefined`
+> \[`code`: `string`\]: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiResponse`](IOpenApiResponse.md) \| `undefined`
 
 Named HTTP status code or status code range responses.
 
@@ -20,7 +20,7 @@ https://spec.openapis.org/oas/latest.html#patterned-fields-0
 
 ### default? {#default}
 
-> `optional` **default**: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiResponse`](IOpenApiResponse.md)
+> `optional` **default?**: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiResponse`](IOpenApiResponse.md)
 
 The default response for otherwise undeclared status codes.
 

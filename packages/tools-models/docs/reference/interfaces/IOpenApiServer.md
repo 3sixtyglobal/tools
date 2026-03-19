@@ -22,7 +22,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-3
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description of the server.
 
@@ -34,7 +34,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-3
 
 ### name? {#name}
 
-> `optional` **name**: `string`
+> `optional` **name?**: `string`
 
 A unique server name.
 
@@ -46,7 +46,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-3
 
 ### variables? {#variables}
 
-> `optional` **variables**: `object`
+> `optional` **variables?**: `object`
 
 URL template variables.
 

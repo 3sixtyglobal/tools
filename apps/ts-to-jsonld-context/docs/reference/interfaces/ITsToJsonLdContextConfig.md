@@ -22,7 +22,7 @@ The base URL for the context e.g. https://schema.twindev.org/common/
 
 ### additionalContextUrls? {#additionalcontexturls}
 
-> `optional` **additionalContextUrls**: `object`
+> `optional` **additionalContextUrls?**: `object`
 
 Additional context URLs to include in the context.
 
@@ -34,7 +34,7 @@ Additional context URLs to include in the context.
 
 ### fixedMappings? {#fixedmappings}
 
-> `optional` **fixedMappings**: `object`
+> `optional` **fixedMappings?**: `object`
 
 Fixed mappings to include in the context.
 
@@ -54,7 +54,7 @@ The source files to generate the types from.
 
 ### includeProtected? {#includeprotected}
 
-> `optional` **includeProtected**: `boolean`
+> `optional` **includeProtected?**: `boolean`
 
 Whether to include protected properties in the generated context.
 

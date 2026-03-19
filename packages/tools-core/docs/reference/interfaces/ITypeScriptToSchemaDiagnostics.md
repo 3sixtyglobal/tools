@@ -14,7 +14,7 @@ Stable diagnostic code identifying the issue type.
 
 ### properties? {#properties}
 
-> `optional` **properties**: `object`
+> `optional` **properties?**: `object`
 
 Additional structured metadata related to the diagnostic.
 
@@ -34,7 +34,7 @@ Schema path where the issue was detected.
 
 ### fileName? {#filename}
 
-> `optional` **fileName**: `string`
+> `optional` **fileName?**: `string`
 
 Source file where the diagnostic originated, if available.
 
@@ -42,7 +42,7 @@ Source file where the diagnostic originated, if available.
 
 ### line? {#line}
 
-> `optional` **line**: `number`
+> `optional` **line?**: `number`
 
 One-based source line number, when available.
 
@@ -50,6 +50,6 @@ One-based source line number, when available.
 
 ### column? {#column}
 
-> `optional` **column**: `number`
+> `optional` **column?**: `number`
 
 One-based source column number, when available.

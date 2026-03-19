@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#server-variable-object
 
 ### enum? {#enum}
 
-> `optional` **enum**: `string`[]
+> `optional` **enum?**: `string`[]
 
 Allowed substitution values.
 
@@ -34,7 +34,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-4
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description of the variable.
 

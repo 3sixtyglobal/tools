@@ -18,7 +18,7 @@ The reference identifier.
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A summary override for the referenced object.
 
@@ -26,6 +26,6 @@ A summary override for the referenced object.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description override for the referenced object.

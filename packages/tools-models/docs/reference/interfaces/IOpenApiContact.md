@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#contact-object
 
 ### name? {#name}
 
-> `optional` **name**: `string`
+> `optional` **name?**: `string`
 
 The identifying name of the contact person or organisation.
 
@@ -22,7 +22,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-1
 
 ### url? {#url}
 
-> `optional` **url**: `string`
+> `optional` **url?**: `string`
 
 The URI for the contact information.
 
@@ -34,7 +34,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-1
 
 ### email? {#email}
 
-> `optional` **email**: `string`
+> `optional` **email?**: `string`
 
 The email address for the contact.
 

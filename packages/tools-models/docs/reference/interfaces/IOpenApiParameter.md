@@ -26,7 +26,7 @@ The location of the parameter.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A brief description of the parameter.
 
@@ -34,7 +34,7 @@ A brief description of the parameter.
 
 ### required? {#required}
 
-> `optional` **required**: `boolean`
+> `optional` **required?**: `boolean`
 
 Whether the parameter is required.
 
@@ -42,7 +42,7 @@ Whether the parameter is required.
 
 ### deprecated? {#deprecated}
 
-> `optional` **deprecated**: `boolean`
+> `optional` **deprecated?**: `boolean`
 
 Whether the parameter is deprecated.
 
@@ -50,7 +50,7 @@ Whether the parameter is deprecated.
 
 ### allowEmptyValue? {#allowemptyvalue}
 
-> `optional` **allowEmptyValue**: `boolean`
+> `optional` **allowEmptyValue?**: `boolean`
 
 Whether empty values are allowed for query parameters.
 
@@ -58,7 +58,7 @@ Whether empty values are allowed for query parameters.
 
 ### example? {#example}
 
-> `optional` **example**: `unknown`
+> `optional` **example?**: `unknown`
 
 A shorthand example for the parameter.
 
@@ -66,7 +66,7 @@ A shorthand example for the parameter.
 
 ### examples? {#examples}
 
-> `optional` **examples**: `object`
+> `optional` **examples?**: `object`
 
 Named examples for the parameter.
 
@@ -78,7 +78,7 @@ Named examples for the parameter.
 
 ### style? {#style}
 
-> `optional` **style**: [`OpenApiParameterStyle`](../type-aliases/OpenApiParameterStyle.md)
+> `optional` **style?**: [`OpenApiParameterStyle`](../type-aliases/OpenApiParameterStyle.md)
 
 The serialization style for the parameter.
 
@@ -86,7 +86,7 @@ The serialization style for the parameter.
 
 ### explode? {#explode}
 
-> `optional` **explode**: `boolean`
+> `optional` **explode?**: `boolean`
 
 Whether exploded serialization is used.
 
@@ -94,7 +94,7 @@ Whether exploded serialization is used.
 
 ### allowReserved? {#allowreserved}
 
-> `optional` **allowReserved**: `boolean`
+> `optional` **allowReserved?**: `boolean`
 
 Whether reserved characters may pass through unchanged.
 
@@ -102,7 +102,7 @@ Whether reserved characters may pass through unchanged.
 
 ### schema? {#schema}
 
-> `optional` **schema**: [`IJsonSchema`](IJsonSchema.md)
+> `optional` **schema?**: [`IJsonSchema`](IJsonSchema.md)
 
 The schema describing the parameter.
 
@@ -110,7 +110,7 @@ The schema describing the parameter.
 
 ### content? {#content}
 
-> `optional` **content**: `object`
+> `optional` **content?**: `object`
 
 Content-based parameter serialization.
 

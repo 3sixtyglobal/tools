@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#header-object
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 The description of the header.
 
@@ -18,7 +18,7 @@ The description of the header.
 
 ### required? {#required}
 
-> `optional` **required**: `boolean`
+> `optional` **required?**: `boolean`
 
 Whether the header is required.
 
@@ -26,7 +26,7 @@ Whether the header is required.
 
 ### deprecated? {#deprecated}
 
-> `optional` **deprecated**: `boolean`
+> `optional` **deprecated?**: `boolean`
 
 Whether the header is deprecated.
 
@@ -34,7 +34,7 @@ Whether the header is deprecated.
 
 ### example? {#example}
 
-> `optional` **example**: `unknown`
+> `optional` **example?**: `unknown`
 
 A shorthand example for the header.
 
@@ -42,7 +42,7 @@ A shorthand example for the header.
 
 ### examples? {#examples}
 
-> `optional` **examples**: `object`
+> `optional` **examples?**: `object`
 
 Named examples for the header.
 
@@ -54,7 +54,7 @@ Named examples for the header.
 
 ### style? {#style}
 
-> `optional` **style**: `"simple"`
+> `optional` **style?**: `"simple"`
 
 The serialization style for the header.
 
@@ -62,7 +62,7 @@ The serialization style for the header.
 
 ### explode? {#explode}
 
-> `optional` **explode**: `boolean`
+> `optional` **explode?**: `boolean`
 
 Whether exploded serialization is used.
 
@@ -70,7 +70,7 @@ Whether exploded serialization is used.
 
 ### schema? {#schema}
 
-> `optional` **schema**: [`IJsonSchema`](IJsonSchema.md)
+> `optional` **schema?**: [`IJsonSchema`](IJsonSchema.md)
 
 The schema of the header.
 
@@ -78,7 +78,7 @@ The schema of the header.
 
 ### content? {#content}
 
-> `optional` **content**: `object`
+> `optional` **content?**: `object`
 
 The content definition for the header.
 

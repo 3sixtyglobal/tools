@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#media-type-object
 
 ### schema? {#schema}
 
-> `optional` **schema**: [`IJsonSchema`](IJsonSchema.md)
+> `optional` **schema?**: [`IJsonSchema`](IJsonSchema.md)
 
 A schema describing the complete content.
 
@@ -18,7 +18,7 @@ A schema describing the complete content.
 
 ### itemSchema? {#itemschema}
 
-> `optional` **itemSchema**: [`IJsonSchema`](IJsonSchema.md)
+> `optional` **itemSchema?**: [`IJsonSchema`](IJsonSchema.md)
 
 A schema describing each item within a sequential media type.
 
@@ -26,7 +26,7 @@ A schema describing each item within a sequential media type.
 
 ### example? {#example}
 
-> `optional` **example**: `unknown`
+> `optional` **example?**: `unknown`
 
 A single shorthand example.
 
@@ -34,7 +34,7 @@ A single shorthand example.
 
 ### examples? {#examples}
 
-> `optional` **examples**: `object`
+> `optional` **examples?**: `object`
 
 Named examples for the media type.
 
@@ -46,7 +46,7 @@ Named examples for the media type.
 
 ### encoding? {#encoding}
 
-> `optional` **encoding**: `object`
+> `optional` **encoding?**: `object`
 
 Encoding metadata keyed by property name.
 
@@ -58,7 +58,7 @@ Encoding metadata keyed by property name.
 
 ### prefixEncoding? {#prefixencoding}
 
-> `optional` **prefixEncoding**: `unknown`[]
+> `optional` **prefixEncoding?**: `unknown`[]
 
 Positional encoding metadata for multipart payloads.
 
@@ -66,6 +66,6 @@ Positional encoding metadata for multipart payloads.
 
 ### itemEncoding? {#itemencoding}
 
-> `optional` **itemEncoding**: `unknown`
+> `optional` **itemEncoding?**: `unknown`
 
 Repeating item encoding metadata for multipart payloads.

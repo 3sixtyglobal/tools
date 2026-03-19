@@ -14,7 +14,7 @@ Match the name of the exported entry point.
 
 ### baseRoutePath? {#baseroutepath}
 
-> `optional` **baseRoutePath**: `string`
+> `optional` **baseRoutePath?**: `string`
 
 The base route path to use, defaults to the one in the entry point.
 
@@ -22,6 +22,6 @@ The base route path to use, defaults to the one in the entry point.
 
 ### operationIdDistinguisher? {#operationiddistinguisher}
 
-> `optional` **operationIdDistinguisher**: `string`
+> `optional` **operationIdDistinguisher?**: `string`
 
 If using the same routes on multiple paths use the distinguisher to avoid operationId clashes, will be appended to operationIds.

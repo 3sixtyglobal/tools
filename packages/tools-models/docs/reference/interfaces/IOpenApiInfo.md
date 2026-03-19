@@ -22,7 +22,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-0
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A short summary of the API.
 
@@ -34,7 +34,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-0
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description of the API.
 
@@ -46,7 +46,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-0
 
 ### termsOfService? {#termsofservice}
 
-> `optional` **termsOfService**: `string`
+> `optional` **termsOfService?**: `string`
 
 The terms of service URI.
 
@@ -58,7 +58,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-0
 
 ### contact? {#contact}
 
-> `optional` **contact**: [`IOpenApiContact`](IOpenApiContact.md)
+> `optional` **contact?**: [`IOpenApiContact`](IOpenApiContact.md)
 
 Contact information for the API.
 
@@ -70,7 +70,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-0
 
 ### license? {#license}
 
-> `optional` **license**: [`IOpenApiLicense`](IOpenApiLicense.md)
+> `optional` **license?**: [`IOpenApiLicense`](IOpenApiLicense.md)
 
 License information for the API.
 

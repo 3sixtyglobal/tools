@@ -6,7 +6,7 @@ Options for TypeScript to JSON schema generation.
 
 ### externalReferences? {#externalreferences}
 
-> `optional` **externalReferences**: `object`
+> `optional` **externalReferences?**: `object`
 
 Mapping of package ids, type ids, wildcard patterns, or regex patterns to schema id prefixes
 or replacement templates for referenced schemas.
@@ -17,9 +17,9 @@ or replacement templates for referenced schemas.
 
 ***
 
-### onDiagnostic()? {#ondiagnostic}
+### onDiagnostic? {#ondiagnostic}
 
-> `optional` **onDiagnostic**: (`diagnostic`) => `void`
+> `optional` **onDiagnostic?**: (`diagnostic`) => `void`
 
 Optional diagnostic callback for non-fatal generation issues.
 
@@ -39,6 +39,6 @@ The diagnostic details for the generation issue.
 
 ### suppressPackageWarnings? {#suppresspackagewarnings}
 
-> `optional` **suppressPackageWarnings**: `string`[]
+> `optional` **suppressPackageWarnings?**: `string`[]
 
 Package names where diagnostics should be suppressed, e.g. jose.

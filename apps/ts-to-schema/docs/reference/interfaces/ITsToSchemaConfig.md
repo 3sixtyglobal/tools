@@ -22,7 +22,7 @@ The source files to generate the types from.
 
 ### externalReferences? {#externalreferences}
 
-> `optional` **externalReferences**: `object`
+> `optional` **externalReferences?**: `object`
 
 External type references.
 
@@ -34,6 +34,6 @@ External type references.
 
 ### suppressPackageWarnings? {#suppresspackagewarnings}
 
-> `optional` **suppressPackageWarnings**: `string`[]
+> `optional` **suppressPackageWarnings?**: `string`[]
 
 Package names where diagnostics should be suppressed, e.g. jose.

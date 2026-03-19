@@ -8,7 +8,7 @@ https://json-schema.org/draft/2020-12/json-schema-core
 
 ## Indexable
 
-\[`key`: `string`\]: `unknown`
+> \[`key`: `string`\]: `unknown`
 
 Allow additional extension keywords.
 
@@ -21,7 +21,7 @@ Allow additional extension keywords.
 
 ### $schema? {#schema}
 
-> `optional` **$schema**: `string`
+> `optional` **$schema?**: `string`
 
 Dialect URI for the schema document.
 
@@ -34,7 +34,7 @@ Dialect URI for the schema document.
 
 ### $id? {#id}
 
-> `optional` **$id**: `string`
+> `optional` **$id?**: `string`
 
 Canonical identifier for the schema resource.
 
@@ -47,7 +47,7 @@ Canonical identifier for the schema resource.
 
 ### $ref? {#ref}
 
-> `optional` **$ref**: `string`
+> `optional` **$ref?**: `string`
 
 Reference to another schema resource.
 
@@ -60,7 +60,7 @@ Reference to another schema resource.
 
 ### $anchor? {#anchor}
 
-> `optional` **$anchor**: `string`
+> `optional` **$anchor?**: `string`
 
 Location-independent identifier fragment.
 
@@ -73,7 +73,7 @@ Location-independent identifier fragment.
 
 ### $dynamicRef? {#dynamicref}
 
-> `optional` **$dynamicRef**: `string`
+> `optional` **$dynamicRef?**: `string`
 
 Runtime-resolved dynamic schema reference.
 
@@ -86,7 +86,7 @@ Runtime-resolved dynamic schema reference.
 
 ### $dynamicAnchor? {#dynamicanchor}
 
-> `optional` **$dynamicAnchor**: `string`
+> `optional` **$dynamicAnchor?**: `string`
 
 Dynamic extension point anchor.
 
@@ -99,7 +99,7 @@ Dynamic extension point anchor.
 
 ### $vocabulary? {#vocabulary}
 
-> `optional` **$vocabulary**: `object`
+> `optional` **$vocabulary?**: `object`
 
 Declares vocabularies for a meta-schema dialect.
 
@@ -116,7 +116,7 @@ Declares vocabularies for a meta-schema dialect.
 
 ### $comment? {#comment}
 
-> `optional` **$comment**: `string`
+> `optional` **$comment?**: `string`
 
 Maintainer comment for tools.
 
@@ -129,7 +129,7 @@ Maintainer comment for tools.
 
 ### $defs? {#defs}
 
-> `optional` **$defs**: `object`
+> `optional` **$defs?**: `object`
 
 Reusable inlined schema definitions.
 
@@ -146,7 +146,7 @@ Reusable inlined schema definitions.
 
 ### title? {#title}
 
-> `optional` **title**: `string`
+> `optional` **title?**: `string`
 
 Human-friendly schema title.
 
@@ -159,7 +159,7 @@ Human-friendly schema title.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 Human-friendly schema description.
 
@@ -172,7 +172,7 @@ Human-friendly schema description.
 
 ### type? {#type}
 
-> `optional` **type**: `string` \| `string`[]
+> `optional` **type?**: `string` \| `string`[]
 
 Constrain allowed JSON value types.
 
@@ -185,7 +185,7 @@ Constrain allowed JSON value types.
 
 ### properties? {#properties}
 
-> `optional` **properties**: `object`
+> `optional` **properties?**: `object`
 
 Property schemas for object members.
 
@@ -202,7 +202,7 @@ Property schemas for object members.
 
 ### patternProperties? {#patternproperties}
 
-> `optional` **patternProperties**: `object`
+> `optional` **patternProperties?**: `object`
 
 Property schemas selected by regex on property names.
 
@@ -219,7 +219,7 @@ Property schemas selected by regex on property names.
 
 ### required? {#required}
 
-> `optional` **required**: `string`[]
+> `optional` **required?**: `string`[]
 
 Object property names that must be present.
 
@@ -232,7 +232,7 @@ Object property names that must be present.
 
 ### dependentSchemas? {#dependentschemas}
 
-> `optional` **dependentSchemas**: `object`
+> `optional` **dependentSchemas?**: `object`
 
 Property-level schema dependencies.
 
@@ -249,7 +249,7 @@ Property-level schema dependencies.
 
 ### dependentRequired? {#dependentrequired}
 
-> `optional` **dependentRequired**: `object`
+> `optional` **dependentRequired?**: `object`
 
 Property-level required-key dependencies.
 
@@ -266,7 +266,7 @@ Property-level required-key dependencies.
 
 ### items? {#items}
 
-> `optional` **items**: `boolean` \| `IJsonSchema`
+> `optional` **items?**: `boolean` \| `IJsonSchema`
 
 Schema for array items (or boolean form).
 
@@ -279,7 +279,7 @@ Schema for array items (or boolean form).
 
 ### prefixItems? {#prefixitems}
 
-> `optional` **prefixItems**: `IJsonSchema`[]
+> `optional` **prefixItems?**: `IJsonSchema`[]
 
 Tuple-style schemas for leading array positions.
 
@@ -292,7 +292,7 @@ Tuple-style schemas for leading array positions.
 
 ### additionalProperties? {#additionalproperties}
 
-> `optional` **additionalProperties**: `boolean` \| `IJsonSchema`
+> `optional` **additionalProperties?**: `boolean` \| `IJsonSchema`
 
 Schema for properties not listed in properties/patternProperties.
 
@@ -305,7 +305,7 @@ Schema for properties not listed in properties/patternProperties.
 
 ### anyOf? {#anyof}
 
-> `optional` **anyOf**: `IJsonSchema`[]
+> `optional` **anyOf?**: `IJsonSchema`[]
 
 Union where at least one branch schema must match.
 
@@ -318,7 +318,7 @@ Union where at least one branch schema must match.
 
 ### allOf? {#allof}
 
-> `optional` **allOf**: `IJsonSchema`[]
+> `optional` **allOf?**: `IJsonSchema`[]
 
 Intersection where all branch schemas must match.
 
@@ -331,7 +331,7 @@ Intersection where all branch schemas must match.
 
 ### oneOf? {#oneof}
 
-> `optional` **oneOf**: `IJsonSchema`[]
+> `optional` **oneOf?**: `IJsonSchema`[]
 
 Exactly one branch schema must match.
 
@@ -344,7 +344,7 @@ Exactly one branch schema must match.
 
 ### not? {#not}
 
-> `optional` **not**: `IJsonSchema`
+> `optional` **not?**: `IJsonSchema`
 
 Negated schema condition.
 
@@ -357,7 +357,7 @@ Negated schema condition.
 
 ### if? {#if}
 
-> `optional` **if**: `IJsonSchema`
+> `optional` **if?**: `IJsonSchema`
 
 Condition schema for conditional application.
 
@@ -370,7 +370,7 @@ Condition schema for conditional application.
 
 ### then? {#then}
 
-> `optional` **then**: `IJsonSchema`
+> `optional` **then?**: `IJsonSchema`
 
 Schema applied when if matches.
 
@@ -383,7 +383,7 @@ Schema applied when if matches.
 
 ### else? {#else}
 
-> `optional` **else**: `IJsonSchema`
+> `optional` **else?**: `IJsonSchema`
 
 Schema applied when if does not match.
 
@@ -396,7 +396,7 @@ Schema applied when if does not match.
 
 ### contains? {#contains}
 
-> `optional` **contains**: `IJsonSchema`
+> `optional` **contains?**: `IJsonSchema`
 
 Array must contain at least one matching item.
 
@@ -409,7 +409,7 @@ Array must contain at least one matching item.
 
 ### propertyNames? {#propertynames}
 
-> `optional` **propertyNames**: `IJsonSchema`
+> `optional` **propertyNames?**: `IJsonSchema`
 
 Schema for validating object property names.
 
@@ -422,7 +422,7 @@ Schema for validating object property names.
 
 ### const? {#const}
 
-> `optional` **const**: `unknown`
+> `optional` **const?**: `unknown`
 
 Single fixed value constraint.
 
@@ -435,7 +435,7 @@ Single fixed value constraint.
 
 ### enum? {#enum}
 
-> `optional` **enum**: `unknown`[]
+> `optional` **enum?**: `unknown`[]
 
 Enumerated set of allowed values.
 
@@ -448,7 +448,7 @@ Enumerated set of allowed values.
 
 ### examples? {#examples}
 
-> `optional` **examples**: `unknown`[]
+> `optional` **examples?**: `unknown`[]
 
 Example instances for documentation tooling.
 
@@ -461,7 +461,7 @@ Example instances for documentation tooling.
 
 ### default? {#default}
 
-> `optional` **default**: `unknown`
+> `optional` **default?**: `unknown`
 
 Suggested default instance value.
 
@@ -474,7 +474,7 @@ Suggested default instance value.
 
 ### format? {#format}
 
-> `optional` **format**: `string`
+> `optional` **format?**: `string`
 
 Semantic format annotation.
 
@@ -487,7 +487,7 @@ Semantic format annotation.
 
 ### pattern? {#pattern}
 
-> `optional` **pattern**: `string`
+> `optional` **pattern?**: `string`
 
 Regular expression that strings must match.
 
@@ -500,7 +500,7 @@ Regular expression that strings must match.
 
 ### contentEncoding? {#contentencoding}
 
-> `optional` **contentEncoding**: `string`
+> `optional` **contentEncoding?**: `string`
 
 Content encoding annotation for string instances.
 
@@ -513,7 +513,7 @@ Content encoding annotation for string instances.
 
 ### contentMediaType? {#contentmediatype}
 
-> `optional` **contentMediaType**: `string`
+> `optional` **contentMediaType?**: `string`
 
 Media type annotation for string content.
 
@@ -526,7 +526,7 @@ Media type annotation for string content.
 
 ### contentSchema? {#contentschema}
 
-> `optional` **contentSchema**: `IJsonSchema`
+> `optional` **contentSchema?**: `IJsonSchema`
 
 Schema for the decoded content payload.
 
@@ -539,7 +539,7 @@ Schema for the decoded content payload.
 
 ### readOnly? {#readonly}
 
-> `optional` **readOnly**: `boolean`
+> `optional` **readOnly?**: `boolean`
 
 Annotation indicating read-only semantics.
 
@@ -552,7 +552,7 @@ Annotation indicating read-only semantics.
 
 ### writeOnly? {#writeonly}
 
-> `optional` **writeOnly**: `boolean`
+> `optional` **writeOnly?**: `boolean`
 
 Annotation indicating write-only semantics.
 
@@ -565,7 +565,7 @@ Annotation indicating write-only semantics.
 
 ### deprecated? {#deprecated}
 
-> `optional` **deprecated**: `boolean`
+> `optional` **deprecated?**: `boolean`
 
 Annotation indicating deprecation.
 
@@ -578,7 +578,7 @@ Annotation indicating deprecation.
 
 ### discriminator? {#discriminator}
 
-> `optional` **discriminator**: `object`
+> `optional` **discriminator?**: `object`
 
 Non-standard extension used by some tooling ecosystems.
 
@@ -590,7 +590,7 @@ Non-standard extension used by some tooling ecosystems.
 
 ### minLength? {#minlength}
 
-> `optional` **minLength**: `number`
+> `optional` **minLength?**: `number`
 
 Minimum length for strings.
 
@@ -603,7 +603,7 @@ Minimum length for strings.
 
 ### maxLength? {#maxlength}
 
-> `optional` **maxLength**: `number`
+> `optional` **maxLength?**: `number`
 
 Maximum length for strings.
 
@@ -616,7 +616,7 @@ Maximum length for strings.
 
 ### minimum? {#minimum}
 
-> `optional` **minimum**: `number`
+> `optional` **minimum?**: `number`
 
 Inclusive lower numeric bound.
 
@@ -629,7 +629,7 @@ Inclusive lower numeric bound.
 
 ### maximum? {#maximum}
 
-> `optional` **maximum**: `number`
+> `optional` **maximum?**: `number`
 
 Inclusive upper numeric bound.
 
@@ -642,7 +642,7 @@ Inclusive upper numeric bound.
 
 ### exclusiveMinimum? {#exclusiveminimum}
 
-> `optional` **exclusiveMinimum**: `number`
+> `optional` **exclusiveMinimum?**: `number`
 
 Exclusive lower numeric bound.
 
@@ -655,7 +655,7 @@ Exclusive lower numeric bound.
 
 ### exclusiveMaximum? {#exclusivemaximum}
 
-> `optional` **exclusiveMaximum**: `number`
+> `optional` **exclusiveMaximum?**: `number`
 
 Exclusive upper numeric bound.
 
@@ -668,7 +668,7 @@ Exclusive upper numeric bound.
 
 ### multipleOf? {#multipleof}
 
-> `optional` **multipleOf**: `number`
+> `optional` **multipleOf?**: `number`
 
 Numeric divisor constraint.
 
@@ -681,7 +681,7 @@ Numeric divisor constraint.
 
 ### minItems? {#minitems}
 
-> `optional` **minItems**: `number`
+> `optional` **minItems?**: `number`
 
 Minimum array length.
 
@@ -694,7 +694,7 @@ Minimum array length.
 
 ### maxItems? {#maxitems}
 
-> `optional` **maxItems**: `number`
+> `optional` **maxItems?**: `number`
 
 Maximum array length.
 
@@ -707,7 +707,7 @@ Maximum array length.
 
 ### uniqueItems? {#uniqueitems}
 
-> `optional` **uniqueItems**: `boolean`
+> `optional` **uniqueItems?**: `boolean`
 
 Require array elements to be unique.
 
@@ -720,7 +720,7 @@ Require array elements to be unique.
 
 ### minProperties? {#minproperties}
 
-> `optional` **minProperties**: `number`
+> `optional` **minProperties?**: `number`
 
 Minimum number of object properties.
 
@@ -733,7 +733,7 @@ Minimum number of object properties.
 
 ### maxProperties? {#maxproperties}
 
-> `optional` **maxProperties**: `number`
+> `optional` **maxProperties?**: `number`
 
 Maximum number of object properties.
 
@@ -746,7 +746,7 @@ Maximum number of object properties.
 
 ### minContains? {#mincontains}
 
-> `optional` **minContains**: `number`
+> `optional` **minContains?**: `number`
 
 Minimum number of contains matches.
 
@@ -759,7 +759,7 @@ Minimum number of contains matches.
 
 ### maxContains? {#maxcontains}
 
-> `optional` **maxContains**: `number`
+> `optional` **maxContains?**: `number`
 
 Maximum number of contains matches.
 
@@ -772,7 +772,7 @@ Maximum number of contains matches.
 
 ### unevaluatedItems? {#unevaluateditems}
 
-> `optional` **unevaluatedItems**: `boolean` \| `IJsonSchema`
+> `optional` **unevaluatedItems?**: `boolean` \| `IJsonSchema`
 
 Schema applied to array items not yet evaluated by adjacent applicators.
 
@@ -785,7 +785,7 @@ Schema applied to array items not yet evaluated by adjacent applicators.
 
 ### unevaluatedProperties? {#unevaluatedproperties}
 
-> `optional` **unevaluatedProperties**: `boolean` \| `IJsonSchema`
+> `optional` **unevaluatedProperties?**: `boolean` \| `IJsonSchema`
 
 Schema applied to object properties not yet evaluated by adjacent applicators.
 

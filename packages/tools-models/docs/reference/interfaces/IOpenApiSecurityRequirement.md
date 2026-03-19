@@ -8,4 +8,4 @@ https://spec.openapis.org/oas/latest.html#security-requirement-object
 
 ## Indexable
 
-\[`name`: `string`\]: `string`[]
+> \[`name`: `string`\]: `string`[]

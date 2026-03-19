@@ -34,7 +34,7 @@ The schema cache indexed by package and title.
 
 ### activeSourceFile? {#activesourcefile}
 
-> `optional` **activeSourceFile**: `SourceFile`
+> `optional` **activeSourceFile?**: `SourceFile`
 
 The currently active source file being mapped.
 
@@ -42,7 +42,7 @@ The currently active source file being mapped.
 
 ### activeEnclosingObjectName? {#activeenclosingobjectname}
 
-> `optional` **activeEnclosingObjectName**: `string`
+> `optional` **activeEnclosingObjectName?**: `string`
 
 The currently active enclosing object (interface/type) being mapped.
 
@@ -50,7 +50,7 @@ The currently active enclosing object (interface/type) being mapped.
 
 ### activeDisallowedType? {#activedisallowedtype}
 
-> `optional` **activeDisallowedType**: `object`
+> `optional` **activeDisallowedType?**: `object`
 
 The first disallowed type encountered while mapping the active enclosing object.
 
@@ -70,15 +70,33 @@ The first disallowed type encountered while mapping the active enclosing object.
 
 ### resolvingTypeNames? {#resolvingtypenames}
 
-> `optional` **resolvingTypeNames**: `Set`\<`string`\>
+> `optional` **resolvingTypeNames?**: `Set`\<`string`\>
 
 Type names currently being resolved to avoid recursive local-type expansion loops.
 
 ***
 
+### resolvingUtilityTypes? {#resolvingutilitytypes}
+
+> `optional` **resolvingUtilityTypes?**: `Set`\<`string`\>
+
+Utility type names currently being processed to avoid infinite recursion cycles
+when encountering complex combinations of indexed access types, keyof, and utility types.
+
+***
+
+### resolvingImportedObjectSchemas? {#resolvingimportedobjectschemas}
+
+> `optional` **resolvingImportedObjectSchemas?**: `Set`\<`string`\>
+
+Imported utility base schemas currently being resolved to avoid recursive re-entry
+while parsing module graphs for utility type application.
+
+***
+
 ### typeParameterBindings? {#typeparameterbindings}
 
-> `optional` **typeParameterBindings**: `object`
+> `optional` **typeParameterBindings?**: `object`
 
 Generic type parameter bindings active for the current mapping scope.
 
@@ -90,6 +108,6 @@ Generic type parameter bindings active for the current mapping scope.
 
 ### options? {#options}
 
-> `optional` **options**: [`ITypeScriptToSchemaOptions`](ITypeScriptToSchemaOptions.md)
+> `optional` **options?**: [`ITypeScriptToSchemaOptions`](ITypeScriptToSchemaOptions.md)
 
 Optional schema generation options.

@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#path-item-object
 
 ### $ref? {#ref}
 
-> `optional` **$ref**: `string`
+> `optional` **$ref?**: `string`
 
 A referenced definition of this path item.
 
@@ -18,7 +18,7 @@ A referenced definition of this path item.
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A summary applying to all operations in the path.
 
@@ -26,7 +26,7 @@ A summary applying to all operations in the path.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description applying to all operations in the path.
 
@@ -34,7 +34,7 @@ A description applying to all operations in the path.
 
 ### get? {#get}
 
-> `optional` **get**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **get?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A GET operation on the path.
 
@@ -42,7 +42,7 @@ A GET operation on the path.
 
 ### put? {#put}
 
-> `optional` **put**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **put?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A PUT operation on the path.
 
@@ -50,7 +50,7 @@ A PUT operation on the path.
 
 ### post? {#post}
 
-> `optional` **post**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **post?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A POST operation on the path.
 
@@ -58,7 +58,7 @@ A POST operation on the path.
 
 ### delete? {#delete}
 
-> `optional` **delete**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **delete?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A DELETE operation on the path.
 
@@ -66,7 +66,7 @@ A DELETE operation on the path.
 
 ### options? {#options}
 
-> `optional` **options**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **options?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 An OPTIONS operation on the path.
 
@@ -74,7 +74,7 @@ An OPTIONS operation on the path.
 
 ### head? {#head}
 
-> `optional` **head**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **head?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A HEAD operation on the path.
 
@@ -82,7 +82,7 @@ A HEAD operation on the path.
 
 ### patch? {#patch}
 
-> `optional` **patch**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **patch?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A PATCH operation on the path.
 
@@ -90,7 +90,7 @@ A PATCH operation on the path.
 
 ### trace? {#trace}
 
-> `optional` **trace**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **trace?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A TRACE operation on the path.
 
@@ -98,7 +98,7 @@ A TRACE operation on the path.
 
 ### query? {#query}
 
-> `optional` **query**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
+> `optional` **query?**: [`IOpenApiPathMethod`](IOpenApiPathMethod.md)
 
 A QUERY operation on the path.
 
@@ -106,7 +106,7 @@ A QUERY operation on the path.
 
 ### additionalOperations? {#additionaloperations}
 
-> `optional` **additionalOperations**: `object`
+> `optional` **additionalOperations?**: `object`
 
 Additional non-standard HTTP operations keyed by method name.
 
@@ -118,7 +118,7 @@ Additional non-standard HTTP operations keyed by method name.
 
 ### servers? {#servers}
 
-> `optional` **servers**: [`IOpenApiServer`](IOpenApiServer.md)[]
+> `optional` **servers?**: [`IOpenApiServer`](IOpenApiServer.md)[]
 
 Alternative servers for this path.
 
@@ -126,6 +126,6 @@ Alternative servers for this path.
 
 ### parameters? {#parameters}
 
-> `optional` **parameters**: ([`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiParameter`](IOpenApiParameter.md))[]
+> `optional` **parameters?**: ([`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiParameter`](IOpenApiParameter.md))[]
 
 Shared parameters for all operations on this path.

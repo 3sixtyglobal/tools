@@ -54,7 +54,7 @@ The servers for the endpoints.
 
 ### authMethods? {#authmethods}
 
-> `optional` **authMethods**: `string`[]
+> `optional` **authMethods?**: `string`[]
 
 The authentication methods.
 
@@ -68,25 +68,25 @@ The packages containing routes.
 
 #### package?
 
-> `optional` **package**: `string`
+> `optional` **package?**: `string`
 
 The package containing the routes.
 
 #### version?
 
-> `optional` **version**: `string`
+> `optional` **version?**: `string`
 
 The version of the package to use, defaults to latest.
 
 #### packageRoot?
 
-> `optional` **packageRoot**: `string`
+> `optional` **packageRoot?**: `string`
 
 To point to a local instance of a package use this property instead of package/version.
 
 #### entryPoints?
 
-> `optional` **entryPoints**: [`ITsToOpenApiConfigEntryPoint`](ITsToOpenApiConfigEntryPoint.md)[]
+> `optional` **entryPoints?**: [`ITsToOpenApiConfigEntryPoint`](ITsToOpenApiConfigEntryPoint.md)[]
 
 The rest entry points to include, defaults to all exported entry points.
 
@@ -94,7 +94,7 @@ The rest entry points to include, defaults to all exported entry points.
 
 ### externalReferences? {#externalreferences}
 
-> `optional` **externalReferences**: `object`
+> `optional` **externalReferences?**: `object`
 
 External type references
 

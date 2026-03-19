@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#operation-object
 
 ### tags? {#tags}
 
-> `optional` **tags**: `string`[]
+> `optional` **tags?**: `string`[]
 
 Tags for the operation.
 
@@ -22,7 +22,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A short summary of the operation.
 
@@ -34,7 +34,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A verbose description of the operation.
 
@@ -46,7 +46,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### externalDocs? {#externaldocs}
 
-> `optional` **externalDocs**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
+> `optional` **externalDocs?**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
 
 Additional external documentation for the operation.
 
@@ -58,7 +58,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### operationId? {#operationid}
 
-> `optional` **operationId**: `string`
+> `optional` **operationId?**: `string`
 
 A unique identifier for the operation.
 
@@ -70,7 +70,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### parameters? {#parameters}
 
-> `optional` **parameters**: ([`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiParameter`](IOpenApiParameter.md))[]
+> `optional` **parameters?**: ([`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiParameter`](IOpenApiParameter.md))[]
 
 Parameters for the operation.
 
@@ -82,7 +82,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### requestBody? {#requestbody}
 
-> `optional` **requestBody**: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiRequestBody`](IOpenApiRequestBody.md)
+> `optional` **requestBody?**: [`IOpenApiReference`](IOpenApiReference.md) \| [`IOpenApiRequestBody`](IOpenApiRequestBody.md)
 
 The request body for the operation.
 
@@ -106,7 +106,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### callbacks? {#callbacks}
 
-> `optional` **callbacks**: `object`
+> `optional` **callbacks?**: `object`
 
 Callbacks related to the operation.
 
@@ -122,7 +122,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### deprecated? {#deprecated}
 
-> `optional` **deprecated**: `boolean`
+> `optional` **deprecated?**: `boolean`
 
 Whether the operation is deprecated.
 
@@ -134,7 +134,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### security? {#security}
 
-> `optional` **security**: [`IOpenApiSecurityRequirement`](IOpenApiSecurityRequirement.md)[]
+> `optional` **security?**: [`IOpenApiSecurityRequirement`](IOpenApiSecurityRequirement.md)[]
 
 Security requirements for the operation.
 
@@ -146,7 +146,7 @@ https://spec.openapis.org/oas/latest.html#fixed-fields-7
 
 ### servers? {#servers}
 
-> `optional` **servers**: [`IOpenApiServer`](IOpenApiServer.md)[]
+> `optional` **servers?**: [`IOpenApiServer`](IOpenApiServer.md)[]
 
 Alternative servers for the operation.
 

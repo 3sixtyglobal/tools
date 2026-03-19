@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#request-body-object
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A brief description of the request body.
 
@@ -30,6 +30,6 @@ The content of the request body.
 
 ### required? {#required}
 
-> `optional` **required**: `boolean`
+> `optional` **required?**: `boolean`
 
 Whether the request body is required.

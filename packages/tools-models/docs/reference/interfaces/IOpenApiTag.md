@@ -18,7 +18,7 @@ The name of the tag.
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 A short summary of the tag.
 
@@ -26,7 +26,7 @@ A short summary of the tag.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 A description of the tag.
 
@@ -34,7 +34,7 @@ A description of the tag.
 
 ### externalDocs? {#externaldocs}
 
-> `optional` **externalDocs**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
+> `optional` **externalDocs?**: [`IOpenApiExternalDocumentation`](IOpenApiExternalDocumentation.md)
 
 Additional external documentation for the tag.
 
@@ -42,7 +42,7 @@ Additional external documentation for the tag.
 
 ### parent? {#parent}
 
-> `optional` **parent**: `string`
+> `optional` **parent?**: `string`
 
 Parent tag name.
 
@@ -50,6 +50,6 @@ Parent tag name.
 
 ### kind? {#kind}
 
-> `optional` **kind**: `string`
+> `optional` **kind?**: `string`
 
 A machine-readable category for the tag.

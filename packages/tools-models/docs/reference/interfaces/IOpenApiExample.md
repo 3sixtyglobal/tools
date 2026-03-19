@@ -10,7 +10,7 @@ https://spec.openapis.org/oas/latest.html#example-object
 
 ### summary? {#summary}
 
-> `optional` **summary**: `string`
+> `optional` **summary?**: `string`
 
 Short description for the example.
 
@@ -18,7 +18,7 @@ Short description for the example.
 
 ### description? {#description}
 
-> `optional` **description**: `string`
+> `optional` **description?**: `string`
 
 Long description for the example.
 
@@ -26,7 +26,7 @@ Long description for the example.
 
 ### dataValue? {#datavalue}
 
-> `optional` **dataValue**: `unknown`
+> `optional` **dataValue?**: `unknown`
 
 The schema-ready value for the example.
 
@@ -34,7 +34,7 @@ The schema-ready value for the example.
 
 ### serializedValue? {#serializedvalue}
 
-> `optional` **serializedValue**: `string`
+> `optional` **serializedValue?**: `string`
 
 The serialized form of the example.
 
@@ -42,7 +42,7 @@ The serialized form of the example.
 
 ### externalValue? {#externalvalue}
 
-> `optional` **externalValue**: `string`
+> `optional` **externalValue?**: `string`
 
 An external URI for the serialized example.
 
@@ -50,6 +50,6 @@ An external URI for the serialized example.
 
 ### value? {#value}
 
-> `optional` **value**: `unknown`
+> `optional` **value?**: `unknown`
 
 Backwards-compatible embedded example value.
