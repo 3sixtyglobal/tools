@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.16](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.15...tools-core-v0.0.3-next.16) (2026-03-19)
+
+
+### Features
+
+* ts to schema ([#86](https://github.com/twinfoundation/tools/issues/86)) ([ffebda5](https://github.com/twinfoundation/tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.15 to 0.0.3-next.16
+
 ## [0.0.3-next.15](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.14...tools-core-v0.0.3-next.15) (2026-03-10)
 
 
