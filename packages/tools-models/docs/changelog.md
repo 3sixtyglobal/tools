@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.17](https://github.com/twinfoundation/tools/compare/tools-models-v0.0.3-next.16...tools-models-v0.0.3-next.17) (2026-03-19)
+
+
+### Miscellaneous Chores
+
+* **tools-models:** Synchronize repo versions
+
 ## [0.0.3-next.16](https://github.com/twinfoundation/tools/compare/tools-models-v0.0.3-next.15...tools-models-v0.0.3-next.16) (2026-03-19)
 
 

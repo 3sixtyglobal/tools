@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.17](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.16...tools-core-v0.0.3-next.17) (2026-03-19)
+
+
+### Features
+
+* improve discriminated unions ([9c36ea7](https://github.com/twinfoundation/tools/commit/9c36ea7283230089ff19085ddc4b4c30a4e3f8a2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.16 to 0.0.3-next.17
+
 ## [0.0.3-next.16](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.15...tools-core-v0.0.3-next.16) (2026-03-19)
 
 
