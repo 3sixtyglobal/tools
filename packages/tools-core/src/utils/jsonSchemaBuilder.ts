@@ -3010,18 +3010,27 @@ export class JsonSchemaBuilder {
 				// TypeReferenceNode is constructed here using the same expression + type
 				// arguments so the utility handler receives exactly the AST shape it expects.
 				if (JsonSchemaBuilder._utilityTypeHandlers[typeName] && ts.isIdentifier(expression)) {
-					const syntheticTypeNode = ts.factory.createTypeReferenceNode(
-						expression,
-						extendedType.typeArguments
+					const refinedBaseReference = JsonSchemaBuilder.resolveRefinementUtilityBaseRef(
+						context,
+						declaration,
+						extendedType
 					);
-					const mappedSchema = JsonSchemaBuilder.mapTypeNodeToSchema(context, syntheticTypeNode);
-					if (mappedSchema) {
-						allOfRefs.push(mappedSchema);
+					if (refinedBaseReference) {
+						allOfRefs.push(refinedBaseReference);
 					} else {
-						throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "missingTypeReferenceSchema", {
-							typeName: extendedType.getText(),
-							importSource: ""
-						});
+						const syntheticTypeNode = ts.factory.createTypeReferenceNode(
+							expression,
+							extendedType.typeArguments
+						);
+						const mappedSchema = JsonSchemaBuilder.mapTypeNodeToSchema(context, syntheticTypeNode);
+						if (mappedSchema) {
+							allOfRefs.push(mappedSchema);
+						} else {
+							throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "missingTypeReferenceSchema", {
+								typeName: extendedType.getText(),
+								importSource: ""
+							});
+						}
 					}
 				} else {
 					const title = StringHelper.stripPrefix(typeName);
@@ -3035,7 +3044,129 @@ export class JsonSchemaBuilder {
 
 		if (allOfRefs.length > 0) {
 			schema.allOf = allOfRefs;
+
+			// Extract properties defined in the derived interface to avoid duplication with expanded utility bases
+			const derivedPropertyNames = new Set<string>();
+			for (const member of declaration.members) {
+				if (ts.isPropertySignature(member) && member.name && ts.isIdentifier(member.name)) {
+					derivedPropertyNames.add(member.name.text);
+				}
+			}
+
+			// Remove redefined properties from inlined utility base schemas
+			if (derivedPropertyNames.size > 0) {
+				for (const allOfRef of allOfRefs) {
+					if (allOfRef.properties && Is.object(allOfRef.properties)) {
+						for (const propName of derivedPropertyNames) {
+							delete allOfRef.properties[propName];
+						}
+						// Update required array to remove redefined properties
+						if (Is.array(allOfRef.required)) {
+							allOfRef.required = allOfRef.required.filter(req => !derivedPropertyNames.has(req));
+						}
+					}
+				}
+
+				// Ensure derived interface members are represented at the root schema level.
+				const { properties: derivedProperties, required: derivedRequired } =
+					JsonSchemaBuilder.buildObjectMembersSchema(context, declaration.members);
+
+				if (Object.keys(derivedProperties).length > 0) {
+					schema.properties = {
+						...(schema.properties ?? {}),
+						...derivedProperties
+					};
+				}
+
+				if (derivedRequired.length > 0) {
+					schema.required = [...new Set([...(schema.required ?? []), ...derivedRequired])];
+				}
+			}
 		}
+	}
+
+	/**
+	 * Resolve a direct base reference for refinement Omit patterns in interface extends clauses.
+	 * @param context The generation context.
+	 * @param declaration The interface declaration being mapped.
+	 * @param extendedType The heritage type being processed.
+	 * @returns A direct base reference when a refinement pattern is detected.
+	 */
+	public static resolveRefinementUtilityBaseRef(
+		context: ITypeScriptToSchemaContext,
+		declaration: ts.InterfaceDeclaration,
+		extendedType: ts.ExpressionWithTypeArguments
+	): IJsonSchema | undefined {
+		const expression = extendedType.expression;
+		if (!ts.isIdentifier(expression) || expression.text !== "Omit") {
+			return undefined;
+		}
+
+		const baseTypeNode = extendedType.typeArguments?.[0];
+		if (!baseTypeNode || !ts.isTypeReferenceNode(baseTypeNode) || baseTypeNode.typeArguments) {
+			return undefined;
+		}
+
+		const omittedKeys = JsonSchemaBuilder.extractUtilityTypeKeys(
+			context,
+			extendedType.typeArguments?.[1]
+		);
+		if (omittedKeys.length === 0) {
+			return undefined;
+		}
+
+		const propertyNames = new Set<string>();
+		const optionalPropertyNames = new Set<string>();
+		for (const member of declaration.members) {
+			if (ts.isPropertySignature(member) && member.name) {
+				if (ts.isIdentifier(member.name)) {
+					propertyNames.add(member.name.text);
+					if (member.questionToken) {
+						optionalPropertyNames.add(member.name.text);
+					}
+				} else if (ts.isStringLiteral(member.name) || ts.isNumericLiteral(member.name)) {
+					propertyNames.add(member.name.text);
+					if (member.questionToken) {
+						optionalPropertyNames.add(member.name.text);
+					}
+				}
+			}
+		}
+
+		// Ensure all omitted keys are redefined in the derived interface
+		if (!omittedKeys.every(omittedKey => propertyNames.has(omittedKey))) {
+			return undefined;
+		}
+
+		// Ensure ONLY omitted keys are being redefined (no extra properties are being added/redefined)
+		const omittedKeySet = new Set(omittedKeys);
+		if (!Array.from(propertyNames).every(propName => omittedKeySet.has(propName))) {
+			return undefined;
+		}
+
+		const baseTypeName = ts.isIdentifier(baseTypeNode.typeName)
+			? baseTypeNode.typeName.text
+			: baseTypeNode.typeName.right.text;
+		const baseSchema = JsonSchemaBuilder.resolveObjectTypeSchemaForUtility(context, baseTypeName);
+		const baseRequiredKeys = new Set(
+			(Is.array(baseSchema?.required) ? baseSchema.required : []).filter(
+				(requiredKey): requiredKey is string => Is.string(requiredKey)
+			)
+		);
+
+		const doesReverseOptionalityForRequiredBaseKey = omittedKeys.some(
+			omittedKey => optionalPropertyNames.has(omittedKey) && baseRequiredKeys.has(omittedKey)
+		);
+		if (doesReverseOptionalityForRequiredBaseKey) {
+			return undefined;
+		}
+
+		const title = StringHelper.stripPrefix(baseTypeName);
+		const existingSchemaId = JsonSchemaBuilder.findExistingSchemaIdByTitle(context, title);
+
+		return {
+			$ref: existingSchemaId ?? `${context.namespace}${title}`
+		};
 	}
 
 	/**
@@ -3344,8 +3475,20 @@ export class JsonSchemaBuilder {
 		context: ITypeScriptToSchemaContext,
 		mappedSchema: IJsonSchema
 	): IJsonSchema | undefined {
-		if (mappedSchema.type === "object" && mappedSchema.properties) {
+		if (mappedSchema.type === "object") {
 			return ObjectHelper.clone(mappedSchema);
+		}
+
+		if (Is.array(mappedSchema.allOf) && mappedSchema.allOf.length > 0) {
+			const expandedSchema = JsonSchemaBuilder.expandAllOfReferences(
+				context,
+				ObjectHelper.clone(mappedSchema),
+				mappedSchema.title
+			);
+			if (expandedSchema.type === "object" || expandedSchema.properties) {
+				expandedSchema.type ??= "object";
+				return expandedSchema;
+			}
 		}
 
 		if (mappedSchema.$ref) {

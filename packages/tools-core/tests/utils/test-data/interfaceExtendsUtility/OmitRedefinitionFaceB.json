@@ -6,16 +6,7 @@
 	"type": "object",
 	"allOf": [
 		{
-			"$comment": "Inlined utility base type OmitRedefinitionBaseA so utility transformations can operate on concrete properties instead of a $ref.",
-			"description": "Base interface for redefinition test.",
-			"type": "object",
-			"properties": {
-				"prop1": {
-					"type": "string",
-					"description": "Required field from base."
-				}
-			},
-			"required": ["prop1"]
+			"$ref": "https://schema.twindev.org/test/OmitRedefinitionBaseA"
 		}
 	],
 	"properties": {

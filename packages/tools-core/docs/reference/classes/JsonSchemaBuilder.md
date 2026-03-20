@@ -1490,6 +1490,40 @@ GeneralError when an extended type cannot be resolved to a schema.
 
 ***
 
+### resolveRefinementUtilityBaseRef() {#resolverefinementutilitybaseref}
+
+> `static` **resolveRefinementUtilityBaseRef**(`context`, `declaration`, `extendedType`): `IJsonSchema` \| `undefined`
+
+Resolve a direct base reference for refinement Omit patterns in interface extends clauses.
+
+#### Parameters
+
+##### context
+
+[`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
+
+The generation context.
+
+##### declaration
+
+`InterfaceDeclaration`
+
+The interface declaration being mapped.
+
+##### extendedType
+
+`ExpressionWithTypeArguments`
+
+The heritage type being processed.
+
+#### Returns
+
+`IJsonSchema` \| `undefined`
+
+A direct base reference when a refinement pattern is detected.
+
+***
+
 ### isNullOrUndefinedTypeNode() {#isnullorundefinedtypenode}
 
 > `static` **isNullOrUndefinedTypeNode**(`typeNode`): `boolean`

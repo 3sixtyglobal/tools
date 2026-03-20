@@ -20,11 +20,14 @@ import testGenericModelNoDefaultSchema from "./test-data/genericModelDefinition/
 import testImportTypeSchema from "./test-data/importType/testImportType.json" with { type: "json" };
 import testIndexedAccessTypeSchema from "./test-data/indexedAccessType/testIndexedAccessType.json" with { type: "json" };
 import testInterfaceExtendsSchema from "./test-data/interfaceExtends/testInterfaceExtends.json" with { type: "json" };
+import activitySchema from "./test-data/interfaceExtendsUtility/Activity.json" with { type: "json" };
 import doubleInheritanceCSchema from "./test-data/interfaceExtendsUtility/DoubleInheritanceC.json" with { type: "json" };
 import extendPartialInheritedSchema from "./test-data/interfaceExtendsUtility/ExtendPartialInherited.json" with { type: "json" };
 import extendPickFromInheritedSchema from "./test-data/interfaceExtendsUtility/ExtendPickFromInherited.json" with { type: "json" };
 import extendRequiredInheritedSchema from "./test-data/interfaceExtendsUtility/ExtendRequiredInherited.json" with { type: "json" };
 import omitFromTripleInheritanceSchema from "./test-data/interfaceExtendsUtility/OmitFromTripleInheritance.json" with { type: "json" };
+import omitOptionalityReverseBaseASchema from "./test-data/interfaceExtendsUtility/OmitOptionalityReverseBaseA.json" with { type: "json" };
+import omitOptionalityReverseFaceBSchema from "./test-data/interfaceExtendsUtility/OmitOptionalityReverseFaceB.json" with { type: "json" };
 import omitRedefinitionBaseASchema from "./test-data/interfaceExtendsUtility/OmitRedefinitionBaseA.json" with { type: "json" };
 import omitRedefinitionFaceBSchema from "./test-data/interfaceExtendsUtility/OmitRedefinitionFaceB.json" with { type: "json" };
 import testInterfaceExtendsUtilitySchema from "./test-data/interfaceExtendsUtility/testInterfaceExtendsUtility.json" with { type: "json" };
@@ -174,6 +177,8 @@ describe("TypeScriptToSchema", () => {
 				testInterfaceExtendsUtilitySchema,
 				omitRedefinitionBaseASchema,
 				omitRedefinitionFaceBSchema,
+				omitOptionalityReverseBaseASchema,
+				omitOptionalityReverseFaceBSchema,
 				doubleInheritanceCSchema,
 				omitFromTripleInheritanceSchema,
 				extendPickFromInheritedSchema,
@@ -188,6 +193,8 @@ describe("TypeScriptToSchema", () => {
 				"ExtendPickFromInherited",
 				"ExtendRequiredInherited",
 				"OmitFromTripleInheritance",
+				"OmitOptionalityReverseBaseA",
+				"OmitOptionalityReverseFaceB",
 				"OmitRedefinitionBaseA",
 				"OmitRedefinitionFaceB",
 				"TestInterfaceUtility",
@@ -198,6 +205,19 @@ describe("TypeScriptToSchema", () => {
 				"TripleTopC"
 			]
 		);
+	});
+
+	test("can generate expected schema for activity utility interface", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/test-data/interfaceExtendsUtility/testInterfaceExtendsUtilityActivity.ts"
+		);
+
+		expect(getSchemaByExpectedTitle(generatedSchemas, activitySchema)).toEqual(activitySchema);
 	});
 
 	test("can generate a schema for enum as const type", async () => {

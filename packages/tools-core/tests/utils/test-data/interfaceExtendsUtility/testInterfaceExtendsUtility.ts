@@ -68,6 +68,31 @@ export interface OmitRedefinitionFaceB extends Omit<OmitRedefinitionBaseA, "prop
 }
 
 /**
+ * Base interface for required-to-optional redefinition test.
+ */
+export interface OmitOptionalityReverseBaseA {
+	/**
+	 * Required field that remains inherited.
+	 */
+	prop1: string;
+
+	/**
+	 * Required field that will be redefined as optional.
+	 */
+	prop2: boolean;
+}
+
+/**
+ * Derived interface that omits prop2 from base and redefines it as optional.
+ */
+export interface OmitOptionalityReverseFaceB extends Omit<OmitOptionalityReverseBaseA, "prop2"> {
+	/**
+	 * Redefined prop2 as optional boolean instead of required.
+	 */
+	prop2?: boolean;
+}
+
+/**
  * Base interface for double inheritance test.
  */
 export interface DoubleInheritanceA {

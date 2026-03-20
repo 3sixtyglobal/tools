@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { JsonHelper, ObjectHelper } from "@twin.org/core";
+import { Is, JsonHelper, ObjectHelper } from "@twin.org/core";
 import type { IJsonSchema } from "@twin.org/tools-models";
 import * as ts from "typescript";
 import { JsonSchemaBuilder } from "./jsonSchemaBuilder.js";
@@ -395,7 +395,7 @@ export class UtilityTypeSchemaMapper {
 		}
 
 		const scalarSchemas =
-			Array.isArray(itemSchema.anyOf) && Object.keys(itemSchema).length === 1
+			Is.array(itemSchema.anyOf) && Object.keys(itemSchema).length === 1
 				? itemSchema.anyOf
 				: [itemSchema];
 

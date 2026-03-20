@@ -155,7 +155,7 @@ export class ObjectTransformer {
 	public static normalizeSchemaDescriptions(schema: IJsonSchema): IJsonSchema {
 		const normalizedSchema = ObjectHelper.clone(schema);
 		const normalizeObject = (value: unknown): void => {
-			if (Array.isArray(value)) {
+			if (Is.array(value)) {
 				for (const item of value) {
 					normalizeObject(item);
 				}

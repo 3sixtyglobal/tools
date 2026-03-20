@@ -40,7 +40,7 @@ export class JsDoc {
 			return jsDocTag.comment;
 		}
 
-		if (Array.isArray(jsDocTag.comment)) {
+		if (Is.array(jsDocTag.comment)) {
 			return jsDocTag.comment
 				.map(part => part.text)
 				.join("")
