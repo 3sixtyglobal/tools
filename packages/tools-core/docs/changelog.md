@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.21](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.20...tools-core-v0.0.3-next.21) (2026-03-20)
+
+
+### Features
+
+* add jsdoc tag validation ([971b8d3](https://github.com/twinfoundation/tools/commit/971b8d3817d40467bfd7549c99af602f0c590299))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.20 to 0.0.3-next.21
+
 ## [0.0.3-next.20](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.19...tools-core-v0.0.3-next.20) (2026-03-20)
 
 
