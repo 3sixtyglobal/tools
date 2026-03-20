@@ -100,6 +100,46 @@ GeneralError Thrown when a tag key is not supported by IJsonSchema.
 
 ***
 
+### validateJsonSchemaTagConstraint() {#validatejsonschematagconstraint}
+
+> `static` **validateJsonSchemaTagConstraint**(`schemaKey`, `schemaType`, `rawValue`): `void`
+
+Validate that a
+
+#### Parameters
+
+##### schemaKey
+
+`string`
+
+The mapped schema key being applied.
+
+##### schemaType
+
+`string` \| `string`[] \| `undefined`
+
+The type already set on the schema, if any.
+
+##### rawValue
+
+`string`
+
+The raw string value from the JSDoc tag.
+
+#### Returns
+
+`void`
+
+#### Throws
+
+GeneralError Thrown when the constraint is not valid for the schema type.
+
+#### Throws
+
+GeneralError Thrown when the format value is not a recognised JSON Schema format.
+
+***
+
 ### isAllowedJsonSchemaTagKey() {#isallowedjsonschematagkey}
 
 > `static` **isAllowedJsonSchemaTagKey**(`key`): `boolean`
