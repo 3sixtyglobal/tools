@@ -51,99 +51,103 @@ export class JsonSchemaBuilder {
 			typeNode: ts.TypeReferenceNode
 		) => IJsonSchema | undefined;
 	} = {
-		Partial: (context, typeNode) => JsonSchemaBuilder.mapPartialUtilityType(context, typeNode),
-		Required: (context, typeNode) => JsonSchemaBuilder.mapRequiredUtilityType(context, typeNode),
-		Pick: (context, typeNode) => JsonSchemaBuilder.mapPickUtilityType(context, typeNode),
-		Omit: (context, typeNode) => JsonSchemaBuilder.mapOmitUtilityType(context, typeNode),
-		Exclude: (context, typeNode) => JsonSchemaBuilder.mapExcludeUtilityType(context, typeNode),
-		Extract: (context, typeNode) => JsonSchemaBuilder.mapExtractUtilityType(context, typeNode),
+		Partial: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapPartialUtilityType(context, typeNode),
+		Required: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapRequiredUtilityType(context, typeNode),
+		Pick: (context, typeNode) => UtilityTypeSchemaMapper.mapPickUtilityType(context, typeNode),
+		Omit: (context, typeNode) => UtilityTypeSchemaMapper.mapOmitUtilityType(context, typeNode),
+		Exclude: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapExcludeUtilityType(context, typeNode),
+		Extract: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapExtractUtilityType(context, typeNode),
 		NonNullable: (context, typeNode) =>
-			JsonSchemaBuilder.mapNonNullableUtilityType(context, typeNode),
-		Record: (context, typeNode) => JsonSchemaBuilder.mapRecordUtilityType(context, typeNode),
+			UtilityTypeSchemaMapper.mapNonNullableUtilityType(context, typeNode),
+		Record: (context, typeNode) => UtilityTypeSchemaMapper.mapRecordUtilityType(context, typeNode),
 		JsonLdObjectWithId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["id", "@id"],
 				keyToAdd: "id",
 				isAddedKeyRequired: true
 			}),
 		JsonLdObjectWithAtId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["id", "@id"],
 				keyToAdd: "@id",
 				isAddedKeyRequired: true
 			}),
 		JsonLdObjectWithOptionalId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["id", "@id"],
 				keyToAdd: "id",
 				isAddedKeyRequired: false
 			}),
 		JsonLdObjectWithOptionalAtId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["id", "@id"],
 				keyToAdd: "@id",
 				isAddedKeyRequired: false
 			}),
 		JsonLdObjectWithNoId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["id"]
 			}),
 		JsonLdObjectWithNoAtId: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@id"]
 			}),
 		JsonLdObjectWithType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["type", "@type"],
 				keyToAdd: "type",
 				isAddedKeyRequired: true
 			}),
 		JsonLdObjectWithAtType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["type", "@type"],
 				keyToAdd: "@type",
 				isAddedKeyRequired: true
 			}),
 		JsonLdObjectWithOptionalType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["type", "@type"],
 				keyToAdd: "type",
 				isAddedKeyRequired: false
 			}),
 		JsonLdObjectWithOptionalAtType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["type", "@type"],
 				keyToAdd: "@type",
 				isAddedKeyRequired: false
 			}),
 		JsonLdObjectWithNoType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["type"]
 			}),
 		JsonLdObjectWithNoAtType: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@type"]
 			}),
 		JsonLdObjectWithContext: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@context"],
 				keyToAdd: "@context",
 				isAddedKeyRequired: true
 			}),
 		JsonLdObjectWithOptionalContext: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@context"],
 				keyToAdd: "@context",
 				isAddedKeyRequired: false
 			}),
 		JsonLdObjectWithNoContext: (context, typeNode) =>
-			JsonSchemaBuilder.mapJsonLdObjectUtilityType(context, typeNode, {
+			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@context"]
 			}),
 		SingleOccurrenceArray: (context, typeNode) =>
-			JsonSchemaBuilder.mapSingleOccurrenceArrayUtilityType(context, typeNode),
+			UtilityTypeSchemaMapper.mapSingleOccurrenceArrayUtilityType(context, typeNode),
 		ObjectOrArray: (context, typeNode) =>
-			JsonSchemaBuilder.mapObjectOrArrayUtilityType(context, typeNode)
+			UtilityTypeSchemaMapper.mapObjectOrArrayUtilityType(context, typeNode)
 	};
 
 	/**
@@ -1838,7 +1842,11 @@ export class JsonSchemaBuilder {
 			return cachedSchemaId;
 		}
 
-		const declarationResult = Resolver.resolveTypeDeclarationAst(moduleSpecifier, typeName);
+		const declarationResult = Resolver.resolveTypeDeclarationAst(
+			moduleSpecifier,
+			typeName,
+			context.activeSourceFile?.fileName
+		);
 		if (!declarationResult) {
 			return mappedReference?.schemaId;
 		}
@@ -2969,6 +2977,7 @@ export class JsonSchemaBuilder {
 	 * @param context The generation context.
 	 * @param schema The schema to expand.
 	 * @param declaration The interface declaration.
+	 * @throws GeneralError when an extended type cannot be resolved to a schema.
 	 */
 	public static applyInterfaceExtendsSchema(
 		context: ITypeScriptToSchemaContext,
@@ -3008,6 +3017,11 @@ export class JsonSchemaBuilder {
 					const mappedSchema = JsonSchemaBuilder.mapTypeNodeToSchema(context, syntheticTypeNode);
 					if (mappedSchema) {
 						allOfRefs.push(mappedSchema);
+					} else {
+						throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "missingTypeReferenceSchema", {
+							typeName: extendedType.getText(),
+							importSource: ""
+						});
 					}
 				} else {
 					const title = StringHelper.stripPrefix(typeName);
@@ -3022,132 +3036,6 @@ export class JsonSchemaBuilder {
 		if (allOfRefs.length > 0) {
 			schema.allOf = allOfRefs;
 		}
-	}
-
-	/**
-	 * Map Partial<T> to an object schema with no required properties.
-	 * @param context The generation context.
-	 * @param typeNode The Partial type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapPartialUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapPartialUtilityType(context, typeNode, (ctx, baseTypeNode) =>
-			JsonSchemaBuilder.resolveUtilityBaseObjectSchema(ctx, baseTypeNode)
-		);
-	}
-
-	/**
-	 * Map Required<T> to an object schema with all properties required.
-	 * @param context The generation context.
-	 * @param typeNode The Required type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapRequiredUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapRequiredUtilityType(context, typeNode, (ctx, baseTypeNode) =>
-			JsonSchemaBuilder.resolveUtilityBaseObjectSchema(ctx, baseTypeNode)
-		);
-	}
-
-	/**
-	 * Map Pick<T, K> to an object schema with selected keys preserved.
-	 * @param context The generation context.
-	 * @param typeNode The Pick type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapPickUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapPickUtilityType(
-			context,
-			typeNode,
-			(ctx, baseTypeNode) => JsonSchemaBuilder.resolveUtilityBaseObjectSchema(ctx, baseTypeNode),
-			(ctx, keysNode) => JsonSchemaBuilder.extractUtilityTypeKeys(ctx, keysNode)
-		);
-	}
-
-	/**
-	 * Map Omit<T, K> to an object schema with selected keys removed.
-	 * @param context The generation context.
-	 * @param typeNode The Omit type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapOmitUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapOmitUtilityType(
-			context,
-			typeNode,
-			(ctx, baseTypeNode) => JsonSchemaBuilder.resolveUtilityBaseObjectSchema(ctx, baseTypeNode),
-			(ctx, keysNode) => JsonSchemaBuilder.extractUtilityTypeKeys(ctx, keysNode)
-		);
-	}
-
-	/**
-	 * Map Exclude<T, U> to a schema that removes U members from T.
-	 * @param context The generation context.
-	 * @param typeNode The Exclude type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapExcludeUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapExcludeUtilityType(context, typeNode, (ctx, node) =>
-			JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
-	}
-
-	/**
-	 * Map Extract<T, U> to a schema that keeps U members from T.
-	 * @param context The generation context.
-	 * @param typeNode The Extract type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapExtractUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapExtractUtilityType(context, typeNode, (ctx, node) =>
-			JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
-	}
-
-	/**
-	 * Map NonNullable<T> by removing null and undefined branches from T.
-	 * @param context The generation context.
-	 * @param typeNode The NonNullable type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapNonNullableUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapNonNullableUtilityType(context, typeNode, (ctx, node) =>
-			JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
-	}
-
-	/**
-	 * Map Record<K, V> to an object schema with key constraints where possible.
-	 * @param context The generation context.
-	 * @param typeNode The Record type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapRecordUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapRecordUtilityType(context, typeNode, (ctx, node) =>
-			JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
 	}
 
 	/**
@@ -3199,34 +3087,6 @@ export class JsonSchemaBuilder {
 		}
 
 		return [];
-	}
-
-	/**
-	 * Map JsonLdObject utility types using key-removal and optional key-addition rules.
-	 * @param context The generation context.
-	 * @param typeNode The JsonLdObject utility type reference.
-	 * @param options Mapping options.
-	 * @param options.keysToRemove Keys to remove from the base schema.
-	 * @param options.keyToAdd Optional key to add to the base schema.
-	 * @param options.isAddedKeyRequired Whether the added key should be required.
-	 * @returns The mapped schema.
-	 */
-	public static mapJsonLdObjectUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode,
-		options: {
-			keysToRemove: string[];
-			keyToAdd?: "id" | "@id" | "type" | "@type" | "@context";
-			isAddedKeyRequired?: boolean;
-		}
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(
-			context,
-			typeNode,
-			options,
-			(ctx, baseTypeNode) => JsonSchemaBuilder.resolveUtilityBaseObjectSchema(ctx, baseTypeNode),
-			(ctx, node) => JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
 	}
 
 	/**
@@ -3333,38 +3193,6 @@ export class JsonSchemaBuilder {
 		}
 
 		return fallbackSchema;
-	}
-
-	/**
-	 * Map ObjectOrArray<T> to a schema accepting T or T[].
-	 * @param context The generation context.
-	 * @param typeNode The ObjectOrArray type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapObjectOrArrayUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapObjectOrArrayUtilityType(context, typeNode, (ctx, node) =>
-			JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
-	}
-
-	/**
-	 * Map SingleOccurrenceArray<T, U> to a non-empty array containing exactly one U.
-	 * @param context The generation context.
-	 * @param typeNode The SingleOccurrenceArray type reference.
-	 * @returns The mapped schema.
-	 */
-	public static mapSingleOccurrenceArrayUtilityType(
-		context: ITypeScriptToSchemaContext,
-		typeNode: ts.TypeReferenceNode
-	): IJsonSchema | undefined {
-		return UtilityTypeSchemaMapper.mapSingleOccurrenceArrayUtilityType(
-			context,
-			typeNode,
-			(ctx, node) => JsonSchemaBuilder.mapTypeNodeToSchema(ctx, node)
-		);
 	}
 
 	/**
@@ -3773,7 +3601,8 @@ export class JsonSchemaBuilder {
 			for (const candidateTypeName of candidateTypeNames) {
 				const declarationResult = Resolver.resolveTypeDeclarationAst(
 					moduleSpecifier,
-					candidateTypeName
+					candidateTypeName,
+					context.activeSourceFile?.fileName
 				);
 				if (declarationResult) {
 					const mappedReference = JsonSchemaBuilder.resolveReferenceMappingTarget(
@@ -3964,7 +3793,8 @@ export class JsonSchemaBuilder {
 
 			const declarationResult = Resolver.resolveTypeDeclarationAst(
 				moduleSpecifier,
-				candidateTypeName
+				candidateTypeName,
+				context.activeSourceFile?.fileName
 			);
 			if (!declarationResult) {
 				return undefined;
@@ -4584,7 +4414,11 @@ export class JsonSchemaBuilder {
 			typeName
 		);
 
-		const declarationResult = Resolver.resolveTypeDeclarationAst(moduleSpecifier, typeName);
+		const declarationResult = Resolver.resolveTypeDeclarationAst(
+			moduleSpecifier,
+			typeName,
+			context.activeSourceFile?.fileName
+		);
 		if (!declarationResult) {
 			return mappedReference?.schemaId;
 		}

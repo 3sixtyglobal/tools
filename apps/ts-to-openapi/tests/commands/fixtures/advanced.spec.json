@@ -9533,7 +9533,17 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"anyOf": [{ "const": "id" }, { "const": "alias" }, { "const": "both" }]
+							"anyOf": [
+								{
+									"const": "id"
+								},
+								{
+									"const": "alias"
+								},
+								{
+									"const": "both"
+								}
+							]
 						}
 					},
 					{
@@ -13353,21 +13363,25 @@
 													"@type": "Dataset",
 													"dcterms:title": "Energy Consumption Data",
 													"dcterms:description": "Historical energy consumption data",
-													"hasPolicy": {
-														"@id": "urn:uuid:policy-456",
-														"@type": "Offer",
-														"assigner": "did:example:data-provider-789"
-													},
-													"distribution": {
-														"@id": "urn:uuid:distribution-789",
-														"@type": "Distribution",
-														"format": "application/json",
-														"accessService": {
-															"@id": "urn:uuid:access-service-321",
-															"@type": "DataService",
-															"endpointURL": "https://example.com/data-access"
+													"hasPolicy": [
+														{
+															"@id": "urn:uuid:policy-456",
+															"@type": "Offer",
+															"assigner": "did:example:data-provider-789"
 														}
-													}
+													],
+													"distribution": [
+														{
+															"@id": "urn:uuid:distribution-789",
+															"@type": "Distribution",
+															"format": "application/json",
+															"accessService": {
+																"@id": "urn:uuid:access-service-321",
+																"@type": "DataService",
+																"endpointURL": "https://example.com/data-access"
+															}
+														}
+													]
 												}
 											]
 										}
@@ -18395,7 +18409,7 @@
 						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlContextType"
 					},
 					"@type": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/PolicyType"
+						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPolicyType"
 					},
 					"profile": {
 						"anyOf": [
@@ -18504,7 +18518,7 @@
 					"action": {
 						"anyOf": [
 							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/ActionType"
+								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
 							},
 							{
 								"type": "string"
@@ -18517,7 +18531,7 @@
 								"items": {
 									"anyOf": [
 										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/ActionType"
+											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
 										},
 										{
 											"type": "string"
@@ -18546,7 +18560,7 @@
 						"description": "The parent policy(ies) this policy inherits from.\nIRIs identifying the parent Policy(ies)."
 					},
 					"conflict": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/ConflictStrategyType"
+						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlConflictStrategyType"
 					},
 					"permission": {
 						"anyOf": [
@@ -18909,26 +18923,26 @@
 					},
 					"storageKey": {
 						"type": "string",
-						"description": "The storage key of the change set. This is used to identify the entities being synchronised.\njson-ld type:schema:identifier"
+						"description": "The storage key of the change set. This is used to identify the entities being synchronised."
 					},
 					"dateCreated": {
 						"type": "string",
-						"description": "The date the change set was created.\njson-ld namespace:schema"
+						"description": "The date the change set was created."
 					},
 					"dateModified": {
 						"type": "string",
-						"description": "The date the change set was last modified.\njson-ld namespace:schema"
+						"description": "The date the change set was last modified."
 					},
 					"nodeIdentity": {
 						"type": "string",
-						"description": "The identity of the node that created the change set.\njson-ld namespace:twin-common"
+						"description": "The identity of the node that created the change set."
 					},
 					"changes": {
 						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/SyncChange"
 						},
-						"description": "The changes to apply after a snapshot.\njson-ld type:json"
+						"description": "The changes to apply after a snapshot."
 					}
 				},
 				"required": [
@@ -18959,7 +18973,7 @@
 				"properties": {
 					"dateModified": {
 						"type": "string",
-						"description": "The date the entry was modified.\njson-ld namespace:schema"
+						"description": "The date the entry was modified."
 					}
 				},
 				"required": ["dateModified"]

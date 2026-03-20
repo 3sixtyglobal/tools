@@ -16,7 +16,7 @@ Static utility-type schema mapping helpers.
 
 ### mapPartialUtilityType() {#mappartialutilitytype}
 
-> `static` **mapPartialUtilityType**(`context`, `typeNode`, `resolveUtilityBaseObjectSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapPartialUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Partial<T> to an object schema with no required properties.
 
@@ -34,12 +34,6 @@ The generation context.
 
 The Partial type reference.
 
-##### resolveUtilityBaseObjectSchema
-
-(`context`, `baseTypeNode`) => `IJsonSchema` \| `undefined`
-
-Callback to resolve base object schemas.
-
 #### Returns
 
 `IJsonSchema` \| `undefined`
@@ -50,7 +44,7 @@ The mapped schema.
 
 ### mapRequiredUtilityType() {#maprequiredutilitytype}
 
-> `static` **mapRequiredUtilityType**(`context`, `typeNode`, `resolveUtilityBaseObjectSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapRequiredUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Required<T> to an object schema with all properties required.
 
@@ -68,12 +62,6 @@ The generation context.
 
 The Required type reference.
 
-##### resolveUtilityBaseObjectSchema
-
-(`context`, `baseTypeNode`) => `IJsonSchema` \| `undefined`
-
-Callback to resolve base object schemas.
-
 #### Returns
 
 `IJsonSchema` \| `undefined`
@@ -84,7 +72,7 @@ The mapped schema.
 
 ### mapPickUtilityType() {#mappickutilitytype}
 
-> `static` **mapPickUtilityType**(`context`, `typeNode`, `resolveUtilityBaseObjectSchema`, `extractUtilityTypeKeys`): `IJsonSchema` \| `undefined`
+> `static` **mapPickUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Pick<T, K> to an object schema with selected keys preserved.
 
@@ -94,27 +82,25 @@ Map Pick<T, K> to an object schema with selected keys preserved.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### resolveUtilityBaseObjectSchema
-
-(`context`, `baseTypeNode`) => `IJsonSchema` \| `undefined`
-
-##### extractUtilityTypeKeys
-
-(`context`, `keysNode`) => `string`[]
+The Pick type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapOmitUtilityType() {#mapomitutilitytype}
 
-> `static` **mapOmitUtilityType**(`context`, `typeNode`, `resolveUtilityBaseObjectSchema`, `extractUtilityTypeKeys`): `IJsonSchema` \| `undefined`
+> `static` **mapOmitUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Omit<T, K> to an object schema with selected keys removed.
 
@@ -124,27 +110,25 @@ Map Omit<T, K> to an object schema with selected keys removed.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### resolveUtilityBaseObjectSchema
-
-(`context`, `baseTypeNode`) => `IJsonSchema` \| `undefined`
-
-##### extractUtilityTypeKeys
-
-(`context`, `keysNode`) => `string`[]
+The Omit type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapExcludeUtilityType() {#mapexcludeutilitytype}
 
-> `static` **mapExcludeUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapExcludeUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Exclude<T, U> to a schema that removes U members from T.
 
@@ -154,23 +138,25 @@ Map Exclude<T, U> to a schema that removes U members from T.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The Exclude type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapExtractUtilityType() {#mapextractutilitytype}
 
-> `static` **mapExtractUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapExtractUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Extract<T, U> to a schema that keeps U members from T.
 
@@ -180,23 +166,25 @@ Map Extract<T, U> to a schema that keeps U members from T.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The Extract type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapNonNullableUtilityType() {#mapnonnullableutilitytype}
 
-> `static` **mapNonNullableUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapNonNullableUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map NonNullable<T> by removing null and undefined branches from T.
 
@@ -206,23 +194,25 @@ Map NonNullable<T> by removing null and undefined branches from T.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The NonNullable type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapRecordUtilityType() {#maprecordutilitytype}
 
-> `static` **mapRecordUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapRecordUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map Record<K, V> to an object schema with key constraints where possible.
 
@@ -232,23 +222,25 @@ Map Record<K, V> to an object schema with key constraints where possible.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The Record type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapJsonLdObjectUtilityType() {#mapjsonldobjectutilitytype}
 
-> `static` **mapJsonLdObjectUtilityType**(`context`, `typeNode`, `options`, `resolveUtilityBaseObjectSchema`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapJsonLdObjectUtilityType**(`context`, `typeNode`, `options`): `IJsonSchema` \| `undefined`
 
 Map JsonLdObject utility types using key-removal and optional key-addition rules.
 
@@ -258,41 +250,47 @@ Map JsonLdObject utility types using key-removal and optional key-addition rules
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
+The JsonLdObject utility type reference.
+
 ##### options
+
+The mapping options for key removal and optional key addition.
 
 ###### keysToRemove
 
 `string`[]
 
+The property keys to remove from the base schema.
+
 ###### keyToAdd?
 
 `"type"` \| `"id"` \| `"@id"` \| `"@type"` \| `"@context"`
+
+The optional key to add after removal.
 
 ###### isAddedKeyRequired?
 
 `boolean`
 
-##### resolveUtilityBaseObjectSchema
-
-(`context`, `baseTypeNode`) => `IJsonSchema` \| `undefined`
-
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+True when the added key must be required.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapObjectOrArrayUtilityType() {#mapobjectorarrayutilitytype}
 
-> `static` **mapObjectOrArrayUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapObjectOrArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map ObjectOrArray<T> to a schema accepting T or T[].
 
@@ -302,23 +300,25 @@ Map ObjectOrArray<T> to a schema accepting T or T[].
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The ObjectOrArray type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
 
+The mapped schema.
+
 ***
 
 ### mapSingleOccurrenceArrayUtilityType() {#mapsingleoccurrencearrayutilitytype}
 
-> `static` **mapSingleOccurrenceArrayUtilityType**(`context`, `typeNode`, `mapTypeNodeToSchema`): `IJsonSchema` \| `undefined`
+> `static` **mapSingleOccurrenceArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
 Map SingleOccurrenceArray<T, U> to a non-empty array containing exactly one U.
 
@@ -328,14 +328,16 @@ Map SingleOccurrenceArray<T, U> to a non-empty array containing exactly one U.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeReferenceNode`
 
-##### mapTypeNodeToSchema
-
-(`context`, `typeNode`) => `IJsonSchema` \| `undefined`
+The SingleOccurrenceArray type reference.
 
 #### Returns
 
 `IJsonSchema` \| `undefined`
+
+The mapped schema.

@@ -26,13 +26,19 @@ Map import type nodes (e.g. import("pkg").Type) to schema references.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `ImportTypeNode`
 
+The import type node.
+
 #### Returns
 
 `IJsonSchema` \| `undefined`
+
+The mapped schema.
 
 ***
 
@@ -48,13 +54,19 @@ Map a type query node (typeof expr) to schema by resolving the referenced variab
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### typeNode
 
 `TypeQueryNode`
 
+The type query node.
+
 #### Returns
 
 `IJsonSchema`
+
+The mapped schema.
 
 ***
 
@@ -70,18 +82,28 @@ Resolve import-type references to local or external schema ids.
 
 [`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
 
+The generation context.
+
 ##### moduleSpecifier
 
 `string`
+
+The import module specifier.
 
 ##### typeName
 
 `string`
 
+The imported type name.
+
 ##### title
 
 `string`
 
+The stripped schema title.
+
 #### Returns
 
 `string` \| `undefined`
+
+The resolved schema id.

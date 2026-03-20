@@ -1,6 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
 import { Is, JsonHelper } from "@twin.org/core";
 import type { IJsonSchema } from "@twin.org/tools-models";
 import * as ts from "typescript";
@@ -13,6 +12,11 @@ import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaCo
 export class MappedTypeSchemaResolver {
 	/**
 	 * Resolve mapped type output keys, including remapped key names via `as`.
+	 * @param context The generation context.
+	 * @param typeNode The mapped type node.
+	 * @param mappedKeys The resolved source keys from the mapped type constraint.
+	 * @param mappedTypeParameterName The mapped type parameter identifier.
+	 * @returns The resolved source-to-output mapped key entries.
 	 */
 	public static resolveMappedTypePropertyEntries(
 		context: ITypeScriptToSchemaContext,
@@ -46,6 +50,11 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Resolve a remapped mapped-type key expression for a concrete source key.
+	 * @param context The generation context.
+	 * @param nameTypeNode The mapped type name remapping expression node.
+	 * @param sourceKey The concrete source key currently being evaluated.
+	 * @param mappedTypeParameterName The mapped type parameter identifier.
+	 * @returns The remapped key, null when excluded via never, or undefined when unresolved.
 	 */
 	public static resolveMappedTypeRemappedKey(
 		context: ITypeScriptToSchemaContext,
@@ -166,6 +175,10 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Evaluate whether a concrete mapped key satisfies an `extends` condition.
+	 * @param context The generation context.
+	 * @param sourceKey The concrete source key being evaluated.
+	 * @param extendsTypeNode The extends condition type node.
+	 * @returns True when the key satisfies the condition, false when it does not, otherwise undefined.
 	 */
 	public static evaluateMappedKeyExtendsCondition(
 		context: ITypeScriptToSchemaContext,
@@ -255,6 +268,12 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Build a conservative fallback schema for mapped types whose key remapping cannot be resolved.
+	 * @param context The generation context.
+	 * @param typeNode The mapped type node.
+	 * @param mappedKeys The resolved source keys from the mapped type constraint.
+	 * @param mappedTypeParameterName The mapped type parameter identifier.
+	 * @param sourceObjectSchema The optional source object schema for property lookups.
+	 * @returns The fallback mapped type schema.
 	 */
 	public static buildMappedTypeFallbackSchema(
 		context: ITypeScriptToSchemaContext,
@@ -280,6 +299,12 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Build fallback additionalProperties for unresolved mapped key remapping.
+	 * @param context The generation context.
+	 * @param typeNode The mapped type node.
+	 * @param mappedKeys The resolved source keys from the mapped type constraint.
+	 * @param mappedTypeParameterName The mapped type parameter identifier.
+	 * @param sourceObjectSchema The optional source object schema for property lookups.
+	 * @returns The fallback additionalProperties schema.
 	 */
 	public static buildMappedTypeFallbackAdditionalProperties(
 		context: ITypeScriptToSchemaContext,
@@ -320,6 +345,9 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Merge mapped property schemas when multiple source keys remap to the same output key.
+	 * @param existingSchema The existing schema already assigned to the mapped key.
+	 * @param nextSchema The next schema to merge into the mapped key.
+	 * @returns The merged schema.
 	 */
 	public static mergeMappedTypePropertySchemas(
 		existingSchema: IJsonSchema,
@@ -346,6 +374,9 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Resolve required remapped keys from the source object's required key set.
+	 * @param mappedEntries The source-to-output mapped key entries.
+	 * @param sourceObjectSchema The source object schema containing required keys.
+	 * @returns The required output keys.
 	 */
 	public static resolveMappedTypeSourceRequiredPropertyKeys(
 		mappedEntries: { sourceKey: string; mappedKey: string }[],
@@ -365,6 +396,9 @@ export class MappedTypeSchemaResolver {
 
 	/**
 	 * Apply TypeScript intrinsic string remapping helpers to a key.
+	 * @param intrinsicName The intrinsic helper name.
+	 * @param value The input key value.
+	 * @returns The remapped key value.
 	 */
 	private static applyIntrinsicMappedTypeKeyRemap(
 		intrinsicName: string,

@@ -16,7 +16,7 @@ Resolve TypeScript type declarations from package names.
 
 ### resolveTypeDeclarationAst() {#resolvetypedeclarationast}
 
-> `static` **resolveTypeDeclarationAst**(`packageName`, `typeName`): \{ `sourceFile`: `SourceFile`; `declaration`: `InterfaceDeclaration` \| `TypeAliasDeclaration`; \} \| `undefined`
+> `static` **resolveTypeDeclarationAst**(`packageName`, `typeName`, `containingFilePath?`): \{ `sourceFile`: `SourceFile`; `declaration`: `InterfaceDeclaration` \| `TypeAliasDeclaration`; \} \| `undefined`
 
 Resolve a type declaration AST from a package and type name.
 
@@ -33,6 +33,17 @@ The package to inspect.
 `string`
 
 The type to resolve.
+
+##### containingFilePath?
+
+`string`
+
+An optional source file path to use as the starting point for
+package resolution. When provided, TypeScript module resolution walks up from that file's
+directory, which allows transitive dependencies installed alongside the source file (e.g.
+in a sub-directory node_modules) to be found even when they are not reachable from the
+current working directory. The path is normalised to absolute before use;
+falls back to process.cwd() when omitted.
 
 #### Returns
 

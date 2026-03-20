@@ -1,6 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns */
 import { Is, StringHelper } from "@twin.org/core";
 import type { IJsonSchema } from "@twin.org/tools-models";
 import * as ts from "typescript";
@@ -16,6 +15,9 @@ import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaCo
 export class ImportTypeQuerySchemaResolver {
 	/**
 	 * Map import type nodes (e.g. import("pkg").Type) to schema references.
+	 * @param context The generation context.
+	 * @param typeNode The import type node.
+	 * @returns The mapped schema.
 	 */
 	public static mapImportTypeNodeToSchema(
 		context: ITypeScriptToSchemaContext,
@@ -65,6 +67,9 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Map a type query node (typeof expr) to schema by resolving the referenced variable.
+	 * @param context The generation context.
+	 * @param typeNode The type query node.
+	 * @returns The mapped schema.
 	 */
 	public static mapTypeQueryNodeToSchema(
 		context: ITypeScriptToSchemaContext,
@@ -142,6 +147,11 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Resolve import-type references to local or external schema ids.
+	 * @param context The generation context.
+	 * @param moduleSpecifier The import module specifier.
+	 * @param typeName The imported type name.
+	 * @param title The stripped schema title.
+	 * @returns The resolved schema id.
 	 */
 	public static resolveImportTypeReferenceSchemaId(
 		context: ITypeScriptToSchemaContext,
@@ -187,7 +197,11 @@ export class ImportTypeQuerySchemaResolver {
 			return cachedSchemaId;
 		}
 
-		const declarationResult = Resolver.resolveTypeDeclarationAst(moduleSpecifier, typeName);
+		const declarationResult = Resolver.resolveTypeDeclarationAst(
+			moduleSpecifier,
+			typeName,
+			context.activeSourceFile?.fileName
+		);
 		if (!declarationResult) {
 			return mappedReference?.schemaId;
 		}
@@ -212,6 +226,10 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Resolve a property value from a const object declaration in an imported source file.
+	 * @param context The generation context.
+	 * @param objectName The imported object symbol name.
+	 * @param propertyName The property name to resolve from the object.
+	 * @returns The resolved literal property value.
 	 */
 	private static resolveConstObjectProperty(
 		context: ITypeScriptToSchemaContext,
@@ -286,6 +304,10 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Find a variable declaration by traversing import and export chains.
+	 * @param sourceFilePath The source file path to inspect.
+	 * @param variableName The variable name to find.
+	 * @param visitedFiles The set of visited files to prevent recursion cycles.
+	 * @returns The matched variable declaration.
 	 */
 	private static findVariableDeclarationInModuleGraph(
 		sourceFilePath: string,
@@ -353,6 +375,9 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Find an imported symbol reference by local identifier name.
+	 * @param sourceFile The active source file.
+	 * @param localName The local identifier name.
+	 * @returns The imported symbol reference.
 	 */
 	private static findImportedValueReference(
 		sourceFile: ts.SourceFile,
@@ -383,6 +408,9 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Resolve an import declaration module specifier to a source file.
+	 * @param containingSourceFilePath The path of the file containing the import declaration.
+	 * @param moduleSpecifier The module specifier to resolve.
+	 * @returns The resolved source file path.
 	 */
 	private static resolveImportDeclarationSourceFile(
 		containingSourceFilePath: string,
@@ -419,6 +447,9 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Extract a const-object property value from a declaration initializer.
+	 * @param objectDeclaration The variable declaration containing the object initializer.
+	 * @param propertyName The property name to resolve.
+	 * @returns The extracted literal property value.
 	 */
 	private static extractConstObjectPropertyFromDeclarationInitializer(
 		objectDeclaration: ts.VariableDeclaration,
@@ -462,6 +493,9 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Extract a const-object property value from a declaration type annotation.
+	 * @param declarationTypeNode The declaration type node to inspect.
+	 * @param propertyName The property name to resolve.
+	 * @returns The extracted literal property value.
 	 */
 	private static extractConstObjectPropertyFromDeclarationType(
 		declarationTypeNode: ts.TypeNode,
@@ -523,6 +557,8 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Extract a literal value from a type node when possible.
+	 * @param typeNode The type node to inspect.
+	 * @returns The extracted literal value.
 	 */
 	private static extractLiteralValueFromTypeNode(
 		typeNode: ts.TypeNode
@@ -542,6 +578,8 @@ export class ImportTypeQuerySchemaResolver {
 
 	/**
 	 * Extract a referenced type name from an import type qualifier.
+	 * @param qualifier The import type qualifier.
+	 * @returns The extracted type name.
 	 */
 	private static extractImportTypeName(qualifier: ts.EntityName | undefined): string | undefined {
 		if (!qualifier) {

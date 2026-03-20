@@ -23,10 +23,9 @@ function toOrderedDeepValue(value: unknown): unknown {
 	}
 
 	if (Is.object(value)) {
-		return Object.entries(value).map(([key, nestedValue]) => [
-			key,
-			toOrderedDeepValue(nestedValue)
-		]);
+		return Object.entries(value)
+			.sort(([a], [b]) => a.localeCompare(b))
+			.map(([key, nestedValue]) => [key, toOrderedDeepValue(nestedValue)]);
 	}
 
 	return value;

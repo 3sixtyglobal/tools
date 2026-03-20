@@ -38,29 +38,44 @@ export class Resolver {
 	 * Resolve a type declaration AST from a package and type name.
 	 * @param packageName The package to inspect.
 	 * @param typeName The type to resolve.
+	 * @param containingFilePath An optional source file path to use as the starting point for
+	 * package resolution. When provided, TypeScript module resolution walks up from that file's
+	 * directory, which allows transitive dependencies installed alongside the source file (e.g.
+	 * in a sub-directory node_modules) to be found even when they are not reachable from the
+	 * current working directory. The path is normalised to absolute before use;
+	 * falls back to process.cwd() when omitted.
 	 * @returns The resolved declaration AST.
 	 */
 	public static resolveTypeDeclarationAst(
 		packageName: string,
-		typeName: string
+		typeName: string,
+		containingFilePath?: string
 	):
 		| {
 				sourceFile: ts.SourceFile;
 				declaration: ts.InterfaceDeclaration | ts.TypeAliasDeclaration;
 		  }
 		| undefined {
-		const cacheKey = `${packageName}::${typeName}`;
+		// path.resolve normalises both absolute and relative paths to an absolute form so that
+		// TypeScript module resolution can correctly walk up the directory tree to node_modules.
+		const containingFile = containingFilePath
+			? FileUtils.normalizeFilePath(FileUtils.resolvePath(containingFilePath))
+			: `${FileUtils.normalizeFilePath(FileUtils.getCurrentWorkingDirectory())}/__typeScriptToSchema__.ts`;
+		const resolveDir = FileUtils.getDirectoryPath(containingFile);
+		const cacheKey = `${resolveDir}::${packageName}::${typeName}`;
+		const moduleCacheKey = `${resolveDir}::${packageName}`;
+
 		const cachedDeclaration = Resolver._typeDeclarationCache[cacheKey];
 		if (cachedDeclaration !== undefined) {
 			return cachedDeclaration ?? undefined;
 		}
 
 		const compilerOptions = Resolver.getModuleResolutionCompilerOptions();
-		const containingFile = `${FileUtils.normalizeFilePath(FileUtils.getCurrentWorkingDirectory())}/__typeScriptToSchema__.ts`;
 		const resolvedModuleFileName = Resolver.resolvePackageEntryFile(
 			packageName,
 			containingFile,
-			compilerOptions
+			compilerOptions,
+			moduleCacheKey
 		);
 
 		if (!resolvedModuleFileName) {
@@ -84,15 +99,17 @@ export class Resolver {
 	 * @param packageName The package to resolve.
 	 * @param containingFile The containing file for module resolution.
 	 * @param compilerOptions Compiler options for module resolution.
+	 * @param cacheKey The cache key to use for the resolved module file cache.
 	 * @returns The resolved entry file path.
 	 * @internal
 	 */
 	private static resolvePackageEntryFile(
 		packageName: string,
 		containingFile: string,
-		compilerOptions: ts.CompilerOptions
+		compilerOptions: ts.CompilerOptions,
+		cacheKey: string
 	): string | undefined {
-		const cachedResolvedModuleFile = Resolver._resolvedModuleFileCache[packageName];
+		const cachedResolvedModuleFile = Resolver._resolvedModuleFileCache[cacheKey];
 		if (cachedResolvedModuleFile !== undefined) {
 			return cachedResolvedModuleFile ?? undefined;
 		}
@@ -105,11 +122,11 @@ export class Resolver {
 		).resolvedModule;
 		const resolvedModuleFileName = resolvedModule?.resolvedFileName;
 		if (!resolvedModuleFileName) {
-			Resolver._resolvedModuleFileCache[packageName] = null;
+			Resolver._resolvedModuleFileCache[cacheKey] = null;
 			return undefined;
 		}
 
-		Resolver._resolvedModuleFileCache[packageName] = resolvedModuleFileName;
+		Resolver._resolvedModuleFileCache[cacheKey] = resolvedModuleFileName;
 		return resolvedModuleFileName;
 	}
 
@@ -128,7 +145,7 @@ export class Resolver {
 	}
 
 	/**
-	 * Find a type declaration by walking a module's import/export graph.
+	 * Find a type declaration by walking a module import/export graph.
 	 * @param sourceFilePath The source file path to inspect.
 	 * @param typeName The type name to find.
 	 * @param visitedFiles The visited file set.
