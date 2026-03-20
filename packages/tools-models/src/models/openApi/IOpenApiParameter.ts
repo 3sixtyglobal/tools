@@ -3,25 +3,9 @@
 import type { IOpenApiExample } from "./IOpenApiExample.js";
 import type { IOpenApiMediaType } from "./IOpenApiMediaType.js";
 import type { IOpenApiReference } from "./IOpenApiReference.js";
+import type { OpenApiParameterLocation } from "./OpenApiParameterLocation.js";
+import type { OpenApiParameterStyle } from "./OpenApiParameterStyle.js";
 import type { IJsonSchema } from "../jsonSchema/IJsonSchema.js";
-
-/**
- * The supported parameter locations.
- */
-export type OpenApiParameterLocation = "path" | "query" | "querystring" | "header" | "cookie";
-
-/**
- * The supported parameter styles.
- */
-export type OpenApiParameterStyle =
-	| "matrix"
-	| "label"
-	| "simple"
-	| "form"
-	| "spaceDelimited"
-	| "pipeDelimited"
-	| "deepObject"
-	| "cookie";
 
 /**
  * An OpenAPI Parameter Object.

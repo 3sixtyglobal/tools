@@ -15,6 +15,8 @@ export * from "./models/openApi/IOpenApiMediaType.js";
 export * from "./models/openApi/IOpenApiOAuthFlow.js";
 export * from "./models/openApi/IOpenApiOAuthFlows.js";
 export * from "./models/openApi/IOpenApiParameter.js";
+export * from "./models/openApi/OpenApiParameterLocation.js";
+export * from "./models/openApi/OpenApiParameterStyle.js";
 export * from "./models/openApi/IOpenApiPathItem.js";
 export * from "./models/openApi/IOpenApiPathMethod.js";
 export * from "./models/openApi/IOpenApiReference.js";

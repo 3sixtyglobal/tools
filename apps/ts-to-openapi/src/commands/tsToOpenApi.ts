@@ -6,19 +6,20 @@ import { pathToFileURL } from "node:url";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import { TypeScriptToSchema, Constants } from "@twin.org/tools-core";
+import { Constants, TypeScriptToSchema } from "@twin.org/tools-core";
 import {
 	type IJsonSchema,
 	type IOpenApi,
 	type IOpenApiExample,
 	type IOpenApiHeader,
-	type IOpenApiParameter,
 	type IOpenApiPathItem,
 	type IOpenApiPathMethod,
 	type IOpenApiResponse,
 	type IOpenApiSecurityScheme,
 	type IPackageJson,
-	OpenApiConstants
+	OpenApiConstants,
+	type OpenApiParameterLocation,
+	type OpenApiParameterStyle
 } from "@twin.org/tools-models";
 import { HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { Command } from "commander";
@@ -369,9 +370,9 @@ export async function tsToOpenApi(
 				name: string;
 				description?: string;
 				required: boolean;
-				in: IOpenApiParameter["in"];
+				in: OpenApiParameterLocation;
 				schema: IJsonSchema;
-				style?: IOpenApiParameter["style"];
+				style?: OpenApiParameterStyle;
 				example?: unknown;
 			}[] = inputPath.pathParameters.map(p => ({
 				name: p,
@@ -414,17 +415,22 @@ export async function tsToOpenApi(
 					});
 				}
 
+				// We only allow specific simple constructs in query and path params.
+				const simpleSchemaKeys = ["type", "enum", "anyOf", "oneOf", "allOf", "$ref"];
+
 				// If there is a path params object convert these to params
 				if (Is.object<IJsonSchema>(requestObject.properties.pathParams)) {
 					for (const pathParam of pathQueryHeaderParams) {
 						const prop = requestObject.properties.pathParams.properties?.[pathParam.name];
 						if (Is.object<IJsonSchema>(prop)) {
 							pathParam.description = prop.description ?? pathParam.description;
-							pathParam.schema = {
-								type: prop.type,
-								enum: prop.enum,
-								$ref: prop.$ref
-							};
+
+							pathParam.schema = {};
+							for (const key of simpleSchemaKeys) {
+								if (!Is.empty(prop[key])) {
+									pathParam.schema[key] = prop[key];
+								}
+							}
 							pathParam.required = true;
 							delete requestObject.properties.pathParams.properties?.[pathParam.name];
 						}
@@ -442,18 +448,23 @@ export async function tsToOpenApi(
 								example = requestExample.query[prop];
 							}
 
-							pathQueryHeaderParams.push({
+							const schema: IJsonSchema = {};
+							for (const key of simpleSchemaKeys) {
+								if (!Is.empty(queryProp[key])) {
+									schema[key] = queryProp[key];
+								}
+							}
+
+							const pathQueryHeaderParam = {
 								name: prop,
 								description: queryProp.description,
 								required: Boolean(requestObject.required?.includes(prop)),
-								schema: {
-									type: queryProp.type,
-									enum: queryProp.enum,
-									$ref: queryProp.$ref
-								},
-								in: "query",
+								schema,
+								in: "query" as OpenApiParameterLocation,
 								example
-							});
+							};
+
+							pathQueryHeaderParams.push(pathQueryHeaderParam);
 							delete requestObject.properties.query.properties[prop];
 						}
 					}
