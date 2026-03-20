@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.24](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.23...tools-core-v0.0.3-next.24) (2026-03-20)
+
+
+### Features
+
+* use correct json-ld context schema ([c831486](https://github.com/twinfoundation/tools/commit/c8314864a63635556cd5f2912162a2989056e974))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.23 to 0.0.3-next.24
+
 ## [0.0.3-next.23](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.22...tools-core-v0.0.3-next.23) (2026-03-20)
 
 
