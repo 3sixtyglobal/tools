@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.20](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.19...ts-to-openapi-v0.0.3-next.20) (2026-03-20)
+
+
+### Features
+
+* alternate path and query param schemas ([e7487e3](https://github.com/twinfoundation/tools/commit/e7487e3bf4ccee3f52245ca27bc7cc160ab391b8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.19 to 0.0.3-next.20
+    * @twin.org/tools-models bumped from 0.0.3-next.19 to 0.0.3-next.20
+
 ## [0.0.3-next.19](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.18...ts-to-openapi-v0.0.3-next.19) (2026-03-19)
 
 

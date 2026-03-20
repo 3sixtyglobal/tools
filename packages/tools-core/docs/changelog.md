@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.20](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.19...tools-core-v0.0.3-next.20) (2026-03-20)
+
+
+### Miscellaneous Chores
+
+* **tools-core:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.19 to 0.0.3-next.20
+
 ## [0.0.3-next.19](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.18...tools-core-v0.0.3-next.19) (2026-03-19)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.20](https://github.com/twinfoundation/tools/compare/tools-models-v0.0.3-next.19...tools-models-v0.0.3-next.20) (2026-03-20)
+
+
+### Features
+
+* alternate path and query param schemas ([e7487e3](https://github.com/twinfoundation/tools/commit/e7487e3bf4ccee3f52245ca27bc7cc160ab391b8))
+
 ## [0.0.3-next.19](https://github.com/twinfoundation/tools/compare/tools-models-v0.0.3-next.18...tools-models-v0.0.3-next.19) (2026-03-19)
 
 
