@@ -1,5 +1,52 @@
 # Changelog
 
+## [0.0.3-next.22](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.21...ts-to-openapi-v0.0.3-next.22) (2026-03-20)
+
+
+### Features
+
+* add context id features ([#54](https://github.com/twinfoundation/tools/issues/54)) ([41ad65d](https://github.com/twinfoundation/tools/commit/41ad65d5ae33d0533d32a2864cd94e5c35e56c76))
+* add jsdoc default value to schema ([7886a84](https://github.com/twinfoundation/tools/commit/7886a84961e692d2054f223e2e99205a654b76a6))
+* add jsdoc tag validation ([971b8d3](https://github.com/twinfoundation/tools/commit/971b8d3817d40467bfd7549c99af602f0c590299))
+* add latest json schema features ([494293f](https://github.com/twinfoundation/tools/commit/494293f4252b9c7d4a20790ec157fc9d8c96c3d2))
+* add support for authentication property ([ba002c2](https://github.com/twinfoundation/tools/commit/ba002c2c641618ffe7664269179bca6e9fbc9655))
+* add support for auto expand types ([dd1e10a](https://github.com/twinfoundation/tools/commit/dd1e10a5b2fea6f80890ff6f3971f48e239cb4c1))
+* add ts-to-schema overrides ([3c54504](https://github.com/twinfoundation/tools/commit/3c5450468eb998204a75576b7791a7ca4027da62))
+* add validate-locales ([97bb11f](https://github.com/twinfoundation/tools/commit/97bb11fd9e6ed400e7fa69671075ba78f36ca6e6))
+* alternate path and query param schemas ([e7487e3](https://github.com/twinfoundation/tools/commit/e7487e3bf4ccee3f52245ca27bc7cc160ab391b8))
+* correctly handle auto expand types ([57fce0f](https://github.com/twinfoundation/tools/commit/57fce0f9ec4a0876665d70adc6e885f6feb3caf7))
+* eslint migration to flat config ([25acfcf](https://github.com/twinfoundation/tools/commit/25acfcf4c4e0c496fffeaf67659fe171bc15199a))
+* generate schemas as individual entities ([9f372ab](https://github.com/twinfoundation/tools/commit/9f372abdfc27aba93b303c7b214991919c0c18c3))
+* improve auto expand types ([6181d1d](https://github.com/twinfoundation/tools/commit/6181d1daded1f91323195cf7efbc2f1881f38b41))
+* improve schema type name normalisation ([1a18b26](https://github.com/twinfoundation/tools/commit/1a18b267d87e9179bda01b396b256c450ae2889e))
+* improve type name normalisation ([1fe28e5](https://github.com/twinfoundation/tools/commit/1fe28e567593e46a41a833fbba95fe4cd958f525))
+* move package to framework repo ([4490bda](https://github.com/twinfoundation/tools/commit/4490bda472d4dc8ddfe931e2fce81f3411de9ab3))
+* remove auto expanded types from final output ([18e05dc](https://github.com/twinfoundation/tools/commit/18e05dc88f71a0a27b79d1d076b1261b42d2c4c2))
+* strip Omit types ([3a079f9](https://github.com/twinfoundation/tools/commit/3a079f9abe8127c5b44a2b9382babf2f19629d08))
+* tighten the types included with the regex matching ([e54909b](https://github.com/twinfoundation/tools/commit/e54909bded4a19d00560dd3ec783e9146580bda3))
+* ts to schema ([#86](https://github.com/twinfoundation/tools/issues/86)) ([ffebda5](https://github.com/twinfoundation/tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/twinfoundation/tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+* use most recent JSON schema specs ([4598cbf](https://github.com/twinfoundation/tools/commit/4598cbf29f7b82dba4a9f3b19f81dfe66f5a6060))
+* use shared store mechanism ([#31](https://github.com/twinfoundation/tools/issues/31)) ([d9fe68b](https://github.com/twinfoundation/tools/commit/d9fe68b903d1268c7cb3c64772df5cb78fd63667))
+
+
+### Bug Fixes
+
+* correct type naming ([99980c5](https://github.com/twinfoundation/tools/commit/99980c58ac3f61be5df2fae0d00676532ada5a64))
+* fix locale resource name ([53ad5b5](https://github.com/twinfoundation/tools/commit/53ad5b56f19a5082f16a4f1e4a761e114dce8250))
+* missing type definitions when importing relative from dynamic node_modules ([52d9fc5](https://github.com/twinfoundation/tools/commit/52d9fc5f2618a09c02b9f5dbe585b37cf60c9f20))
+* output all referenced schemas for packages ([8c0580a](https://github.com/twinfoundation/tools/commit/8c0580a5c2c7c1f5b581401100a043950b54379a))
+* remove unused types ([#62](https://github.com/twinfoundation/tools/issues/62)) ([2da7f7b](https://github.com/twinfoundation/tools/commit/2da7f7b63ac2916744179ba122fb8ed80ed13ed4))
+* speed up schema generation ([#64](https://github.com/twinfoundation/tools/issues/64)) ([2dc1829](https://github.com/twinfoundation/tools/commit/2dc1829965cb5917d6672bc633e47788a361b071))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.21 to 0.0.3-next.22
+    * @twin.org/tools-models bumped from 0.0.3-next.21 to 0.0.3-next.22
+
 ## [0.0.3-next.21](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.20...ts-to-openapi-v0.0.3-next.21) (2026-03-20)
 
 

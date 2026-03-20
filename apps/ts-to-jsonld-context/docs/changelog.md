@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.0.3-next.22](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.21...ts-to-jsonld-context-v0.0.3-next.22) (2026-03-20)
+
+
+### Features
+
+* add support for default jsonld object properties ([c9e389a](https://github.com/twinfoundation/tools/commit/c9e389a7ae53f5059cfc708d8d2aabc998ede10b))
+* add support for default jsonld object properties ([0285bb5](https://github.com/twinfoundation/tools/commit/0285bb56e4520af80fb15ca7ce672f44215da44c))
+* added ts-to-jsonld-context tool ([#67](https://github.com/twinfoundation/tools/issues/67)) ([c808e84](https://github.com/twinfoundation/tools/commit/c808e84741e5010a166520e39565f4933dceba59))
+* json-ld-protected ([#77](https://github.com/twinfoundation/tools/issues/77)) ([77bdf8c](https://github.com/twinfoundation/tools/commit/77bdf8c0c524e99c7f5b2245aeac029594dd656f))
+* skip [@id](https://github.com/id) and [@type](https://github.com/type) properties ([c4c1dc3](https://github.com/twinfoundation/tools/commit/c4c1dc3a83fffc7f05c024daf148b0914f7db55a))
+* support id definition for properties, including ids coming from external LD Contexts ([#69](https://github.com/twinfoundation/tools/issues/69)) ([7afbb81](https://github.com/twinfoundation/tools/commit/7afbb810f5a9e88163fc3ec05fd4957e60c0ca22))
+* ts to schema ([#86](https://github.com/twinfoundation/tools/issues/86)) ([ffebda5](https://github.com/twinfoundation/tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+* update json ld property support ([5ad0a3e](https://github.com/twinfoundation/tools/commit/5ad0a3e063623b4b85ae6d205fce771fadc6a110))
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/twinfoundation/tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+
+
+### Bug Fixes
+
+* namespace only properties to just include external reference ([c329eed](https://github.com/twinfoundation/tools/commit/c329eed27194888794595a5be7b8a00be7fdf67f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.21 to 0.0.3-next.22
+
 ## [0.0.3-next.21](https://github.com/twinfoundation/tools/compare/ts-to-jsonld-context-v0.0.3-next.20...ts-to-jsonld-context-v0.0.3-next.21) (2026-03-20)
 
 

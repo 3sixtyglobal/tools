@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/ts-to-schema",
-	"version": "0.0.3-next.21",
+	"version": "0.0.3-next.22",
 	"description": "Generate JSON Schemas from source model definitions",
 	"repository": {
 		"type": "git",
@@ -32,8 +32,8 @@
 		"@twin.org/cli-core": "next",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
-		"@twin.org/tools-core": "0.0.3-next.21",
-		"@twin.org/tools-models": "0.0.3-next.21",
+		"@twin.org/tools-core": "0.0.3-next.22",
+		"@twin.org/tools-models": "0.0.3-next.22",
 		"commander": "14.0.3",
 		"glob": "13.0.6"
 	},
