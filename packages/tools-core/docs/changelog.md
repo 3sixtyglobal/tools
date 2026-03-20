@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.23](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.22...tools-core-v0.0.3-next.23) (2026-03-20)
+
+
+### Features
+
+* improve inheritance redefinition optionality ([e7024f6](https://github.com/twinfoundation/tools/commit/e7024f699988c0b3de8315a0dbe455a13268e75d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.22 to 0.0.3-next.23
+
 ## [0.0.3-next.22](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.21...tools-core-v0.0.3-next.22) (2026-03-20)
 
 
