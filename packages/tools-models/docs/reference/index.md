@@ -36,9 +36,9 @@
 ## Type Aliases
 
 - [JsonSchemaTypeNames](type-aliases/JsonSchemaTypeNames.md)
+- [IOpenApiSecurityScheme](type-aliases/IOpenApiSecurityScheme.md)
 - [OpenApiParameterLocation](type-aliases/OpenApiParameterLocation.md)
 - [OpenApiParameterStyle](type-aliases/OpenApiParameterStyle.md)
-- [IOpenApiSecurityScheme](type-aliases/IOpenApiSecurityScheme.md)
 - [IPackageJsonBugs](type-aliases/IPackageJsonBugs.md)
 - [IPackageJsonPerson](type-aliases/IPackageJsonPerson.md)
 - [IPackageJsonRepository](type-aliases/IPackageJsonRepository.md)
