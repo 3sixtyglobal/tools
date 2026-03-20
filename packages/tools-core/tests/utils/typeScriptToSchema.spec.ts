@@ -962,6 +962,76 @@ describe("TypeScriptToSchema", () => {
 		).rejects.toThrow("jsonSchemaBuilder.invalidJsonSchemaTagKey");
 	});
 
+	test("throws for array constraint applied to a non-array type", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		await expect(
+			tsToSchema.generateSchema(
+				"https://schema.twindev.org/test/",
+				"@example.com/pkg",
+				packageSchemas,
+				"tests/utils/test-data/jsonSchemaConstraintMismatch/testArrayConstraintMismatch.ts"
+			)
+		).rejects.toThrow("jsonSchemaBuilder.constraintOnIncompatibleType");
+	});
+
+	test("throws for numeric constraint applied to a non-numeric type", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		await expect(
+			tsToSchema.generateSchema(
+				"https://schema.twindev.org/test/",
+				"@example.com/pkg",
+				packageSchemas,
+				"tests/utils/test-data/jsonSchemaConstraintMismatch/testNumericConstraintMismatch.ts"
+			)
+		).rejects.toThrow("jsonSchemaBuilder.constraintOnIncompatibleType");
+	});
+
+	test("throws for string constraint applied to a non-string type", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		await expect(
+			tsToSchema.generateSchema(
+				"https://schema.twindev.org/test/",
+				"@example.com/pkg",
+				packageSchemas,
+				"tests/utils/test-data/jsonSchemaConstraintMismatch/testStringConstraintMismatch.ts"
+			)
+		).rejects.toThrow("jsonSchemaBuilder.constraintOnIncompatibleType");
+	});
+
+	test("throws for object constraint applied to a non-object type", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		await expect(
+			tsToSchema.generateSchema(
+				"https://schema.twindev.org/test/",
+				"@example.com/pkg",
+				packageSchemas,
+				"tests/utils/test-data/jsonSchemaConstraintMismatch/testObjectConstraintMismatch.ts"
+			)
+		).rejects.toThrow("jsonSchemaBuilder.constraintOnIncompatibleType");
+	});
+
+	test("throws for an unrecognised format value", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		await expect(
+			tsToSchema.generateSchema(
+				"https://schema.twindev.org/test/",
+				"@example.com/pkg",
+				packageSchemas,
+				"tests/utils/test-data/jsonSchemaConstraintMismatch/testInvalidFormatValue.ts"
+			)
+		).rejects.toThrow("jsonSchemaBuilder.invalidFormatValue");
+	});
+
 	test("excludes enclosing objects for disallowed type names and reports diagnostics", async () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};

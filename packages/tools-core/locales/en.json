@@ -2,6 +2,8 @@
 	"error": {
 		"jsonSchemaBuilder": {
 			"invalidJsonSchemaTagKey": "Ignoring invalid @json-schema tag key \"{rawKey}\". Mapped key \"{schemaKey}\" is not supported by JSON Schema.",
+			"constraintOnIncompatibleType": "The @json-schema \"{schemaKey}\" constraint requires type \"{requiredType}\" but the type is \"{schemaType}\".",
+			"invalidFormatValue": "The @json-schema \"format\" value \"{formatValue}\" is not a recognised JSON Schema format. Valid values are: {validFormats}.",
 			"missingTypeReferenceSchema": "Unable to resolve type \"{typeName}\"{importSource} required as base type for utility type. Ensure the type is in the configured packages list or its external package exports TypeScript source files that can be parsed via the AST."
 		}
 	},

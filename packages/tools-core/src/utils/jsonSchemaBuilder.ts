@@ -1,6 +1,13 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, Is, JsonHelper, ObjectHelper, StringHelper } from "@twin.org/core";
+import {
+	ArrayHelper,
+	GeneralError,
+	Is,
+	JsonHelper,
+	ObjectHelper,
+	StringHelper
+} from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { type IJsonSchema, JsonSchemaTagNames } from "@twin.org/tools-models";
 import * as ts from "typescript";
@@ -338,8 +345,96 @@ export class JsonSchemaBuilder {
 					schemaKey
 				});
 			}
+			JsonSchemaBuilder.validateJsonSchemaTagConstraint(schemaKey, schema.type, rawValue);
 			const parsedValue = JsDoc.parseTagValue(rawValue);
 			ObjectHelper.propertySet(schema, schemaKey, parsedValue);
+		}
+	}
+
+	/**
+	 * Validate that a @json-schema constraint key is compatible with the given schema type,
+	 * and that the raw value is valid for the constraint.
+	 * @param schemaKey The mapped schema key being applied.
+	 * @param schemaType The type already set on the schema, if any.
+	 * @param rawValue The raw string value from the JSDoc tag.
+	 * @throws GeneralError Thrown when the constraint is not valid for the schema type.
+	 * @throws GeneralError Thrown when the format value is not a recognised JSON Schema format.
+	 */
+	public static validateJsonSchemaTagConstraint(
+		schemaKey: string,
+		schemaType: string | string[] | undefined,
+		rawValue: string
+	): void {
+		if (schemaType !== undefined) {
+			const types = ArrayHelper.fromObjectOrArray(schemaType);
+
+			const numericConstraints = [
+				"minimum",
+				"maximum",
+				"multipleOf",
+				"exclusiveMinimum",
+				"exclusiveMaximum"
+			];
+			const stringConstraints = ["minLength", "maxLength", "pattern", "format"];
+			const objectConstraints = ["minProperties", "maxProperties"];
+			const arrayConstraints = ["minItems", "maxItems", "uniqueItems"];
+
+			let requiredType: string | undefined;
+			if (numericConstraints.includes(schemaKey)) {
+				if (!types.includes("number") && !types.includes("integer")) {
+					requiredType = "number|integer";
+				}
+			} else if (stringConstraints.includes(schemaKey)) {
+				if (!types.includes("string")) {
+					requiredType = "string";
+				}
+			} else if (objectConstraints.includes(schemaKey)) {
+				if (!types.includes("object")) {
+					requiredType = "object";
+				}
+			} else if (arrayConstraints.includes(schemaKey)) {
+				if (!types.includes("array")) {
+					requiredType = "array";
+				}
+			}
+
+			if (requiredType !== undefined) {
+				throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "constraintOnIncompatibleType", {
+					schemaKey,
+					requiredType,
+					schemaType: Is.array(schemaType) ? schemaType.join("|") : schemaType
+				});
+			}
+		}
+
+		if (schemaKey === "format") {
+			const validFormats = [
+				"date-time",
+				"date",
+				"time",
+				"duration",
+				"email",
+				"idn-email",
+				"hostname",
+				"idn-hostname",
+				"ipv4",
+				"ipv6",
+				"uri",
+				"uri-reference",
+				"iri",
+				"iri-reference",
+				"uuid",
+				"uri-template",
+				"json-pointer",
+				"relative-json-pointer",
+				"regex"
+			];
+			if (!validFormats.includes(rawValue)) {
+				throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "invalidFormatValue", {
+					formatValue: rawValue,
+					validFormats: validFormats.join(", ")
+				});
+			}
 		}
 	}
 
