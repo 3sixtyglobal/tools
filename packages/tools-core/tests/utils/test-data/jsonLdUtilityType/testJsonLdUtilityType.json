@@ -337,10 +337,7 @@
 					"type": "string"
 				},
 				"@context": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
 				}
 			},
 			"required": ["name", "@context"]
@@ -388,10 +385,7 @@
 					"type": "string"
 				},
 				"@context": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
 				}
 			},
 			"required": ["name"]

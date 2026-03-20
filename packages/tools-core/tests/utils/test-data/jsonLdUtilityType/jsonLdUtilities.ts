@@ -1,7 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
-export type IJsonLdContextDefinitionRoot = string[];
+import type { IJsonLdContextDefinitionRoot } from "../jsonLd/IJsonLdContextDefinitionRoot.js";
 
 /**
  * Extract the optional property names from a type.

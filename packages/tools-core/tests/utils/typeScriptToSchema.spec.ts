@@ -214,7 +214,12 @@ describe("TypeScriptToSchema", () => {
 			"https://schema.twindev.org/test/",
 			"@example.com/pkg",
 			packageSchemas,
-			"tests/utils/test-data/interfaceExtendsUtility/testInterfaceExtendsUtilityActivity.ts"
+			"tests/utils/test-data/interfaceExtendsUtility/testInterfaceExtendsUtilityActivity.ts",
+			{
+				externalReferences: {
+					"JsonLd(.*)": "https://schema.twindev.org/json-ld/JsonLd$1"
+				}
+			}
 		);
 
 		expect(getSchemaByExpectedTitle(generatedSchemas, activitySchema)).toEqual(activitySchema);
@@ -872,8 +877,7 @@ describe("TypeScriptToSchema", () => {
 		});
 		expect(schema.properties?.withoutContext.required).toEqual(["name", "@context"]);
 		expect(schema.properties?.withoutContext.properties?.["@context"]).toEqual({
-			type: "array",
-			items: { type: "string" }
+			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
 		});
 		expect(schema.properties?.withCustomContext.required).toEqual(["name", "@context"]);
 		expect(schema.properties?.withCustomContext.properties?.["@context"]).toEqual({
@@ -890,8 +894,7 @@ describe("TypeScriptToSchema", () => {
 		});
 		expect(schema.properties?.withOptionalContextNoSource.required).toEqual(["name"]);
 		expect(schema.properties?.withOptionalContextNoSource.properties?.["@context"]).toEqual({
-			type: "array",
-			items: { type: "string" }
+			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
 		});
 		expect(schema.properties?.withNoContext.required).toEqual(["label"]);
 		expect(schema.properties?.withNoContext.properties?.["@context"]).toBeUndefined();

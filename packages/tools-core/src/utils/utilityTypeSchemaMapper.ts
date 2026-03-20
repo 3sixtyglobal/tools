@@ -356,7 +356,11 @@ export class UtilityTypeSchemaMapper {
 		const valueTypeNode = typeNode.typeArguments?.[1];
 		const valueSchema = valueTypeNode
 			? JsonSchemaBuilder.mapTypeNodeToSchema(context, valueTypeNode)
-			: UtilityTypeSchemaMapper.mapJsonLdObjectDefaultSchemaByKey(baseSchema, options.keyToAdd);
+			: UtilityTypeSchemaMapper.mapJsonLdObjectDefaultSchemaByKey(
+					context,
+					baseSchema,
+					options.keyToAdd
+				);
 		if (!valueSchema) {
 			return undefined;
 		}
@@ -516,11 +520,13 @@ export class UtilityTypeSchemaMapper {
 
 	/**
 	 * Resolve a default schema for JsonLdObject utility key additions when the type argument is omitted.
+	 * @param context The generation context.
 	 * @param baseSchema The base object schema being transformed.
 	 * @param keyToAdd The key to add when no explicit value type argument is provided.
 	 * @returns The resolved default schema for the added key.
 	 */
 	private static mapJsonLdObjectDefaultSchemaByKey(
+		context: ITypeScriptToSchemaContext,
 		baseSchema: IJsonSchema,
 		keyToAdd: "id" | "@id" | "type" | "@type" | "@context"
 	): IJsonSchema {
@@ -529,7 +535,10 @@ export class UtilityTypeSchemaMapper {
 		}
 
 		if (keyToAdd === "@context") {
-			return UtilityTypeSchemaMapper.mapJsonLdObjectWithContextDefaultContextSchema(baseSchema);
+			return UtilityTypeSchemaMapper.mapJsonLdObjectWithContextDefaultContextSchema(
+				context,
+				baseSchema
+			);
 		}
 
 		return UtilityTypeSchemaMapper.mapJsonLdObjectWithTypeDefaultTypeSchema(baseSchema);
@@ -559,21 +568,38 @@ export class UtilityTypeSchemaMapper {
 
 	/**
 	 * Resolve default context schema for JsonLdObjectWithContext when Context argument is omitted.
+	 * @param context The generation context.
 	 * @param baseSchema The base object schema being transformed.
 	 * @returns The default context schema.
 	 */
 	private static mapJsonLdObjectWithContextDefaultContextSchema(
+		context: ITypeScriptToSchemaContext,
 		baseSchema: IJsonSchema
 	): IJsonSchema {
-		return UtilityTypeSchemaMapper.mapJsonLdObjectDefaultEitherSchema(
+		const existingContextSchema = ObjectTransformer.resolvePropertySchemaFromObjectSchema(
 			baseSchema,
-			"@context",
-			"@context",
-			{
-				type: "array",
-				items: { type: "string" }
-			}
+			"@context"
 		);
+
+		if (existingContextSchema) {
+			return existingContextSchema;
+		}
+
+		// Look up JsonLdContextDefinitionRoot from the cache to get its correct namespace
+		const contextDefRootSchema = Object.values(context.schemas)
+			.flatMap(packageSchemas => Object.values(packageSchemas ?? {}))
+			.find(schema => schema?.$id?.endsWith("JsonLdContextDefinitionRoot"));
+
+		if (contextDefRootSchema?.$id) {
+			return {
+				$ref: contextDefRootSchema.$id
+			};
+		}
+
+		// Fallback: return a reference using a common JSON-LD namespace
+		return {
+			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+		};
 	}
 
 	/**
