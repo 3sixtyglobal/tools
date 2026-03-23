@@ -43,7 +43,7 @@ describe("FileUtils", () => {
 	});
 
 	test("can resolve source files from a glob pattern", async () => {
-		const sourceFiles = FileUtils.resolveSourceFiles("tests/utils/test-data/utilityType/*.ts");
+		const sourceFiles = FileUtils.resolveSourceFiles("tests/utils/testData/utilityType/*.ts");
 		expect(sourceFiles.length).toBe(2);
 		expect(sourceFiles.some(file => file.endsWith("testUtilityPerson.ts"))).toBe(true);
 		expect(sourceFiles.some(file => file.endsWith("testUtilityType.ts"))).toBe(true);

@@ -16,8 +16,8 @@ import type {
 	JsonLdObjectWithOptionalId,
 	JsonLdObjectWithOptionalType,
 	JsonLdObjectWithType
-} from "./jsonLdUtilities.ts";
-import type { Person } from "../utilityType/testUtilityPerson.ts";
+} from "./jsonLdUtilities.js";
+import type { Person } from "../utilityType/testUtilityPerson.js";
 
 /**
  * JSON-LD utility type wrapper using JsonLdObject utilities.

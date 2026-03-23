@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { ObjectOrArray, SingleOccurrenceArray } from "@twin.org/core";
-import type { Person } from "./testUtilityPerson.ts";
+import type { Person } from "./testUtilityPerson.js";
 
 /**
  * Utility type wrapper using Partial, Omit, Required and Pick on an imported type.

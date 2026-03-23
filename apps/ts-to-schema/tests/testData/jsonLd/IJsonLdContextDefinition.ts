@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-/* eslint-disable jsdoc/require-jsdoc */
 import type { IJsonLdExpandedTermDefinition } from "./IJsonLdExpandedTermDefinition.js";
 import type { IJsonLdKeyword } from "./IJsonLdKeyword.js";
 

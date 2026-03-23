@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IImportedProfile } from "./testNestedImportedTypes.ts";
+import type { IImportedProfile } from "./testNestedImportedTypes.js";
 
 /**
  * Root schema that references an imported nested object.
