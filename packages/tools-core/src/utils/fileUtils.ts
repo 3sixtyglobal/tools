@@ -108,6 +108,8 @@ export class FileUtils {
 			`${resolvedBase}.d.ts`,
 			`${resolvedBase}/index.ts`,
 			`${resolvedBase}/index.d.ts`,
+			`${baseWithoutExtension}.ts`,
+			`${baseWithoutExtension}/index.ts`,
 			`${baseWithoutExtension}.d.ts`,
 			`${baseWithoutExtension}/index.d.ts`
 		];

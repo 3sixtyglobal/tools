@@ -585,9 +585,21 @@ export class UtilityTypeSchemaMapper {
 			return existingContextSchema;
 		}
 
+		const mappedContextReference = JsonSchemaBuilder.resolveReferenceMappingTarget(
+			context,
+			"",
+			"JsonLdContextDefinitionRoot"
+		);
+		if (mappedContextReference?.schemaId) {
+			return {
+				$ref: mappedContextReference.schemaId
+			};
+		}
+
 		// Look up JsonLdContextDefinitionRoot from the cache to get its correct namespace
-		const contextDefRootSchema = Object.values(context.schemas)
-			.flatMap(packageSchemas => Object.values(packageSchemas ?? {}))
+		const contextDefRootSchema = Object.entries(context.schemas)
+			.filter(([packageName]) => packageName !== context.packageName)
+			.flatMap(([, packageSchemas]) => Object.values(packageSchemas ?? {}))
 			.find(schema => schema?.$id?.endsWith("JsonLdContextDefinitionRoot"));
 
 		if (contextDefRootSchema?.$id) {
