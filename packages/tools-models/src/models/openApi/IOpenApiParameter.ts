@@ -3,8 +3,8 @@
 import type { IOpenApiExample } from "./IOpenApiExample.js";
 import type { IOpenApiMediaType } from "./IOpenApiMediaType.js";
 import type { IOpenApiReference } from "./IOpenApiReference.js";
-import type { OpenApiParameterLocation } from "./openApiParameterLocation2.js";
-import type { OpenApiParameterStyle } from "./openApiParameterStyle2.js";
+import type { OpenApiParameterLocation } from "./openApiParameterLocation.js";
+import type { OpenApiParameterStyle } from "./openApiParameterStyle.js";
 import type { IJsonSchema } from "../jsonSchema/IJsonSchema.js";
 
 /**
