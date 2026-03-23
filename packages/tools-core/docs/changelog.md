@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.25](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.24...tools-core-v0.0.3-next.25) (2026-03-23)
+
+
+### Bug Fixes
+
+* module resolution ([f3aa10c](https://github.com/twinfoundation/tools/commit/f3aa10c9c9af073de392a2ef6b8411e947e991c2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.24 to 0.0.3-next.25
+
 ## [0.0.3-next.24](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.23...tools-core-v0.0.3-next.24) (2026-03-20)
 
 
