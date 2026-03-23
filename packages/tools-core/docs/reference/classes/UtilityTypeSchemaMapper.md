@@ -18,7 +18,7 @@ Static utility-type schema mapping helpers.
 
 > `static` **mapPartialUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Partial<T> to an object schema with no required properties.
+Map `Partial<T>` to an object schema with no required properties.
 
 #### Parameters
 
@@ -32,7 +32,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Partial type reference.
+The `Partial` type reference.
 
 #### Returns
 
@@ -46,7 +46,7 @@ The mapped schema.
 
 > `static` **mapRequiredUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Required<T> to an object schema with all properties required.
+Map `Required<T>` to an object schema with all properties required.
 
 #### Parameters
 
@@ -60,7 +60,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Required type reference.
+The `Required` type reference.
 
 #### Returns
 
@@ -74,7 +74,7 @@ The mapped schema.
 
 > `static` **mapPickUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Pick<T, K> to an object schema with selected keys preserved.
+Map `Pick<T, K>` to an object schema with selected keys preserved.
 
 #### Parameters
 
@@ -102,7 +102,7 @@ The mapped schema.
 
 > `static` **mapOmitUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Omit<T, K> to an object schema with selected keys removed.
+Map `Omit<T, K>` to an object schema with selected keys removed.
 
 #### Parameters
 
@@ -116,7 +116,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Omit type reference.
+The `Omit` type reference.
 
 #### Returns
 
@@ -130,7 +130,7 @@ The mapped schema.
 
 > `static` **mapExcludeUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Exclude<T, U> to a schema that removes U members from T.
+Map `Exclude<T, U>` to a schema that removes `U` members from `T`.
 
 #### Parameters
 
@@ -144,7 +144,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Exclude type reference.
+The `Exclude` type reference.
 
 #### Returns
 
@@ -158,7 +158,7 @@ The mapped schema.
 
 > `static` **mapExtractUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Extract<T, U> to a schema that keeps U members from T.
+Map `Extract<T, U>` to a schema that keeps `U` members from `T`.
 
 #### Parameters
 
@@ -172,7 +172,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Extract type reference.
+The `Extract` type reference.
 
 #### Returns
 
@@ -186,7 +186,7 @@ The mapped schema.
 
 > `static` **mapNonNullableUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map NonNullable<T> by removing null and undefined branches from T.
+Map `NonNullable<T>` by removing `null` and `undefined` branches from `T`.
 
 #### Parameters
 
@@ -200,7 +200,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The NonNullable type reference.
+The `NonNullable` type reference.
 
 #### Returns
 
@@ -214,7 +214,7 @@ The mapped schema.
 
 > `static` **mapRecordUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map Record<K, V> to an object schema with key constraints where possible.
+Map `Record<K, V>` to an object schema with key constraints where possible.
 
 #### Parameters
 
@@ -228,7 +228,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The Record type reference.
+The `Record` type reference.
 
 #### Returns
 
@@ -242,7 +242,7 @@ The mapped schema.
 
 > `static` **mapJsonLdObjectUtilityType**(`context`, `typeNode`, `options`): `IJsonSchema` \| `undefined`
 
-Map JsonLdObject utility types using key-removal and optional key-addition rules.
+Map `JsonLdObject` utility types using key-removal and optional key-addition rules.
 
 #### Parameters
 
@@ -256,7 +256,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The JsonLdObject utility type reference.
+The `JsonLdObject` utility type reference.
 
 ##### options
 
@@ -292,7 +292,7 @@ The mapped schema.
 
 > `static` **mapObjectOrArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map ObjectOrArray<T> to a schema accepting T or T[].
+Map `ObjectOrArray<T>` to a schema accepting `T` or `T[]`.
 
 #### Parameters
 
@@ -306,7 +306,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The ObjectOrArray type reference.
+The `ObjectOrArray` type reference.
 
 #### Returns
 
@@ -320,7 +320,7 @@ The mapped schema.
 
 > `static` **mapSingleOccurrenceArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map SingleOccurrenceArray<T, U> to a non-empty array containing exactly one U.
+Map `SingleOccurrenceArray<T, U>` to a non-empty array containing exactly one `U`.
 
 #### Parameters
 
@@ -334,7 +334,7 @@ The generation context.
 
 `TypeReferenceNode`
 
-The SingleOccurrenceArray type reference.
+The `SingleOccurrenceArray` type reference.
 
 #### Returns
 

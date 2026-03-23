@@ -12,9 +12,9 @@ import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaCo
  */
 export class UtilityTypeSchemaMapper {
 	/**
-	 * Map Partial<T> to an object schema with no required properties.
+	 * Map `Partial<T>` to an object schema with no required properties.
 	 * @param context The generation context.
-	 * @param typeNode The Partial type reference.
+	 * @param typeNode The `Partial` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapPartialUtilityType(
@@ -37,9 +37,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Required<T> to an object schema with all properties required.
+	 * Map `Required<T>` to an object schema with all properties required.
 	 * @param context The generation context.
-	 * @param typeNode The Required type reference.
+	 * @param typeNode The `Required` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapRequiredUtilityType(
@@ -64,7 +64,7 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Pick<T, K> to an object schema with selected keys preserved.
+	 * Map `Pick<T, K>` to an object schema with selected keys preserved.
 	 * @param context The generation context.
 	 * @param typeNode The Pick type reference.
 	 * @returns The mapped schema.
@@ -91,9 +91,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Omit<T, K> to an object schema with selected keys removed.
+	 * Map `Omit<T, K>` to an object schema with selected keys removed.
 	 * @param context The generation context.
-	 * @param typeNode The Omit type reference.
+	 * @param typeNode The `Omit` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapOmitUtilityType(
@@ -118,9 +118,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Exclude<T, U> to a schema that removes U members from T.
+	 * Map `Exclude<T, U>` to a schema that removes `U` members from `T`.
 	 * @param context The generation context.
-	 * @param typeNode The Exclude type reference.
+	 * @param typeNode The `Exclude` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapExcludeUtilityType(
@@ -171,9 +171,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Extract<T, U> to a schema that keeps U members from T.
+	 * Map `Extract<T, U>` to a schema that keeps `U` members from `T`.
 	 * @param context The generation context.
-	 * @param typeNode The Extract type reference.
+	 * @param typeNode The `Extract` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapExtractUtilityType(
@@ -225,9 +225,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map NonNullable<T> by removing null and undefined branches from T.
+	 * Map `NonNullable<T>` by removing `null` and `undefined` branches from `T`.
 	 * @param context The generation context.
-	 * @param typeNode The NonNullable type reference.
+	 * @param typeNode The `NonNullable` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapNonNullableUtilityType(
@@ -277,9 +277,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map Record<K, V> to an object schema with key constraints where possible.
+	 * Map `Record<K, V>` to an object schema with key constraints where possible.
 	 * @param context The generation context.
-	 * @param typeNode The Record type reference.
+	 * @param typeNode The `Record` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapRecordUtilityType(
@@ -317,9 +317,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map JsonLdObject utility types using key-removal and optional key-addition rules.
+	 * Map `JsonLdObject` utility types using key-removal and optional key-addition rules.
 	 * @param context The generation context.
-	 * @param typeNode The JsonLdObject utility type reference.
+	 * @param typeNode The `JsonLdObject` utility type reference.
 	 * @param options The mapping options for key removal and optional key addition.
 	 * @param options.keysToRemove The property keys to remove from the base schema.
 	 * @param options.keyToAdd The optional key to add after removal.
@@ -379,9 +379,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map ObjectOrArray<T> to a schema accepting T or T[].
+	 * Map `ObjectOrArray<T>` to a schema accepting `T` or `T[]`.
 	 * @param context The generation context.
-	 * @param typeNode The ObjectOrArray type reference.
+	 * @param typeNode The `ObjectOrArray` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapObjectOrArrayUtilityType(
@@ -409,9 +409,9 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
-	 * Map SingleOccurrenceArray<T, U> to a non-empty array containing exactly one U.
+	 * Map `SingleOccurrenceArray<T, U>` to a non-empty array containing exactly one `U`.
 	 * @param context The generation context.
-	 * @param typeNode The SingleOccurrenceArray type reference.
+	 * @param typeNode The `SingleOccurrenceArray` type reference.
 	 * @returns The mapped schema.
 	 */
 	public static mapSingleOccurrenceArrayUtilityType(

@@ -100,7 +100,7 @@ export class JsDoc {
 
 	/**
 	 * Parse a custom JSDoc tag value into JSON-compatible data.
-	 * Values that begin with a JSON token character ({, [, ", true, false, null) or look like a
+	 * Values that begin with a JSON token character (open brace, open bracket, double quote, true, false, null) or look like a
 	 * number are parsed with JSON.parse.  All other values are returned as plain strings.
 	 * @param value The raw value text.
 	 * @returns The parsed value.
