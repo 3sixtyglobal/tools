@@ -9375,6 +9375,11 @@
 							"examples": {
 								"auditableItemGraphCreateRequestExample": {
 									"value": {
+										"@context": [
+											"https://schema.twindev.org/aig/",
+											"https://schema.twindev.org/common/"
+										],
+										"type": "AuditableItemGraphVertex",
 										"annotationObject": {
 											"@context": "https://schema.org",
 											"@type": "Note",
@@ -9382,6 +9387,7 @@
 										},
 										"aliases": [
 											{
+												"type": "AuditableItemGraphAlias",
 												"id": "bar456",
 												"annotationObject": {
 													"@context": "https://schema.org",
@@ -9390,6 +9396,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphAlias",
 												"id": "foo321",
 												"annotationObject": {
 													"@context": "https://schema.org",
@@ -9400,6 +9407,7 @@
 										],
 										"resources": [
 											{
+												"type": "AuditableItemGraphResource",
 												"id": "resource1",
 												"resourceObject": {
 													"@context": "https://schema.org",
@@ -9408,6 +9416,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphResource",
 												"id": "resource2",
 												"resourceObject": {
 													"@context": "https://schema.org",
@@ -9418,6 +9427,7 @@
 										],
 										"edges": [
 											{
+												"type": "AuditableItemGraphEdge",
 												"targetId": "aig:1234567890",
 												"edgeRelationships": ["frenemy"],
 												"annotationObject": {
@@ -9427,6 +9437,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphEdge",
 												"targetId": "aig:45678901234",
 												"edgeRelationships": ["end"],
 												"annotationObject": {
@@ -10020,6 +10031,11 @@
 							"examples": {
 								"auditableItemGraphUpdateRequestExample": {
 									"value": {
+										"@context": [
+											"https://schema.twindev.org/aig/",
+											"https://schema.twindev.org/common/"
+										],
+										"type": "AuditableItemGraphVertex",
 										"annotationObject": {
 											"@context": "https://schema.org",
 											"@type": "Note",
@@ -10027,6 +10043,7 @@
 										},
 										"aliases": [
 											{
+												"type": "AuditableItemGraphAlias",
 												"id": "bar456",
 												"annotationObject": {
 													"@context": "https://schema.org",
@@ -10035,6 +10052,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphAlias",
 												"id": "foo321",
 												"annotationObject": {
 													"@context": "https://schema.org",
@@ -10045,6 +10063,7 @@
 										],
 										"resources": [
 											{
+												"type": "AuditableItemGraphResource",
 												"id": "resource1",
 												"resourceObject": {
 													"@context": "https://schema.org",
@@ -10053,6 +10072,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphResource",
 												"id": "resource2",
 												"resourceObject": {
 													"@context": "https://schema.org",
@@ -10063,6 +10083,7 @@
 										],
 										"edges": [
 											{
+												"type": "AuditableItemGraphEdge",
 												"id": "edge1",
 												"targetId": "aig:1234567890",
 												"edgeRelationships": ["frenemy"],
@@ -10073,6 +10094,7 @@
 												}
 											},
 											{
+												"type": "AuditableItemGraphEdge",
 												"id": "edge2",
 												"targetId": "aig:45678901234",
 												"edgeRelationships": ["end"],
@@ -10680,26 +10702,36 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/AuditableItemStreamCreateRequest"
+								"$ref": "https://schema.twindev.org/ais/AuditableItemStreamBase"
 							},
 							"examples": {
 								"auditableItemStreamCreateRequestExample": {
 									"value": {
+										"@context": [
+											"https://schema.org",
+											"https://schema.twindev.org/ais/",
+											"https://schema.twindev.org/common/"
+										],
+										"type": "AuditableItemStream",
 										"annotationObject": {
 											"@context": "https://schema.org",
 											"@type": "Note",
 											"content": "This is a simple note"
 										},
-										"entries": [
-											{
-												"entryObject": {
-													"@context": "https://schema.org",
-													"@type": "Event",
-													"startDate": "2011-04-09T20:00:00Z",
-													"description": "A description of the event"
+										"entries": {
+											"type": "ItemList",
+											"itemListElement": [
+												{
+													"type": "AuditableItemStreamEntry",
+													"entryObject": {
+														"@context": "https://schema.org",
+														"@type": "Event",
+														"startDate": "2011-04-09T20:00:00Z",
+														"description": "A description of the event"
+													}
 												}
-											}
-										]
+											]
+										}
 									}
 								}
 							}
@@ -10871,6 +10903,7 @@
 											"itemListElement": [
 												{
 													"@context": [
+														"https://schema.org",
 														"https://schema.twindev.org/ais/",
 														"https://schema.twindev.org/common/"
 													],
@@ -10909,6 +10942,7 @@
 											"itemListElement": [
 												{
 													"@context": [
+														"https://schema.org",
 														"https://schema.twindev.org/ais/",
 														"https://schema.twindev.org/common/"
 													],
@@ -11040,6 +11074,24 @@
 						"example": "ais:1234567890"
 					},
 					{
+						"name": "cursor",
+						"description": "Cursor to use for next chunk of entries.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "limit",
+						"description": "Limit the number of entries to return, only applicable if includeEntries is true.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"name": "includeEntries",
 						"description": "Whether to include the entries, defaults to false.\nThe entries will be limited to the first page of entries in date descending order.\nIf you want to get more entries you can use the returned cursor with the get entries method.",
 						"in": "query",
@@ -11103,6 +11155,7 @@
 									"auditableItemStreamGetResponseExample": {
 										"value": {
 											"@context": [
+												"https://schema.org",
 												"https://schema.twindev.org/ais/",
 												"https://schema.twindev.org/common/"
 											],
@@ -11119,25 +11172,28 @@
 											"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
 											"immutableInterval": 10,
 											"numberOfItems": 1,
-											"entries": [
-												{
-													"@context": [
-														"https://schema.twindev.org/ais/",
-														"https://schema.twindev.org/common/"
-													],
-													"type": "AuditableItemStreamEntry",
-													"id": "tst:1234567890",
-													"dateCreated": "2024-08-22T11:55:16.271Z",
-													"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
-													"index": 0,
-													"entryObject": {
-														"@context": "https://schema.org",
-														"@type": "Event",
-														"startDate": "2011-04-09T20:00:00Z",
-														"description": "A description of the event"
+											"entries": {
+												"type": "ItemList",
+												"itemListElement": [
+													{
+														"@context": [
+															"https://schema.twindev.org/ais/",
+															"https://schema.twindev.org/common/"
+														],
+														"type": "AuditableItemStreamEntry",
+														"id": "tst:1234567890",
+														"dateCreated": "2024-08-22T11:55:16.271Z",
+														"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
+														"index": 0,
+														"entryObject": {
+															"@context": "https://schema.org",
+															"@type": "Event",
+															"startDate": "2011-04-09T20:00:00Z",
+															"description": "A description of the event"
+														}
 													}
-												}
-											]
+												]
+											}
 										}
 									}
 								}
@@ -11150,6 +11206,7 @@
 									"auditableItemStreamJsonLdGetResponseExample": {
 										"value": {
 											"@context": [
+												"https://schema.org",
 												"https://schema.twindev.org/ais/",
 												"https://schema.twindev.org/common/"
 											],
@@ -11166,25 +11223,28 @@
 											"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
 											"immutableInterval": 10,
 											"numberOfItems": 1,
-											"entries": [
-												{
-													"@context": [
-														"https://schema.twindev.org/ais/",
-														"https://schema.twindev.org/common/"
-													],
-													"type": "AuditableItemStreamEntry",
-													"id": "tst:1234567890",
-													"dateCreated": "2024-08-22T11:55:16.271Z",
-													"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
-													"index": 0,
-													"entryObject": {
-														"@context": "https://schema.org",
-														"@type": "Event",
-														"startDate": "2011-04-09T20:00:00Z",
-														"description": "A description of the event"
+											"entries": {
+												"type": "ItemList",
+												"itemListElement": [
+													{
+														"@context": [
+															"https://schema.twindev.org/ais/",
+															"https://schema.twindev.org/common/"
+														],
+														"type": "AuditableItemStreamEntry",
+														"id": "tst:1234567890",
+														"dateCreated": "2024-08-22T11:55:16.271Z",
+														"proofId": "0101010101010101010101010101010101010101010101010101010101010101",
+														"index": 0,
+														"entryObject": {
+															"@context": "https://schema.org",
+															"@type": "Event",
+															"startDate": "2011-04-09T20:00:00Z",
+															"description": "A description of the event"
+														}
 													}
-												}
-											]
+												]
+											}
 										}
 									}
 								}
@@ -11312,6 +11372,12 @@
 							"examples": {
 								"auditableItemStreamUpdateRequestExample": {
 									"value": {
+										"@context": [
+											"https://schema.org",
+											"https://schema.twindev.org/ais/",
+											"https://schema.twindev.org/common/"
+										],
+										"type": "AuditableItemStream",
 										"annotationObject": {
 											"@context": "https://schema.org",
 											"@type": "Note",
@@ -17232,143 +17298,146 @@
 				"description": "The parameters to be used in the transfer."
 			},
 			"AuditableItemGraphCreateRequest": {
+				"description": "The data to be used in the vertex.",
 				"type": "object",
 				"properties": {
+					"dateCreated": {
+						"type": "string",
+						"description": "The date/time of when the element was created."
+					},
+					"dateModified": {
+						"type": "string",
+						"description": "The date/time of when the element was modified."
+					},
+					"dateDeleted": {
+						"type": "string",
+						"description": "The date/time of when the element was deleted, as we never actually remove items."
+					},
+					"@context": {
+						"type": "array",
+						"prefixItems": [
+							{
+								"const": "https://schema.twindev.org/aig/"
+							},
+							{
+								"const": "https://schema.twindev.org/common/"
+							}
+						],
+						"items": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionElement"
+						},
+						"minItems": 2,
+						"description": "JSON-LD Context."
+					},
+					"type": {
+						"const": "AuditableItemGraphVertex",
+						"description": "JSON-LD Type."
+					},
+					"organizationIdentity": {
+						"type": "string",
+						"description": "The identity of the organization which controls the vertex."
+					},
 					"annotationObject": {
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
 					},
 					"aliases": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string"
-								},
-								"aliasFormat": {
-									"type": "string"
-								},
-								"unique": {
-									"type": "boolean"
-								},
-								"annotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["id"]
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphAlias"
 						},
 						"description": "Alternative aliases that can be used to identify the vertex."
 					},
 					"resources": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string"
-								},
-								"resourceObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							}
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphResource"
 						},
 						"description": "The resources attached to the vertex."
 					},
 					"edges": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"targetId": {
-									"type": "string"
-								},
-								"edgeRelationships": {
-									"type": "array",
-									"items": {
-										"type": "string"
-									}
-								},
-								"annotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["targetId", "edgeRelationships"]
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphEdge"
 						},
-						"description": "The edges connected to the vertex."
+						"description": "Edges connected to the vertex."
+					},
+					"verified": {
+						"type": "boolean",
+						"description": "Is the vertex verified, will only be populated when verification is requested."
 					}
 				},
-				"description": "The data to be used in the vertex."
+				"required": ["@context", "type"]
 			},
 			"AuditableItemGraphUpdateRequest": {
+				"description": "The data to be used in the vertex.",
 				"type": "object",
 				"properties": {
+					"dateCreated": {
+						"type": "string",
+						"description": "The date/time of when the element was created."
+					},
+					"dateModified": {
+						"type": "string",
+						"description": "The date/time of when the element was modified."
+					},
+					"dateDeleted": {
+						"type": "string",
+						"description": "The date/time of when the element was deleted, as we never actually remove items."
+					},
+					"@context": {
+						"type": "array",
+						"prefixItems": [
+							{
+								"const": "https://schema.twindev.org/aig/"
+							},
+							{
+								"const": "https://schema.twindev.org/common/"
+							}
+						],
+						"items": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionElement"
+						},
+						"minItems": 2,
+						"description": "JSON-LD Context."
+					},
+					"type": {
+						"const": "AuditableItemGraphVertex",
+						"description": "JSON-LD Type."
+					},
+					"organizationIdentity": {
+						"type": "string",
+						"description": "The identity of the organization which controls the vertex."
+					},
 					"annotationObject": {
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
 					},
 					"aliases": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string"
-								},
-								"aliasFormat": {
-									"type": "string"
-								},
-								"unique": {
-									"type": "boolean"
-								},
-								"annotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["id"]
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphAlias"
 						},
 						"description": "Alternative aliases that can be used to identify the vertex."
 					},
 					"resources": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string"
-								},
-								"resourceObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							}
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphResource"
 						},
 						"description": "The resources attached to the vertex."
 					},
 					"edges": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string"
-								},
-								"targetId": {
-									"type": "string"
-								},
-								"edgeRelationships": {
-									"type": "array",
-									"items": {
-										"type": "string"
-									}
-								},
-								"annotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["targetId", "edgeRelationships"]
+							"$ref": "https://schema.twindev.org/aig/AuditableItemGraphEdge"
 						},
-						"description": "The edges connected to the vertex."
+						"description": "Edges connected to the vertex."
+					},
+					"verified": {
+						"type": "boolean",
+						"description": "Is the vertex verified, will only be populated when verification is requested."
 					}
 				},
-				"description": "The data to be used in the vertex."
+				"required": ["@context", "type"]
 			},
 			"AuditableItemStreamCreateEntryRequest": {
 				"type": "object",
@@ -17378,32 +17447,6 @@
 					}
 				},
 				"required": ["entryObject"],
-				"description": "The data to be used in the stream."
-			},
-			"AuditableItemStreamCreateRequest": {
-				"type": "object",
-				"properties": {
-					"annotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-					},
-					"entries": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"entryObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["entryObject"]
-						},
-						"description": "The entries for the stream."
-					},
-					"immutableInterval": {
-						"type": "number",
-						"description": "After how many entries do we add immutable checks, defaults to service configured value.\nA value of 0 will disable immutable checks, 1 will be every item, or any other integer for an interval."
-					}
-				},
 				"description": "The data to be used in the stream."
 			},
 			"AuditableItemStreamUpdateEntryRequest": {
@@ -17417,13 +17460,37 @@
 				"description": "The data to be used in the entry."
 			},
 			"AuditableItemStreamUpdateRequest": {
+				"description": "The data to be used in the stream, entries should be updated separately.",
 				"type": "object",
 				"properties": {
+					"@context": {
+						"type": "array",
+						"prefixItems": [
+							{
+								"const": "https://schema.org"
+							},
+							{
+								"const": "https://schema.twindev.org/ais/"
+							},
+							{
+								"const": "https://schema.twindev.org/common/"
+							}
+						],
+						"items": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionElement"
+						},
+						"minItems": 3,
+						"description": "JSON-LD Context."
+					},
+					"type": {
+						"const": "AuditableItemStream",
+						"description": "JSON-LD Type."
+					},
 					"annotationObject": {
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
 					}
 				},
-				"description": "The data to be used in the stream."
+				"required": ["@context", "type"]
 			},
 			"BlobStorageCreateRequest": {
 				"type": "object",
