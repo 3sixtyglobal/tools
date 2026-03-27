@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.26](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.25...ts-to-openapi-v0.0.3-next.26) (2026-03-27)
+
+
+### Bug Fixes
+
+* update tests ([e9c3d42](https://github.com/twinfoundation/tools/commit/e9c3d4243a86ed8790d45c0c2358490ea2553762))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.25 to 0.0.3-next.26
+    * @twin.org/tools-models bumped from 0.0.3-next.25 to 0.0.3-next.26
+
 ## [0.0.3-next.25](https://github.com/twinfoundation/tools/compare/ts-to-openapi-v0.0.3-next.24...ts-to-openapi-v0.0.3-next.25) (2026-03-23)
 
 

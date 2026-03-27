@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.26](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.25...tools-core-v0.0.3-next.26) (2026-03-27)
+
+
+### Features
+
+* add json-schema embedded mode ([#102](https://github.com/twinfoundation/tools/issues/102)) ([f070967](https://github.com/twinfoundation/tools/commit/f070967f8f3308e0b5320eab278a319c9d229e3e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.25 to 0.0.3-next.26
+
 ## [0.0.3-next.25](https://github.com/twinfoundation/tools/compare/tools-core-v0.0.3-next.24...tools-core-v0.0.3-next.25) (2026-03-23)
 
 
