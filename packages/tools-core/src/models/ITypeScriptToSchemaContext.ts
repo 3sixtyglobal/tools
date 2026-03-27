@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IJsonSchema } from "@twin.org/tools-models";
 import type * as ts from "typescript";
+import type { EmbeddedSchemaMode } from "./embeddedSchemaMode.js";
 import type { ITypeScriptToSchemaOptions } from "./ITypeScriptToSchemaOptions.js";
 
 /**
@@ -63,6 +64,11 @@ export interface ITypeScriptToSchemaContext {
 	 * Generic type parameter bindings active for the current mapping scope.
 	 */
 	typeParameterBindings?: { [id: string]: ts.TypeNode | null };
+
+	/**
+	 * Schema ids marked with @json-schema embedded and their embedding mode.
+	 */
+	embeddedSchemaModes?: { [id: string]: EmbeddedSchemaMode };
 
 	/**
 	 * Optional schema generation options.

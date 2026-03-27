@@ -26,6 +26,7 @@ import { RegEx } from "./regEx.js";
 import { Resolver } from "./resolver.js";
 import { TemplateLiteralPatternBuilder } from "./templateLiteralPatternBuilder.js";
 import { UtilityTypeSchemaMapper } from "./utilityTypeSchemaMapper.js";
+import { EmbeddedSchemaMode } from "../models/embeddedSchemaMode.js";
 import type { ITypeScriptToSchemaContext } from "../models/ITypeScriptToSchemaContext.js";
 
 /**
@@ -288,6 +289,18 @@ export class JsonSchemaBuilder {
 				const mappedSchema = ObjectHelper.removeEmptyProperties(
 					ObjectTransformer.normalizeSchemaDescriptions(schema as IJsonSchema)
 				);
+
+				const jsonSchemaTags = JsDoc.getNodeTags(statement, "json-schema");
+				const embeddedMode = jsonSchemaTags.embedded;
+				if (
+					embeddedMode === EmbeddedSchemaMode.Defs ||
+					embeddedMode === EmbeddedSchemaMode.Inline
+				) {
+					const schemaId = mappedSchema.$id ?? `${context.namespace}${title}`;
+					context.embeddedSchemaModes ??= {};
+					context.embeddedSchemaModes[schemaId] = embeddedMode;
+				}
+
 				packageSchemaEntries[title] = mappedSchema;
 				if (!parsedTitles.includes(title)) {
 					parsedTitles.push(title);
@@ -342,16 +355,18 @@ export class JsonSchemaBuilder {
 
 		const tags = JsDoc.getNodeTags(node, "json-schema");
 		for (const [rawKey, rawValue] of Object.entries(tags)) {
-			const schemaKey = JsonSchemaBuilder.mapJsonSchemaTagKey(rawKey);
-			if (!JsonSchemaBuilder.isAllowedJsonSchemaTagKey(schemaKey)) {
-				throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "invalidJsonSchemaTagKey", {
-					rawKey,
-					schemaKey
-				});
+			if (rawKey !== "embedded") {
+				const schemaKey = JsonSchemaBuilder.mapJsonSchemaTagKey(rawKey);
+				if (!JsonSchemaBuilder.isAllowedJsonSchemaTagKey(schemaKey)) {
+					throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "invalidJsonSchemaTagKey", {
+						rawKey,
+						schemaKey
+					});
+				}
+				JsonSchemaBuilder.validateJsonSchemaTagConstraint(schemaKey, schema.type, rawValue);
+				const parsedValue = JsDoc.parseTagValue(rawValue);
+				ObjectHelper.propertySet(schema, schemaKey, parsedValue);
 			}
-			JsonSchemaBuilder.validateJsonSchemaTagConstraint(schemaKey, schema.type, rawValue);
-			const parsedValue = JsDoc.parseTagValue(rawValue);
-			ObjectHelper.propertySet(schema, schemaKey, parsedValue);
 		}
 	}
 
@@ -958,7 +973,26 @@ export class JsonSchemaBuilder {
 						typeName
 					)
 				: undefined;
-			if (!importedModuleSpecifier || importedModuleSpecifier.startsWith(".")) {
+			const hasLocalDeclaration = Boolean(
+				!importedModuleSpecifier &&
+				context.activeSourceFile?.statements.some(
+					(
+						statement
+					): statement is ts.InterfaceDeclaration | ts.TypeAliasDeclaration | ts.EnumDeclaration =>
+						(ts.isInterfaceDeclaration(statement) ||
+							ts.isTypeAliasDeclaration(statement) ||
+							ts.isEnumDeclaration(statement)) &&
+						statement.name.text === typeName
+				)
+			);
+			if (hasLocalDeclaration) {
+				const localSchemaId = context.schemas[context.packageName]?.[title]?.$id;
+				if (localSchemaId) {
+					return {
+						$ref: localSchemaId
+					};
+				}
+
 				const mappedReference = JsonSchemaBuilder.resolveReferenceMappingTarget(
 					context,
 					"",
@@ -3759,6 +3793,7 @@ export class JsonSchemaBuilder {
 						packageName: moduleSpecifier,
 						schemas: context.schemas,
 						activeSourceFile: context.activeSourceFile,
+						embeddedSchemaModes: context.embeddedSchemaModes,
 						options: context.options
 					};
 
@@ -3954,6 +3989,7 @@ export class JsonSchemaBuilder {
 				schemas: context.schemas,
 				activeSourceFile: context.activeSourceFile,
 				resolvingImportedObjectSchemas: context.resolvingImportedObjectSchemas,
+				embeddedSchemaModes: context.embeddedSchemaModes,
 				options: context.options
 			};
 			JsonSchemaBuilder.parseAllObjectSchemas(
@@ -4571,6 +4607,7 @@ export class JsonSchemaBuilder {
 			packageName: moduleSpecifier,
 			schemas: context.schemas,
 			activeSourceFile: context.activeSourceFile,
+			embeddedSchemaModes: context.embeddedSchemaModes,
 			options: context.options
 		};
 

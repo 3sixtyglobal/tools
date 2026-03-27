@@ -1,0 +1,37 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ExtendedDefs",
+	"title": "ExtendedDefs",
+	"type": "object",
+	"properties": {
+		"bar": {
+			"type": "number"
+		}
+	},
+	"required": ["bar"],
+	"allOf": [
+		{
+			"$ref": "#/$defs/ConstrainedDefs"
+		}
+	],
+	"$defs": {
+		"ConstrainedDefs": {
+			"title": "ConstrainedDefs",
+			"type": "object",
+			"allOf": [
+				{
+					"$ref": "https://schema.twindev.org/test/BaseType"
+				}
+			],
+			"properties": {
+				"@context": {
+					"type": "string"
+				},
+				"identifier": {
+					"type": "string"
+				}
+			},
+			"required": ["@context", "identifier"]
+		}
+	}
+}

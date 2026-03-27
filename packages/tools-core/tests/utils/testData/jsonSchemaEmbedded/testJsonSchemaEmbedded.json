@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestJsonSchemaEmbedded",
+	"title": "TestJsonSchemaEmbedded",
+	"description": "Root schema referencing an embedded type.",
+	"type": "object",
+	"properties": {
+		"user": {
+			"$ref": "#/$defs/Person"
+		},
+		"manager": {
+			"$ref": "#/$defs/Person"
+		}
+	},
+	"required": ["user", "manager"],
+	"$defs": {
+		"Person": {
+			"title": "Person",
+			"description": "Person should be inlined into referencing schemas.",
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"age": {
+					"type": "number"
+				}
+			},
+			"required": ["name"]
+		}
+	}
+}

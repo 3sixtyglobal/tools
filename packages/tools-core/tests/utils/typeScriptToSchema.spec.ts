@@ -32,6 +32,18 @@ import omitRedefinitionBaseASchema from "./testData/interfaceExtendsUtility/Omit
 import omitRedefinitionFaceBSchema from "./testData/interfaceExtendsUtility/OmitRedefinitionFaceB.json" with { type: "json" };
 import testInterfaceExtendsUtilitySchema from "./testData/interfaceExtendsUtility/testInterfaceExtendsUtility.json" with { type: "json" };
 import testJsonLdUtilityTypeSchema from "./testData/jsonLdUtilityType/testJsonLdUtilityType.json" with { type: "json" };
+import testBaseTypeSchema from "./testData/jsonSchemaEmbedded/BaseType.json" with { type: "json" };
+import testConstrainedSchema from "./testData/jsonSchemaEmbedded/Constrained.json" with { type: "json" };
+import testConstrainedDefsSchema from "./testData/jsonSchemaEmbedded/ConstrainedDefs.json" with { type: "json" };
+import testExtendedSchema from "./testData/jsonSchemaEmbedded/Extended.json" with { type: "json" };
+import testExtendedDefsSchema from "./testData/jsonSchemaEmbedded/ExtendedDefs.json" with { type: "json" };
+import localMappedThingSchema from "./testData/jsonSchemaEmbedded/LocalMappedThing.json" with { type: "json" };
+import localMappedUneceThingConstrainedSchema from "./testData/jsonSchemaEmbedded/LocalMappedUneceThingConstrained.json" with { type: "json" };
+import personEmbeddedSchema from "./testData/jsonSchemaEmbedded/Person.json" with { type: "json" };
+import personEmbeddedInlineSchema from "./testData/jsonSchemaEmbedded/PersonInline.json" with { type: "json" };
+import testJsonSchemaEmbeddedSchema from "./testData/jsonSchemaEmbedded/testJsonSchemaEmbedded.json" with { type: "json" };
+import testJsonSchemaEmbeddedInlineSchema from "./testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedInline.json" with { type: "json" };
+import testJsonSchemaEmbeddedLocalMappingSchema from "./testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedLocalMapping.json" with { type: "json" };
 import testJsonSchemaTagsSchema from "./testData/jsonSchemaTags/testJsonSchemaTags.json" with { type: "json" };
 import testLiteralBooleanTypeSchema from "./testData/literalBooleanType/testLiteralBooleanType.json" with { type: "json" };
 import testLiteralTagDiscriminatedUnionSchema from "./testData/literalTagDiscriminatedUnion/testLiteralTagDiscriminatedUnion.json" with { type: "json" };
@@ -974,6 +986,96 @@ describe("TypeScriptToSchema", () => {
 			"tests/utils/testData/jsonSchemaTags/testJsonSchemaTags.ts"
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [testJsonSchemaTagsSchema]);
+	});
+
+	test("can inline @json-schema embedded object refs into local $defs", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbedded.ts"
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas,
+			[testJsonSchemaEmbeddedSchema, personEmbeddedSchema],
+			["Person", "TestJsonSchemaEmbedded"]
+		);
+	});
+
+	test("can inline @json-schema embedded:inline object refs directly into properties", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedInline.ts"
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas,
+			[testJsonSchemaEmbeddedInlineSchema, personEmbeddedInlineSchema],
+			["PersonInline", "TestJsonSchemaEmbeddedInline"]
+		);
+	});
+
+	test("can inline embedded:inline constrained intersections into the containing schema", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedConstrainedInline.ts"
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas,
+			[testBaseTypeSchema, testConstrainedSchema, testExtendedSchema],
+			["BaseType", "Constrained", "Extended"]
+		);
+	});
+
+	test("can inline embedded:defs constrained intersections into local $defs", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedConstrainedDefs.ts"
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas,
+			[testBaseTypeSchema, testConstrainedDefsSchema, testExtendedDefsSchema],
+			["BaseType", "ConstrainedDefs", "ExtendedDefs"]
+		);
+	});
+
+	test("can prefer a local schema over wildcard external references for embedded defs", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedLocalMapping.ts",
+			{ externalReferences: { "IUnece(.*)": "https://schema.twindev.org/unece/Unece$1" } }
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas,
+			[
+				localMappedThingSchema,
+				localMappedUneceThingConstrainedSchema,
+				testJsonSchemaEmbeddedLocalMappingSchema
+			],
+			["Thing", "UneceThingConstrained", "UsesConstrained"]
+		);
 	});
 
 	test("throws for unsupported @json-schema tag keys", async () => {

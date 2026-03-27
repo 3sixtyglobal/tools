@@ -1,0 +1,29 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/UsesConstrained",
+	"title": "UsesConstrained",
+	"type": "object",
+	"properties": {
+		"thing": {
+			"$ref": "#/$defs/UneceThingConstrained"
+		}
+	},
+	"required": ["thing"],
+	"$defs": {
+		"UneceThingConstrained": {
+			"title": "UneceThingConstrained",
+			"type": "object",
+			"allOf": [
+				{
+					"$ref": "https://schema.twindev.org/test/Thing"
+				}
+			],
+			"properties": {
+				"identifier": {
+					"type": "string"
+				}
+			},
+			"required": ["identifier"]
+		}
+	}
+}

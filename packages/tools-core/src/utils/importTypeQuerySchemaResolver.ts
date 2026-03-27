@@ -211,6 +211,7 @@ export class ImportTypeQuerySchemaResolver {
 			packageName: moduleSpecifier,
 			schemas: context.schemas,
 			activeSourceFile: context.activeSourceFile,
+			embeddedSchemaModes: context.embeddedSchemaModes,
 			options: context.options
 		};
 
