@@ -44,14 +44,37 @@ export const HTTP_STATUS_CODE_MAP: {
 			message: "errorMessage"
 		}
 	},
-	forbidden: {
-		code: HttpStatusCode.forbidden,
-		responseType: "IForbiddenResponse",
+	notImplemented: {
+		code: HttpStatusCode.notImplemented,
+		responseType: "INotImplementedResponse",
 		example: {
 			name: "NotImplementedError",
 			message: "errorMessage",
 			properties: {
 				method: "aMethod"
+			}
+		}
+	},
+	forbidden: {
+		code: HttpStatusCode.forbidden,
+		responseType: "IForbiddenResponse",
+		example: {
+			name: "ForbiddenError",
+			message: "errorMessage",
+			properties: {
+				foo: "bar"
+			}
+		}
+	},
+	tooManyRequests: {
+		code: HttpStatusCode.tooManyRequests,
+		responseType: "ITooManyRequestsResponse",
+		example: {
+			name: "TooManyRequestsError",
+			message: "errorMessage",
+			properties: {
+				requestCount: 5,
+				nextRequestTime: "2024-06-01T12:00:00Z"
 			}
 		}
 	},
