@@ -106,6 +106,18 @@ Generic type parameter bindings active for the current mapping scope.
 
 ***
 
+### embeddedSchemaModes? {#embeddedschemamodes}
+
+> `optional` **embeddedSchemaModes?**: `object`
+
+Schema ids marked with
+
+#### Index Signature
+
+\[`id`: `string`\]: [`EmbeddedSchemaMode`](../type-aliases/EmbeddedSchemaMode.md)
+
+***
+
 ### options? {#options}
 
 > `optional` **options?**: [`ITypeScriptToSchemaOptions`](ITypeScriptToSchemaOptions.md)

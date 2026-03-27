@@ -25,3 +25,11 @@
 - [ITypeScriptToSchemaContext](interfaces/ITypeScriptToSchemaContext.md)
 - [ITypeScriptToSchemaDiagnostics](interfaces/ITypeScriptToSchemaDiagnostics.md)
 - [ITypeScriptToSchemaOptions](interfaces/ITypeScriptToSchemaOptions.md)
+
+## Type Aliases
+
+- [EmbeddedSchemaMode](type-aliases/EmbeddedSchemaMode.md)
+
+## Variables
+
+- [EmbeddedSchemaMode](variables/EmbeddedSchemaMode.md)
