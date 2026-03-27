@@ -27,7 +27,7 @@ export class CLI extends CLIBase {
 			{
 				title: "TWIN TypeScript To JSON-LD Context",
 				appName: "ts-to-jsonld-context",
-				version: "0.0.3-next.26", // x-release-please-version
+				version: "0.0.3-next.27", // x-release-please-version
 				icon: "⚙️ ",
 				supportsEnvFiles: false,
 				overrideOutputWidth: options?.overrideOutputWidth

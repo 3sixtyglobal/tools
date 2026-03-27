@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.27](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.3-next.26...ts-to-schema-v0.0.3-next.27) (2026-03-27)
+
+
+### Miscellaneous Chores
+
+* **ts-to-schema:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.26 to 0.0.3-next.27
+    * @twin.org/tools-models bumped from 0.0.3-next.26 to 0.0.3-next.27
+
 ## [0.0.3-next.26](https://github.com/twinfoundation/tools/compare/ts-to-schema-v0.0.3-next.25...ts-to-schema-v0.0.3-next.26) (2026-03-27)
 
 
