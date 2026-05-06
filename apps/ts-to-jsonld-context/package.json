@@ -4,7 +4,7 @@
 	"description": "Generate JSON-LD contexts from source model definitions",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/twinfoundation/tools.git",
+		"url": "git+https://github.com/iotaledger/tools.git",
 		"directory": "apps/ts-to-jsonld-context"
 	},
 	"author": "martyn.janes@iota.org",
@@ -81,7 +81,7 @@
 		"tools"
 	],
 	"bugs": {
-		"url": "git+https://github.com/twinfoundation/tools/issues"
+		"url": "git+https://github.com/iotaledger/tools/issues"
 	},
 	"homepage": "https://twindev.org"
 }

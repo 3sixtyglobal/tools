@@ -4,7 +4,7 @@
 	"description": "Shared utilities and models for tooling packages",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/twinfoundation/tools.git",
+		"url": "git+https://github.com/iotaledger/tools.git",
 		"directory": "packages/tools-core"
 	},
 	"author": "martyn.janes@iota.org",
@@ -76,7 +76,7 @@
 		"utilities"
 	],
 	"bugs": {
-		"url": "git+https://github.com/twinfoundation/tools/issues"
+		"url": "git+https://github.com/iotaledger/tools/issues"
 	},
 	"homepage": "https://twindev.org"
 }
