@@ -20,12 +20,20 @@
 			"description": "Information endpoints for the REST server."
 		},
 		{
+			"name": "Health",
+			"description": "Health endpoints for the REST server."
+		},
+		{
 			"name": "Authentication",
 			"description": "Authentication endpoints for the REST server."
 		},
 		{
 			"name": "Authentication Admin",
 			"description": "Authentication Admin endpoints for the REST server."
+		},
+		{
+			"name": "Authentication Audit",
+			"description": "Authentication audit endpoints for the REST server."
 		},
 		{
 			"name": "Identity",
@@ -39,31 +47,69 @@
 	"paths": {
 		"/": {
 			"get": {
-				"operationId": "serverRoot",
-				"summary": "Get the root text page",
-				"tags": ["Info"],
+				"operationId": "serverHealth",
+				"summary": "Get the health for the server",
+				"tags": ["Health"],
 				"responses": {
 					"200": {
-						"description": "The root text for the server.",
+						"description": "The health of the server.",
 						"content": {
-							"text/plain": {
+							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ServerRootResponse"
+									"$ref": "#/components/schemas/ServerHealthResponse"
 								},
 								"examples": {
-									"serverRootResponse": {
-										"summary": "The response for the root request.",
-										"value": "API Server - 1.0.0"
+									"healthResponseOK": {
+										"summary": "The response for the health request.",
+										"value": {
+											"status": "ok",
+											"components": [
+												{
+													"source": "Database",
+													"status": "ok"
+												},
+												{
+													"source": "Storage",
+													"status": "ok"
+												}
+											]
+										}
+									},
+									"healthResponseWarning": {
+										"summary": "The response for the health request with warnings.",
+										"value": {
+											"status": "warning",
+											"components": [
+												{
+													"source": "Database",
+													"status": "warning",
+													"description": "slowRunning"
+												},
+												{
+													"source": "Storage",
+													"status": "ok"
+												}
+											]
+										}
+									},
+									"healthResponseError": {
+										"summary": "The response for the health request with errors.",
+										"value": {
+											"status": "error",
+											"components": [
+												{
+													"source": "Database",
+													"status": "ok"
+												},
+												{
+													"source": "Storage",
+													"status": "error",
+													"description": "storageFull"
+												}
+											]
+										}
 									}
 								}
-							}
-						},
-						"headers": {
-							"content-type": {
-								"schema": {
-									"type": "string"
-								},
-								"description": "e.g. text/plain"
 							}
 						}
 					},
@@ -250,11 +296,11 @@
 								"examples": {
 									"livezResponseOK": {
 										"summary": "The response for the liveness request.",
-										"value": "ok"
+										"value": "alive"
 									},
 									"livezResponseFailure": {
 										"summary": "The response for the liveness request with errors.",
-										"value": "failed"
+										"value": "dead"
 									}
 								}
 							}
@@ -310,71 +356,37 @@
 				}
 			}
 		},
-		"/health": {
+		"/readyz": {
 			"get": {
-				"operationId": "serverHealth",
-				"summary": "Get the health for the server",
+				"operationId": "serverReadyz",
+				"summary": "Get the readyz status for the server",
 				"tags": ["Info"],
 				"responses": {
 					"200": {
-						"description": "The health of the server.",
+						"description": "The readyz of the server.",
 						"content": {
-							"application/json": {
+							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/HealthInfo"
+									"$ref": "#/components/schemas/ServerReadyzResponse"
 								},
 								"examples": {
-									"healthResponseOK": {
-										"summary": "The response for the health request.",
-										"value": {
-											"status": "ok",
-											"components": [
-												{
-													"name": "Database",
-													"status": "ok"
-												},
-												{
-													"name": "Storage",
-													"status": "ok"
-												}
-											]
-										}
+									"readyzResponseOK": {
+										"summary": "The response for the readiness request.",
+										"value": "ready"
 									},
-									"healthResponseWarning": {
-										"summary": "The response for the health request with warnings.",
-										"value": {
-											"status": "warning",
-											"components": [
-												{
-													"name": "Database",
-													"status": "warning",
-													"details": "The database is running slow."
-												},
-												{
-													"name": "Storage",
-													"status": "ok"
-												}
-											]
-										}
-									},
-									"healthResponseError": {
-										"summary": "The response for the health request with errors.",
-										"value": {
-											"status": "error",
-											"components": [
-												{
-													"name": "Database",
-													"status": "ok"
-												},
-												{
-													"name": "Storage",
-													"status": "error",
-													"details": "The storage is full."
-												}
-											]
-										}
+									"readyzResponseFailure": {
+										"summary": "The response for the readiness request with errors.",
+										"value": "not ready"
 									}
 								}
+							}
+						},
+						"headers": {
+							"content-type": {
+								"schema": {
+									"type": "string"
+								},
+								"description": "e.g. text/plain"
 							}
 						}
 					},
@@ -593,22 +605,29 @@
 			}
 		},
 		"/authentication/logout": {
-			"get": {
+			"post": {
 				"operationId": "authenticationLogout",
 				"summary": "Logout from the server",
 				"tags": ["Authentication"],
-				"parameters": [
-					{
-						"name": "token",
-						"description": "The token to logout, if it uses a mechanism with public access.",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"type": "string"
-						},
-						"example": "eyJhbGciOiJIU...sw5c"
+				"requestBody": {
+					"description": "Perform a logout on the auth token.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LogoutRequest"
+							},
+							"examples": {
+								"logoutRequestExample": {
+									"summary": "The request to logout from the server.",
+									"value": {
+										"token": "eyJhbGciOiJIU...sw5c"
+									}
+								}
+							}
+						}
 					}
-				],
+				},
 				"responses": {
 					"204": {
 						"description": "The rest request ended in success with no data."
@@ -656,27 +675,34 @@
 			}
 		},
 		"/authentication/refresh": {
-			"get": {
+			"post": {
 				"operationId": "authenticationRefreshToken",
 				"summary": "Refresh an authentication token",
 				"tags": ["Authentication"],
-				"parameters": [
-					{
-						"name": "token",
-						"description": "The token to refresh, if it uses a mechanism with public access.",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"type": "string"
-						},
-						"example": "eyJhbGciOiJIU...sw5c"
-					}
-				],
 				"security": [
 					{
 						"jwtBearerAuthScheme": []
 					}
 				],
+				"requestBody": {
+					"description": "Perform a refresh of the auth token.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RefreshTokenRequest"
+							},
+							"examples": {
+								"refreshTokenRequestExample": {
+									"summary": "The request to refresh an auth token.",
+									"value": {
+										"token": "eyJhbGciOiJIU...sw5c"
+									}
+								}
+							}
+						}
+					}
+				},
 				"responses": {
 					"200": {
 						"description": "Response from a refresh on the auth token.",
@@ -1388,6 +1414,304 @@
 											"userIdentity": "did:example:123456789abcdefghi",
 											"organizationIdentity": "did:example:123456789abcdefghi",
 											"scope": ["scope1", "scope2"]
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/authentication/audit": {
+			"post": {
+				"operationId": "authenticationAuditCreate",
+				"summary": "Create an authentication audit entry",
+				"tags": ["Authentication Audit"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"requestBody": {
+					"description": "Create an authentication audit entry.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuditCreateRequest"
+							},
+							"examples": {
+								"authenticationAuditCreateRequestExample": {
+									"summary": "The request to create an authentication audit entry.",
+									"value": {
+										"actorId": "user@example.com",
+										"event": "login-success",
+										"data": {
+											"organizationIdentity": "did:example:org1"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The rest request ended in created response.",
+						"headers": {
+							"location": {
+								"schema": {
+									"type": "string"
+								},
+								"description": "e.g. 018f0b53d5d5704fa3a06d6ed2478575"
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "authenticationAuditQuery",
+				"summary": "Query authentication audit entries",
+				"tags": ["Authentication Audit"],
+				"parameters": [
+					{
+						"name": "actorId",
+						"description": "The actor identifier to filter by.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "user@example.com"
+					},
+					{
+						"name": "organizationId",
+						"description": "The organization identifier to filter by.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "tenantId",
+						"description": "The tenant identifier to filter by.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "nodeId",
+						"description": "The node identifier to filter by.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "event",
+						"description": "The event to filter by.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"$ref": "#/components/schemas/AuthAuditEvent"
+								},
+								{
+									"type": "string"
+								}
+							]
+						},
+						"example": "login-success"
+					},
+					{
+						"name": "startDate",
+						"description": "The inclusive start date for filtering, in ISO 8601 format.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "2026-01-01T00:00:00.000Z"
+					},
+					{
+						"name": "endDate",
+						"description": "The inclusive end date for filtering, in ISO 8601 format.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "2026-01-31T23:59:59.999Z"
+					},
+					{
+						"name": "cursor",
+						"description": "The pagination cursor.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "limit",
+						"description": "The maximum number of results to return.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "50"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Response from querying authentication audit entries.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuditQueryResponse"
+								},
+								"examples": {
+									"authenticationAuditQueryResponseExample": {
+										"summary": "The response for querying authentication audit entries.",
+										"value": {
+											"entries": [
+												{
+													"id": "018f0b53d5d5704fa3a06d6ed2478575",
+													"actorId": "user@example.com",
+													"dateCreated": "2026-01-12T09:05:23.123Z",
+													"event": "login-success",
+													"data": {
+														"organizationIdentity": "did:example:org1"
+													}
+												}
+											],
+											"cursor": "next-cursor"
 										}
 									}
 								}
@@ -2180,6 +2504,209 @@
 				}
 			}
 		},
+		"/identity/{identity}/alias": {
+			"post": {
+				"operationId": "identityAlsoKnownAsCreate",
+				"summary": "Add an alias to the alsoKnownAs property on the document",
+				"tags": ["Identity"],
+				"parameters": [
+					{
+						"name": "identity",
+						"description": "The identity to create the alias for.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "did:iota:tst:0xe3088ba9aa8c28e1d139708a14e8c0fdff11ee8223baac4aa5bcf3321e4bfc6a"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"requestBody": {
+					"description": "Request to create an alias for an identity.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IdentityAlsoKnownAsCreateRequest"
+							},
+							"examples": {
+								"identityAlsoKnownAsCreateRequestExample": {
+									"value": {
+										"alias": "did:example:123"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/identity/{identity}/alias/{alias}": {
+			"delete": {
+				"operationId": "identityAlsoKnownAsRemove",
+				"summary": "Remove an alias from the alsoKnownAs property on the document",
+				"tags": ["Identity"],
+				"parameters": [
+					{
+						"name": "identity",
+						"description": "The identity to remove the alias from.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "did:iota:tst:0xe3088ba9aa8c28e1d139708a14e8c0fdff11ee8223baac4aa5bcf3321e4bfc6a"
+					},
+					{
+						"name": "alias",
+						"description": "The alias to remove.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "did:example:123"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/identity/{identity}/verifiable-credential/{verificationMethodId}": {
 			"post": {
 				"operationId": "identityVerifiableCredentialCreate",
@@ -2884,6 +3411,122 @@
 				}
 			}
 		},
+		"/identity/verifiable-presentation/verify/document": {
+			"post": {
+				"operationId": "identityVerifiablePresentationVerifyDocument",
+				"summary": "Verify an identity verifiable presentation document",
+				"tags": ["Identity"],
+				"requestBody": {
+					"description": "Request to verify a verifiable presentation.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "https://schema.twindev.org/w3c-did/DidVerifiablePresentation"
+							},
+							"examples": {
+								"identityVerifiablePresentationVerifyDocumentRequestExample": {
+									"value": {
+										"@context": ["https://www.w3.org/2018/credentials/v1", "https://schema.org"],
+										"id": "https://example.com/credentials/3732",
+										"type": ["VerifiableCredential", "Person"],
+										"verifiableCredential": [
+											{
+												"@context": [
+													"https://www.w3.org/2018/credentials/v1",
+													"https://schema.org"
+												],
+												"id": "https://example.com/credentials/3732",
+												"type": ["VerifiableCredential", "Person"],
+												"credentialSubject": {
+													"id": "did:entity-storage:0x4757993355b921a8229bd780f30921b6a0216a72e6c3f37a09d13b8426a17def",
+													"name": "Jane Doe"
+												},
+												"issuer": "did:entity-storage:0x879c31386f992cfa29b77fe31e37256d69f6a57653cee4eb60ad4c4613c5515a",
+												"issuanceDate": "2025-01-24T09:21:51.500Z",
+												"credentialStatus": {
+													"id": "did:entity-storage:0x879c31386f992cfa29b77fe31e37256d69f6a57653cee4eb60ad4c4613c5515a#revocation",
+													"type": "BitstringStatusList",
+													"revocationBitmapIndex": "5"
+												}
+											}
+										]
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Response to verifying a verifiable presentation.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IdentityVerifiablePresentationVerifyResponse"
+								},
+								"examples": {
+									"identityVerifiablePresentationVerifyResponseExample": {
+										"value": {
+											"revoked": false,
+											"verifiablePresentation": {
+												"@context": [
+													"https://www.w3.org/2018/credentials/v1",
+													"https://schema.org"
+												],
+												"id": "presentationId",
+												"type": ["VerifiablePresentation", "Person"],
+												"verifiableCredential": ["eyJraWQiOi...D1Z3AQ"],
+												"holder": "did:entity-storage:0xcea318e06e89f3fb4048160770effd84d0cfa5801fee13dfa6f9413a00429cec"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/identity/verifiable-presentation/verify": {
 			"get": {
 				"operationId": "identityVerifiablePresentationVerify",
@@ -3320,7 +3963,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ConflictResponse"
+									"$ref": "#/components/schemas/Error"
 								},
 								"examples": {
 									"exampleResponse": {
@@ -4058,24 +4701,180 @@
 					}
 				}
 			},
-			"ConflictResponse": {
+			"AuditCreateRequest": {
+				"description": "The body of the request.",
 				"type": "object",
 				"properties": {
-					"conflicts": {
+					"event": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/AuthAuditEvent"
+							},
+							{
+								"type": "string"
+							}
+						],
+						"description": "The audit event that occurred."
+					},
+					"actorId": {
+						"type": "string",
+						"description": "The actor identifier, could be e-mail, username, or other unique identifier."
+					},
+					"nodeId": {
+						"type": "string",
+						"description": "The node identifier associated with the audit entry, if applicable."
+					},
+					"organizationId": {
+						"type": "string",
+						"description": "The organization identifier associated with the audit entry, if applicable."
+					},
+					"tenantId": {
+						"type": "string",
+						"description": "The tenant identifier associated with the audit entry, if applicable."
+					},
+					"ipAddressHashes": {
 						"type": "array",
 						"items": {
 							"type": "string"
 						},
-						"description": "The conflicting items."
+						"description": "The hashed IP addresses of the client."
+					},
+					"userAgent": {
+						"type": "string",
+						"description": "The user agent string of the client."
+					},
+					"correlationId": {
+						"type": "string",
+						"description": "The correlation ID for request tracing."
+					},
+					"data": {
+						"description": "Additional data related to the audit entry, such as IP address, user agent, etc."
 					}
 				},
-				"required": ["conflicts"],
-				"allOf": [
-					{
-						"$ref": "#/components/schemas/Error"
+				"required": ["event"]
+			},
+			"AuditQueryResponse": {
+				"type": "object",
+				"properties": {
+					"entries": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AuthenticationAuditEntry"
+						},
+						"description": "The returned audit entries."
+					},
+					"cursor": {
+						"type": "string",
+						"description": "The cursor to retrieve the next page, if any."
 					}
-				],
-				"description": "The body which contains the error."
+				},
+				"required": ["entries"],
+				"description": "The response body."
+			},
+			"AuthAuditEvent": {
+				"description": "Supported authentication audit event values.",
+				"anyOf": [
+					{
+						"const": "login-success",
+						"description": "Login success."
+					},
+					{
+						"const": "login-failure",
+						"description": "Login failure."
+					},
+					{
+						"const": "logout",
+						"description": "Logout."
+					},
+					{
+						"const": "token-refreshed",
+						"description": "Token refreshed."
+					},
+					{
+						"const": "account-created",
+						"description": "Account created."
+					},
+					{
+						"const": "account-deleted",
+						"description": "Account deleted."
+					},
+					{
+						"const": "account-updated",
+						"description": "Account updated."
+					},
+					{
+						"const": "account-locked",
+						"description": "Account locked."
+					},
+					{
+						"const": "account-unlocked",
+						"description": "Account unlocked."
+					},
+					{
+						"const": "password-changed",
+						"description": "Password changed."
+					}
+				]
+			},
+			"AuthenticationAuditEntry": {
+				"description": "Contract definition for authentication audit entry.",
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier for the audit entry."
+					},
+					"event": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/AuthAuditEvent"
+							},
+							{
+								"type": "string"
+							}
+						],
+						"description": "The audit event that occurred."
+					},
+					"dateCreated": {
+						"type": "string",
+						"description": "The timestamp of the audit entry in ISO 8601 format."
+					},
+					"actorId": {
+						"type": "string",
+						"description": "The actor identifier, could be e-mail, username, or other unique identifier."
+					},
+					"nodeId": {
+						"type": "string",
+						"description": "The node identifier associated with the audit entry, if applicable."
+					},
+					"organizationId": {
+						"type": "string",
+						"description": "The organization identifier associated with the audit entry, if applicable."
+					},
+					"tenantId": {
+						"type": "string",
+						"description": "The tenant identifier associated with the audit entry, if applicable."
+					},
+					"ipAddressHashes": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"description": "The hashed IP addresses of the client."
+					},
+					"userAgent": {
+						"type": "string",
+						"description": "The user agent string of the client."
+					},
+					"correlationId": {
+						"type": "string",
+						"description": "The correlation ID for request tracing."
+					},
+					"data": {
+						"description": "Additional data related to the audit entry, such as IP address, user agent, etc."
+					}
+				},
+				"required": ["id", "event", "dateCreated"]
 			},
 			"Error": {
 				"description": "Model to describe serialized error.",
@@ -4087,7 +4886,7 @@
 					},
 					"message": {
 						"type": "string",
-						"description": "The message for the error."
+						"description": "The message for the error as an i18n key."
 					},
 					"source": {
 						"type": "string",
@@ -4108,40 +4907,39 @@
 				},
 				"required": ["name", "message"]
 			},
-			"HealthComponentInfo": {
-				"description": "The health component information.",
+			"Health": {
+				"description": "Provides health information for a component.",
 				"type": "object",
 				"properties": {
-					"name": {
+					"source": {
 						"type": "string",
-						"description": "The name of the component."
+						"description": "The source of the health information."
+					},
+					"description": {
+						"type": "string",
+						"description": "The description of the component as an i18n key."
 					},
 					"status": {
 						"$ref": "#/components/schemas/HealthStatus"
 					},
-					"details": {
+					"message": {
 						"type": "string",
-						"description": "The details for the status."
-					}
-				},
-				"required": ["name", "status"]
-			},
-			"HealthInfo": {
-				"description": "The status of the server.",
-				"type": "object",
-				"properties": {
-					"status": {
-						"$ref": "#/components/schemas/HealthStatus"
+						"description": "The message for the status if there are further details to provide as an i18n key."
 					},
-					"components": {
+					"data": {
+						"type": "object",
+						"additionalProperties": {},
+						"description": "Data to substitute in the i18n key for the message."
+					},
+					"grouped": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/HealthComponentInfo"
+							"$ref": "#/components/schemas/Health"
 						},
-						"description": "The status of the components."
+						"description": "The grouped child components, if any."
 					}
 				},
-				"required": ["status"]
+				"required": ["source", "status"]
 			},
 			"HealthStatus": {
 				"description": "The health status of the component.",
@@ -4159,6 +4957,17 @@
 						"description": "Error."
 					}
 				]
+			},
+			"IdentityAlsoKnownAsCreateRequest": {
+				"type": "object",
+				"properties": {
+					"alias": {
+						"type": "string",
+						"description": "The alias to create for the identity."
+					}
+				},
+				"required": ["alias"],
+				"description": "The data for the request."
 			},
 			"IdentityCreateRequest": {
 				"type": "object",
@@ -4477,6 +5286,16 @@
 				"required": ["expiry"],
 				"description": "The login response details."
 			},
+			"LogoutRequest": {
+				"type": "object",
+				"properties": {
+					"token": {
+						"type": "string",
+						"description": "The token to logout, if it uses a mechanism with public access."
+					}
+				},
+				"description": "The logout token details."
+			},
 			"NotFoundResponse": {
 				"type": "object",
 				"properties": {
@@ -4491,6 +5310,16 @@
 					}
 				],
 				"description": "The body which contains the error."
+			},
+			"RefreshTokenRequest": {
+				"type": "object",
+				"properties": {
+					"token": {
+						"type": "string",
+						"description": "The token to refresh, if it uses a mechanism with public access."
+					}
+				},
+				"description": "The refresh token details."
 			},
 			"RefreshTokenResponse": {
 				"type": "object",
@@ -4510,6 +5339,22 @@
 				},
 				"description": "The favicon for the server."
 			},
+			"ServerHealthResponse": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/HealthStatus"
+					},
+					"components": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Health"
+						}
+					}
+				},
+				"required": ["status", "components"],
+				"description": "The health for the server."
+			},
 			"ServerInfo": {
 				"description": "The information about the server.",
 				"type": "object",
@@ -4528,17 +5373,24 @@
 			"ServerLivezResponse": {
 				"anyOf": [
 					{
-						"const": "ok"
+						"const": "alive"
 					},
 					{
-						"const": "failed"
+						"const": "dead"
 					}
 				],
 				"description": "The livez information for the server."
 			},
-			"ServerRootResponse": {
-				"type": "string",
-				"description": "The root text for the server."
+			"ServerReadyzResponse": {
+				"anyOf": [
+					{
+						"const": "ready"
+					},
+					{
+						"const": "not ready"
+					}
+				],
+				"description": "The readyz information for the server."
 			},
 			"ServerSpecResponse": {
 				"description": "The spec for the server."

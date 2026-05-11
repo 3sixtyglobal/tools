@@ -3649,7 +3649,7 @@ export class JsonSchemaBuilder {
 					if (Is.object(branchRecord.properties)) {
 						for (const [propertyKey, propertySchema] of Object.entries(branchRecord.properties)) {
 							if (Is.object(propertySchema)) {
-								mergedProperties[propertyKey] = ObjectHelper.clone(propertySchema as IJsonSchema);
+								mergedProperties[propertyKey] = ObjectHelper.clone(propertySchema);
 								if (branchSourceTitle) {
 									inheritedPropertySources[propertyKey] = branchSourceTitle;
 								}

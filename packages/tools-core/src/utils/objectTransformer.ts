@@ -163,7 +163,7 @@ export class ObjectTransformer {
 			}
 
 			if (Is.object(value)) {
-				const valueRecord = value as { [key: string]: unknown };
+				const valueRecord = value;
 				if (Is.stringValue(valueRecord.description)) {
 					valueRecord.description = ObjectTransformer.normalizeSchemaDescriptionText(
 						valueRecord.description
