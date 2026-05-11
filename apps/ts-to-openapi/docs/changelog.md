@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.28](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.27...ts-to-openapi-v0.0.3-next.28) (2026-05-11)
+
+
+### Features
+
+* typescript 6 update ([02d2e47](https://github.com/iotaledger/twin-tools/commit/02d2e47859a1d64c81e840626cc2d443816af45b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.27 to 0.0.3-next.28
+    * @twin.org/tools-models bumped from 0.0.3-next.27 to 0.0.3-next.28
+
 ## [0.0.3-next.27](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.26...ts-to-openapi-v0.0.3-next.27) (2026-03-27)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.28](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.3-next.27...tools-models-v0.0.3-next.28) (2026-05-11)
+
+
+### Features
+
+* typescript 6 update ([02d2e47](https://github.com/iotaledger/twin-tools/commit/02d2e47859a1d64c81e840626cc2d443816af45b))
+
 ## [0.0.3-next.27](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.3-next.26...tools-models-v0.0.3-next.27) (2026-03-27)
 
 
