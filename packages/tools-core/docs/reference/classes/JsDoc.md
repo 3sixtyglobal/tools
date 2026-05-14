@@ -118,6 +118,34 @@ The trimmed comment text, or undefined when absent.
 
 ***
 
+### getNodeTagComments() {#getnodetagcomments}
+
+> `static` **getNodeTagComments**(`node`, `tagName`): `string`[]
+
+Read the plain comment text for all matching JSDoc tags on a node.
+
+#### Parameters
+
+##### node
+
+`Node`
+
+The node to inspect.
+
+##### tagName
+
+`string`
+
+The tag name to filter by (e.g., 'example').
+
+#### Returns
+
+`string`[]
+
+An array of trimmed comment texts for all matching tags.
+
+***
+
 ### parseTagValue() {#parsetagvalue}
 
 > `static` **parseTagValue**(`value`): `unknown`
