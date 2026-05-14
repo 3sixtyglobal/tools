@@ -31,6 +31,7 @@ import omitOptionalityReverseFaceBSchema from "./testData/interfaceExtendsUtilit
 import omitRedefinitionBaseASchema from "./testData/interfaceExtendsUtility/OmitRedefinitionBaseA.json" with { type: "json" };
 import omitRedefinitionFaceBSchema from "./testData/interfaceExtendsUtility/OmitRedefinitionFaceB.json" with { type: "json" };
 import testInterfaceExtendsUtilitySchema from "./testData/interfaceExtendsUtility/testInterfaceExtendsUtility.json" with { type: "json" };
+import testJsDocExampleTagSchema from "./testData/jsDocExampleTag/testJsDocExampleTag.json" with { type: "json" };
 import testJsonLdUtilityTypeSchema from "./testData/jsonLdUtilityType/testJsonLdUtilityType.json" with { type: "json" };
 import testBaseTypeSchema from "./testData/jsonSchemaEmbedded/BaseType.json" with { type: "json" };
 import testConstrainedSchema from "./testData/jsonSchemaEmbedded/Constrained.json" with { type: "json" };
@@ -974,6 +975,27 @@ describe("TypeScriptToSchema", () => {
 			"tests/utils/testData/optionalProps/testOptionalProps.ts"
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [testOptionalPropsSchema]);
+	});
+
+	test("populates examples from @example JSDoc tags on properties", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsDocExampleTag/testJsDocExampleTag.ts"
+		);
+		expectGeneratedSchemasToMatch(generatedSchemas, [testJsDocExampleTagSchema]);
+		const schema = getSchemaByExpectedTitle(generatedSchemas, testJsDocExampleTagSchema);
+		expect(schema.properties?.singleExampleTag.examples).toEqual(["hello"]);
+		expect(schema.properties?.multipleExamplesTag.examples).toEqual(["foo", "bar"]);
+		expect(schema.properties?.numberExampleTag.examples).toEqual([42]);
+		expect(schema.properties?.objectExampleTag.examples).toEqual([{ key: "value" }]);
+		expect(schema.properties?.combinedExamplesTag.examples).toEqual([
+			"from-example",
+			"from-json-schema"
+		]);
 	});
 
 	test("can apply @json-schema tags to generated schema", async () => {

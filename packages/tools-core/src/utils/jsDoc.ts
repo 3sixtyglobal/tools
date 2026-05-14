@@ -99,6 +99,25 @@ export class JsDoc {
 	}
 
 	/**
+	 * Read the plain comment text for all matching JSDoc tags on a node.
+	 * @param node The node to inspect.
+	 * @param tagName The tag name to filter by (e.g., 'example').
+	 * @returns An array of trimmed comment texts for all matching tags.
+	 */
+	public static getNodeTagComments(node: ts.Node, tagName: string): string[] {
+		const results: string[] = [];
+		for (const jsDocTag of ts.getJSDocTags(node)) {
+			if (jsDocTag.tagName.text === tagName) {
+				const commentText = JsDoc.getJSDocTagCommentText(jsDocTag)?.trim();
+				if (commentText) {
+					results.push(commentText);
+				}
+			}
+		}
+		return results;
+	}
+
+	/**
 	 * Parse a custom JSDoc tag value into JSON-compatible data.
 	 * Values that begin with a JSON token character (open brace, open bracket, double quote, true, false, null) or look like a
 	 * number are parsed with JSON.parse.  All other values are returned as plain strings.

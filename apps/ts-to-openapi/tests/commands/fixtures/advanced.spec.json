@@ -20674,7 +20674,8 @@
 					},
 					"target": {
 						"type": "string",
-						"description": "The target path of where to store the extracted data.\nSupports simple dotted path notation, and numeric index notation."
+						"description": "The target path of where to store the extracted data.\nSupports simple dotted path notation, and numeric index notation.",
+						"examples": ["\"path.to.data\" or \"path.to.data.0\""]
 					},
 					"retainPathDepth": {
 						"type": "number",
