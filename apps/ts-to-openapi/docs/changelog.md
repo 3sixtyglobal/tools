@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.29](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.28...ts-to-openapi-v0.0.3-next.29) (2026-05-14)
+
+
+### Features
+
+* add examples to json schema ([#109](https://github.com/iotaledger/twin-tools/issues/109)) ([def5b13](https://github.com/iotaledger/twin-tools/commit/def5b1312e7a0ffefe662fb14575cb655d1c0774))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.28 to 0.0.3-next.29
+    * @twin.org/tools-models bumped from 0.0.3-next.28 to 0.0.3-next.29
+
 ## [0.0.3-next.28](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.27...ts-to-openapi-v0.0.3-next.28) (2026-05-11)
 
 
