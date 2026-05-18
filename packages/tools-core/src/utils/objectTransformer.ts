@@ -115,14 +115,13 @@ export class ObjectTransformer {
 			// Collect properties and required fields from all allOf branches
 			for (const branch of mappedSchema.allOf) {
 				if (Is.object(branch)) {
-					const branchRecord = branch as { [key: string]: unknown };
 					// Merge properties
-					if (Is.object(branchRecord.properties)) {
-						Object.assign(mergedProperties, branchRecord.properties);
+					if (Is.object(branch.properties)) {
+						Object.assign(mergedProperties, branch.properties);
 					}
 					// Collect required fields
-					if (Is.array(branchRecord.required)) {
-						for (const field of branchRecord.required) {
+					if (Is.array(branch.required)) {
+						for (const field of branch.required) {
 							if (Is.stringValue(field)) {
 								mergedRequired.add(field);
 							}

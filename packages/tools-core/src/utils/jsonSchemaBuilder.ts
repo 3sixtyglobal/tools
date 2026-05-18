@@ -3607,20 +3607,19 @@ export class JsonSchemaBuilder {
 		// Expand all allOf branches
 		for (const branch of allOf) {
 			if (Is.object(branch)) {
-				const branchRecord = branch as { [key: string]: unknown };
 				let branchSourceTitle: string | undefined;
 				let referencedSchema: IJsonSchema | undefined;
 
 				// If the branch is a reference, resolve it
-				if (Is.stringValue(branchRecord.$ref) && !branchRecord.properties) {
-					const refTitle = branchRecord.$ref.split("/").pop();
+				if (Is.stringValue(branch.$ref) && !branch.properties) {
+					const refTitle = branch.$ref.split("/").pop();
 					if (refTitle) {
 						// Look up the referenced schema in the context
 						referencedSchema =
 							context.schemas[context.packageName]?.[refTitle] ??
 							Object.values(context.schemas)
 								.flatMap(entries => Object.values(entries))
-								.find(s => s.$id === branchRecord.$ref || s.title === refTitle);
+								.find(s => s.$id === branch.$ref || s.title === refTitle);
 
 						referencedSchema ??= JsonSchemaBuilder.tryLoadExternalSchemaByTitle(context, refTitle);
 
@@ -3654,8 +3653,8 @@ export class JsonSchemaBuilder {
 					}
 				} else {
 					// Merge properties from direct schema in allOf
-					if (Is.object(branchRecord.properties)) {
-						for (const [propertyKey, propertySchema] of Object.entries(branchRecord.properties)) {
+					if (Is.object(branch.properties)) {
+						for (const [propertyKey, propertySchema] of Object.entries(branch.properties)) {
 							if (Is.object(propertySchema)) {
 								mergedProperties[propertyKey] = ObjectHelper.clone(propertySchema);
 								if (branchSourceTitle) {
@@ -3665,8 +3664,8 @@ export class JsonSchemaBuilder {
 						}
 					}
 					// Merge required fields
-					if (Is.array(branchRecord.required)) {
-						for (const field of branchRecord.required) {
+					if (Is.array(branch.required)) {
+						for (const field of branch.required) {
 							if (Is.stringValue(field)) {
 								mergedRequired.add(field);
 							}
