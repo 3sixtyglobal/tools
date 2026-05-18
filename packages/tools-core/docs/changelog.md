@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.30](https://github.com/iotaledger/twin-tools/compare/tools-core-v0.0.3-next.29...tools-core-v0.0.3-next.30) (2026-05-18)
+
+
+### Bug Fixes
+
+* ajv stack overflow for oneOf on large enums ([#112](https://github.com/iotaledger/twin-tools/issues/112)) ([6be32a3](https://github.com/iotaledger/twin-tools/commit/6be32a3ae5b3cf188c0d1caf1080f497b648705c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.3-next.29 to 0.0.3-next.30
+
 ## [0.0.3-next.29](https://github.com/iotaledger/twin-tools/compare/tools-core-v0.0.3-next.28...tools-core-v0.0.3-next.29) (2026-05-14)
 
 
