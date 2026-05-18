@@ -3,5 +3,5 @@
 	"$id": "https://schema.twindev.org/test/ResponseState",
 	"description": "Response state represented as a string enum declaration.",
 	"title": "ResponseState",
-	"oneOf": [{ "const": "success" }, { "const": "failed" }]
+	"anyOf": [{ "const": "success" }, { "const": "failed" }]
 }

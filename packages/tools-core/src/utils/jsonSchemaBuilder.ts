@@ -240,7 +240,7 @@ export class JsonSchemaBuilder {
 					JsonSchemaBuilder.buildObjectSchema(boundContext, schema, statement.type.members);
 				} else {
 					// Const-and-type enum patterns always take priority so that JsDoc descriptions
-					// on the const object members are preserved in the generated oneOf schema.
+					// on the const object members are preserved in the generated anyOf schema.
 					const constValues = Enum.extractEnumValuesFromConstAndType(
 						statement.name.text,
 						sourceFile
@@ -510,7 +510,7 @@ export class JsonSchemaBuilder {
 		schema: Partial<IJsonSchema>,
 		entries: { value: string | number; description?: string }[]
 	): void {
-		schema.oneOf = entries.map(entry => ({
+		schema.anyOf = entries.map(entry => ({
 			const: entry.value,
 			description: entry.description
 		}));

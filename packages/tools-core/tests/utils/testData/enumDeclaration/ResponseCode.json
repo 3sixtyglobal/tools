@@ -3,5 +3,5 @@
 	"$id": "https://schema.twindev.org/test/ResponseCode",
 	"description": "Numeric HTTP-like code enum declaration.",
 	"title": "ResponseCode",
-	"oneOf": [{ "const": 200 }, { "const": 201 }, { "const": 409 }]
+	"anyOf": [{ "const": 200 }, { "const": 201 }, { "const": 409 }]
 }
