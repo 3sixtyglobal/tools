@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.31](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.3-next.30...tools-models-v0.0.3-next.31) (2026-05-19)
+
+
+### Features
+
+* update dependencies ([5bdd8be](https://github.com/iotaledger/twin-tools/commit/5bdd8becf9f08b35342ea8f298f74578951f4bac))
+
 ## [0.0.3-next.30](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.3-next.29...tools-models-v0.0.3-next.30) (2026-05-18)
 
 

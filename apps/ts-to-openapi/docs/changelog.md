@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.31](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.30...ts-to-openapi-v0.0.3-next.31) (2026-05-19)
+
+
+### Features
+
+* update dependencies ([5bdd8be](https://github.com/iotaledger/twin-tools/commit/5bdd8becf9f08b35342ea8f298f74578951f4bac))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.3-next.30 to 0.0.3-next.31
+    * @twin.org/tools-models bumped from 0.0.3-next.30 to 0.0.3-next.31
+
 ## [0.0.3-next.30](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.3-next.29...ts-to-openapi-v0.0.3-next.30) (2026-05-18)
 
 
