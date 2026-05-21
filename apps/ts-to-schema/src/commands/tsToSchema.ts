@@ -92,12 +92,12 @@ export async function actionCommandTsToSchema(
  * Convert the TypeScript definitions to JSON Schemas.
  * @param config The configuration for the app.
  * @param outputFolder The location of the folder to output the JSON schemas.
- * @param _workingDirectory The folder the app was run from.
+ * @param workingDirectory The folder the app was run from.
  */
 export async function tsToSchema(
 	config: ITsToSchemaConfig,
 	outputFolder: string,
-	_workingDirectory: string
+	workingDirectory: string
 ): Promise<void> {
 	CLIDisplay.break();
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.writingSchemas"));
