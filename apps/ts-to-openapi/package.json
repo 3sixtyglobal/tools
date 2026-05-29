@@ -4,7 +4,7 @@
 	"description": "Generate OpenAPI specifications from REST route definitions",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/tools.git",
+		"url": "git+https://github.com/iotaledger/twin-tools.git",
 		"directory": "apps/ts-to-openapi"
 	},
 	"author": "martyn.janes@iota.org",
@@ -83,7 +83,7 @@
 		"tools"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/tools/issues"
+		"url": "git+https://github.com/iotaledger/twin-tools/issues"
 	},
 	"homepage": "https://twindev.org",
 	"directories": {
