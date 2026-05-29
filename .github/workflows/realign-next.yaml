@@ -1,0 +1,46 @@
+name: Realign Next
+
+# Allows operators to rerun the post-release next-branch realignment manually
+# if the automated production workflow step fails or needs to be repeated.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: manual-realign-next
+  cancel-in-progress: false
+
+jobs:
+  realign-next:
+    name: Realign Next Branch
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
+      - name: Versions Prepare for next
+        id: versions-prepare
+        uses: ./.github/workflows/versions-prepare
+        with:
+          branch: next
+          gpg_private_key: ${{ secrets.TWIN_GPG_PRIVATE_KEY }}
+          gpg_key_id: ${{ secrets.TWIN_GPG_KEY_ID }}
+          test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
+      - name: Announce next realignment PR
+        if: ${{ steps.versions-prepare.outputs.has_changes == 'true' && steps.versions-prepare.outputs.pr_url != '' }}
+        run: |
+          echo "::notice title=Next Realignment PR::Approve and merge to complete next realignment: ${{ steps.versions-prepare.outputs.pr_url }}"
+
+      - name: Announce no-op realignment
+        if: ${{ steps.versions-prepare.outputs.has_changes != 'true' }}
+        run: |
+          echo "No version changes were required on next. No PR was created."
