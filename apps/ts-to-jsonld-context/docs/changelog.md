@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.0.3...ts-to-jsonld-context-v0.0.3) (2026-05-29)
+
+
+### Features
+
+* release to production ([ad24b7e](https://github.com/iotaledger/twin-tools/commit/ad24b7eb16784165b6c93b5c48788199f0e17526))
+* release to production ([#119](https://github.com/iotaledger/twin-tools/issues/119)) ([cc2828a](https://github.com/iotaledger/twin-tools/commit/cc2828a6c68466bfdeaf75b507bc980dddac2cf0))
+
 ## [0.0.3-next.31](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.0.3-next.30...ts-to-jsonld-context-v0.0.3-next.31) (2026-05-19)
 
 
