@@ -52,11 +52,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
-      - name: Announce release PR
-        if: ${{ steps.release-prepare.outputs.pr_url != '' }}
-        run: |
-          echo "::notice title=Gate 1 – Release PR::Review and merge to publish: ${{ steps.release-prepare.outputs.pr_url }}"
-
   # ──────────────────────────────────────────────────────────────────────────
   # GATE 1 – WAIT FOR RELEASE PR
   # Polls until the release PR is approved and merged into next.

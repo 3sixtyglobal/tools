@@ -1,6 +1,6 @@
 # Function: tsToSchema()
 
-> **tsToSchema**(`config`, `outputFolder`, `_workingDirectory`): `Promise`\<`void`\>
+> **tsToSchema**(`config`, `outputFolder`, `workingDirectory`): `Promise`\<`void`\>
 
 Convert the TypeScript definitions to JSON Schemas.
 
@@ -18,7 +18,7 @@ The configuration for the app.
 
 The location of the folder to output the JSON schemas.
 
-### \_workingDirectory
+### workingDirectory
 
 `string`
 

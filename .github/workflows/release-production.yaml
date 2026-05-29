@@ -135,7 +135,6 @@ jobs:
           PR_NUMBER=$(echo "$PR_URL" | grep -o '[0-9]\+$')
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
-          echo "::notice title=Gate 0 – Next to Main PR::Approve and merge to continue the production release: $PR_URL"
           echo "Created PR #$PR_NUMBER: $PR_URL"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -211,7 +210,7 @@ jobs:
   # PR.
   # ──────────────────────────────────────────────────────────────────────────
   prepare-main:
-    name: 'Phase 1 · Prepare and build main branch'
+    name: 'Phase 1 · Prepare main branch'
     needs: gate-next-to-main
     if: |
       github.event_name == 'workflow_dispatch' &&
@@ -262,11 +261,6 @@ jobs:
           test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
-
-      - name: Announce main alignment PR
-        if: ${{ steps.versions-prepare.outputs.has_changes == 'true' && steps.versions-prepare.outputs.pr_url != '' }}
-        run: |
-          echo "::notice title=Gate 1 – Main Alignment PR::Approve and merge to continue the production release: ${{ steps.versions-prepare.outputs.pr_url }}"
 
       # Our self-hosted runner clears the workspace after local composite
       # actions, so restore the workflow ref before the job completes.
@@ -387,11 +381,6 @@ jobs:
           gpg_key_id: ${{ secrets.TWIN_GPG_KEY_ID }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
-
-      - name: Announce release PR
-        if: ${{ steps.release-prepare.outputs.pr_url != '' }}
-        run: |
-          echo "::notice title=Gate 2 – Release PR::Review and merge to publish: ${{ steps.release-prepare.outputs.pr_url }}"
 
   # ──────────────────────────────────────────────────────────────────────────
   # GATE 2 – WAIT FOR RELEASE PR
