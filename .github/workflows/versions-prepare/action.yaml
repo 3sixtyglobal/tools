@@ -72,6 +72,10 @@ runs:
         TARGET_BRANCH="${{ inputs.branch }}"
         TARGET_DIR="$RUNNER_TEMP/versions-prepare-$TARGET_BRANCH-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
 
+        if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+          git fetch --no-tags --prune --unshallow origin
+        fi
+
         git fetch --no-tags --prune origin "+refs/heads/$TARGET_BRANCH:refs/remotes/origin/$TARGET_BRANCH"
 
         if [ "$TARGET_BRANCH" = "next" ]; then
