@@ -1184,6 +1184,24 @@ describe("TypeScriptToSchema", () => {
 		).rejects.toThrow("jsonSchemaBuilder.invalidFormatValue");
 	});
 
+	test("accepts format:byte on a string property", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+
+		const generatedSchemas = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaTags/testFormatByte.ts"
+		);
+
+		const schema = generatedSchemas.TestFormatByte;
+		expect(schema.properties?.binaryPayload).toMatchObject({
+			type: "string",
+			format: "byte"
+		});
+	});
+
 	test("excludes enclosing objects for disallowed type names and reports diagnostics", async () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};

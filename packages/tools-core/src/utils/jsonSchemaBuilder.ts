@@ -454,7 +454,8 @@ export class JsonSchemaBuilder {
 				"uri-template",
 				"json-pointer",
 				"relative-json-pointer",
-				"regex"
+				"regex",
+				"byte"
 			];
 			if (!validFormats.includes(rawValue)) {
 				throw new GeneralError(JsonSchemaBuilder.CLASS_NAME, "invalidFormatValue", {
