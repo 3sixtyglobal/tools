@@ -1,0 +1,105 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeKeywordVariants",
+	"description": "Test object and boolean keyword variants.",
+	"title": "TestTypeKeywordVariants",
+	"type": "object",
+	"properties": {
+		"objectKeyword": {
+			"description": "Object keyword should map to object type.",
+			"type": "object"
+		},
+		"booleanWrapper": {
+			"description": "Boolean wrapper type should map to boolean type.",
+			"type": "boolean"
+		},
+		"objectWrapper": {
+			"description": "Object wrapper type should map to object type.",
+			"type": "object"
+		},
+		"mapValue": {
+			"description": "Map should map to object additionalProperties.",
+			"type": "object",
+			"additionalProperties": {
+				"type": "number"
+			}
+		},
+		"setValue": {
+			"description": "Set should map to array with unique items.",
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"uniqueItems": true
+		},
+		"templateIndexed": {
+			"description": "Template literal index signatures should map to patternProperties.",
+			"type": "object",
+			"patternProperties": {
+				"^x\\-.*$": {
+					"type": "number"
+				},
+				"^id\\--?(?:0|[1-9]\\d*)(?:\\.\\d+)?$": {
+					"type": "string"
+				}
+			},
+			"propertyNames": {
+				"anyOf": [{ "pattern": "^x\\-.*$" }, { "pattern": "^id\\--?(?:0|[1-9]\\d*)(?:\\.\\d+)?$" }]
+			}
+		},
+		"secondaryTemplateIndexed": {
+			"description": "Additional template-literal index signatures should map to patternProperties.",
+			"type": "object",
+			"patternProperties": {
+				"^metric:.*$": {
+					"type": "boolean"
+				}
+			},
+			"propertyNames": {
+				"pattern": "^metric:.*$"
+			}
+		},
+		"mixedNamedAndPatterned": {
+			"description": "Named property alongside a patterned index yields a propertyNames guard.",
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "Static id property.",
+					"type": "string"
+				}
+			},
+			"required": ["id"],
+			"patternProperties": {
+				"^tag\\-.*$": {
+					"type": "boolean"
+				}
+			},
+			"propertyNames": {
+				"anyOf": [{ "enum": ["id"] }, { "pattern": "^tag\\-.*$" }]
+			}
+		},
+		"broadAndPatterned": {
+			"description": "Broad string index alongside patterned index - no propertyNames guard emitted.",
+			"type": "object",
+			"patternProperties": {
+				"^id\\-.*$": {
+					"type": "number"
+				}
+			},
+			"additionalProperties": {
+				"anyOf": [{ "type": "string" }, { "type": "number" }]
+			}
+		}
+	},
+	"required": [
+		"objectKeyword",
+		"booleanWrapper",
+		"objectWrapper",
+		"mapValue",
+		"setValue",
+		"templateIndexed",
+		"secondaryTemplateIndexed",
+		"mixedNamedAndPatterned",
+		"broadAndPatterned"
+	]
+}

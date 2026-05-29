@@ -1,0 +1,19 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/UppercaseSourceMirror",
+	"description": "Mapped type remapping source keys with a conditional uppercase transform.",
+	"title": "UppercaseSourceMirror",
+	"type": "object",
+	"properties": {
+		"ID": {
+			"type": "string"
+		},
+		"COUNT": {
+			"type": "number"
+		},
+		"ACTIVE": {
+			"type": "boolean"
+		}
+	},
+	"required": ["ID", "COUNT"]
+}

@@ -1,0 +1,241 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/CustomJsonSchemaTagsTest",
+	"$comment": "Schema comment from json-schema tags.",
+	"description": "Custom description from json-schema tags.",
+	"title": "CustomJsonSchemaTagsTest",
+	"type": "object",
+	"properties": {
+		"formatTag": {
+			"type": "string",
+			"description": "Timestamp in RFC 3339 format.",
+			"format": "date-time"
+		},
+		"patternTag": {
+			"type": "string",
+			"description": "Uppercase-only string pattern.",
+			"pattern": "^[A-Z]+$"
+		},
+		"refTag": {
+			"type": "string",
+			"description": "Reference to a local definition.",
+			"$ref": "#/$defs/MyRef"
+		},
+		"contentMediaTypeTag": {
+			"type": "string",
+			"description": "Declares the media type for string content.",
+			"contentMediaType": "application/json"
+		},
+		"contentEncodingTag": {
+			"type": "string",
+			"description": "Declares the content encoding for string content.",
+			"contentEncoding": "base64"
+		},
+		"discriminatorTag": {
+			"type": "string",
+			"discriminator": {
+				"propertyName": "kind"
+			}
+		},
+		"minimumTag": {
+			"type": "number",
+			"minimum": 1
+		},
+		"exclusiveMinimumTag": {
+			"type": "number",
+			"exclusiveMinimum": 0
+		},
+		"maximumTag": {
+			"type": "number",
+			"maximum": 100
+		},
+		"exclusiveMaximumTag": {
+			"type": "number",
+			"exclusiveMaximum": 101
+		},
+		"multipleOfTag": {
+			"type": "number",
+			"multipleOf": 5
+		},
+		"minLengthTag": {
+			"type": "string",
+			"minLength": 2
+		},
+		"maxLengthTag": {
+			"type": "string",
+			"maxLength": 10
+		},
+		"minPropertiesTag": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			},
+			"minProperties": 1
+		},
+		"maxPropertiesTag": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			},
+			"maxProperties": 3
+		},
+		"minItemsTag": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"minItems": 1
+		},
+		"maxItemsTag": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"maxItems": 4
+		},
+		"uniqueItemsTag": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"uniqueItems": true
+		},
+		"propertyNamesTag": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			},
+			"propertyNames": {
+				"type": "string",
+				"pattern": "^[a-z]+$"
+			}
+		},
+		"containsTag": {
+			"type": "array",
+			"items": {
+				"anyOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "number"
+					}
+				]
+			},
+			"contains": {
+				"type": "number"
+			}
+		},
+		"notTag": {
+			"type": "string",
+			"not": {
+				"const": "blocked"
+			}
+		},
+		"minContainsTag": {
+			"type": "array",
+			"items": {
+				"anyOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "number"
+					}
+				]
+			},
+			"contains": {
+				"type": "number"
+			},
+			"minContains": 1
+		},
+		"maxContainsTag": {
+			"type": "array",
+			"items": {
+				"anyOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "number"
+					}
+				]
+			},
+			"contains": {
+				"type": "number"
+			},
+			"maxContains": 2
+		},
+		"constTag": {
+			"type": "string",
+			"const": "fixed"
+		},
+		"examplesTag": {
+			"type": "string",
+			"examples": ["a", "b"]
+		},
+		"defaultTag": {
+			"type": "string",
+			"default": "fallback"
+		},
+		"jsDocDefaultTag": {
+			"type": "string",
+			"default": "jsdoc-fallback"
+		},
+		"jsDocDefaultNumberTag": {
+			"type": "number",
+			"default": 42
+		},
+		"ifTag": {
+			"type": "string",
+			"if": {
+				"type": "string"
+			}
+		},
+		"thenTag": {
+			"type": "string",
+			"then": {
+				"minLength": 3
+			}
+		},
+		"elseTag": {
+			"type": "string",
+			"else": {
+				"maxLength": 2
+			}
+		},
+		"readOnlyTag": {
+			"type": "string",
+			"readOnly": true
+		},
+		"writeOnlyTag": {
+			"type": "string",
+			"writeOnly": true
+		},
+		"deprecatedTag": {
+			"type": "string",
+			"description": "Field marked as deprecated.",
+			"deprecated": true
+		},
+		"contentSchemaTag": {
+			"type": "string",
+			"description": "Schema describing decoded content payload.",
+			"contentSchema": {
+				"type": "object",
+				"required": ["value"]
+			}
+		},
+		"titleTag": {
+			"type": "string",
+			"title": "OverriddenPropertyTitle"
+		},
+		"descriptionTag": {
+			"type": "string",
+			"description": "Overridden property description."
+		},
+		"idTag": {
+			"type": "string",
+			"$id": "https://schema.twindev.org/test/property-id"
+		}
+	}
+}

@@ -20,6 +20,26 @@ const MANIFEST_PRERELEASE_FILENAME = 'release/release-please-manifest.prerelease
 const CONFIG_PRERELEASE_FILENAME = 'release/release-please-config.prerelease.json';
 
 /**
+ * Apply a semver bump to a stable version string.
+ * @param {string} version A stable semver string e.g. "1.2.4".
+ * @param {'promote'|'patch'|'minor'|'major'} bumpType The bump to apply.
+ * @returns {string} The bumped version.
+ */
+function applyBump(version, bumpType) {
+	const [major, minor, patch] = version.split('.').map(Number);
+	if (bumpType === 'major') {
+		return `${major + 1}.0.0`;
+	}
+	if (bumpType === 'minor') {
+		return `${major}.${minor + 1}.0`;
+	}
+	if (bumpType === 'patch') {
+		return `${major}.${minor}.${patch + 1}`;
+	}
+	return `${major}.${minor}.${patch}`; // 'promote' — strip only, no bump
+}
+
+/**
  * Execute the process.
  */
 async function run() {
@@ -30,39 +50,74 @@ async function run() {
 	process.stdout.write('\n');
 
 	if (process.argv.length <= 2) {
-		throw new Error('No command specified, use either production or next');
+		throw new Error('No command specified, use either production <patch|minor|major> or next');
 	}
 
 	const command = process.argv[2];
 	if (command !== 'production' && command !== 'next') {
-		throw new Error('Invalid command specified, use either production or next');
+		throw new Error('Invalid command specified, use either production <patch|minor|major> or next');
 	}
 
-	process.stdout.write(`Command: ${command}\n`);
+	process.stdout.write(`Command: ${command}\n\n`);
 
-	// Read the production release manifest to determine version information
-	// This file contains the current stable versions of all packages
-	process.stdout.write(`Loading release-please manifest: ${MANIFEST_PRODUCTION_FILENAME}\n`);
-	const releaseManifestProd = await loadJson(MANIFEST_PRODUCTION_FILENAME);
+	const isProduction = command === 'production';
 
-	// Extract the current production version from the first package in the manifest
-	// All packages in the monorepo should have the same version
-	const prodVersion = Object.entries(releaseManifestProd)[0][1];
+	// Determine prodVersion and nextVersion based on the command:
+	// - production: read from the prerelease manifest, strip the pre-release suffix, then apply
+	//               the requested semver bump — e.g. "1.2.4-next.5" + minor → "1.3.0"
+	// - next: read from the production manifest and compute the next prerelease version
+	let prodVersion;
+	let nextVersion;
 
-	// Calculate the next prerelease version by incrementing the patch number
-	// Example: 1.2.3 -> 1.2.4-next.0
-	const versionParts = prodVersion.split('.');
-	const nextPatch = Number.parseInt(versionParts[2], 10) + 1;
-	const nextVersion = `${versionParts[0]}.${versionParts[1]}.${nextPatch}-next.0`;
+	if (isProduction) {
+		const semverType = process.argv[3];
+		if (!semverType || !['promote', 'patch', 'minor', 'major'].includes(semverType)) {
+			throw new Error(
+				'semver_type must be promote, patch, minor, or major for the production command'
+			);
+		}
 
-	process.stdout.write(`Production Version: ${prodVersion}\n\n`);
-	process.stdout.write(`Next Version: ${nextVersion}\n\n`);
+		process.stdout.write(`Loading release-please manifest: ${MANIFEST_PRERELEASE_FILENAME}\n\n`);
+		const releaseManifestPrerelease = await loadJson(MANIFEST_PRERELEASE_FILENAME);
+		const prereleaseVersion = Object.entries(releaseManifestPrerelease)[0][1];
+		// Strip pre-release suffix: e.g. "1.2.4-next.5" -> "1.2.4"
+		const strippedVersion = prereleaseVersion.split('-')[0];
+		prodVersion = applyBump(strippedVersion, semverType);
+
+		process.stdout.write(`Prerelease Version: ${prereleaseVersion}\n`);
+		process.stdout.write(`Stripped Version:   ${strippedVersion}\n`);
+		process.stdout.write(`Semver Bump:        ${semverType}\n`);
+		process.stdout.write(`Production Version: ${prodVersion}\n\n`);
+
+		// Update the prod manifest to prodVersion so release-prepare can read it back
+		// and stamp Release-As: {prodVersion} on the force commit, which tells
+		// release-please to use exactly this version regardless of commit analysis.
+		process.stdout.write(`Updating release-please manifest: ${MANIFEST_PRODUCTION_FILENAME}\n\n`);
+		const releaseManifestProd = await loadJson(MANIFEST_PRODUCTION_FILENAME);
+		for (const key of Object.keys(releaseManifestProd)) {
+			releaseManifestProd[key] = prodVersion;
+		}
+		await saveJson(MANIFEST_PRODUCTION_FILENAME, releaseManifestProd);
+		process.stdout.write(`Prod Manifest updated to: ${prodVersion}\n\n`);
+	} else {
+		process.stdout.write(`Loading release-please manifest: ${MANIFEST_PRODUCTION_FILENAME}\n\n`);
+		const releaseManifestProd = await loadJson(MANIFEST_PRODUCTION_FILENAME);
+		// Extract the current production version from the first package in the manifest
+		// All packages in the monorepo should have the same version
+		prodVersion = Object.entries(releaseManifestProd)[0][1];
+		// Calculate the next prerelease version by incrementing the patch number
+		// Example: 1.2.3 -> 1.2.4-next.0
+		const versionParts = prodVersion.split('.');
+		const nextPatch = Number.parseInt(versionParts[2], 10) + 1;
+		nextVersion = `${versionParts[0]}.${versionParts[1]}.${nextPatch}-next.0`;
+		process.stdout.write(`Production Version: ${prodVersion}\n`);
+		process.stdout.write(`Next Version: ${nextVersion}\n\n`);
+	}
 
 	// Load the root package.json to get the list of workspaces
 	const repoPackageJson = await loadJson('package.json');
 
 	const versionCache = {};
-	const isProduction = command === 'production';
 
 	for (const workspace of repoPackageJson.workspaces) {
 		const workspacePackageJsonFilename = path.join(workspace, 'package.json');
@@ -161,19 +216,22 @@ async function processPackage(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.dependencies,
-		versionCache
+		versionCache,
+		false
 	);
 	await processDependencies(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.devDependencies,
-		versionCache
+		versionCache,
+		false
 	);
 	await processDependencies(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.peerDependencies,
-		versionCache
+		versionCache,
+		true
 	);
 
 	return workspacePackageJson;
@@ -185,38 +243,70 @@ async function processPackage(
  * @param prodVersion The production version to use when processing the dependencies.
  * @param dependencies The dependencies to process.
  * @param versionCache A cache for package versions to avoid redundant lookups.
+ * @param isPeerDependency Whether the dependencies are peer dependencies.
  */
-async function processDependencies(isProduction, prodVersion, dependencies, versionCache) {
+async function processDependencies(
+	isProduction,
+	prodVersion,
+	dependencies,
+	versionCache,
+	isPeerDependency
+) {
 	if (!dependencies) {
 		return;
 	}
 	for (const [name, version] of Object.entries(dependencies)) {
 		// Only process @twin.org packages (internal dependencies)
 		if (name.startsWith('@twin.org')) {
-			if (isProduction) {
+			if (isPeerDependency) {
+				// If it's a peer dependency, we just match the major version
+				// This allows the package to work with any compatible version
+				await getPackageVersion(name, 'latest', versionCache);
+				const latest = versionCache[name];
+				const latestMajor = Number.parseInt(latest.split('.')[0], 10);
+				dependencies[name] = `>=${latestMajor}.0.0-0 <${latestMajor + 1}.0.0`;
+			} else if (isProduction) {
 				// PRODUCTION MODE: Convert "next" references to actual published versions
 				// If the dependency is set to "next", we need to resolve it to the actual version
-				if (version === 'next' && !versionCache[name]) {
-					process.stdout.write(`\tResolving Version for: ${name}\n`);
-					versionCache[name] = await execAsync(`npm view "${name}" version`);
-					process.stdout.write(`\tVersion: ${versionCache[name]}\n`);
-				}
 				// Set the dependency to a caret range of the resolved or production version
 				// This allows compatible updates (e.g., ^1.2.3 allows 1.2.4 but not 1.3.0)
-
+				if (version === 'next') {
+					// If the package is set to "next", we resolve it to the latest stable
+					await getPackageVersion(name, 'latest', versionCache);
+				}
 				dependencies[name] = `^${versionCache[name] ?? prodVersion}`;
-			} else {
+			} else if (!isProduction) {
 				// NEXT MODE: Convert fixed versions back to "next" references
 				// For development, use either the cached version which will be a local package
 				// or "next" to get latest prerelease
-				dependencies[name] = versionCache[name] ?? 'next';
+				if (version.startsWith('^')) {
+					dependencies[name] = versionCache[name] ?? 'next';
+				} else {
+					await getPackageVersion(name, 'next', versionCache);
+					dependencies[name] = versionCache[name];
+				}
 			}
 		}
 	}
 }
 
+/**
+ * Get the version of a package from npm.
+ * @param name The name of the package to get the version for.
+ * @param tag The tag to use when fetching the version (e.g., "next").
+ * @param versionCache A cache for package versions to avoid redundant lookups.
+ */
+async function getPackageVersion(name, tag, versionCache) {
+	if (!versionCache[name]) {
+		process.stdout.write(`\tResolving Version for: ${name}@${tag}\n`);
+		const version = await execAsync(`npm view "${name}@${tag}" version`);
+		versionCache[name] = version;
+		process.stdout.write(`\t\tVersion: ${versionCache[name]}\n`);
+	}
+}
+
 run().catch(err => {
-	process.stderr.write(`${err}\n`);
+	process.stderr.write(`${err.message}\n${err.stack}`);
 	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(1);
 });

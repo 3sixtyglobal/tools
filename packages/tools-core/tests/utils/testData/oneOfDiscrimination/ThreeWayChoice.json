@@ -1,0 +1,53 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ThreeWayChoice",
+	"description": "Three-branch never-discriminated object union.",
+	"title": "ThreeWayChoice",
+	"oneOf": [
+		{
+			"type": "object",
+			"properties": {
+				"first": {
+					"type": "boolean"
+				},
+				"second": {
+					"not": {}
+				},
+				"third": {
+					"not": {}
+				}
+			},
+			"required": ["first"]
+		},
+		{
+			"type": "object",
+			"properties": {
+				"first": {
+					"not": {}
+				},
+				"second": {
+					"type": "string"
+				},
+				"third": {
+					"not": {}
+				}
+			},
+			"required": ["second"]
+		},
+		{
+			"type": "object",
+			"properties": {
+				"first": {
+					"not": {}
+				},
+				"second": {
+					"not": {}
+				},
+				"third": {
+					"type": "number"
+				}
+			},
+			"required": ["third"]
+		}
+	]
+}

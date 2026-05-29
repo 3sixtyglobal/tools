@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TwoWayChoice",
+	"description": "Two-branch never-discriminated object union.",
+	"title": "TwoWayChoice",
+	"oneOf": [
+		{
+			"type": "object",
+			"properties": {
+				"alpha": {
+					"type": "string"
+				},
+				"beta": {
+					"not": {}
+				}
+			},
+			"required": ["alpha"]
+		},
+		{
+			"type": "object",
+			"properties": {
+				"alpha": {
+					"not": {}
+				},
+				"beta": {
+					"type": "number"
+				}
+			},
+			"required": ["beta"]
+		}
+	]
+}

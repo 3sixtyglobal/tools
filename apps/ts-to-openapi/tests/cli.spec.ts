@@ -3,8 +3,8 @@
 import { rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@twin.org/cli-core";
-import { CLI } from "../src/cli";
-import type { ITsToOpenApiConfig } from "../src/models/ITsToOpenApiConfig";
+import { CLI } from "../src/cli.js";
+import type { ITsToOpenApiConfig } from "../src/models/ITsToOpenApiConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");
@@ -14,18 +14,11 @@ let writeBuffer: string[] = [];
 let errorBuffer: string[] = [];
 
 describe("CLI", () => {
-	beforeAll(async () => {
+	beforeEach(async () => {
 		await rm(TEST_DATA_LOCATION, { recursive: true, force: true });
 		await mkdir(TEST_CONFIG_LOCATION, { recursive: true });
 		await mkdir(TEST_WORKING_LOCATION, { recursive: true });
-	});
 
-	afterAll(async () => {
-		await rm(TEST_CONFIG_LOCATION, { recursive: true, force: true });
-		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
-	});
-
-	beforeEach(() => {
 		writeBuffer = [];
 		errorBuffer = [];
 
@@ -36,6 +29,11 @@ describe("CLI", () => {
 		CLIDisplay.writeError = (buffer: string | Uint8Array): void => {
 			errorBuffer.push(...buffer.toString().split("\n"));
 		};
+	});
+
+	afterEach(async () => {
+		await rm(TEST_CONFIG_LOCATION, { recursive: true, force: true });
+		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
 	});
 
 	test("Can fail to run with no command line arguments", async () => {

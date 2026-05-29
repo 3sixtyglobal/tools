@@ -3,9 +3,12 @@
 		"commands": {
 			"ts-to-openapi": {
 				"configFailed": "Configuration failed to load.",
+				"packageResolutionFailed": "The package \"{package}\" could not be resolved locally or downloaded to \"{workingDir}\".",
 				"missingRestRoutesEntryPoints": "Missing REST routes method \"{method}\" in package \"{package}\".",
 				"missingRestRoutesEntryPoint": "Missing REST routes entryPoint \"{entryPoint}\" in package \"{package}\".",
-				"unsupportedProperties": "Unsupported properties found in the request object \"{keys}\"."
+				"unsupportedProperties": "Unsupported properties found in the request object \"{keys}\".",
+				"packageNameOrRootMissing": "Package name or root must be specified.",
+				"unresolvedComponentRefs": "The following #/components/schemas refs are not defined in components/schemas: {refs}."
 			}
 		}
 	},

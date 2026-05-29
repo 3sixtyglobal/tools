@@ -1,19 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IAcceptedResponse,
-	IBadRequestResponse,
-	IConflictResponse,
-	ICreatedResponse,
-	IForbiddenResponse,
-	IInternalServerErrorResponse,
-	INoContentResponse,
-	INotFoundResponse,
-	IOkResponse,
-	IUnauthorizedResponse,
-	IUnprocessableEntityResponse
-} from "@twin.org/api-models";
-import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
 
 export const HTTP_STATUS_CODE_MAP: {
@@ -25,26 +11,26 @@ export const HTTP_STATUS_CODE_MAP: {
 } = {
 	ok: {
 		code: HttpStatusCode.ok,
-		responseType: nameof<IOkResponse>()
+		responseType: "IOkResponse"
 	},
 	created: {
 		code: HttpStatusCode.created,
-		responseType: nameof<ICreatedResponse>()
+		responseType: "ICreatedResponse"
 	},
 	accepted: {
 		code: HttpStatusCode.accepted,
-		responseType: nameof<IAcceptedResponse>()
+		responseType: "IAcceptedResponse"
 	},
 	noContent: {
 		code: HttpStatusCode.noContent,
-		responseType: nameof<INoContentResponse>()
+		responseType: "INoContentResponse"
 	},
 	badRequest: {
 		code: HttpStatusCode.badRequest,
-		responseType: nameof<IBadRequestResponse>(),
+		responseType: "IBadRequestResponse",
 		example: {
 			name: "GeneralError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				foo: "bar"
 			}
@@ -52,29 +38,52 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	unauthorized: {
 		code: HttpStatusCode.unauthorized,
-		responseType: nameof<IUnauthorizedResponse>(),
+		responseType: "IUnauthorizedResponse",
 		example: {
 			name: "UnauthorizedError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	},
-	forbidden: {
-		code: HttpStatusCode.forbidden,
-		responseType: nameof<IForbiddenResponse>(),
+	notImplemented: {
+		code: HttpStatusCode.notImplemented,
+		responseType: "INotImplementedResponse",
 		example: {
 			name: "NotImplementedError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				method: "aMethod"
 			}
 		}
 	},
+	forbidden: {
+		code: HttpStatusCode.forbidden,
+		responseType: "IForbiddenResponse",
+		example: {
+			name: "ForbiddenError",
+			message: "errorMessage",
+			properties: {
+				foo: "bar"
+			}
+		}
+	},
+	tooManyRequests: {
+		code: HttpStatusCode.tooManyRequests,
+		responseType: "ITooManyRequestsResponse",
+		example: {
+			name: "TooManyRequestsError",
+			message: "errorMessage",
+			properties: {
+				requestCount: 5,
+				nextRequestTime: "2024-06-01T12:00:00Z"
+			}
+		}
+	},
 	notFound: {
 		code: HttpStatusCode.notFound,
-		responseType: nameof<INotFoundResponse>(),
+		responseType: "INotFoundResponse",
 		example: {
 			name: "NotFoundError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				notFoundId: "1"
 			}
@@ -82,10 +91,10 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	conflict: {
 		code: HttpStatusCode.conflict,
-		responseType: nameof<IConflictResponse>(),
+		responseType: "IConflictResponse",
 		example: {
 			name: "ConflictError",
-			message: "component.error",
+			message: "errorMessage",
 			properties: {
 				conflicts: ["1"]
 			}
@@ -93,18 +102,18 @@ export const HTTP_STATUS_CODE_MAP: {
 	},
 	internalServerError: {
 		code: HttpStatusCode.internalServerError,
-		responseType: nameof<IInternalServerErrorResponse>(),
+		responseType: "IInternalServerErrorResponse",
 		example: {
 			name: "InternalServerError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	},
 	unprocessableEntity: {
 		code: HttpStatusCode.unprocessableEntity,
-		responseType: nameof<IUnprocessableEntityResponse>(),
+		responseType: "IUnprocessableEntityResponse",
 		example: {
 			name: "UnprocessableError",
-			message: "component.error"
+			message: "errorMessage"
 		}
 	}
 };

@@ -1,0 +1,53 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestPrimitives",
+	"description": "Test primitives.",
+	"title": "TestPrimitives",
+	"type": "object",
+	"properties": {
+		"stringValue": {
+			"type": "string",
+			"description": "A string value."
+		},
+		"booleanValue": {
+			"type": "boolean",
+			"description": "A boolean value."
+		},
+		"numberValue": {
+			"type": "number"
+		},
+		"arrayValue": {
+			"type": "array",
+			"description": "An array of string values.",
+			"items": {
+				"type": "string"
+			}
+		},
+		"objectValue": {
+			"type": "object",
+			"description": "An object of unknown values.",
+			"additionalProperties": {}
+		},
+		"anyValue": {
+			"description": "A value typed as any."
+		},
+		"neverValue": {
+			"description": "A value typed as never.",
+			"not": {}
+		},
+		"@context": {
+			"type": "string",
+			"description": "A field name that is a reserved keyword in JSON Schema, requiring special handling."
+		}
+	},
+	"required": [
+		"stringValue",
+		"booleanValue",
+		"numberValue",
+		"arrayValue",
+		"objectValue",
+		"anyValue",
+		"neverValue",
+		"@context"
+	]
+}

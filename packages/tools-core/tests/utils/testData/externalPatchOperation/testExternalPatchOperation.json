@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestExternalPatchOperation",
+	"description": "Uses an external framework type.",
+	"title": "TestExternalPatchOperation",
+	"type": "object",
+	"properties": {
+		"operation": {
+			"description": "The patch operation from the framework package.",
+			"$ref": "https://schema.twindev.org/test/PatchOperation"
+		}
+	},
+	"required": ["operation"]
+}

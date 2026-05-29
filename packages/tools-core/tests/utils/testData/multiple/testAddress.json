@@ -1,0 +1,25 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestAddress",
+	"description": "Test address information.",
+	"title": "TestAddress",
+	"type": "object",
+	"properties": {
+		"street": {
+			"type": "string",
+			"description": "The street address."
+		},
+		"city": {
+			"type": "string",
+			"description": "The city name."
+		},
+		"codes": {
+			"type": "array",
+			"description": "Postal code array.",
+			"items": {
+				"type": "string"
+			}
+		}
+	},
+	"required": ["street", "city", "codes"]
+}

@@ -1,0 +1,58 @@
+// Copyright 2026 IOTA Stiftung.
+// SPDX-License-Identifier: Apache-2.0.
+
+/**
+ * Supported @json-schema tag keys (after alias mapping).
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const JsonSchemaTagNames: string[] = [
+	"$schema",
+	"$id",
+	"$ref",
+	"$anchor",
+	"$dynamicRef",
+	"$dynamicAnchor",
+	"$vocabulary",
+	"$comment",
+	"$defs",
+	"title",
+	"description",
+	"patternProperties",
+	"dependentSchemas",
+	"dependentRequired",
+	"not",
+	"if",
+	"then",
+	"else",
+	"contains",
+	"propertyNames",
+	"const",
+	"enum",
+	"examples",
+	"default",
+	"format",
+	"pattern",
+	"contentEncoding",
+	"contentMediaType",
+	"contentSchema",
+	"readOnly",
+	"writeOnly",
+	"deprecated",
+	"discriminator",
+	"minLength",
+	"maxLength",
+	"minimum",
+	"maximum",
+	"exclusiveMinimum",
+	"exclusiveMaximum",
+	"multipleOf",
+	"minItems",
+	"maxItems",
+	"uniqueItems",
+	"minProperties",
+	"maxProperties",
+	"minContains",
+	"maxContains",
+	"unevaluatedItems",
+	"unevaluatedProperties"
+];

@@ -1,0 +1,432 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestJsonLdUtilityType",
+	"description": "JSON-LD utility type wrapper using JsonLdObject utilities.",
+	"title": "TestJsonLdUtilityType",
+	"type": "object",
+	"properties": {
+		"withExistingId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Uses existing id property from Person.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				},
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				}
+			},
+			"required": ["label", "id"]
+		},
+		"withAtId": {
+			"type": "object",
+			"description": "Uses at-id from inline object and normalises to id.",
+			"properties": {
+				"value": {
+					"type": "number"
+				},
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": ["value", "id"]
+		},
+		"withoutId": {
+			"type": "object",
+			"description": "Uses default string id when source has no id fields.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": ["name", "id"]
+		},
+		"withCustomId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Uses explicit custom id type.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				},
+				"id": {
+					"type": "number"
+				}
+			},
+			"required": ["label", "id"]
+		},
+		"withAtIdFromId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Uses existing id property and normalises to at-id.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				},
+				"@id": {
+					"type": "string",
+					"description": "The unique identifier."
+				}
+			},
+			"required": ["label", "@id"]
+		},
+		"withOptionalAtId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Uses optional at-id inferred from existing id.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				},
+				"@id": {
+					"type": "string",
+					"description": "The unique identifier."
+				}
+			},
+			"required": ["label"]
+		},
+		"withNoAtId": {
+			"type": "object",
+			"description": "Removes at-id while keeping other fields.",
+			"properties": {
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		},
+		"withOptionalId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Uses optional id inferred from existing id.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				},
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				}
+			},
+			"required": ["label"]
+		},
+		"withOptionalIdNoSource": {
+			"type": "object",
+			"description": "Uses optional id default when no id fields exist.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": ["name"]
+		},
+		"withNoId": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Removes id while keeping other fields.",
+			"properties": {
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				}
+			},
+			"required": ["label"]
+		},
+		"withExistingType": {
+			"type": "object",
+			"description": "Uses existing type property from inline object.",
+			"properties": {
+				"value": {
+					"type": "number"
+				},
+				"type": {
+					"const": "Person"
+				}
+			},
+			"required": ["value", "type"]
+		},
+		"withAtType": {
+			"type": "object",
+			"description": "Uses at-type from inline object and normalises to type.",
+			"properties": {
+				"value": {
+					"type": "number"
+				},
+				"type": {
+					"const": "Event"
+				}
+			},
+			"required": ["value", "type"]
+		},
+		"withoutType": {
+			"type": "object",
+			"description": "Uses default type when source has no type fields.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"type": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					]
+				}
+			},
+			"required": ["name", "type"]
+		},
+		"withCustomType": {
+			"type": "object",
+			"description": "Uses explicit custom type.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"type": {
+					"const": "CustomType"
+				}
+			},
+			"required": ["name", "type"]
+		},
+		"withAtTypeFromType": {
+			"type": "object",
+			"description": "Uses existing type property and normalises to at-type.",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"@type": {
+					"const": "Thing"
+				}
+			},
+			"required": ["label", "@type"]
+		},
+		"withOptionalAtType": {
+			"type": "object",
+			"description": "Uses optional at-type inferred from existing type.",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"@type": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		},
+		"withNoAtType": {
+			"type": "object",
+			"description": "Removes at-type while keeping other fields.",
+			"properties": {
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		},
+		"withOptionalType": {
+			"type": "object",
+			"description": "Uses optional type inferred from existing type.",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		},
+		"withOptionalTypeNoSource": {
+			"type": "object",
+			"description": "Uses optional type default when no type fields exist.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"type": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					]
+				}
+			},
+			"required": ["name"]
+		},
+		"withNoType": {
+			"type": "object",
+			"description": "Removes type while keeping other fields.",
+			"properties": {
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		},
+		"withExistingContext": {
+			"type": "object",
+			"description": "Uses existing context from inline object.",
+			"properties": {
+				"value": {
+					"type": "number"
+				},
+				"@context": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["value", "@context"]
+		},
+		"withoutContext": {
+			"type": "object",
+			"description": "Uses default context when source has no context field.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"@context": {
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+				}
+			},
+			"required": ["name", "@context"]
+		},
+		"withCustomContext": {
+			"type": "object",
+			"description": "Uses explicit custom context type.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"@context": {
+					"type": "object",
+					"properties": {
+						"schema": {
+							"type": "string"
+						}
+					},
+					"required": ["schema"]
+				}
+			},
+			"required": ["name", "@context"]
+		},
+		"withOptionalContext": {
+			"type": "object",
+			"description": "Uses optional context inferred from existing context.",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"@context": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["label"]
+		},
+		"withOptionalContextNoSource": {
+			"type": "object",
+			"description": "Uses optional context default when no context field exists.",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"@context": {
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+				}
+			},
+			"required": ["name"]
+		},
+		"withNoContext": {
+			"type": "object",
+			"description": "Removes context while keeping other fields.",
+			"properties": {
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		}
+	},
+	"required": [
+		"withExistingId",
+		"withAtId",
+		"withoutId",
+		"withCustomId",
+		"withAtIdFromId",
+		"withOptionalAtId",
+		"withNoAtId",
+		"withOptionalId",
+		"withOptionalIdNoSource",
+		"withNoId",
+		"withExistingType",
+		"withAtType",
+		"withoutType",
+		"withCustomType",
+		"withAtTypeFromType",
+		"withOptionalAtType",
+		"withNoAtType",
+		"withOptionalType",
+		"withOptionalTypeNoSource",
+		"withNoType",
+		"withExistingContext",
+		"withoutContext",
+		"withCustomContext",
+		"withOptionalContext",
+		"withOptionalContextNoSource",
+		"withNoContext"
+	]
+}

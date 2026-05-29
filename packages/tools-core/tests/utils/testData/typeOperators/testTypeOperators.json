@@ -1,0 +1,46 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeOperators",
+	"description": "Test readonly and keyof type operators.",
+	"title": "TestTypeOperators",
+	"type": "object",
+	"properties": {
+		"readonlyArray": {
+			"description": "Readonly array should map as a regular array schema.",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"keyofLiteral": {
+			"description": "Keyof type literal should map to enum keys.",
+			"enum": ["id", "label"]
+		},
+		"pickFromKeyof": {
+			"$comment": "Inlined utility base type TypeOperatorSource so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Pick using keyof should include all source properties.",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"label": {
+					"type": "string"
+				},
+				"score": {
+					"type": "number"
+				},
+				"optionalFlag": {
+					"type": "boolean"
+				}
+			},
+			"required": ["id", "label", "score"]
+		},
+		"omitFromKeyof": {
+			"$comment": "Inlined utility base type TypeOperatorSource so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Omit using keyof should remove all source properties.",
+			"type": "object"
+		}
+	},
+	"required": ["readonlyArray", "keyofLiteral", "pickFromKeyof", "omitFromKeyof"]
+}

@@ -1,0 +1,247 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/Activity",
+	"title": "Activity",
+	"description": "Activity interface that makes object required and more concrete.",
+	"type": "object",
+	"allOf": [
+		{
+			"$comment": "Inlined utility base type ActivityBase so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Activity base interface with optional object.",
+			"properties": {
+				"@context": {
+					"description": "The LD Context.",
+					"type": "string"
+				},
+				"type": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						}
+					],
+					"description": "Activity Type."
+				},
+				"generator": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						{
+							"items": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+									}
+								]
+							},
+							"type": "array"
+						}
+					],
+					"description": "The generator of the Activity."
+				},
+				"actor": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						{
+							"items": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+									}
+								]
+							},
+							"type": "array"
+						}
+					],
+					"description": "The Actor behind the Activity."
+				},
+				"summary": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdLanguageMap"
+						}
+					],
+					"description": "Summary of the Activity."
+				},
+				"result": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						{
+							"items": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+									}
+								]
+							},
+							"type": "array"
+						}
+					],
+					"description": "Result of the Activity."
+				},
+				"origin": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						{
+							"items": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+									}
+								]
+							},
+							"type": "array"
+						}
+					],
+					"description": "Activity's origin."
+				},
+				"instrument": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						{
+							"items": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+									}
+								]
+							},
+							"type": "array"
+						}
+					],
+					"description": "Instrument used in the Activity."
+				}
+			},
+			"required": ["@context", "type"],
+			"type": "object"
+		}
+	],
+	"properties": {
+		"object": {
+			"anyOf": [
+				{
+					"$comment": "Inlined utility base type O & { type: ObjectOrArray<string> } so utility transformations can operate on concrete properties instead of a $ref.",
+					"properties": {
+						"@context": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+						},
+						"type": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							]
+						}
+					},
+					"required": ["type", "@context"],
+					"type": "object"
+				},
+				{
+					"items": {
+						"$comment": "Inlined utility base type O & { type: ObjectOrArray<string> } so utility transformations can operate on concrete properties instead of a $ref.",
+						"properties": {
+							"@context": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+							},
+							"type": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"items": {
+											"type": "string"
+										},
+										"type": "array"
+									}
+								]
+							}
+						},
+						"required": ["type", "@context"],
+						"type": "object"
+					},
+					"type": "array"
+				}
+			],
+			"description": "Activity's Object."
+		},
+		"target": {
+			"$comment": "Inlined utility base type T & { type: ObjectOrArray<string> } so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Activity's target.",
+			"properties": {
+				"@context": {
+					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+				},
+				"type": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						}
+					]
+				}
+			},
+			"required": ["type", "@context"],
+			"type": "object"
+		}
+	},
+	"required": ["object"]
+}

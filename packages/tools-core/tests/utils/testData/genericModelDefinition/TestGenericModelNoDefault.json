@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestGenericModelNoDefault",
+	"description": "Generic interface model without a default type parameter.",
+	"title": "TestGenericModelNoDefault",
+	"type": "object",
+	"properties": {
+		"prop": {
+			"description": "Direct unresolved generic property."
+		},
+		"values": {
+			"type": "array",
+			"description": "Array of unresolved generic values.",
+			"items": {}
+		},
+		"nested": {
+			"type": "object",
+			"description": "Nested object using unresolved generic value.",
+			"properties": {
+				"value": {}
+			},
+			"required": ["value"]
+		}
+	},
+	"required": ["prop", "values"]
+}

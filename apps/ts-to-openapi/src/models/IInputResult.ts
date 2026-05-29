@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITag } from "@twin.org/api-models";
-import type { IInputPath } from "./IInputPath";
+import type { IInputPath } from "./IInputPath.js";
 
 /**
  * The set of path results for a package.
@@ -15,5 +14,15 @@ export interface IInputResult {
 	/**
 	 * The tags.
 	 */
-	tags: ITag[];
+	tags: {
+		/**
+		 * The name of the tag.
+		 */
+		name: string;
+
+		/**
+		 * Description for the tag.
+		 */
+		description: string;
+	}[];
 }

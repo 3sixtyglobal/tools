@@ -1,0 +1,239 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestUtilityType",
+	"description": "Utility type wrapper using Partial, Omit, Required and Pick on an imported type.",
+	"title": "TestUtilityType",
+	"type": "object",
+	"properties": {
+		"fullType": {
+			"$ref": "https://schema.twindev.org/test/Person",
+			"description": "Full person information."
+		},
+		"partialType": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Partial view of person information.",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				},
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				}
+			}
+		},
+		"omitType": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Omitted view of person information.",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				}
+			},
+			"required": ["id"]
+		},
+		"requiredType": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Required view of person information.",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				},
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				},
+				"score": {
+					"type": "number",
+					"description": "Optional score in the source model."
+				}
+			},
+			"required": ["id", "label", "score"]
+		},
+		"pickType": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Picked view of person information.",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				},
+				"label": {
+					"type": "string",
+					"description": "The display label."
+				}
+			},
+			"required": ["id", "label"]
+		},
+		"excludeType": {
+			"description": "Excluded view of person status.",
+			"anyOf": [{ "const": "running" }, { "const": "sleeping" }]
+		},
+		"excludeTypeObject": {
+			"description": "Excluded view of person object.",
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"a": {
+							"type": "string"
+						}
+					},
+					"required": ["a"]
+				},
+				{
+					"type": "object",
+					"properties": {
+						"c": {
+							"type": "string"
+						}
+					},
+					"required": ["c"]
+				}
+			]
+		},
+		"extractType": {
+			"description": "Extracted view of person status.",
+			"anyOf": [{ "const": "running" }, { "const": "sleeping" }]
+		},
+		"extractTypeObject": {
+			"description": "Extracted view of person object.",
+			"anyOf": [
+				{
+					"type": "object",
+					"properties": {
+						"b": {
+							"type": "string"
+						}
+					},
+					"required": ["b"]
+				},
+				{
+					"type": "object",
+					"properties": {
+						"c": {
+							"type": "string"
+						}
+					},
+					"required": ["c"]
+				}
+			]
+		},
+		"nonNullableType": {
+			"description": "Non-nullable view of person status.",
+			"anyOf": [{ "const": "walking" }, { "const": "running" }]
+		},
+		"nonNullablePersonType": {
+			"$ref": "https://schema.twindev.org/test/Person",
+			"description": "Non-nullable view of person object."
+		},
+		"recordStringNumberType": {
+			"description": "Record view with arbitrary string keys.",
+			"type": "object",
+			"additionalProperties": {
+				"type": "number"
+			}
+		},
+		"recordFixedKeysType": {
+			"description": "Record view with fixed literal keys.",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["id", "label"]
+		},
+		"recordPersonType": {
+			"description": "Record view of person objects.",
+			"type": "object",
+			"additionalProperties": {
+				"$ref": "https://schema.twindev.org/test/Person"
+			}
+		},
+		"combinedType": {
+			"$comment": "Inlined utility base type Person so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"description": "Combined view of person information.",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The unique identifier."
+				}
+			},
+			"required": ["id"]
+		},
+		"objectOrArrayType": {
+			"description": "Object or array of strings.",
+			"anyOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
+		},
+		"objectOrArrayPersonType": {
+			"description": "Object or array of persons.",
+			"anyOf": [
+				{ "$ref": "https://schema.twindev.org/test/Person" },
+				{ "type": "array", "items": { "$ref": "https://schema.twindev.org/test/Person" } }
+			]
+		},
+		"singleOccurrenceArrayType": {
+			"description": "Non-empty array of strings with a single number occurrence.",
+			"type": "array",
+			"items": {
+				"anyOf": [{ "type": "string" }, { "type": "number" }]
+			},
+			"contains": { "type": "number" },
+			"minContains": 1,
+			"maxContains": 1,
+			"minItems": 1
+		},
+		"singleOccurrenceArrayPersonType": {
+			"description": "Non-empty array of persons with a single string occurrence.",
+			"type": "array",
+			"items": {
+				"anyOf": [{ "$ref": "https://schema.twindev.org/test/Person" }, { "type": "string" }]
+			},
+			"contains": { "type": "string" },
+			"minContains": 1,
+			"maxContains": 1,
+			"minItems": 1
+		}
+	},
+	"required": [
+		"fullType",
+		"partialType",
+		"omitType",
+		"requiredType",
+		"pickType",
+		"excludeType",
+		"excludeTypeObject",
+		"extractType",
+		"extractTypeObject",
+		"nonNullableType",
+		"nonNullablePersonType",
+		"recordStringNumberType",
+		"recordFixedKeysType",
+		"recordPersonType",
+		"combinedType",
+		"objectOrArrayType",
+		"objectOrArrayPersonType",
+		"singleOccurrenceArrayType",
+		"singleOccurrenceArrayPersonType"
+	]
+}

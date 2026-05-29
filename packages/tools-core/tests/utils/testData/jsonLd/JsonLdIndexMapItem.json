@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/json-ld/JsonLdIndexMapItem",
+	"title": "JsonLdIndexMapItem",
+	"description": "The items that can be stored in an index map.",
+	"anyOf": [
+		{
+			"type": "null"
+		},
+		{
+			"type": "boolean"
+		},
+		{
+			"type": "number"
+		},
+		{
+			"type": "string"
+		},
+		{
+			"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+		},
+		{
+			"$ref": "https://schema.twindev.org/json-ld/JsonLdValueObject"
+		},
+		{
+			"$ref": "https://schema.twindev.org/json-ld/JsonLdListObject"
+		},
+		{
+			"$ref": "https://schema.twindev.org/json-ld/JsonLdSetObject"
+		}
+	]
+}

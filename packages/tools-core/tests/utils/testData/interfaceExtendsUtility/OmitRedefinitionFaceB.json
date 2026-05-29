@@ -1,0 +1,19 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/OmitRedefinitionFaceB",
+	"description": "Derived interface that omits prop2 from base and redefines it as required.",
+	"title": "OmitRedefinitionFaceB",
+	"type": "object",
+	"allOf": [
+		{
+			"$ref": "https://schema.twindev.org/test/OmitRedefinitionBaseA"
+		}
+	],
+	"properties": {
+		"prop2": {
+			"type": "boolean",
+			"description": "Redefined prop2 as required boolean instead of optional."
+		}
+	},
+	"required": ["prop2"]
+}

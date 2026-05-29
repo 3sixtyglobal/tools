@@ -1,0 +1,31 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestGenericModel",
+	"description": "Generic interface model using a default type parameter.",
+	"title": "TestGenericModel",
+	"type": "object",
+	"properties": {
+		"prop": {
+			"type": "string",
+			"description": "Direct generic property."
+		},
+		"values": {
+			"type": "array",
+			"description": "Array of generic values.",
+			"items": {
+				"type": "string"
+			}
+		},
+		"nested": {
+			"type": "object",
+			"description": "Nested object using the same generic value.",
+			"properties": {
+				"value": {
+					"type": "string"
+				}
+			},
+			"required": ["value"]
+		}
+	},
+	"required": ["prop", "values"]
+}

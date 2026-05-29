@@ -1,0 +1,21 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/Extended",
+	"title": "Extended",
+	"type": "object",
+	"properties": {
+		"bar": {
+			"type": "number"
+		},
+		"@context": {
+			"type": "string"
+		},
+		"identifier": {
+			"type": "string"
+		},
+		"foo": {
+			"type": "string"
+		}
+	},
+	"required": ["bar", "foo", "@context", "identifier"]
+}

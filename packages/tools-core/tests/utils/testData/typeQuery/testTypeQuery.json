@@ -1,0 +1,66 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeQuery",
+	"description": "Coverage for type query references.",
+	"title": "TestTypeQuery",
+	"type": "object",
+	"properties": {
+		"mirrored": {
+			"type": "string",
+			"description": "Type query fallback for runtime value references."
+		},
+		"mirrored2": {
+			"type": "string",
+			"description": "Type query fallback for runtime value references."
+		},
+		"constString": {
+			"const": "fixed",
+			"description": "as const string literal resolves to exact const value."
+		},
+		"constNum": {
+			"const": 42,
+			"description": "as const number literal resolves to exact const value."
+		},
+		"constTuple": {
+			"type": "array",
+			"prefixItems": [{ "const": "alpha" }, { "const": "beta" }, { "const": 3 }],
+			"items": false,
+			"minItems": 3,
+			"maxItems": 3,
+			"description": "as const array resolves to a fixed-length typed tuple."
+		},
+		"constTupleValue": {
+			"anyOf": [{ "const": "alpha" }, { "const": "beta" }, { "const": 3 }],
+			"description": "Indexed access on as const tuple resolves to a literal union."
+		},
+		"constConfig": {
+			"type": "object",
+			"properties": {
+				"host": { "const": "localhost" },
+				"port": { "const": 8080 },
+				"debug": { "const": false }
+			},
+			"required": ["host", "port", "debug"],
+			"description": "as const object resolves to a structured const-valued object schema."
+		},
+		"inferredConfig": {
+			"type": "object",
+			"properties": {
+				"timeout": { "type": "number" },
+				"name": { "type": "string" }
+			},
+			"required": ["timeout", "name"],
+			"description": "Non-const object infers widened property types."
+		}
+	},
+	"required": [
+		"mirrored",
+		"mirrored2",
+		"constString",
+		"constNum",
+		"constTuple",
+		"constTupleValue",
+		"constConfig",
+		"inferredConfig"
+	]
+}

@@ -1,0 +1,30 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestComputedPropertyName",
+	"description": "Test computable and non-computable computed property names.",
+	"title": "TestComputedPropertyName",
+	"type": "object",
+	"properties": {
+		"literalKey": {
+			"type": "string",
+			"description": "A key resolved from a const identifier."
+		},
+		"7": {
+			"type": "number",
+			"description": "A key resolved from a const numeric identifier."
+		},
+		"pre_fix": {
+			"type": "boolean",
+			"description": "A key resolved from a template literal with const spans."
+		},
+		"inlineLiteral": {
+			"type": "string",
+			"description": "A key resolved from an inline string literal."
+		},
+		"value_x": {
+			"type": "string",
+			"description": "A key resolved from an inline template literal expression."
+		}
+	},
+	"required": ["literalKey", "7", "pre_fix", "inlineLiteral", "value_x"]
+}

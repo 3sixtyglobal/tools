@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/ConditionalObject",
+	"description": "Conditional type resolving to object branches.",
+	"title": "ConditionalObject",
+	"anyOf": [
+		{
+			"type": "object",
+			"properties": {
+				"kind": {
+					"const": "text"
+				},
+				"value": {
+					"type": "string"
+				}
+			},
+			"required": ["kind", "value"]
+		},
+		{
+			"type": "object",
+			"properties": {
+				"kind": {
+					"const": "numeric"
+				},
+				"value": {
+					"type": "number"
+				}
+			},
+			"required": ["kind", "value"]
+		}
+	]
+}

@@ -1,0 +1,35 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestMethodSpecificUtility",
+	"description": "Coverage for method-specific utility and callable helper types.",
+	"title": "TestMethodSpecificUtility",
+	"type": "object",
+	"properties": {
+		"awaitedType": {},
+		"returnType": {},
+		"parametersType": {},
+		"constructorParametersType": {},
+		"instanceType": {},
+		"thisParameterType": {},
+		"omitThisParameterType": {},
+		"thisType": {},
+		"callableFunction": {},
+		"newableFunction": {},
+		"ok": {
+			"type": "string"
+		}
+	},
+	"required": [
+		"awaitedType",
+		"returnType",
+		"parametersType",
+		"constructorParametersType",
+		"instanceType",
+		"thisParameterType",
+		"omitThisParameterType",
+		"thisType",
+		"callableFunction",
+		"newableFunction",
+		"ok"
+	]
+}

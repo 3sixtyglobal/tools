@@ -3,8 +3,8 @@
 import { rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@twin.org/cli-core";
-import { CLI } from "../src/cli";
-import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig";
+import { CLI } from "../src/cli.js";
+import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
 const TEST_CONFIG_LOCATION = path.join(TEST_DATA_LOCATION, "config");
@@ -57,32 +57,32 @@ describe("CLI", () => {
 		const config: ITsToSchemaConfig = {
 			baseUrl: "https://schema.twindev.org/my-namespace/",
 			types: [
-				"./tests/dist/json-ld/IJsonLdObject.ts",
-				"./tests/dist/json-ld/IJsonLdDocument.ts",
-				"./tests/dist/json-ld/IJsonLdNodeObject.ts",
-				"./tests/dist/json-ld/IJsonLdNodePrimitive.ts",
-				"./tests/dist/json-ld/IJsonLdGraphObject.ts",
-				"./tests/dist/json-ld/IJsonLdValueObject.ts",
-				"./tests/dist/json-ld/IJsonLdListObject.ts",
-				"./tests/dist/json-ld/IJsonLdSetObject.ts",
-				"./tests/dist/json-ld/IJsonLdLanguageMap.ts",
-				"./tests/dist/json-ld/IJsonLdIndexMap.ts",
-				"./tests/dist/json-ld/IJsonLdIndexMapItem.ts",
-				"./tests/dist/json-ld/IJsonLdIdMap.ts",
-				"./tests/dist/json-ld/IJsonLdTypeMap.ts",
-				"./tests/dist/json-ld/IJsonLdIncludedBlock.ts",
-				"./tests/dist/json-ld/IJsonLdContextDefinition.ts",
-				"./tests/dist/json-ld/IJsonLdContextDefinitionRoot.ts",
-				"./tests/dist/json-ld/IJsonLdContextDefinitionElement.ts",
-				"./tests/dist/json-ld/IJsonLdExpandedTermDefinition.ts",
-				"./tests/dist/json-ld/IJsonLdKeyword.ts",
-				"./tests/dist/json-ld/IJsonLdListOrSetItem.ts",
-				"./tests/dist/json-ld/IJsonLdContainerType.ts",
-				"./tests/dist/json-ld/IJsonLdContainerTypeArray.ts",
-				"./tests/dist/json-ld/IJsonLdJsonPrimitive.ts",
-				"./tests/dist/json-ld/IJsonLdJsonArray.ts",
-				"./tests/dist/json-ld/IJsonLdJsonObject.ts",
-				"./tests/dist/json-ld/IJsonLdJsonValue.ts"
+				"./tests/testData/jsonLd/IJsonLdObject.ts",
+				"./tests/testData/jsonLd/IJsonLdDocument.ts",
+				"./tests/testData/jsonLd/IJsonLdNodeObject.ts",
+				"./tests/testData/jsonLd/IJsonLdNodePrimitive.ts",
+				"./tests/testData/jsonLd/IJsonLdGraphObject.ts",
+				"./tests/testData/jsonLd/IJsonLdValueObject.ts",
+				"./tests/testData/jsonLd/IJsonLdListObject.ts",
+				"./tests/testData/jsonLd/IJsonLdSetObject.ts",
+				"./tests/testData/jsonLd/IJsonLdLanguageMap.ts",
+				"./tests/testData/jsonLd/IJsonLdIndexMap.ts",
+				"./tests/testData/jsonLd/IJsonLdIndexMapItem.ts",
+				"./tests/testData/jsonLd/IJsonLdIdMap.ts",
+				"./tests/testData/jsonLd/IJsonLdTypeMap.ts",
+				"./tests/testData/jsonLd/IJsonLdIncludedBlock.ts",
+				"./tests/testData/jsonLd/IJsonLdContextDefinition.ts",
+				"./tests/testData/jsonLd/IJsonLdContextDefinitionRoot.ts",
+				"./tests/testData/jsonLd/IJsonLdContextDefinitionElement.ts",
+				"./tests/testData/jsonLd/IJsonLdExpandedTermDefinition.ts",
+				"./tests/testData/jsonLd/IJsonLdKeyword.ts",
+				"./tests/testData/jsonLd/IJsonLdListOrSetItem.ts",
+				"./tests/testData/jsonLd/IJsonLdContainerType.ts",
+				"./tests/testData/jsonLd/IJsonLdContainerTypeArray.ts",
+				"./tests/testData/jsonLd/IJsonLdJsonPrimitive.ts",
+				"./tests/testData/jsonLd/IJsonLdJsonArray.ts",
+				"./tests/testData/jsonLd/IJsonLdJsonObject.ts",
+				"./tests/testData/jsonLd/IJsonLdJsonValue.ts"
 			]
 		};
 
@@ -102,7 +102,7 @@ describe("CLI", () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
 			baseUrl: "https://schema.twindev.org/my-namespace/",
-			types: ["./tests/dist/IExternalElement.d.ts"],
+			types: ["./tests/testData/IExternalElement.d.ts"],
 			externalReferences: {
 				IJsonLdNodeObject: "https://example.com/IJsonLdDocument"
 			}

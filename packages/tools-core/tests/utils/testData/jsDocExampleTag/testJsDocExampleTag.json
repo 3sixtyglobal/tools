@@ -1,0 +1,37 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/JsDocExampleTagTest",
+	"description": "Test interface for JSDoc example tag support.",
+	"title": "JsDocExampleTagTest",
+	"type": "object",
+	"properties": {
+		"singleExampleTag": {
+			"type": "string",
+			"description": "A string property with a single example.",
+			"examples": ["hello"]
+		},
+		"multipleExamplesTag": {
+			"type": "string",
+			"description": "A string property with multiple examples.",
+			"examples": ["foo", "bar"]
+		},
+		"numberExampleTag": {
+			"type": "number",
+			"description": "A number property with a numeric example.",
+			"examples": [42]
+		},
+		"objectExampleTag": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			},
+			"description": "An object property with an object example.",
+			"examples": [{ "key": "value" }]
+		},
+		"combinedExamplesTag": {
+			"type": "string",
+			"description": "Both example tags are combined, with jsDoc values listed first.",
+			"examples": ["from-example", "from-json-schema"]
+		}
+	}
+}

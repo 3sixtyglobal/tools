@@ -1,0 +1,120 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/SpreadTest",
+	"description": "Array spread and tuple combinations.",
+	"title": "SpreadTest",
+	"type": "object",
+	"properties": {
+		"simple": {
+			"type": "array",
+			"description": "A simple homogeneous array.",
+			"items": {
+				"type": "string"
+			}
+		},
+		"multiType": {
+			"type": "array",
+			"description": "A homogeneous array with multiple primitive types.",
+			"items": {
+				"anyOf": [{ "type": "string" }, { "type": "number" }]
+			}
+		},
+		"spreadStart": {
+			"type": "array",
+			"description": "A tuple with fixed prefix followed by spread items.",
+			"prefixItems": [{ "type": "number" }],
+			"items": {
+				"type": "string"
+			},
+			"minItems": 1
+		},
+		"spreadEnd": {
+			"type": "array",
+			"description": "A tuple with spread items followed by a fixed suffix item.",
+			"items": {
+				"anyOf": [{ "type": "string" }, { "type": "number" }]
+			},
+			"minItems": 1
+		},
+		"spreadCombined": {
+			"description": "Mixed tuple/array union with spread combinations.",
+			"anyOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "array",
+					"prefixItems": [{ "type": "string" }],
+					"items": false,
+					"minItems": 1,
+					"maxItems": 1
+				},
+				{
+					"type": "array",
+					"prefixItems": [{ "type": "number" }, { "type": "string" }],
+					"items": {
+						"type": "number"
+					},
+					"minItems": 2
+				},
+				{
+					"type": "array",
+					"items": {
+						"anyOf": [{ "type": "number" }, { "type": "string" }]
+					},
+					"minItems": 2,
+					"contains": { "type": "string" },
+					"minContains": 1,
+					"maxContains": 1
+				}
+			]
+		},
+		"spreadCombinedObject": {
+			"description": "Mixed tuple/array union with spread combinations using objects.",
+			"anyOf": [
+				{
+					"$ref": "https://schema.twindev.org/test/TestObjectA"
+				},
+				{
+					"type": "array",
+					"prefixItems": [{ "$ref": "https://schema.twindev.org/test/TestObjectA" }],
+					"items": false,
+					"minItems": 1,
+					"maxItems": 1
+				},
+				{
+					"type": "array",
+					"prefixItems": [
+						{ "$ref": "https://schema.twindev.org/test/TestObjectB" },
+						{ "$ref": "https://schema.twindev.org/test/TestObjectA" }
+					],
+					"items": {
+						"$ref": "https://schema.twindev.org/test/TestObjectB"
+					},
+					"minItems": 2
+				},
+				{
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{ "$ref": "https://schema.twindev.org/test/TestObjectB" },
+							{ "$ref": "https://schema.twindev.org/test/TestObjectA" }
+						]
+					},
+					"minItems": 2,
+					"contains": { "$ref": "https://schema.twindev.org/test/TestObjectA" },
+					"minContains": 1,
+					"maxContains": 1
+				}
+			]
+		}
+	},
+	"required": [
+		"simple",
+		"multiType",
+		"spreadStart",
+		"spreadEnd",
+		"spreadCombined",
+		"spreadCombinedObject"
+	]
+}

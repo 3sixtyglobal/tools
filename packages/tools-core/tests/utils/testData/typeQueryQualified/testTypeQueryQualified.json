@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestTypeQueryQualified",
+	"title": "TestTypeQueryQualified",
+	"description": "Coverage for qualified typeof type queries that resolve a named property of a local const object.",
+	"type": "object",
+	"properties": {
+		"constHost": {
+			"const": "localhost",
+			"description": "Qualified typeof resolves the exact string value from a named const object property."
+		},
+		"constPort": {
+			"const": 8080,
+			"description": "Qualified typeof resolves the exact numeric value from a named const object property."
+		}
+	},
+	"required": ["constHost", "constPort"]
+}

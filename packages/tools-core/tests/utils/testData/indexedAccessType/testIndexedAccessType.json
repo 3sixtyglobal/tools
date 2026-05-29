@@ -1,0 +1,50 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestIndexedAccessType",
+	"description": "Test indexed access type handling.",
+	"title": "TestIndexedAccessType",
+	"type": "object",
+	"properties": {
+		"idValue": {
+			"description": "Single indexed string key.",
+			"type": "string"
+		},
+		"countValue": {
+			"description": "Single indexed number key.",
+			"type": "number"
+		},
+		"unionValue": {
+			"description": "Indexed union of keys.",
+			"anyOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "number"
+				}
+			]
+		},
+		"optionalStatus": {
+			"description": "Indexed optional source key.",
+			"anyOf": [
+				{
+					"const": "active"
+				},
+				{
+					"const": "disabled"
+				}
+			]
+		},
+		"nestedValue": {
+			"description": "Indexed object-valued key.",
+			"type": "object",
+			"properties": {
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": ["label"]
+		}
+	},
+	"required": ["idValue", "countValue", "unionValue", "optionalStatus", "nestedValue"]
+}

@@ -1,0 +1,41 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestMappedType",
+	"description": "Test mapped type handling.",
+	"title": "TestMappedType",
+	"type": "object",
+	"properties": {
+		"fieldMap": {
+			"description": "Fixed-key mapped type.",
+			"$ref": "https://schema.twindev.org/test/FieldMap"
+		},
+		"mirror": {
+			"description": "Source-preserving mapped type.",
+			"$ref": "https://schema.twindev.org/test/SourceMirror"
+		},
+		"optionalFieldMap": {
+			"description": "Optional mapped type.",
+			"$ref": "https://schema.twindev.org/test/OptionalFieldMap"
+		},
+		"prefixedMirror": {
+			"description": "Template remapped source keys.",
+			"$ref": "https://schema.twindev.org/test/PrefixedSourceMirror"
+		},
+		"uppercaseMirror": {
+			"description": "Unresolved remapped source keys with safe fallback.",
+			"$ref": "https://schema.twindev.org/test/UppercaseSourceMirror"
+		},
+		"filteredMirror": {
+			"description": "Conditionally filtered source keys.",
+			"$ref": "https://schema.twindev.org/test/FilteredSourceMirror"
+		}
+	},
+	"required": [
+		"fieldMap",
+		"mirror",
+		"optionalFieldMap",
+		"prefixedMirror",
+		"uppercaseMirror",
+		"filteredMirror"
+	]
+}

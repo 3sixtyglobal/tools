@@ -2,40 +2,39 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type {
-	ICreatedResponse,
-	IHttpRequest,
-	IHttpResponse,
-	INoContentResponse,
-	IOkResponse,
-	IRestRoute,
-	IRestRouteEntryPoint,
-	ITag,
-	IUnauthorizedResponse
-} from "@twin.org/api-models";
+import { pathToFileURL } from "node:url";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { ArrayHelper, GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
+import { Constants, TypeScriptToSchema } from "@twin.org/tools-core";
+import {
+	type IJsonSchema,
+	type IOpenApi,
+	type IOpenApiExample,
+	type IOpenApiHeader,
+	type IOpenApiPathItem,
+	type IOpenApiPathMethod,
+	type IOpenApiResponse,
+	type IOpenApiSecurityScheme,
+	type IPackageJson,
+	OpenApiConstants,
+	type OpenApiParameterLocation,
+	type OpenApiParameterStyle
+} from "@twin.org/tools-models";
 import { HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { Command } from "commander";
-import { createGenerator } from "ts-json-schema-generator";
 import {
 	HTTP_STATUS_CODE_MAP,
 	getHttpExampleFromType,
 	getHttpStatusCodeFromType
-} from "./httpStatusCodeMap";
-import type { IInputPath } from "../models/IInputPath";
-import type { IInputResult } from "../models/IInputResult";
-import type { IJsonSchema } from "../models/IJsonSchema";
-import type { IOpenApi } from "../models/IOpenApi";
-import type { IOpenApiExample } from "../models/IOpenApiExample";
-import type { IOpenApiHeader } from "../models/IOpenApiHeader";
-import type { IOpenApiResponse } from "../models/IOpenApiResponse";
-import type { IOpenApiSecurityScheme } from "../models/IOpenApiSecurityScheme";
-import type { IPackageJson } from "../models/IPackageJson";
-import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig";
-import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint";
-import type { JsonTypeName } from "../models/jsonTypeName";
+} from "./httpStatusCodeMap.js";
+import type { IInputPath } from "../models/IInputPath.js";
+import type { IInputResult } from "../models/IInputResult.js";
+import type { IRestRoute } from "../models/IRestRoute.js";
+import type { IRestRouteEntryPoint } from "../models/IRestRouteEntryPoints.js";
+import type { ITag } from "../models/ITag.js";
+import type { ITsToOpenApiConfig } from "../models/ITsToOpenApiConfig.js";
+import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigEntryPoint.js";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -143,19 +142,8 @@ export async function tsToOpenApi(
 		)
 	);
 
-	await writeFile(
-		path.join(workingDirectory, "tsconfig.json"),
-		JSON.stringify(
-			{
-				compilerOptions: {}
-			},
-			undefined,
-			"\t"
-		)
-	);
-
 	const openApi: IOpenApi = {
-		openapi: "3.1.0",
+		openapi: OpenApiConstants.API_VERSION,
 		info: {
 			title: config.title,
 			description: config.description,
@@ -178,7 +166,6 @@ export async function tsToOpenApi(
 
 	buildSecurity(config, securitySchemes, authSecurity);
 
-	const types: string[] = Object.values(HTTP_STATUS_CODE_MAP).map(h => h.responseType);
 	const responseCodes: string[] = [];
 	const inputResults: IInputResult[] = [];
 	const typeRoots: string[] = [];
@@ -190,27 +177,11 @@ export async function tsToOpenApi(
 			paths,
 			tags: restRouteAndTag.tags
 		});
-
-		for (const inputPath of paths) {
-			if (inputPath.requestType && !types.includes(inputPath.requestType)) {
-				types.push(inputPath.requestType);
-			}
-
-			if (inputPath.responseType) {
-				const rt = inputPath.responseType.map(i => i.type);
-				for (const r of rt) {
-					if (r && inputPath.responseType && !types.includes(r)) {
-						types.push(r);
-					}
-				}
-			}
-		}
 	}
 
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-openapi.progress.generatingSchemas"));
-	const schemas = await generateSchemas(typeRoots, types, workingDirectory);
 
-	const usedCommonResponseTypes: string[] = [];
+	const generatedSchemas = await generateSchemas(typeRoots);
 
 	for (let i = 0; i < inputResults.length; i++) {
 		const result = inputResults[i];
@@ -234,25 +205,32 @@ export async function tsToOpenApi(
 			if (pathSpecificAuthSecurity.length > 0) {
 				responseTypes.push({
 					statusCode: HttpStatusCode.unauthorized,
-					type: nameof<IUnauthorizedResponse>()
+					type: "IUnauthorizedResponse"
 				});
 			}
 
 			for (const responseType of responseTypes) {
-				if (schemas[responseType.type]) {
+				const responseSchema = resolveSchema(generatedSchemas, responseType.type);
+				const isBinaryOctetStream = responseType.type === nameof<Uint8Array>();
+				if (responseSchema || isBinaryOctetStream) {
 					let headers: { [id: string]: IOpenApiHeader } | undefined;
 					let examples: { [id: string]: IOpenApiExample } | undefined;
 
 					if (Is.arrayValue(responseType.examples)) {
 						for (const example of responseType.examples) {
-							if (Is.object<IHttpResponse>(example.response)) {
+							if (
+								Is.object<{ headers: { [id: string]: string | string[] }; body: unknown }>(
+									example.response
+								)
+							) {
 								if (Is.objectValue(example.response.headers)) {
 									headers ??= {};
-									const headersSchema = schemas[responseType.type].properties
-										?.headers as IJsonSchema;
+									const headersSchema = Is.object<IJsonSchema>(responseSchema?.properties?.headers)
+										? responseSchema.properties.headers
+										: undefined;
 									for (const header in example.response.headers) {
 										const headerValue = example.response.headers[header];
-										const propertySchema = headersSchema.properties?.[header];
+										const propertySchema = headersSchema?.properties?.[header];
 										const schemaType = Is.object<IJsonSchema>(propertySchema)
 											? propertySchema?.type
 											: undefined;
@@ -289,12 +267,14 @@ export async function tsToOpenApi(
 					let schemaType: string | undefined;
 					let schemaFormat: string | undefined;
 					let schemaRef: string | undefined;
-					let description: string | undefined = schemas[responseType.type]?.description;
+					let description = responseSchema?.description ?? responseType.type;
 
 					if (Is.stringValue(responseType.mimeType)) {
 						mimeType = responseType.mimeType;
+					} else if (isBinaryOctetStream) {
+						mimeType = "application/octet-stream";
 					} else {
-						const hasBody = Is.notEmpty(schemas[responseType.type]?.properties?.body);
+						const hasBody = Is.notEmpty(responseSchema?.properties?.body);
 						if (hasBody) {
 							mimeType = MimeTypes.Json;
 						} else {
@@ -303,7 +283,7 @@ export async function tsToOpenApi(
 					}
 
 					// Perform some special handling for binary octet-streams to produce a nicer spec output
-					if (responseType.type === nameof<Uint8Array>()) {
+					if (isBinaryOctetStream) {
 						schemaType = "string";
 						schemaFormat = "binary";
 						schemaRef = undefined;
@@ -312,7 +292,7 @@ export async function tsToOpenApi(
 							const exampleKeys = Object.keys(examples);
 
 							const firstExample = examples[exampleKeys[0]];
-							description = firstExample.summary;
+							description = firstExample.summary ?? description;
 							firstExample.summary = "Binary Data";
 
 							for (const exampleKey in examples) {
@@ -320,15 +300,14 @@ export async function tsToOpenApi(
 							}
 						}
 					} else {
-						schemaRef = `#/definitions/${responseType.type}`;
+						schemaRef = `#/components/schemas/${StringHelper.stripPrefix(responseType.type)}`;
 					}
 
 					responses.push({
 						code: responseType.statusCode,
 						description,
 						content:
-							responseType.type === nameof<ICreatedResponse>() ||
-							responseType.type === nameof<INoContentResponse>()
+							responseType.type === "ICreatedResponse" || responseType.type === "INoContentResponse"
 								? undefined
 								: {
 										[mimeType]: {
@@ -342,9 +321,6 @@ export async function tsToOpenApi(
 									},
 						headers
 					});
-				}
-				if (!usedCommonResponseTypes.includes(responseType.type)) {
-					usedCommonResponseTypes.push(responseType.type);
 				}
 			}
 
@@ -368,23 +344,23 @@ export async function tsToOpenApi(
 							};
 						}
 
-						if (schemas[responseCodeDetails.responseType]) {
+						const responseCodeSchema = resolveSchema(
+							generatedSchemas,
+							responseCodeDetails.responseType
+						);
+						if (responseCodeSchema) {
 							responses.push({
 								code: responseCodeDetails.code,
-								description: schemas[responseCodeDetails.responseType].description,
+								description: responseCodeSchema.description ?? responseCodeDetails.responseType,
 								content: {
 									[MimeTypes.Json]: {
 										schema: {
-											$ref: `#/definitions/${responseCodeDetails.responseType}`
+											$ref: `#/components/schemas/${StringHelper.stripPrefix(responseCodeDetails.responseType)}`
 										},
 										examples
 									}
 								}
 							});
-						}
-
-						if (!usedCommonResponseTypes.includes(responseCodeDetails.responseType)) {
-							usedCommonResponseTypes.push(responseCodeDetails.responseType);
 						}
 					}
 				}
@@ -394,13 +370,9 @@ export async function tsToOpenApi(
 				name: string;
 				description?: string;
 				required: boolean;
-				in: "path" | "query" | "header";
-				schema: {
-					type?: JsonTypeName | JsonTypeName[];
-					enum?: IJsonSchema[];
-					$ref?: string;
-				};
-				style?: string;
+				in: OpenApiParameterLocation;
+				schema: IJsonSchema;
+				style?: OpenApiParameterStyle;
 				example?: unknown;
 			}[] = inputPath.pathParameters.map(p => ({
 				name: p,
@@ -413,8 +385,11 @@ export async function tsToOpenApi(
 				style: "simple"
 			}));
 
-			const requestExample: IHttpRequest | undefined = inputPath.requestExamples?.[0]
-				?.request as IHttpRequest;
+			const requestExample = inputPath.requestExamples?.[0]?.request as {
+				pathParams: { [id: string]: string };
+				headers: { [id: string]: string };
+				query: { [id: string]: string };
+			};
 
 			if (Is.object(requestExample?.pathParams)) {
 				for (const pathOrQueryParam of pathQueryHeaderParams) {
@@ -425,7 +400,7 @@ export async function tsToOpenApi(
 			}
 
 			let requestObject: IJsonSchema | undefined = inputPath.requestType
-				? schemas[inputPath.requestType]
+				? resolveSchema(generatedSchemas, inputPath.requestType)
 				: undefined;
 
 			if (requestObject?.properties) {
@@ -440,17 +415,22 @@ export async function tsToOpenApi(
 					});
 				}
 
+				// We only allow specific simple constructs in query and path params.
+				const simpleSchemaKeys = ["type", "enum", "anyOf", "oneOf", "allOf", "$ref"];
+
 				// If there is a path params object convert these to params
 				if (Is.object<IJsonSchema>(requestObject.properties.pathParams)) {
 					for (const pathParam of pathQueryHeaderParams) {
 						const prop = requestObject.properties.pathParams.properties?.[pathParam.name];
 						if (Is.object<IJsonSchema>(prop)) {
 							pathParam.description = prop.description ?? pathParam.description;
-							pathParam.schema = {
-								type: prop.type,
-								enum: prop.enum,
-								$ref: prop.$ref
-							};
+
+							pathParam.schema = {};
+							for (const key of simpleSchemaKeys) {
+								if (!Is.empty(prop[key])) {
+									pathParam.schema[key] = prop[key];
+								}
+							}
 							pathParam.required = true;
 							delete requestObject.properties.pathParams.properties?.[pathParam.name];
 						}
@@ -468,18 +448,23 @@ export async function tsToOpenApi(
 								example = requestExample.query[prop];
 							}
 
-							pathQueryHeaderParams.push({
+							const schema: IJsonSchema = {};
+							for (const key of simpleSchemaKeys) {
+								if (!Is.empty(queryProp[key])) {
+									schema[key] = queryProp[key];
+								}
+							}
+
+							const pathQueryHeaderParam = {
 								name: prop,
 								description: queryProp.description,
 								required: Boolean(requestObject.required?.includes(prop)),
-								schema: {
-									type: queryProp.type,
-									enum: queryProp.enum,
-									$ref: queryProp.$ref
-								},
-								in: "query",
+								schema,
+								in: "query" as OpenApiParameterLocation,
 								example
-							});
+							};
+
+							pathQueryHeaderParams.push(pathQueryHeaderParam);
 							delete requestObject.properties.query.properties[prop];
 						}
 					}
@@ -517,7 +502,7 @@ export async function tsToOpenApi(
 				// If we have used all the properties from the object in the
 				// path we should remove it.
 				if (Object.keys(requestObject.properties).length === 0 && inputPath.requestType) {
-					delete schemas[inputPath.requestType];
+					deleteSchema(generatedSchemas, inputPath.requestType);
 					requestObject = undefined;
 				}
 			}
@@ -527,10 +512,17 @@ export async function tsToOpenApi(
 				if (fullPath.length === 0) {
 					fullPath = "/";
 				}
-				openApi.paths[fullPath] ??= {};
+				openApi.paths ??= {};
+				const openApiPaths = openApi.paths;
+				openApiPaths[fullPath] ??= {};
+				const pathItem = openApiPaths[fullPath];
 
-				const method = inputPath.method.toLowerCase();
-				openApi.paths[fullPath][method] = {
+				const method = inputPath.method.toLowerCase() as keyof Pick<
+					IOpenApiPathItem,
+					"get" | "put" | "post" | "delete" | "options" | "head" | "patch"
+				>;
+
+				const operation = {
 					operationId: inputPath.operationId,
 					summary: inputPath.summary,
 					tags: [inputPath.tag],
@@ -546,10 +538,15 @@ export async function tsToOpenApi(
 									example: p.example
 								}))
 							: undefined
-				};
+				} as IOpenApiPathMethod;
+				pathItem[method] = operation;
+
+				const pathOperation: IOpenApiPathMethod | undefined = pathItem[method];
 
 				if (pathSpecificAuthSecurity.length > 0) {
-					openApi.paths[fullPath][method].security = pathSpecificAuthSecurity;
+					if (pathOperation) {
+						pathOperation.security = pathSpecificAuthSecurity;
+					}
 				}
 
 				if (requestObject && inputPath.requestType) {
@@ -573,7 +570,8 @@ export async function tsToOpenApi(
 					if (Is.stringValue(inputPath.requestMimeType)) {
 						requestMimeType = inputPath.requestMimeType;
 					} else {
-						const hasBody = Is.notEmpty(schemas[inputPath.requestType]?.properties?.body);
+						const requestSchema = resolveSchema(generatedSchemas, inputPath.requestType);
+						const hasBody = Is.notEmpty(requestSchema?.properties?.body);
 						if (hasBody) {
 							requestMimeType = MimeTypes.Json;
 						} else {
@@ -581,18 +579,20 @@ export async function tsToOpenApi(
 						}
 					}
 
-					openApi.paths[fullPath][method].requestBody = {
-						description: requestObject.description,
-						required: true,
-						content: {
-							[requestMimeType]: {
-								schema: {
-									$ref: `#/definitions/${inputPath.requestType}`
-								},
-								examples
+					if (pathOperation) {
+						pathOperation.requestBody = {
+							description: requestObject.description,
+							required: true,
+							content: {
+								[requestMimeType]: {
+									schema: {
+										$ref: `#/components/schemas/${StringHelper.stripPrefix(inputPath.requestType)}`
+									},
+									examples
+								}
 							}
-						}
-					};
+						};
+					}
 				}
 
 				if (responses.length > 0) {
@@ -601,19 +601,22 @@ export async function tsToOpenApi(
 						const code = response.code;
 						if (code) {
 							delete response.code;
-							openApiResponses[code] ??= {};
+							openApiResponses[code] ??= { description: "" };
 							openApiResponses[code] = ObjectHelper.merge(openApiResponses[code], response);
 						}
 					}
-					openApi.paths[fullPath][method].responses = openApiResponses;
+					if (pathOperation) {
+						pathOperation.responses = openApiResponses;
+					}
+				} else if (pathOperation) {
+					pathOperation.responses = {};
 				}
 			}
 		}
 	}
 
 	await finaliseOutput(
-		usedCommonResponseTypes,
-		schemas,
+		generatedSchemas,
 		openApi,
 		securitySchemes,
 		config.externalReferences,
@@ -623,16 +626,14 @@ export async function tsToOpenApi(
 
 /**
  * Finalise the schemas and output the spec.
- * @param usedCommonResponseTypes The common response types used.
- * @param schemas The schemas.
+ * @param generatedSchemas The generated schemas with package information.
  * @param openApi The OpenAPI spec.
  * @param securitySchemes The security schemes.
  * @param externalReferences The external references.
  * @param outputFile The output file.
  */
 async function finaliseOutput(
-	usedCommonResponseTypes: string[],
-	schemas: { [id: string]: IJsonSchema },
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } },
 	openApi: IOpenApi,
 	securitySchemes: { [name: string]: IOpenApiSecurityScheme },
 	externalReferences: { [type: string]: string } | undefined,
@@ -641,137 +642,28 @@ async function finaliseOutput(
 	CLIDisplay.break();
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-openapi.progress.finalisingSchemas"));
 
-	// Remove the response codes that we haven't used
-	for (const httpStatusCode in HTTP_STATUS_CODE_MAP) {
-		if (!usedCommonResponseTypes.includes(HTTP_STATUS_CODE_MAP[httpStatusCode].responseType)) {
-			delete schemas[HTTP_STATUS_CODE_MAP[httpStatusCode].responseType];
-		}
-	}
+	const { finalSchemas, substituteSchemas } = prepareFinalSchemas(
+		generatedSchemas,
+		externalReferences
+	);
 
-	const substituteSchemas: { from: string; to: string }[] = [];
-	const finalExternals: { [id: string]: string } = {};
+	removeStandardSchemas(finalSchemas);
+	applyRefOnlySchemaSubstitutions(openApi, substituteSchemas);
 
-	// Remove the I, < and > from names
-	const finalSchemas: {
-		[id: string]: IJsonSchema;
-	} = {};
-	for (const schema in schemas) {
-		const props = schemas[schema].properties;
-		let skipSchema = false;
+	const sortedSchemas = buildSortedPrunedSchemas(openApi, finalSchemas, generatedSchemas);
 
-		if (Is.object<{ [id: string]: IJsonSchema | boolean }>(props)) {
-			tidySchemaProperties(props);
-
-			// Any request/response objects should be added to the final schemas
-			// but only the body property, if there is no body then we don't
-			// need to add it to the schemas
-			if (schema.endsWith("Response") || schema.endsWith("Request")) {
-				if (Is.object<IJsonSchema>(props.body)) {
-					schemas[schema] = props.body;
-				} else {
-					skipSchema = true;
-				}
-			}
-		}
-
-		// If the schema is external then remove it from the final schemas
-		if (Is.object(externalReferences)) {
-			for (const external in externalReferences) {
-				const re = new RegExp(`^I?${external}(?<!Request|Response)$`);
-				if (re.test(schema)) {
-					skipSchema = true;
-					finalExternals[StringHelper.stripPrefix(schema)] = schema.replace(
-						re,
-						externalReferences[external]
-					);
-					break;
-				}
-			}
-		}
-
-		if (!skipSchema) {
-			// If the final schema has no properties and is just a ref to another object type
-			// then replace the references with that of the referenced type
-			const ref = schemas[schema].$ref;
-			if (!Is.arrayValue(schemas[schema].properties) && Is.stringValue(ref)) {
-				substituteSchemas.push({ from: schema, to: ref });
-			} else {
-				let finalName = schema;
-
-				// If the type has an interface name e.g. ISomething then strip the I
-				if (/I[A-Z]/.test(finalName)) {
-					finalName = finalName.slice(1);
-				}
-
-				finalName = finalName.replace("<", "_").replace(">", "_");
-
-				if (finalName.endsWith("[]")) {
-					finalName = `ListOf${finalName.slice(0, -2)}`;
-				}
-
-				finalSchemas[finalName] = schemas[schema];
-			}
-		}
-	}
-
-	// Remove standard types that we don't want in the final output
-	const removeTypes = ["HttpStatusCode", "Uint8Array", "ArrayBuffer"];
-	for (const type of removeTypes) {
-		delete finalSchemas[type];
-	}
-
-	for (const type in finalSchemas) {
-		processArrays(finalSchemas[type]);
-	}
-
-	const schemaKeys = Object.keys(finalSchemas);
-	schemaKeys.sort();
-
-	const sortedSchemas: { [id: string]: IJsonSchema } = {};
-	for (const key of schemaKeys) {
-		sortedSchemas[key] = finalSchemas[key];
-	}
+	// Schemas that have been kept as local component schemas must not have their
+	// $ref values in paths rewritten to external URLs.
+	const localSchemaNames = new Set(Object.keys(sortedSchemas));
+	rewriteExternalSchemaReferences(sortedSchemas, externalReferences);
+	rewriteExternalSchemaReferences(openApi.paths, externalReferences, localSchemaNames);
 
 	openApi.components = {
 		schemas: sortedSchemas,
 		securitySchemes
 	};
 
-	let json = JSON.stringify(openApi, undefined, "\t");
-
-	// Remove the reference only schemas, repeating until no more substitutions
-	let performedSubstitution;
-	do {
-		performedSubstitution = false;
-		for (const substituteSchema of substituteSchemas) {
-			const schemaParts = substituteSchema.to.split("/");
-			const find = new RegExp(`#/definitions/${substituteSchema.from}`, "g");
-			if (find.test(json)) {
-				json = json.replace(find, `#/definitions/${schemaParts[schemaParts.length - 1]}`);
-				performedSubstitution = true;
-			}
-		}
-	} while (performedSubstitution);
-
-	// Update the location of the components
-	json = json.replace(/#\/definitions\//g, "#/components/schemas/");
-
-	// Remove the I from the type names as long as they are interfaces
-	json = json.replace(/#\/components\/schemas\/I([A-Z].*)/g, "#/components/schemas/$1");
-
-	// Remove the array [] from the type names
-	// eslint-disable-next-line unicorn/better-regex
-	json = json.replace(/#\/components\/schemas\/(.*)\[\]/g, "#/components/schemas/ListOf$1");
-
-	json = normaliseTypeName(json);
-
-	// Remove external references
-	for (const finalExternal in finalExternals) {
-		json = json.replace(
-			new RegExp(`"#/components/schemas/${StringHelper.stripPrefix(finalExternal)}"`, "g"),
-			`"${finalExternals[finalExternal]}"`
-		);
-	}
+	validateComponentSchemaRefs(openApi);
 
 	CLIDisplay.task(
 		I18n.formatMessage("commands.ts-to-openapi.progress.writingOutputFile"),
@@ -781,7 +673,394 @@ async function finaliseOutput(
 	try {
 		await mkdir(path.dirname(outputFile), { recursive: true });
 	} catch {}
-	await writeFile(outputFile, `${json}\n`);
+	await writeFile(outputFile, `${JSON.stringify(openApi, undefined, "\t")}\n`);
+}
+
+/**
+ * Collect all local component schema $ref names referenced anywhere in a value.
+ * @param value The value to scan.
+ * @param refs The set of ref names to populate.
+ */
+function collectComponentSchemaRefs(value: unknown, refs: Set<string>): void {
+	if (Is.array(value)) {
+		for (const item of value) {
+			collectComponentSchemaRefs(item, refs);
+		}
+		return;
+	}
+	if (Is.object(value)) {
+		if (Is.string(value.$ref) && value.$ref.startsWith("#/components/schemas/")) {
+			refs.add(value.$ref.slice("#/components/schemas/".length));
+		}
+		for (const child of Object.values(value)) {
+			collectComponentSchemaRefs(child, refs);
+		}
+	}
+}
+
+/**
+ * Validate that every local component schema $ref in paths resolves to a defined schema.
+ * @param openApi The OpenAPI spec to validate.
+ * @throws GeneralError if any local component schema $ref does not resolve to a defined schema.
+ */
+function validateComponentSchemaRefs(openApi: IOpenApi): void {
+	const refs = new Set<string>();
+	collectComponentSchemaRefs(openApi.paths, refs);
+	collectComponentSchemaRefs(openApi.components?.schemas, refs);
+	const schemas = openApi.components?.schemas ?? {};
+	const missing = [...refs].filter(name => !(name in schemas));
+	if (missing.length > 0) {
+		throw new GeneralError("commands", "commands.ts-to-openapi.unresolvedComponentRefs", {
+			refs: missing.join(", ")
+		});
+	}
+}
+
+/**
+ * Prepare schemas for final component output and collect schema substitutions.
+ * Works directly with allPackageSchemas to preserve all definitions across packages.
+ * @param generatedSchemas The generated schemas with package information.
+ * @param externalReferences The external reference mappings.
+ * @returns The prepared schemas and substitutions.
+ */
+function prepareFinalSchemas(
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } },
+	externalReferences: { [type: string]: string } | undefined
+): {
+	finalSchemas: { [id: string]: IJsonSchema };
+	substituteSchemas: { from: string; to: string }[];
+} {
+	const substituteSchemas: { from: string; to: string }[] = [];
+	const finalSchemas: { [id: string]: IJsonSchema } = {};
+
+	// Build a map of all schemas across all packages
+	const allSchemasMap: { [id: string]: IJsonSchema } = {};
+	for (const packageName in generatedSchemas) {
+		const packageSchemas = generatedSchemas[packageName];
+		for (const schemaName in packageSchemas) {
+			// Use the unqualified name for first occurrence (non-conflict case)
+			if (!(schemaName in allSchemasMap)) {
+				allSchemasMap[schemaName] = packageSchemas[schemaName];
+			}
+		}
+	}
+
+	for (const schema in allSchemasMap) {
+		const props = allSchemasMap[schema].properties;
+		let skipSchema = false;
+		let isLocalWrapper = false;
+
+		if (Is.object<{ [id: string]: IJsonSchema | boolean }>(props)) {
+			tidySchemaProperties(props, true);
+
+			// Any request/response objects should be added to the final schemas
+			// but only the body property, if there is no body then we don't
+			// need to add it to the schemas
+			if (schema.endsWith("Response") || schema.endsWith("Request")) {
+				if (Is.object<IJsonSchema>(props.body)) {
+					allSchemasMap[schema] = props.body;
+					// Body was extracted from a local API wrapper type; external reference
+					// patterns must not override this — the schema stays in components.
+					isLocalWrapper = true;
+				} else {
+					// Body is absent or a boolean schema (true = any, false = never).
+					// Emit an empty schema {} to prevent dangling $refs in paths that
+					// reference this type, while still keeping it in components.
+					allSchemasMap[schema] = {};
+					isLocalWrapper = true;
+				}
+			}
+		}
+
+		// If the schema is external then remove it from the final schemas.
+		// Local API wrapper types (Request/Response schemas whose body was extracted)
+		// are always kept as local component schemas regardless of external ref patterns.
+		if (!isLocalWrapper && resolveExternalReference(schema, externalReferences)) {
+			skipSchema = true;
+		}
+
+		if (!skipSchema) {
+			// If the final schema has no properties and is just a ref to another object type
+			// then replace the references with that of the referenced type.
+			const ref = allSchemasMap[schema].$ref;
+			if (!Is.arrayValue(allSchemasMap[schema].properties) && Is.stringValue(ref)) {
+				substituteSchemas.push({ from: schema, to: ref });
+			} else {
+				finalSchemas[StringHelper.stripPrefix(schema)] = allSchemasMap[schema];
+			}
+		}
+	}
+
+	return {
+		finalSchemas,
+		substituteSchemas
+	};
+}
+
+/**
+ * Remove standard schemas that should not appear in the final OpenAPI output.
+ * @param finalSchemas The final schemas map.
+ */
+function removeStandardSchemas(finalSchemas: { [id: string]: IJsonSchema }): void {
+	const removeTypes = ["HttpStatusCode", ...Constants.ARRAY_NUMBER_TYPE_NAMES];
+	for (const type of removeTypes) {
+		delete finalSchemas[type];
+	}
+}
+
+/**
+ * Apply substitutions for ref-only wrapper schemas to path refs.
+ * @param openApi The OpenAPI document.
+ * @param substituteSchemas The collected schema substitutions.
+ */
+function applyRefOnlySchemaSubstitutions(
+	openApi: IOpenApi,
+	substituteSchemas: { from: string; to: string }[]
+): void {
+	const refOnlySubstitutions: { from: string; to: string }[] = [];
+	const componentsPrefix = "#/components/schemas/";
+
+	for (const substitution of substituteSchemas) {
+		if (substitution.to.startsWith(componentsPrefix)) {
+			refOnlySubstitutions.push({
+				from: StringHelper.stripPrefix(substitution.from),
+				to: StringHelper.stripPrefix(substitution.to.slice(componentsPrefix.length))
+			});
+		}
+	}
+
+	if (refOnlySubstitutions.length > 0) {
+		rewriteSchemaRefs(openApi.paths, refOnlySubstitutions);
+	}
+}
+
+/**
+ * Apply equivalent-response schema substitutions to paths and final schemas.
+ * @param openApi The OpenAPI document.
+ * @param finalSchemas The final schemas map.
+ * @param substituteSchemas The collected schema substitutions.
+ */
+/**
+ * Build sorted and tidied schemas from the current OpenAPI references.
+ * @param openApi The OpenAPI document.
+ * @param finalSchemas The candidate schemas.
+ * @param generatedSchemas The generated schemas with package information.
+ * @returns The sorted schema map.
+ */
+function buildSortedPrunedSchemas(
+	openApi: IOpenApi,
+	finalSchemas: { [id: string]: IJsonSchema },
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } }
+): { [id: string]: IJsonSchema } {
+	const prunedSchemas = pruneToReferencedSchemas(openApi, finalSchemas, generatedSchemas);
+	const prunedSchemaKeys = Object.keys(prunedSchemas);
+	prunedSchemaKeys.sort();
+
+	const sortedSchemas: { [id: string]: IJsonSchema } = {};
+	for (const key of prunedSchemaKeys) {
+		tidySchemaProperties(prunedSchemas[key], false);
+		delete prunedSchemas[key].title;
+		sortedSchemas[key] = prunedSchemas[key];
+	}
+
+	return sortedSchemas;
+}
+
+/**
+ * Prune schemas to only those referenced by the OpenAPI document and their transitive dependencies.
+ * @param openApi The generated OpenAPI document.
+ * @param schemas The candidate schemas.
+ * @param generatedSchemas The generated schemas with package information.
+ * @returns The pruned schemas.
+ */
+function pruneToReferencedSchemas(
+	openApi: IOpenApi,
+	schemas: { [id: string]: IJsonSchema },
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } }
+): { [id: string]: IJsonSchema } {
+	const referencedSchemaNames = new Set<string>();
+	const pendingSchemaNames: string[] = [];
+
+	const enqueueSchemaRef = (ref: string): void => {
+		const schemaName = normaliseSchemaRefName(ref, generatedSchemas);
+		if (schemaName && !referencedSchemaNames.has(schemaName)) {
+			referencedSchemaNames.add(schemaName);
+			pendingSchemaNames.push(schemaName);
+		}
+	};
+
+	collectSchemaRefs(openApi.paths, enqueueSchemaRef);
+
+	while (pendingSchemaNames.length > 0) {
+		const schemaName = pendingSchemaNames.pop();
+		if (schemaName) {
+			collectSchemaRefs(schemas[schemaName], enqueueSchemaRef);
+		}
+	}
+
+	const prunedSchemas: { [id: string]: IJsonSchema } = {};
+	for (const schemaName of referencedSchemaNames) {
+		const schema = schemas[schemaName];
+		if (Is.object<IJsonSchema>(schema)) {
+			prunedSchemas[schemaName] = schema;
+		}
+	}
+
+	return prunedSchemas;
+}
+
+/**
+ * Rewrite schema refs using the provided substitutions.
+ * @param value The value to rewrite.
+ * @param substitutions The schema substitutions.
+ */
+function rewriteSchemaRefs(value: unknown, substitutions: { from: string; to: string }[]): void {
+	if (Is.array(value)) {
+		for (const item of value) {
+			rewriteSchemaRefs(item, substitutions);
+		}
+		return;
+	}
+
+	if (Is.object<{ $ref?: unknown }>(value)) {
+		if (Is.stringValue(value.$ref)) {
+			for (const substitution of substitutions) {
+				if (value.$ref === `#/components/schemas/${substitution.from}`) {
+					value.$ref = `#/components/schemas/${substitution.to}`;
+				}
+			}
+		}
+
+		for (const objectValue of Object.values(value)) {
+			rewriteSchemaRefs(objectValue, substitutions);
+		}
+	}
+}
+
+/**
+ * Collect schema references from a value.
+ * @param value The value to inspect.
+ * @param onRef The callback for each schema ref.
+ */
+function collectSchemaRefs(value: unknown, onRef: (ref: string) => void): void {
+	if (Is.array(value)) {
+		for (const item of value) {
+			collectSchemaRefs(item, onRef);
+		}
+		return;
+	}
+
+	if (Is.object<{ $ref?: unknown }>(value)) {
+		if (Is.stringValue(value.$ref)) {
+			onRef(value.$ref);
+		}
+
+		for (const objectValue of Object.values(value)) {
+			collectSchemaRefs(objectValue, onRef);
+		}
+	}
+}
+
+/**
+ * Normalise a schema ref to a component schema name.
+ * Resolves the canonical schema name from a schema reference by searching all packages.
+ * @param ref The schema ref.
+ * @param generatedSchemas The generated schemas with package information.
+ * @returns The normalised schema name if it exists.
+ */
+function normaliseSchemaRefName(
+	ref: string,
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } }
+): string | undefined {
+	const refParts = ref.split("/");
+	const rawName = refParts[refParts.length - 1];
+	if (!Is.stringValue(rawName)) {
+		return undefined;
+	}
+
+	const schemaName = StringHelper.stripPrefix(rawName);
+
+	// Search across all packages for the schema
+	for (const packageName in generatedSchemas) {
+		const packageSchemas = generatedSchemas[packageName];
+		if (schemaName in packageSchemas) {
+			return schemaName;
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * Rewrite component schema refs to external refs when configured.
+ * @param value The object to walk and rewrite in place.
+ * @param externalReferences The external reference mappings.
+ * @param preservedSchemas An optional set of local component schema names whose refs must not be rewritten.
+ */
+function rewriteExternalSchemaReferences(
+	value: unknown,
+	externalReferences: { [type: string]: string } | undefined,
+	preservedSchemas?: Set<string>
+): void {
+	if (!Is.object(externalReferences)) {
+		return;
+	}
+
+	if (Is.array(value)) {
+		for (const item of value) {
+			rewriteExternalSchemaReferences(item, externalReferences, preservedSchemas);
+		}
+		return;
+	}
+
+	if (Is.object<{ $ref?: unknown }>(value)) {
+		if (Is.stringValue(value.$ref)) {
+			const schemaPrefix = "#/components/schemas/";
+			if (value.$ref.startsWith(schemaPrefix)) {
+				const schemaName = value.$ref.slice(schemaPrefix.length);
+				if (!preservedSchemas?.has(schemaName)) {
+					const externalReference = resolveExternalReference(schemaName, externalReferences);
+					if (Is.stringValue(externalReference)) {
+						value.$ref = externalReference;
+					}
+				}
+			}
+		}
+
+		for (const objectValue of Object.values(value)) {
+			rewriteExternalSchemaReferences(objectValue, externalReferences, preservedSchemas);
+		}
+	}
+}
+
+/**
+ * Resolve a schema name to an external reference URL if configured.
+ * @param schemaName The schema name.
+ * @param externalReferences The external reference mappings.
+ * @returns The external reference URL if matched.
+ */
+function resolveExternalReference(
+	schemaName: string,
+	externalReferences: { [type: string]: string } | undefined
+): string | undefined {
+	if (!Is.object(externalReferences)) {
+		return undefined;
+	}
+
+	const schemaCandidates = [schemaName, StringHelper.stripPrefix(schemaName)].filter(candidate =>
+		Is.stringValue(candidate)
+	);
+
+	for (const external in externalReferences) {
+		const re = new RegExp(`^${external}$`);
+		for (const candidate of schemaCandidates) {
+			if (re.test(candidate)) {
+				return candidate.replace(re, externalReferences[external]);
+			}
+		}
+	}
+
+	return undefined;
 }
 
 /**
@@ -873,7 +1152,7 @@ async function processPackageRestDetails(restRoutes: IRestRoute[]): Promise<IInp
 			// But only if we haven't got a response already for different content type
 			if (responseType.length === 0) {
 				responseType.push({
-					type: nameof<IOkResponse>(),
+					type: "IOkResponse",
 					statusCode: HttpStatusCode.ok
 				});
 			}
@@ -923,31 +1202,17 @@ async function processPackageRestDetails(restRoutes: IRestRoute[]): Promise<IInp
 
 /**
  * Generate schemas for the models.
+ * Preserves all schema definitions from all packages in allPackageSchemas.
+ * Each package's schemas are tracked separately to prevent any data loss.
  * @param modelDirWildcards The filenames for all the models.
- * @param types The types of the schema objects.
- * @param outputWorkingDir The working directory.
- * @returns Nothing.
+ * @returns The generated schemas with package provenance information.
  * @internal
  */
 async function generateSchemas(
-	modelDirWildcards: string[],
-	types: string[],
-	outputWorkingDir: string
-): Promise<{
-	[id: string]: IJsonSchema;
-}> {
-	const allSchemas: { [id: string]: IJsonSchema } = {};
-
-	const arraySingularTypes: string[] = [];
-	for (const type of types) {
-		if (type.endsWith("[]")) {
-			const singularType = type.slice(0, -2);
-			arraySingularTypes.push(singularType);
-			if (!types.includes(singularType)) {
-				types.push(singularType);
-			}
-		}
-	}
+	modelDirWildcards: string[]
+): Promise<{ [packageName: string]: { [schemaName: string]: IJsonSchema } }> {
+	const typeScriptToSchema = new TypeScriptToSchema();
+	const allPackageSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } } = {};
 
 	for (const files of modelDirWildcards) {
 		CLIDisplay.value(
@@ -955,142 +1220,119 @@ async function generateSchemas(
 			files.replace(/\\/g, "/"),
 			1
 		);
-		const generator = createGenerator({
-			path: files.replace(/\\/g, "/"),
-			type: "*",
-			tsconfig: path.join(outputWorkingDir, "tsconfig.json"),
-			skipTypeCheck: true,
-			expose: "all"
-		});
 
-		const schema = generator.createSchema("*");
-
-		if (schema.definitions) {
-			for (const def in schema.definitions) {
-				const defSub = normaliseTypeName(def);
-
-				allSchemas[defSub] = schema.definitions[def] as IJsonSchema;
-			}
-		}
+		await typeScriptToSchema.generateSchema(
+			"#/components/schemas/",
+			"@twin.org/ts-to-openapi",
+			allPackageSchemas,
+			files
+		);
 	}
 
-	const referencedSchemas: { [id: string]: IJsonSchema } = {};
-
-	extractTypes(allSchemas, types, referencedSchemas);
-
-	for (const arraySingularType of arraySingularTypes) {
-		referencedSchemas[`${arraySingularType}[]`] = {
-			type: "array",
-			items: {
-				$ref: `#/components/schemas/${arraySingularType}`
-			}
-		};
-	}
-
-	return referencedSchemas;
+	return allPackageSchemas;
 }
 
 /**
- * Extract the required types from all the known schemas.
- * @param allSchemas All the known schemas.
- * @param requiredTypes The required types.
- * @param referencedSchemas The references schemas.
- * @internal
+ * Resolve a schema by its raw or stripped interface type name.
+ * Searches across all packages in allPackageSchemas to find the schema.
+ * When multiple packages define the same schema, returns the first match found.
+ * @param generatedSchemas The generated schemas with package information.
+ * @param typeName The type name.
+ * @returns The resolved schema if present.
  */
-function extractTypes(
-	allSchemas: { [id: string]: IJsonSchema },
-	requiredTypes: string[],
-	referencedSchemas: { [id: string]: IJsonSchema }
-): void {
-	for (const type of requiredTypes) {
-		if (allSchemas[type] && !referencedSchemas[type]) {
-			referencedSchemas[type] = allSchemas[type];
+function resolveSchema(
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } },
+	typeName: string | undefined
+): IJsonSchema | undefined {
+	if (!Is.stringValue(typeName)) {
+		return undefined;
+	}
 
-			extractTypesFromSchema(allSchemas, allSchemas[type], referencedSchemas);
+	const strippedName = StringHelper.stripPrefix(typeName);
+
+	// Search across all packages for the schema
+	for (const packageName in generatedSchemas) {
+		const packageSchemas = generatedSchemas[packageName];
+		if (typeName in packageSchemas) {
+			return packageSchemas[typeName];
+		}
+		if (strippedName !== typeName && strippedName in packageSchemas) {
+			return packageSchemas[strippedName];
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * Delete a schema by its raw or stripped interface type name.
+ * Removes the schema from all packages that define it.
+ * @param generatedSchemas The generated schemas with package information.
+ * @param typeName The type name.
+ */
+function deleteSchema(
+	generatedSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } },
+	typeName: string | undefined
+): void {
+	if (!Is.stringValue(typeName)) {
+		return;
+	}
+
+	const strippedName = StringHelper.stripPrefix(typeName);
+
+	for (const packageName in generatedSchemas) {
+		const packageSchemas = generatedSchemas[packageName];
+		delete packageSchemas[typeName];
+		if (strippedName !== typeName) {
+			delete packageSchemas[strippedName];
 		}
 	}
 }
 
 /**
- * Extract type from properties definition.
- * @param allTypes All the known types.
- * @param schema The schema to extract from.
- * @param output The output types.
+ * Tidy up schemas for OpenAPI context.
+ * Removes unsupported schema keywords and normalises nested property schemas.
+ * @param value The schema value to tidy.
  * @internal
  */
-function extractTypesFromSchema(
-	allTypes: { [id: string]: IJsonSchema },
-	schema: IJsonSchema,
-	output: { [id: string]: IJsonSchema }
-): void {
-	const additionalTypes = [];
-
-	if (Is.stringValue(schema.$ref)) {
-		additionalTypes.push(normaliseTypeName(schema.$ref).replace("#/definitions/", ""));
-	} else if (Is.object<IJsonSchema>(schema.items)) {
-		if (Is.arrayValue<IJsonSchema>(schema.items)) {
-			for (const itemSchema of schema.items) {
-				extractTypesFromSchema(allTypes, itemSchema, output);
-			}
-		} else {
-			extractTypesFromSchema(allTypes, schema.items, output);
+function tidySchemaProperties(value: unknown, removeRefDescriptions: boolean): void {
+	if (Is.array(value)) {
+		for (const item of value) {
+			tidySchemaProperties(item, removeRefDescriptions);
 		}
-	} else if (Is.object(schema.properties) || Is.object(schema.additionalProperties)) {
-		if (Is.object(schema.properties)) {
-			for (const prop in schema.properties) {
-				const p = schema.properties[prop];
-				if (Is.object<IJsonSchema>(p)) {
-					extractTypesFromSchema(allTypes, p, output);
+		return;
+	}
+
+	if (Is.object<{ [id: string]: unknown; $ref?: unknown; description?: unknown }>(value)) {
+		delete value.$schema;
+		delete value.$id;
+		delete value.$comment;
+
+		if (removeRefDescriptions) {
+			for (const prop of Object.keys(value)) {
+				const schemaProperty = value[prop];
+				if (Is.object<IJsonSchema>(schemaProperty)) {
+					// For OpenAPI we don't include a description for items that have refs.
+					if (schemaProperty.$ref) {
+						delete schemaProperty.description;
+					}
+
+					if (schemaProperty.properties) {
+						tidySchemaProperties(schemaProperty.properties, true);
+					}
+
+					if (
+						schemaProperty.items &&
+						Is.object<IJsonSchema>(schemaProperty.items) &&
+						Is.object<IJsonSchema>(schemaProperty.items.properties)
+					) {
+						tidySchemaProperties(schemaProperty.items.properties, true);
+					}
 				}
 			}
-		}
-		if (Is.object(schema.additionalProperties)) {
-			extractTypesFromSchema(allTypes, schema.additionalProperties, output);
-		}
-	} else if (Is.arrayValue(schema.anyOf)) {
-		for (const prop of schema.anyOf) {
-			if (Is.object<IJsonSchema>(prop)) {
-				extractTypesFromSchema(allTypes, prop, output);
-			}
-		}
-	} else if (Is.arrayValue(schema.oneOf)) {
-		for (const prop of schema.oneOf) {
-			if (Is.object<IJsonSchema>(prop)) {
-				extractTypesFromSchema(allTypes, prop, output);
-			}
-		}
-	}
-
-	if (additionalTypes.length > 0) {
-		extractTypes(allTypes, additionalTypes, output);
-	}
-}
-
-/**
- * Tidy up the schemas for use in OpenAPI context.
- * @param props The properties to tidy up.
- * @internal
- */
-function tidySchemaProperties(props: { [id: string]: IJsonSchema | boolean }): void {
-	for (const prop in props) {
-		const p = props[prop];
-		if (Is.object<IJsonSchema>(p)) {
-			// For OpenAPI we don't include a description for
-			// items that have refs
-			if (p.$ref) {
-				delete p.description;
-			}
-
-			if (p.properties) {
-				tidySchemaProperties(p.properties);
-			}
-
-			if (
-				p.items &&
-				Is.object<IJsonSchema>(p.items) &&
-				Is.object<IJsonSchema>(p.items.properties)
-			) {
-				tidySchemaProperties(p.items.properties);
+		} else {
+			for (const objectValue of Object.values(value)) {
+				tidySchemaProperties(objectValue, false);
 			}
 		}
 	}
@@ -1158,8 +1400,7 @@ async function loadPackages(
 		const packageName = configRestRoutes.package;
 		const packageRoot = configRestRoutes.packageRoot;
 		if (!Is.stringValue(packageName) && !Is.stringValue(packageRoot)) {
-			// eslint-disable-next-line no-restricted-syntax
-			throw new Error("Package name or root must be specified");
+			throw new GeneralError("commands", "commands.ts-to-openapi.packageNameOrRootMissing");
 		}
 
 		let rootFolder;
@@ -1171,6 +1412,14 @@ async function loadPackages(
 			} else {
 				npmResolveFolder = outputWorkingDir;
 				rootFolder = path.join(outputWorkingDir, "node_modules", packageName);
+
+				const downloadedPackageExists = await CLIUtils.dirExists(rootFolder);
+				if (!downloadedPackageExists) {
+					throw new GeneralError("commands", "commands.ts-to-openapi.packageResolutionFailed", {
+						package: packageName,
+						workingDir: outputWorkingDir
+					});
+				}
 			}
 		} else {
 			rootFolder = path.resolve(packageRoot ?? "");
@@ -1216,7 +1465,7 @@ async function loadPackages(
 			pkgJson.name
 		);
 
-		const pkg = await import(`file://${path.join(rootFolder, "dist/esm/index.mjs")}`);
+		const pkg = await import(pathToFileURL(path.join(rootFolder, "dist/es/index.js")).href);
 
 		if (!Is.array(pkg.restEntryPoints)) {
 			throw new GeneralError("commands", "commands.ts-to-openapi.missingRestRoutesEntryPoints", {
@@ -1268,86 +1517,4 @@ async function loadPackages(
 	}
 
 	return restRoutes;
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaObject The schema object to process.
- */
-function processArrays(schemaObject?: IJsonSchema): void {
-	if (Is.object<IJsonSchema>(schemaObject)) {
-		// latest specs have singular items in `items` property
-		// and multiple items in prefixItems, so update the schema accordingly
-		// https://www.learnjsonschema.com/2020-12/applicator/items/
-		// https://www.learnjsonschema.com/2020-12/applicator/prefixitems/
-		const schemaItems = schemaObject.items;
-		if (Is.array<IJsonSchema>(schemaItems) || Is.object<IJsonSchema>(schemaItems)) {
-			schemaObject.prefixItems = ArrayHelper.fromObjectOrArray<IJsonSchema>(schemaItems);
-			delete schemaObject.items;
-		}
-		const additionalItems = schemaObject.additionalItems;
-		if (Is.array<IJsonSchema>(additionalItems) || Is.object<IJsonSchema>(additionalItems)) {
-			schemaObject.items = ArrayHelper.fromObjectOrArray<IJsonSchema>(additionalItems)[0];
-			delete schemaObject.additionalItems;
-		}
-
-		processSchemaDictionary(schemaObject.properties);
-		processArrays(schemaObject.additionalProperties);
-		processSchemaArray(schemaObject.allOf);
-		processSchemaArray(schemaObject.anyOf);
-		processSchemaArray(schemaObject.oneOf);
-	}
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaDictionary The schema object to process.
- */
-function processSchemaDictionary(schemaDictionary?: { [key: string]: IJsonSchema }): void {
-	if (Is.object(schemaDictionary)) {
-		for (const item of Object.values(schemaDictionary)) {
-			if (Is.object<IJsonSchema>(item)) {
-				processArrays(item);
-			}
-		}
-	}
-}
-
-/**
- * Process arrays in the schema object.
- * @param schemaArray The schema object to process.
- */
-function processSchemaArray(schemaArray?: IJsonSchema[]): void {
-	if (Is.arrayValue(schemaArray)) {
-		for (const item of schemaArray) {
-			if (Is.object<IJsonSchema>(item)) {
-				processArrays(item);
-			}
-		}
-	}
-}
-
-/**
- * Cleanup TypeScript markers from the type name.
- * @param typeName The definition string to clean up.
- * @returns The cleaned up definition string.
- */
-function normaliseTypeName(typeName: string): string {
-	// Remove the partial markers
-	let sTypeName = typeName.replace(/^Partial<(.*?)>/g, "$1");
-	sTypeName = sTypeName.replace(/Partial%3CI(.*?)%3E/g, "$1");
-
-	// Remove the omit markers
-	sTypeName = sTypeName.replace(/^Omit<(.*?),.*>/g, "$1");
-	sTypeName = sTypeName.replace(/Omit%3CI(.*?)%2C.*%3E/g, "$1");
-
-	// Remove the pick markers
-	sTypeName = sTypeName.replace(/^Pick<(.*?),.*>/g, "$1");
-	sTypeName = sTypeName.replace(/Pick%3CI(.*?)%2C.*%3E/g, "$1");
-
-	// Cleanup the generic markers
-	sTypeName = sTypeName.replace(/</g, "%3C").replace(/>/g, "%3E");
-	sTypeName = sTypeName.replace(/%3Cunknown%3E/g, "");
-
-	return sTypeName;
 }

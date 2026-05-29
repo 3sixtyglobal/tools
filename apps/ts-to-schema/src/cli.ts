@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CLIBase } from "@twin.org/cli-core";
 import type { Command } from "commander";
-import { buildCommandTsToSchema } from "./commands/tsToSchema";
+import { buildCommandTsToSchema } from "./commands/tsToSchema.js";
 
 /**
  * The main entry point for the CLI.
@@ -27,7 +27,7 @@ export class CLI extends CLIBase {
 			{
 				title: "TWIN TypeScript To Schema",
 				appName: "ts-to-schema",
-				version: "0.0.1", // x-release-please-version
+				version: "0.0.3-next.31", // x-release-please-version
 				icon: "⚙️ ",
 				supportsEnvFiles: false,
 				overrideOutputWidth: options?.overrideOutputWidth

@@ -1,0 +1,39 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/OmitFromTripleInheritance",
+	"title": "OmitFromTripleInheritance",
+	"description": "Interface extending Omit of a triply-inherited type, testing deep comment propagation.",
+	"type": "object",
+	"properties": {
+		"own": {
+			"type": "boolean",
+			"description": "Own required field."
+		}
+	},
+	"required": ["own"],
+	"allOf": [
+		{
+			"$comment": "Inlined utility base type TripleTopC so utility transformations can operate on concrete properties instead of a $ref.",
+			"description": "Top interface extending TripleMidB.",
+			"type": "object",
+			"properties": {
+				"a1": {
+					"$comment": "Inherited from TripleBaseA",
+					"type": "string",
+					"description": "A top-level required field."
+				},
+				"b1": {
+					"$comment": "Inherited from TripleMidB",
+					"type": "string",
+					"description": "Mid-level required field."
+				},
+				"c1": {
+					"$comment": "Inherited from TripleTopC",
+					"type": "string",
+					"description": "Top-level required field."
+				}
+			},
+			"required": ["a1", "b1", "c1"]
+		}
+	]
+}

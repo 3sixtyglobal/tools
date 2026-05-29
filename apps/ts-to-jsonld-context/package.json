@@ -1,0 +1,87 @@
+{
+	"name": "@twin.org/ts-to-jsonld-context",
+	"version": "0.0.3-next.31",
+	"description": "Generate JSON-LD contexts from source model definitions",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/iotaledger/tools.git",
+		"directory": "apps/ts-to-jsonld-context"
+	},
+	"author": "martyn.janes@iota.org",
+	"license": "Apache-2.0",
+	"type": "module",
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"scripts": {
+		"clean": "rimraf dist coverage",
+		"build": "tspc",
+		"dev": "nodemon --watch src --ext ts --exec \"npm run build\"",
+		"merge-locales": "merge-locales",
+		"test": "vitest --run --config ./vitest.config.ts --no-cache",
+		"test:build": "tspc -p ./tests/tsconfig.json --noEmit",
+		"validate-locales": "validate-locales",
+		"test:coverage": "vitest --run --coverage --config ./vitest.config.ts --no-cache",
+		"docs:clean": "rimraf docs/reference",
+		"docs:generate": "typedoc --options typedoc.config.mjs",
+		"docs": "npm run docs:clean && npm run docs:generate",
+		"dist": "npm run clean && npm run build && npm run merge-locales && npm run validate-locales && npm run test:build && npm run test",
+		"dist:no-test": "npm run clean && npm run build && npm run merge-locales"
+	},
+	"dependencies": {
+		"@twin.org/cli-core": "next",
+		"@twin.org/core": "next",
+		"@twin.org/nameof": "next",
+		"@twin.org/tools-core": "0.0.3-next.31",
+		"commander": "14.0.3",
+		"glob": "13.0.6",
+		"typescript": "6.0.3"
+	},
+	"devDependencies": {
+		"@twin.org/merge-locales": "next",
+		"@twin.org/nameof-transformer": "next",
+		"@twin.org/nameof-vitest-plugin": "next",
+		"@twin.org/validate-locales": "next",
+		"@types/node": "25.9.0",
+		"@vitest/coverage-v8": "4.1.6",
+		"copyfiles": "2.4.1",
+		"nodemon": "3.1.14",
+		"rimraf": "6.1.3",
+		"ts-patch": "4.0.1",
+		"typedoc": "0.28.19",
+		"typedoc-plugin-markdown": "4.11.0",
+		"vitest": "4.1.6"
+	},
+	"main": "./dist/es/index.js",
+	"types": "./dist/types/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/es/index.js",
+			"default": "./dist/es/index.js"
+		}
+	},
+	"files": [
+		"bin",
+		"dist/es",
+		"dist/locales",
+		"dist/types",
+		"locales",
+		"docs"
+	],
+	"bin": {
+		"ts-to-jsonld-context": "bin/index.js"
+	},
+	"keywords": [
+		"twin",
+		"trade",
+		"iota",
+		"framework",
+		"blockchain",
+		"tools"
+	],
+	"bugs": {
+		"url": "git+https://github.com/iotaledger/tools/issues"
+	},
+	"homepage": "https://twindev.org"
+}

@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/Person",
+	"description": "Full person model for utility type tests.",
+	"title": "Person",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "The unique identifier."
+		},
+		"label": {
+			"type": "string",
+			"description": "The display label."
+		},
+		"score": {
+			"type": "number",
+			"description": "Optional score in the source model."
+		}
+	},
+	"required": ["id", "label"]
+}

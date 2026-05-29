@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestInterface",
+	"description": "Derived interface extending multiple base interfaces.",
+	"title": "TestInterface",
+	"type": "object",
+	"allOf": [
+		{
+			"$ref": "https://schema.twindev.org/test/TestInterfaceBaseA"
+		},
+		{
+			"$ref": "https://schema.twindev.org/test/TestInterfaceBaseB"
+		}
+	],
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "Derived interface identifier."
+		}
+	},
+	"required": ["id"]
+}

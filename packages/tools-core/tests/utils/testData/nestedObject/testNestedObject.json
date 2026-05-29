@@ -1,0 +1,43 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestNestedObject",
+	"description": "Nested objects with inline schema expansion.",
+	"title": "TestNestedObject",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "Primary id."
+		},
+		"profile": {
+			"type": "object",
+			"description": "Nested profile object.",
+			"properties": {
+				"email": {
+					"type": "string",
+					"description": "Contact email."
+				},
+				"settings": {
+					"type": "object",
+					"description": "Optional settings object.",
+					"properties": {
+						"theme": {
+							"type": "string",
+							"description": "Theme value."
+						}
+					},
+					"required": ["theme"]
+				}
+			},
+			"required": ["email"]
+		},
+		"labels": {
+			"type": "array",
+			"description": "Optional labels.",
+			"items": {
+				"type": "string"
+			}
+		}
+	},
+	"required": ["id", "profile"]
+}

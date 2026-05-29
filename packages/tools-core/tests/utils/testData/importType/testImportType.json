@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestImportType",
+	"description": "Coverage for import type references.",
+	"title": "TestImportType",
+	"type": "object",
+	"properties": {
+		"operation": {
+			"$ref": "https://schema.twindev.org/test/PatchOperation",
+			"description": "Imported type reference from external package."
+		}
+	},
+	"required": ["operation"]
+}

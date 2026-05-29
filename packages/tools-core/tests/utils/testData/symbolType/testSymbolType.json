@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestSymbolType",
+	"description": "Test symbol-typed property values and symbol-keyed members.\nSymbol-based members should be skipped with diagnostics.",
+	"title": "TestSymbolType",
+	"type": "object",
+	"properties": {
+		"regularString": {
+			"type": "string",
+			"description": "A regular string property that should appear in the schema."
+		},
+		"regularNumber": {
+			"type": "number",
+			"description": "A regular number property that should appear in the schema."
+		}
+	},
+	"required": ["regularString", "regularNumber"]
+}

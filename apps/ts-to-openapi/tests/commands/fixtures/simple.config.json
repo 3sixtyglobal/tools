@@ -1,0 +1,15 @@
+{
+	"title": "TWIN Node",
+	"version": "1.0.0",
+	"description": "REST API for TWIN - API Server.",
+	"licenseName": "Apache 2.0 License",
+	"licenseUrl": "https://opensource.org/licenses/Apache-2.0",
+	"servers": ["https://node-api.twindev.org"],
+	"restRoutes": [
+		{
+			"package": "@twin.org/api-service",
+			"version": "next"
+		}
+	],
+	"authMethods": ["jwtBearer"]
+}

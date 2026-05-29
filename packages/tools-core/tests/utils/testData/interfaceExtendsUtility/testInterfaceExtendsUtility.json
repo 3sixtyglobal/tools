@@ -1,0 +1,38 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/TestInterfaceUtility",
+	"description": "Derived interface extending multiple base interfaces using utility methods.",
+	"title": "TestInterfaceUtility",
+	"type": "object",
+	"allOf": [
+		{
+			"$comment": "Inlined utility base type TestInterfaceUtilityBaseA so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"properties": {
+				"baseA": {
+					"type": "string",
+					"description": "Base A field."
+				}
+			},
+			"required": ["baseA"]
+		},
+		{
+			"$comment": "Inlined utility base type TestInterfaceUtilityBaseB so utility transformations can operate on concrete properties instead of a $ref.",
+			"type": "object",
+			"properties": {
+				"baseB": {
+					"type": "number",
+					"description": "Base B field."
+				}
+			},
+			"required": ["baseB"]
+		}
+	],
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "Derived interface identifier."
+		}
+	},
+	"required": ["id"]
+}

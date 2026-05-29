@@ -1,4 +1,7 @@
 {
-	"apps/ts-to-openapi": "0.0.1-next.29",
-	"apps/ts-to-schema": "0.0.1-next.29"
+	"packages/tools-models": "0.0.3-next.31",
+	"packages/tools-core": "0.0.3-next.31",
+	"apps/ts-to-openapi": "0.0.3-next.31",
+	"apps/ts-to-schema": "0.0.3-next.31",
+	"apps/ts-to-jsonld-context": "0.0.3-next.31"
 }

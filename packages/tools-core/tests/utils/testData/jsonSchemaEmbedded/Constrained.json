@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/Constrained",
+	"title": "Constrained",
+	"type": "object",
+	"allOf": [
+		{
+			"$ref": "https://schema.twindev.org/test/BaseType"
+		}
+	],
+	"properties": {
+		"@context": {
+			"type": "string"
+		},
+		"identifier": {
+			"type": "string"
+		}
+	},
+	"required": ["@context", "identifier"]
+}
