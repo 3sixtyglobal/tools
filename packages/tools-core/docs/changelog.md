@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/tools-core-v0.0.4-next.1...tools-core-v0.0.4-next.2) (2026-06-01)
+
+
+### Bug Fixes
+
+* remove byte support ([#124](https://github.com/iotaledger/twin-tools/issues/124)) ([7f8c9cd](https://github.com/iotaledger/twin-tools/commit/7f8c9cd4dcc49c58ccc9a985f5bcd03736b5ef0f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-models bumped from 0.0.4-next.1 to 0.0.4-next.2
+
 ## [0.0.4-next.1](https://github.com/iotaledger/twin-tools/compare/tools-core-v0.0.4-next.0...tools-core-v0.0.4-next.1) (2026-05-29)
 
 

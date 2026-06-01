@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.4-next.1...tools-models-v0.0.4-next.2) (2026-06-01)
+
+
+### Miscellaneous Chores
+
+* **tools-models:** Synchronize repo versions
+
 ## [0.0.4-next.1](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.4-next.0...tools-models-v0.0.4-next.1) (2026-05-29)
 
 

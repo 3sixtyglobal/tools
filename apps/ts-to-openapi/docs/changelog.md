@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.4-next.1...ts-to-openapi-v0.0.4-next.2) (2026-06-01)
+
+
+### Miscellaneous Chores
+
+* **ts-to-openapi:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.4-next.1 to 0.0.4-next.2
+    * @twin.org/tools-models bumped from 0.0.4-next.1 to 0.0.4-next.2
+
 ## [0.0.4-next.1](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.4-next.0...ts-to-openapi-v0.0.4-next.1) (2026-05-29)
 
 
