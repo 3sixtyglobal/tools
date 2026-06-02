@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.4-next.3](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.4-next.2...ts-to-openapi-v0.0.4-next.3) (2026-06-02)
+
+
+### Bug Fixes
+
+* support json-ld with aliases type ([#127](https://github.com/iotaledger/twin-tools/issues/127)) ([1eb6c4f](https://github.com/iotaledger/twin-tools/commit/1eb6c4f00088955506c88f026cfaba6e1e1a61b7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.4-next.2 to 0.0.4-next.3
+    * @twin.org/tools-models bumped from 0.0.4-next.2 to 0.0.4-next.3
+
 ## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.0.4-next.1...ts-to-openapi-v0.0.4-next.2) (2026-06-01)
 
 

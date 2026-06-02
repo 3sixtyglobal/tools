@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.4-next.3](https://github.com/iotaledger/twin-tools/compare/ts-to-schema-v0.0.4-next.2...ts-to-schema-v0.0.4-next.3) (2026-06-02)
+
+
+### Miscellaneous Chores
+
+* **ts-to-schema:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.4-next.2 to 0.0.4-next.3
+    * @twin.org/tools-models bumped from 0.0.4-next.2 to 0.0.4-next.3
+
 ## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-schema-v0.0.4-next.1...ts-to-schema-v0.0.4-next.2) (2026-06-01)
 
 

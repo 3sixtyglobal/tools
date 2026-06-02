@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.4-next.3](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.0.4-next.2...ts-to-jsonld-context-v0.0.4-next.3) (2026-06-02)
+
+
+### Miscellaneous Chores
+
+* **ts-to-jsonld-context:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.0.4-next.2 to 0.0.4-next.3
+
 ## [0.0.4-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.0.4-next.1...ts-to-jsonld-context-v0.0.4-next.2) (2026-06-01)
 
 
