@@ -117,3 +117,32 @@ The schema to normalize.
 `IJsonSchema`
 
 The normalized schema.
+
+***
+
+### renameKeysWithPrefixInObjectSchema() {#renamekeyswithprefixinobjectschema}
+
+> `static` **renameKeysWithPrefixInObjectSchema**(`baseSchema`, `prefix`): `IJsonSchema`
+
+Rename all non-JSON-LD property keys in an object schema by prefixing them.
+Keys that already start with "@" are preserved as-is; all others become `prefix:key`.
+
+#### Parameters
+
+##### baseSchema
+
+`IJsonSchema`
+
+The source object schema.
+
+##### prefix
+
+`string`
+
+The namespace prefix to apply.
+
+#### Returns
+
+`IJsonSchema`
+
+The transformed object schema.
