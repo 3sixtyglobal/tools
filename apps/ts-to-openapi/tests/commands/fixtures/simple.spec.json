@@ -30,6 +30,11 @@
 				"operationId": "serverHealth",
 				"summary": "Get the health for the server",
 				"tags": ["Health"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "The health of the server.",
@@ -108,6 +113,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}

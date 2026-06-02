@@ -399,6 +399,111 @@
 				}
 			},
 			"required": ["label"]
+		},
+		"withAliasesRequired": {
+			"type": "object",
+			"description": "Prefixes all non-JSON-LD keys with the given namespace; required keys stay required.",
+			"properties": {
+				"ex:name": {
+					"type": "string"
+				},
+				"ex:value": {
+					"type": "number"
+				}
+			},
+			"required": ["ex:name", "ex:value"]
+		},
+		"withAliasesOptional": {
+			"type": "object",
+			"description": "Prefixes all non-JSON-LD keys; optional keys stay optional.",
+			"properties": {
+				"ex:name": {
+					"type": "string"
+				},
+				"ex:value": {
+					"type": "number"
+				}
+			}
+		},
+		"withAliasesMixed": {
+			"type": "object",
+			"description": "Prefixes non-JSON-LD keys; preserves required/optional status of each key.",
+			"properties": {
+				"ex:name": {
+					"type": "string"
+				},
+				"ex:value": {
+					"type": "number"
+				}
+			},
+			"required": ["ex:name"]
+		},
+		"withAliasesJsonLdKey": {
+			"type": "object",
+			"description": "JSON-LD keys (\"@...\") are preserved as-is; non-JSON-LD keys are prefixed.",
+			"properties": {
+				"@type": {
+					"type": "string"
+				},
+				"ex:name": {
+					"type": "string"
+				}
+			},
+			"required": ["@type", "ex:name"]
+		},
+		"withAliasesContext": {
+			"type": "object",
+			"description": "\"@context\" is preserved as-is alongside a prefixed non-JSON-LD key.",
+			"properties": {
+				"@context": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"ex:name": {
+					"type": "string"
+				}
+			},
+			"required": ["@context", "ex:name"]
+		},
+		"withAliasesAllJsonLdKeys": {
+			"type": "object",
+			"description": "All three JSON-LD keys (\"@context\", \"@type\", \"@id\") are preserved while non-JSON-LD keys are prefixed.",
+			"properties": {
+				"@context": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"@type": {
+					"type": "string"
+				},
+				"@id": {
+					"type": "string"
+				},
+				"ex:name": {
+					"type": "string"
+				}
+			},
+			"required": ["@context", "@type", "@id", "ex:name"]
+		},
+		"withObjectAliases": {
+			"type": "object",
+			"description": "Keeps only JSON-LD keys and aliased non-JSON-LD keys.",
+			"properties": {
+				"@type": {
+					"type": "string"
+				},
+				"@id": {
+					"type": "string"
+				},
+				"ex:name": {
+					"type": "string"
+				}
+			},
+			"required": ["@type", "@id", "ex:name"]
 		}
 	},
 	"required": [
@@ -427,6 +532,13 @@
 		"withCustomContext",
 		"withOptionalContext",
 		"withOptionalContextNoSource",
-		"withNoContext"
+		"withNoContext",
+		"withAliasesRequired",
+		"withAliasesOptional",
+		"withAliasesMixed",
+		"withAliasesJsonLdKey",
+		"withAliasesContext",
+		"withAliasesAllJsonLdKeys",
+		"withObjectAliases"
 	]
 }

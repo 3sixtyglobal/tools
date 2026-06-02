@@ -145,6 +145,10 @@ export class JsonSchemaBuilder {
 			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@context"]
 			}),
+		JsonLdWithAliases: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapJsonLdWithAliasesUtilityType(context, typeNode),
+		JsonLdObjectWithAliases: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapJsonLdWithAliasesUtilityType(context, typeNode),
 		SingleOccurrenceArray: (context, typeNode) =>
 			UtilityTypeSchemaMapper.mapSingleOccurrenceArrayUtilityType(context, typeNode),
 		ObjectOrArray: (context, typeNode) =>

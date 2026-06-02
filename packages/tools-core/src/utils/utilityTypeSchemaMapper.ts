@@ -379,6 +379,41 @@ export class UtilityTypeSchemaMapper {
 	}
 
 	/**
+	 * Map `JsonLdWithAliases<T, Prefix>` (and `JsonLdObjectWithAliases<T, Prefix>`) to an object
+	 * schema where non-JSON-LD property keys are renamed to `Prefix:key` and `@`-prefixed keys
+	 * are preserved as-is.
+	 * @param context The generation context.
+	 * @param typeNode The type reference node.
+	 * @returns The mapped schema.
+	 */
+	public static mapJsonLdWithAliasesUtilityType(
+		context: ITypeScriptToSchemaContext,
+		typeNode: ts.TypeReferenceNode
+	): IJsonSchema | undefined {
+		const baseTypeNode = typeNode.typeArguments?.[0];
+		if (!baseTypeNode) {
+			return undefined;
+		}
+
+		const prefixTypeNode = typeNode.typeArguments?.[1];
+		if (
+			!prefixTypeNode ||
+			!ts.isLiteralTypeNode(prefixTypeNode) ||
+			!ts.isStringLiteral(prefixTypeNode.literal)
+		) {
+			return undefined;
+		}
+
+		const prefix = prefixTypeNode.literal.text;
+		const baseSchema = JsonSchemaBuilder.resolveUtilityBaseObjectSchema(context, baseTypeNode);
+		if (!baseSchema) {
+			return undefined;
+		}
+
+		return ObjectTransformer.renameKeysWithPrefixInObjectSchema(baseSchema, prefix);
+	}
+
+	/**
 	 * Map `ObjectOrArray<T>` to a schema accepting `T` or `T[]`.
 	 * @param context The generation context.
 	 * @param typeNode The `ObjectOrArray` type reference.

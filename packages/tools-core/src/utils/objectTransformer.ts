@@ -180,6 +180,40 @@ export class ObjectTransformer {
 	}
 
 	/**
+	 * Rename all non-JSON-LD property keys in an object schema by prefixing them.
+	 * Keys that already start with "@" are preserved as-is; all others become `prefix:key`.
+	 * @param baseSchema The source object schema.
+	 * @param prefix The namespace prefix to apply.
+	 * @returns The transformed object schema.
+	 */
+	public static renameKeysWithPrefixInObjectSchema(
+		baseSchema: IJsonSchema,
+		prefix: string
+	): IJsonSchema {
+		const mappedSchema = ObjectTransformer.toInlineUtilityObjectSchema(baseSchema);
+
+		if (Is.object(mappedSchema.properties)) {
+			const renamedProperties: { [key: string]: IJsonSchema } = {};
+			for (const [key, propSchema] of Object.entries(mappedSchema.properties)) {
+				const newKey = key.startsWith("@") ? key : `${prefix}:${key}`;
+				renamedProperties[newKey] = propSchema;
+			}
+			mappedSchema.properties = renamedProperties;
+		}
+
+		if (Is.array(mappedSchema.required)) {
+			mappedSchema.required = mappedSchema.required.map(key => {
+				if (Is.stringValue(key) && key.startsWith("@")) {
+					return key;
+				}
+				return `${prefix}:${key}`;
+			});
+		}
+
+		return mappedSchema;
+	}
+
+	/**
 	 * Normalize a description string while preserving explicit line breaks from source comments.
 	 * @param description The description to normalize.
 	 * @returns The normalized description.
