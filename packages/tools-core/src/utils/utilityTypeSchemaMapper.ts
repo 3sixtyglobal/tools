@@ -512,6 +512,7 @@ export class UtilityTypeSchemaMapper {
 	 * Determine whether a type node represents null or undefined.
 	 * @param typeNode The type node to inspect.
 	 * @returns True if the node represents null or undefined; otherwise false.
+	 * @internal
 	 */
 	private static isNullOrUndefinedTypeNode(typeNode: ts.TypeNode): boolean {
 		if (
@@ -536,6 +537,7 @@ export class UtilityTypeSchemaMapper {
 	 * Extract literal keys from a Record key type argument.
 	 * @param keyTypeNode The Record key type argument to inspect.
 	 * @returns The extracted literal keys.
+	 * @internal
 	 */
 	private static extractRecordLiteralKeys(keyTypeNode: ts.TypeNode): string[] {
 		if (ts.isLiteralTypeNode(keyTypeNode) && ts.isStringLiteral(keyTypeNode.literal)) {
@@ -559,6 +561,7 @@ export class UtilityTypeSchemaMapper {
 	 * @param baseSchema The base object schema being transformed.
 	 * @param keyToAdd The key to add when no explicit value type argument is provided.
 	 * @returns The resolved default schema for the added key.
+	 * @internal
 	 */
 	private static mapJsonLdObjectDefaultSchemaByKey(
 		context: ITypeScriptToSchemaContext,
@@ -583,6 +586,7 @@ export class UtilityTypeSchemaMapper {
 	 * Resolve default id schema for JsonLdObjectWithId when Id type argument is omitted.
 	 * @param baseSchema The base object schema being transformed.
 	 * @returns The default id schema.
+	 * @internal
 	 */
 	private static mapJsonLdObjectWithIdDefaultIdSchema(baseSchema: IJsonSchema): IJsonSchema {
 		return UtilityTypeSchemaMapper.mapJsonLdObjectDefaultEitherSchema(baseSchema, "id", "@id", {
@@ -594,6 +598,7 @@ export class UtilityTypeSchemaMapper {
 	 * Resolve default type schema for JsonLdObjectWithType when Type argument is omitted.
 	 * @param baseSchema The base object schema being transformed.
 	 * @returns The default type schema.
+	 * @internal
 	 */
 	private static mapJsonLdObjectWithTypeDefaultTypeSchema(baseSchema: IJsonSchema): IJsonSchema {
 		return UtilityTypeSchemaMapper.mapJsonLdObjectDefaultEitherSchema(baseSchema, "type", "@type", {
@@ -606,6 +611,7 @@ export class UtilityTypeSchemaMapper {
 	 * @param context The generation context.
 	 * @param baseSchema The base object schema being transformed.
 	 * @returns The default context schema.
+	 * @internal
 	 */
 	private static mapJsonLdObjectWithContextDefaultContextSchema(
 		context: ITypeScriptToSchemaContext,
@@ -656,6 +662,7 @@ export class UtilityTypeSchemaMapper {
 	 * @param secondKey The second property key to check.
 	 * @param fallbackSchema The fallback schema when neither key is present.
 	 * @returns The resolved schema.
+	 * @internal
 	 */
 	private static mapJsonLdObjectDefaultEitherSchema(
 		baseSchema: IJsonSchema,

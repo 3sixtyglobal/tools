@@ -1105,9 +1105,7 @@ function buildSecurity(
 
 /**
  * Process the REST details for a package.
- * @param baseDir The base directory other locations are relative to.
- * @param prefix The prefix.
- * @param restDetails The package details.
+ * @param restRoutes The REST routes to process.
  * @returns The paths and schemas for the input.
  * @internal
  */
@@ -1293,6 +1291,7 @@ function deleteSchema(
  * Tidy up schemas for OpenAPI context.
  * Removes unsupported schema keywords and normalises nested property schemas.
  * @param value The schema value to tidy.
+ * @param removeRefDescriptions Whether to remove descriptions from $ref objects.
  * @internal
  */
 function tidySchemaProperties(value: unknown, removeRefDescriptions: boolean): void {

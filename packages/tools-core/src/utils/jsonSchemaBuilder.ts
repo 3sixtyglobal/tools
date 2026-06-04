@@ -45,6 +45,7 @@ export class JsonSchemaBuilder {
 
 	/**
 	 * Dictionary of TypeScript utility type names to their schema mapping handlers.
+	 * @internal
 	 */
 	private static readonly _utilityTypeHandlers: {
 		[key: string]: (

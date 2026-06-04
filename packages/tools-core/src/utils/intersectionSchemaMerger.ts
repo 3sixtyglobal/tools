@@ -81,6 +81,7 @@ export class IntersectionSchemaMerger {
 	 * Resolve an intersection component to a plain object schema when possible.
 	 * @param context The generation context.
 	 * @param schema The mapped intersection component schema.
+	 * @param toInlineUtilityObjectSchema A function that inlines a utility object schema.
 	 * @returns The resolved object schema.
 	 * @internal
 	 */

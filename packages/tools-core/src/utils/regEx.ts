@@ -59,7 +59,7 @@ export class RegEx {
 
 	/**
 	 * Determine if a mapping pattern is a regex literal surrounded by forward slashes.
-	 * Example pattern: /^foo.*bar$/
+	 * Example pattern: /^foo.*bar$/.
 	 * @param pattern The mapping pattern.
 	 * @returns True if the pattern looks like a regex literal.
 	 * @internal

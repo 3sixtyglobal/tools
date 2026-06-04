@@ -8,6 +8,7 @@ import * as ts from "typescript";
 export class DisallowedTypeGuard {
 	/**
 	 * Type names that are not supported for JSON schema generation.
+	 * @internal
 	 */
 	private static readonly _DISALLOWED_TYPE_NAMES: string[] = [
 		"Date",
