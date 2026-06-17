@@ -6923,7 +6923,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Mint the data and return the NFT id.",
+					"description": "Request to mint a new NFT.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7045,7 +7045,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Response to resolving the NFT.",
+						"description": "Response returned after resolving an NFT.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7222,7 +7222,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The id of the NFT to transfer in urn format.",
+						"description": "The id of the NFT to update in urn format.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -7238,7 +7238,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Update the mutable data for the NFT.",
+					"description": "Request to update the mutable metadata of an NFT.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7345,7 +7345,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Transfer the NFT and update the metadata.",
+					"description": "Request to transfer an NFT to a new owner.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -21373,7 +21373,7 @@
 					}
 				},
 				"required": ["tag"],
-				"description": "The data to be used in the minting."
+				"description": "The request body containing minting parameters."
 			},
 			"NftResolveResponse": {
 				"type": "object",
@@ -21398,7 +21398,7 @@
 					}
 				},
 				"required": ["issuer", "issuerIdentityId", "tag"],
-				"description": "The data that was resolved."
+				"description": "The resolved NFT data."
 			},
 			"NftTransferRequest": {
 				"type": "object",
@@ -21412,7 +21412,7 @@
 					}
 				},
 				"required": ["recipientAddress"],
-				"description": "The data to be used in the transfer."
+				"description": "The request body containing transfer parameters."
 			},
 			"NftUpdateRequest": {
 				"type": "object",
@@ -21421,7 +21421,7 @@
 						"description": "The metadata for the NFT."
 					}
 				},
-				"description": "The data to be used in the update."
+				"description": "The request body containing update parameters."
 			},
 			"NotFoundResponse": {
 				"type": "object",
