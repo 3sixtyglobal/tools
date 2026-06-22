@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/ts-to-openapi",
-	"version": "0.9.0-next.1",
+	"version": "0.9.1-next.0",
 	"description": "Generate OpenAPI specifications from REST route definitions",
 	"repository": {
 		"type": "git",
@@ -29,20 +29,20 @@
 		"dist:no-test": "npm run clean && npm run build && npm run merge-locales"
 	},
 	"dependencies": {
-		"@twin.org/cli-core": "0.9.0-next.1",
-		"@twin.org/core": "0.9.0-next.1",
-		"@twin.org/nameof": "0.9.0-next.1",
-		"@twin.org/tools-core": "0.9.0-next.1",
-		"@twin.org/tools-models": "0.9.0-next.1",
-		"@twin.org/web": "0.9.0-next.1",
+		"@twin.org/cli-core": "next",
+		"@twin.org/core": "next",
+		"@twin.org/nameof": "next",
+		"@twin.org/tools-core": "0.9.1-next.0",
+		"@twin.org/tools-models": "0.9.1-next.0",
+		"@twin.org/web": "next",
 		"commander": "15.0.0",
 		"glob": "13.0.6"
 	},
 	"devDependencies": {
-		"@twin.org/merge-locales": "0.9.0-next.1",
-		"@twin.org/nameof-transformer": "0.9.0-next.1",
-		"@twin.org/nameof-vitest-plugin": "0.9.0-next.1",
-		"@twin.org/validate-locales": "0.9.0-next.1",
+		"@twin.org/merge-locales": "next",
+		"@twin.org/nameof-transformer": "next",
+		"@twin.org/nameof-vitest-plugin": "next",
+		"@twin.org/validate-locales": "next",
 		"@types/node": "26.0.0",
 		"@vitest/coverage-v8": "4.1.9",
 		"copyfiles": "2.4.1",
