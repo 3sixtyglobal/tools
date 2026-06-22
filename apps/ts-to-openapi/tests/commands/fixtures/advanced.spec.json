@@ -9687,16 +9687,20 @@
 							"examples": {
 								"DocumentManagementCreateRequestExample": {
 									"value": {
-										"documentId": "2721000",
-										"documentIdFormat": "bol",
-										"documentCode": "unece:DocumentCodeList#705",
-										"blob": "SGVsbG8gV29ybGQ=",
-										"annotationObject": {
-											"@context": "https://schema.org",
-											"@type": "DigitalDocument",
-											"name": "myfile.pdf"
+										"document": {
+											"documentId": "2721000",
+											"documentIdFormat": "bol",
+											"documentCode": "unece:DocumentCodeList#705",
+											"annotationObject": {
+												"@context": "https://schema.org",
+												"@type": "DigitalDocument",
+												"name": "myfile.pdf"
+											}
 										},
-										"createAttestation": true
+										"blob": "SGVsbG8gV29ybGQ=",
+										"options": {
+											"includeAttestation": true
+										}
 									}
 								}
 							}
@@ -9944,12 +9948,14 @@
 							"examples": {
 								"DocumentManagementUpdatePartialRequestExample": {
 									"value": {
-										"blob": "SGVsbG8gV29ybGQ=",
-										"annotationObject": {
-											"@context": "https://schema.org",
-											"@type": "DigitalDocument",
-											"name": "myfile.pdf"
-										}
+										"document": {
+											"annotationObject": {
+												"@context": "https://schema.org",
+												"@type": "DigitalDocument",
+												"name": "myfile.pdf"
+											}
+										},
+										"blob": "SGVsbG8gV29ybGQ="
 									}
 								}
 							}
@@ -13705,7 +13711,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The id of the stream to update the get in.",
+						"description": "The id of the stream to get the entry from.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -13716,7 +13722,7 @@
 					},
 					{
 						"name": "entryId",
-						"description": "The id of the entry to update.",
+						"description": "The id of the entry to get.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -15726,14 +15732,9 @@
 						"example": "urn:x-activity-log:1234567"
 					}
 				],
-				"security": [
-					{
-						"jwtBearerAuthScheme": []
-					}
-				],
 				"responses": {
 					"200": {
-						"description": "Service Offering response",
+						"description": "Response containing a single activity log entry.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15775,24 +15776,6 @@
 											"properties": {
 												"foo": "bar"
 											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "UnauthorizedError",
-											"message": "errorMessage"
 										}
 									}
 								}
@@ -15994,6 +15977,15 @@
 				"summary": "Request Transfer Process (DSP)",
 				"tags": ["Transfer Process"],
 				"parameters": [
+					{
+						"name": "autoStart",
+						"description": "When \"true\", the provider immediately starts the requested transfer once it has been created.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
 					{
 						"name": "authorization",
 						"in": "header",
@@ -17235,7 +17227,7 @@
 					"description": "The request structure for creating a policy.",
 					"required": true,
 					"content": {
-						"application/json": {
+						"text/plain": {
 							"schema": {
 								"$ref": "#/components/schemas/PapCreateRequest"
 							},
@@ -20508,6 +20500,10 @@
 					{
 						"const": "uint8array",
 						"description": "Uint8Array."
+					},
+					{
+						"const": "duration",
+						"description": "Duration in seconds."
 					}
 				]
 			},
@@ -20678,23 +20674,12 @@
 			"DocumentManagementCreateRequest": {
 				"type": "object",
 				"properties": {
-					"documentId": {
-						"type": "string",
-						"description": "The document id to create."
-					},
-					"documentIdFormat": {
-						"type": "string",
-						"description": "The format of the document identifier."
-					},
-					"documentCode": {
-						"$ref": "https://schema.twindev.org/unece/UneceDocumentCodeList"
+					"document": {
+						"$ref": "https://schema.twindev.org/documents/DocumentBase"
 					},
 					"blob": {
 						"type": "string",
-						"description": "The data to create the document with, in base64."
-					},
-					"annotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						"description": "The data to create the document with, either as base64-encoded content or an existing blob storage entry id."
 					},
 					"auditableItemGraphEdges": {
 						"type": "array",
@@ -20703,30 +20688,49 @@
 						},
 						"description": "The auditable item graph vertices to connect the document to."
 					},
-					"createAttestation": {
-						"type": "boolean",
-						"description": "Flag to create an attestation for the document, defaults to false."
-					},
-					"addAlias": {
-						"type": "boolean",
-						"description": "Flag to add the document id as an alias to the aig vertex, defaults to true."
-					},
-					"aliasAnnotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+					"options": {
+						"type": "object",
+						"properties": {
+							"includeAttestation": {
+								"type": "boolean",
+								"description": "Flag to create an attestation for the document, defaults to false."
+							},
+							"includeAlias": {
+								"type": "boolean",
+								"description": "Flag to add the document id as an alias to the aig vertex, defaults to true."
+							},
+							"aliasAnnotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						},
+						"description": "Additional options for the create operation."
 					}
 				},
-				"required": ["documentId", "documentIdFormat", "documentCode", "blob"],
+				"required": ["document", "blob"],
 				"description": "The body parameters."
 			},
 			"DocumentManagementUpdatePartialRequest": {
 				"type": "object",
 				"properties": {
+					"document": {
+						"description": "The document base properties to update. annotationObject, documentIdFormat and documentCode are applied in-place to the current revision.",
+						"type": "object",
+						"properties": {
+							"documentIdFormat": {
+								"type": "string",
+								"description": "The format of the document id."
+							},
+							"documentCode": {
+								"$ref": "https://schema.twindev.org/unece/UneceDocumentCodeList"
+							},
+							"annotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						}
+					},
 					"blob": {
 						"type": "string",
-						"description": "The data to update the document with, in base64."
-					},
-					"annotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						"description": "The data to update the document with, either as base64-encoded content or an existing blob storage entry id."
 					},
 					"auditableItemGraphEdges": {
 						"type": "object",
@@ -20747,6 +20751,23 @@
 							}
 						},
 						"description": "Explicit edge delta to apply. Use `add` to create new connections and `remove` to\ndisconnect existing ones by their target vertex id."
+					},
+					"options": {
+						"type": "object",
+						"properties": {
+							"includeAttestation": {
+								"type": "boolean",
+								"description": "Set to true to start attesting the document (even if originally created without attestation), or false to remove the existing attestation. Omit to leave attestation state unchanged."
+							},
+							"includeAlias": {
+								"type": "boolean",
+								"description": "Set to true to add the document id as an alias on the aig vertex, or false to remove it. Omit to leave alias state unchanged."
+							},
+							"aliasAnnotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						},
+						"description": "Additional options for the update operation."
 					}
 				},
 				"description": "The body parameters."
@@ -21439,222 +21460,8 @@
 				"description": "The body which contains the error."
 			},
 			"PapCreateRequest": {
-				"description": "The body of the request - the policy to create (id will be auto-generated if not provided).",
-				"type": "object",
-				"properties": {
-					"dateCreated": {
-						"type": "string",
-						"description": "schema.org dateCreated — ISO 8601 date-time set by PAP on create."
-					},
-					"dateModified": {
-						"type": "string",
-						"description": "schema.org dateModified — ISO 8601 date-time set by PAP on create and update."
-					},
-					"@context": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlContextType"
-					},
-					"profile": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The profile(s) this policy conforms to.\nIRIs identifying the ODRL Profile(s)."
-					},
-					"assigner": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assigner of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"assignee": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assignee of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"target": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The target asset for the rule."
-					},
-					"action": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-							},
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-										},
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-										}
-									]
-								}
-							}
-						],
-						"description": "The action associated with the rule."
-					},
-					"inheritFrom": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The parent policy(ies) this policy inherits from.\nIRIs identifying the parent Policy(ies)."
-					},
-					"conflict": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlConflictStrategyType"
-					},
-					"permission": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-								}
-							}
-						],
-						"description": "The permissions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"prohibition": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-								}
-							}
-						],
-						"description": "The prohibitions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"obligation": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-								}
-							}
-						],
-						"description": "The obligations in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"@type": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPolicyType"
-					},
-					"@id": {
-						"type": "string",
-						"description": "Unique identifier for the policy."
-					}
-				},
-				"required": ["@context", "@type"]
+				"description": "The request structure for creating a policy.",
+				"type": "object"
 			},
 			"PapQueryResponse": {
 				"type": "array",
@@ -21831,6 +21638,9 @@
 					},
 					{
 						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
 					}
 				]
 			},
@@ -21843,221 +21653,24 @@
 					},
 					{
 						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
 					}
 				]
 			},
 			"RightsManagementPolicy": {
 				"description": "Base type for any ODRL policy stored and managed by the TWIN rights-management PAP.",
 				"type": "object",
-				"properties": {
-					"@context": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlContextType"
-					},
-					"profile": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The profile(s) this policy conforms to.\nIRIs identifying the ODRL Profile(s)."
-					},
-					"assigner": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assigner of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"assignee": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assignee of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"target": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The target asset for the rule."
-					},
-					"action": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-							},
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-										},
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-										}
-									]
-								}
-							}
-						],
-						"description": "The action associated with the rule."
-					},
-					"inheritFrom": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The parent policy(ies) this policy inherits from.\nIRIs identifying the parent Policy(ies)."
-					},
-					"conflict": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlConflictStrategyType"
-					},
-					"permission": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-								}
-							}
-						],
-						"description": "The permissions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"prohibition": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-								}
-							}
-						],
-						"description": "The prohibitions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"obligation": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-								}
-							}
-						],
-						"description": "The obligations in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"@id": {
-						"type": "string",
-						"description": "Unique identifier for the policy."
-					},
-					"@type": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPolicyType"
-					}
-				},
-				"required": ["@context", "@id", "@type"],
 				"allOf": [
 					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolPolicy"
+					},
+					{
 						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
 					}
 				]
 			},
@@ -22075,6 +21688,19 @@
 					}
 				}
 			},
+			"RightsManagementPolicyTrust": {
+				"description": "PAP-managed trust data attached to stored and returned ODRL policies.",
+				"type": "object",
+				"properties": {
+					"trustData": {
+						"type": "object",
+						"additionalProperties": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						"description": "Trust verification data captured at the beginning of the negotiation."
+					}
+				}
+			},
 			"RightsManagementSet": {
 				"description": "Set policy returned by PAP, including optional PAP-managed lifecycle metadata.",
 				"type": "object",
@@ -22084,6 +21710,9 @@
 					},
 					{
 						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
 					}
 				]
 			},
