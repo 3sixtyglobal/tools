@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.0-next.1](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.9.0-next.0...tools-models-v0.9.0-next.1) (2026-06-22)
+
+
+### Features
+
+* alternate path and query param schemas ([e7487e3](https://github.com/iotaledger/twin-tools/commit/e7487e3bf4ccee3f52245ca27bc7cc160ab391b8))
+* ts to schema ([#86](https://github.com/iotaledger/twin-tools/issues/86)) ([ffebda5](https://github.com/iotaledger/twin-tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+* typescript 6 update ([02d2e47](https://github.com/iotaledger/twin-tools/commit/02d2e47859a1d64c81e840626cc2d443816af45b))
+* update dependencies ([5bdd8be](https://github.com/iotaledger/twin-tools/commit/5bdd8becf9f08b35342ea8f298f74578951f4bac))
+
 ## [0.0.4-next.3](https://github.com/iotaledger/twin-tools/compare/tools-models-v0.0.4-next.2...tools-models-v0.0.4-next.3) (2026-06-02)
 
 
