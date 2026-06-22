@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.9.0...ts-to-openapi-v0.9.0) (2026-06-22)
+
+
+### Features
+
+* release to production ([ad24b7e](https://github.com/iotaledger/twin-tools/commit/ad24b7eb16784165b6c93b5c48788199f0e17526))
+* release to production ([#119](https://github.com/iotaledger/twin-tools/issues/119)) ([cc2828a](https://github.com/iotaledger/twin-tools/commit/cc2828a6c68466bfdeaf75b507bc980dddac2cf0))
+* release to production ([#134](https://github.com/iotaledger/twin-tools/issues/134)) ([2761a5d](https://github.com/iotaledger/twin-tools/commit/2761a5d6cc7ffb32fd3273446191e41b7052e627))
+* release to production ([#137](https://github.com/iotaledger/twin-tools/issues/137)) ([350bac3](https://github.com/iotaledger/twin-tools/commit/350bac331b587ff396f527f2f3b932736f547342))
+* release to production ([#141](https://github.com/iotaledger/twin-tools/issues/141)) ([d46568c](https://github.com/iotaledger/twin-tools/commit/d46568c8335c120deb3ba2e83133e208471c4eb0))
+
 ## [0.9.0-next.1](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.9.0-next.0...ts-to-openapi-v0.9.0-next.1) (2026-06-22)
 
 
