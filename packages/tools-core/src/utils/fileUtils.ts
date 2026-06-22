@@ -9,7 +9,7 @@ import { globSync } from "glob";
  */
 export class FileUtils {
 	/**
-	 * Does the file exist.
+	 * Check whether a file exists at the given path.
 	 * @param filePath The file path.
 	 * @returns True if the file exists.
 	 */
@@ -18,7 +18,7 @@ export class FileUtils {
 	}
 
 	/**
-	 * Read the file.
+	 * Read the entire contents of a file as UTF-8 text.
 	 * @param filePath The file path.
 	 * @returns The file contents.
 	 */
@@ -27,9 +27,9 @@ export class FileUtils {
 	}
 
 	/**
-	 * Resolve a path.
+	 * Resolve a file path to an absolute path.
 	 * @param filePath The file path.
-	 * @returns The resolved path.
+	 * @returns The resolved absolute path.
 	 */
 	public static resolvePath(filePath: string): string {
 		return path.resolve(filePath);

@@ -18,13 +18,144 @@ name: Release Next
 
 on:
   workflow_dispatch:
+    inputs:
+      customVersion:
+        description: 'Reset the next branch to a specific base version, e.g. 0.1.0 → 0.1.0-next.0. Leave blank for a normal prerelease increment.'
+        required: false
+        type: string
+        default: ''
 
 jobs:
+  # ──────────────────────────────────────────────────────────────────────────
+  # GUARD – VALIDATE CUSTOM VERSION
+  # When customVersion is provided, validates it against the current prerelease
+  # manifest before any PRs are created. Checks:
+  #   • X.Y.Z format with each component ≤ 999
+  #   • Strictly greater than the current development base version so that
+  #     <custom>-next.0 is ahead of the already-published prerelease
+  #   • Major version does not jump by more than 1 from the current dev base
+  # ──────────────────────────────────────────────────────────────────────────
+  validate-custom-version:
+    name: 'Guard · Validate custom version'
+    if: inputs.customVersion != ''
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: next
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Validate custom version against current prerelease manifest
+        run: node scripts/validate-custom-version.mjs next "${{ inputs.customVersion }}"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # PHASE 0 – RESET NEXT VERSIONS
+  # When customVersion is provided, runs versions-prepare on the next branch to
+  # set all packages to <customVersion>-next.0 and updates the prerelease
+  # manifest. Creates a PR on next for review before the release PR is opened.
+  # ──────────────────────────────────────────────────────────────────────────
+  reset-next-versions:
+    name: 'Phase 0 · Reset next branch versions'
+    needs: [validate-custom-version]
+    if: |
+      always() &&
+      !cancelled() &&
+      inputs.customVersion != '' &&
+      needs.validate-custom-version.result == 'success'
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    timeout-minutes: 90
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    outputs:
+      pr_number: ${{ steps.versions-prepare.outputs.pr_number }}
+      pr_url: ${{ steps.versions-prepare.outputs.pr_url }}
+      has_changes: ${{ steps.versions-prepare.outputs.has_changes }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Reset versions on next branch
+        id: versions-prepare
+        uses: ./.github/workflows/versions-prepare
+        with:
+          branch: next
+          semver_type: custom
+          custom_version: ${{ inputs.customVersion }}
+          gpg_private_key: ${{ secrets.TWIN_GPG_PRIVATE_KEY }}
+          gpg_key_id: ${{ secrets.TWIN_GPG_KEY_ID }}
+          test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
+      - name: Announce version reset PR
+        if: ${{ steps.versions-prepare.outputs.pr_url != '' }}
+        run: |
+          echo "::notice title=Gate 0 – Version Reset PR::Approve and merge to continue the next release: ${{ steps.versions-prepare.outputs.pr_url }}"
+
+      - name: Restore workflow checkout
+        if: always()
+        uses: actions/checkout@v6
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # GATE 0 – WAIT FOR VERSION RESET PR
+  # Polls until the version reset PR is merged. Skipped when no custom version
+  # was requested or when the reset produced no changes.
+  # ──────────────────────────────────────────────────────────────────────────
+  gate-reset-pr:
+    name: 'Gate 0 · Merge version reset PR'
+    needs: reset-next-versions
+    if: ${{ needs.reset-next-versions.outputs.has_changes == 'true' }}
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    timeout-minutes: 360
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
+      - name: Poll until version reset PR is merged
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.reset-next-versions.outputs.pr_number }}
+          pr_url: ${{ needs.reset-next-versions.outputs.pr_url }}
+          waiting_message: Waiting for version reset PR #__PR_NUMBER__ to be merged...
+          success_message: PR #__PR_NUMBER__ merged. Advancing to release preparation.
+          closed_error_title: Gate 0 Failed
+          closed_error_message: Version reset PR #__PR_NUMBER__ (__PR_URL__) was closed without merging. Next release aborted.
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
   # ──────────────────────────────────────────────────────────────────────────
   # PHASE 1 – PREPARE
   # ──────────────────────────────────────────────────────────────────────────
   prepare:
     name: 'Phase 1 · Prepare release PR'
+    needs: [gate-reset-pr, reset-next-versions]
+    if: |
+      always() &&
+      !cancelled() &&
+      (needs.reset-next-versions.result == 'skipped' || needs.reset-next-versions.result == 'success') &&
+      (needs.gate-reset-pr.result == 'success' || needs.gate-reset-pr.result == 'skipped')
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
@@ -52,6 +183,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
+      - name: Announce release PR
+        if: ${{ steps.release-prepare.outputs.pr_url != '' }}
+        run: |
+          echo "::notice title=Gate 1 – Release PR::Review and merge to publish: ${{ steps.release-prepare.outputs.pr_url }}"
+
   # ──────────────────────────────────────────────────────────────────────────
   # GATE 1 – WAIT FOR RELEASE PR
   # Polls until the release PR is approved and merged into next.
@@ -64,41 +200,24 @@ jobs:
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
     timeout-minutes: 360
     permissions:
+      contents: read
       pull-requests: read
 
     steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
       - name: Poll until release PR is merged
-        run: |
-          PR_NUMBER="${{ needs.prepare.outputs.pr_number }}"
-          PR_URL="${{ needs.prepare.outputs.pr_url }}"
-
-          echo "::notice title=Gate 1 – Release PR::Review and merge to publish: $PR_URL"
-          echo ""
-          echo "Waiting for release PR #$PR_NUMBER to be approved and merged..."
-
-          while true; do
-            PR_JSON=$(gh pr view "$PR_NUMBER" \
-              --repo "${{ github.repository }}" \
-              --json state,mergedAt)
-
-            STATE=$(echo "$PR_JSON" | jq -r '.state')
-            MERGED_AT=$(echo "$PR_JSON" | jq -r '.mergedAt // empty')
-
-            if [ -n "$MERGED_AT" ]; then
-              echo "Release PR #$PR_NUMBER merged. Proceeding to publish."
-              exit 0
-            fi
-
-            if [ "$STATE" = "CLOSED" ]; then
-              echo "::error title=Gate 1 Failed::PR #$PR_NUMBER ($PR_URL) was closed without merging."
-              exit 1
-            fi
-
-            echo "PR #$PR_NUMBER is still open. Rechecking in 60 seconds..."
-            sleep 60
-          done
-        env:
-          GH_TOKEN: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.prepare.outputs.pr_number }}
+          pr_url: ${{ needs.prepare.outputs.pr_url }}
+          waiting_message: Waiting for release PR #__PR_NUMBER__ to be approved and merged...
+          success_message: Release PR #__PR_NUMBER__ merged. Proceeding to publish.
+          closed_error_title: Gate 1 Failed
+          closed_error_message: PR #__PR_NUMBER__ (__PR_URL__) was closed without merging.
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────────────────
   # PHASE 2 – PUBLISH
@@ -171,12 +290,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Test Environment
-        shell: bash
-        run: |
-          if [ "${{ matrix.package }}" = "packages/messaging-connector-aws" ] || [ "${{ matrix.package }}" = "all" ]; then
-            echo "${{ secrets.TWIN_TEST_ENV_VARS }}" > /tmp/test_env_vars.txt
-          fi
-          echo "No setup required for this workflow."
+        uses: ./.github/workflows/setup-test-env
+        with:
+          package: ${{ matrix.package }}
+          test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
 
       - name: Remove Mono-Repo Node Modules
         run: |
@@ -264,10 +381,7 @@ jobs:
 
       - name: Teardown Test Environment
         if: always()
-        shell: bash
-        run: |
-          echo "No Docker test resources are created by setup-test-env in this repository."
-          rm -f /tmp/test_env_vars.txt
+        uses: ./.github/workflows/teardown-test-env
 
   publish-gh-releases:
     name: Publish GitHub Releases

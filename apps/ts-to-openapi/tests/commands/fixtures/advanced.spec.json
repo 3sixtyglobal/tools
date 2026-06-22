@@ -126,6 +126,11 @@
 				"operationId": "serverHealth",
 				"summary": "Get the health for the server",
 				"tags": ["Health"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "The health of the server.",
@@ -204,6 +209,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -685,6 +708,11 @@
 				"operationId": "authenticationLogout",
 				"summary": "Logout from the server",
 				"tags": ["Authentication"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"requestBody": {
 					"description": "Perform a logout on the auth token.",
 					"required": true,
@@ -723,6 +751,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -1872,6 +1918,11 @@
 						"example": "did:iota:tst:0xe3088ba9aa8c28e1d139708a14e8c0fdff11ee8223baac4aa5bcf3321e4bfc6a"
 					}
 				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Response to resolving an identity.",
@@ -1913,6 +1964,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -2944,6 +3013,11 @@
 				"operationId": "identityVerifiableCredentialVerifyDocument",
 				"summary": "Verify an identity verifiable credential document",
 				"tags": ["Identity"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"requestBody": {
 					"description": "Request to verify a verifiable credential.",
 					"required": true,
@@ -3033,6 +3107,24 @@
 							}
 						}
 					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
 					"500": {
 						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
 						"content": {
@@ -3069,6 +3161,11 @@
 							"type": "string"
 						},
 						"example": "eyJraWQiOi...D1Z3AQ"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
 					}
 				],
 				"responses": {
@@ -3123,6 +3220,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -3492,6 +3607,11 @@
 				"operationId": "identityVerifiablePresentationVerifyDocument",
 				"summary": "Verify an identity verifiable presentation document",
 				"tags": ["Identity"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"requestBody": {
 					"description": "Request to verify a verifiable presentation.",
 					"required": true,
@@ -3582,6 +3702,24 @@
 							}
 						}
 					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
 					"500": {
 						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
 						"content": {
@@ -3618,6 +3756,11 @@
 							"type": "string"
 						},
 						"example": "eyJraWQiOi...D1Z3AQ"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
 					}
 				],
 				"responses": {
@@ -3663,6 +3806,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -3850,6 +4011,11 @@
 				"operationId": "identityProofVerify",
 				"summary": "Verify an identity proof",
 				"tags": ["Identity"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"requestBody": {
 					"description": "Request to verify a proof.",
 					"required": true,
@@ -3925,6 +4091,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -4453,6 +4637,11 @@
 						"example": "role,email,name"
 					}
 				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Response to get an identity public profile.",
@@ -4497,6 +4686,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -6716,7 +6923,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Mint the data and return the NFT id.",
+					"description": "Request to mint a new NFT.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6838,7 +7045,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Response to resolving the NFT.",
+						"description": "Response returned after resolving an NFT.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7015,7 +7222,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The id of the NFT to transfer in urn format.",
+						"description": "The id of the NFT to update in urn format.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -7031,7 +7238,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Update the mutable data for the NFT.",
+					"description": "Request to update the mutable metadata of an NFT.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7138,7 +7345,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Transfer the NFT and update the metadata.",
+					"description": "Request to transfer an NFT to a new owner.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7355,6 +7562,11 @@
 						"style": "simple"
 					}
 				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "The response to verifying the attestation.",
@@ -7492,6 +7704,24 @@
 											"properties": {
 												"foo": "bar"
 											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
 										}
 									}
 								}
@@ -8312,7 +8542,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://schema.twindev.org/w3c-did/DidVerifiableCredential"
+									"$ref": "https://schema.twindev.org/immutable-proof/ImmutableProofCredential"
 								},
 								"examples": {
 									"immutableProofGetResponseExample": {
@@ -8343,7 +8573,7 @@
 							},
 							"application/ld+json": {
 								"schema": {
-									"$ref": "https://schema.twindev.org/w3c-did/DidVerifiableCredential"
+									"$ref": "https://schema.twindev.org/immutable-proof/ImmutableProofCredential"
 								},
 								"examples": {
 									"immutableProofJsonLdGetResponseExample": {
@@ -8381,6 +8611,112 @@
 								"description": "e.g. application/ld+json"
 							}
 						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The resource you tried to access does not exist, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NotFoundResponse"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "NotFoundError",
+											"message": "errorMessage",
+											"properties": {
+												"notFoundId": "1"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "immutableProofRemove",
+				"summary": "Remove a proof",
+				"tags": ["Immutable Proof"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "The id of the immutable proof to remove.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "immutable-proof:1234567890"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
 					},
 					"400": {
 						"description": "The server cannot process the request, see the content for more details.",
@@ -8522,6 +8858,114 @@
 								}
 							}
 						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The resource you tried to access does not exist, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NotFoundResponse"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "NotFoundError",
+											"message": "errorMessage",
+											"properties": {
+												"notFoundId": "1"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/immutable-proof/{id}/notarization": {
+			"delete": {
+				"operationId": "immutableProofRemoveNotarization",
+				"summary": "Remove the notarization for a proof",
+				"tags": ["Immutable Proof"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "The id of the immutable proof to remove the notarization from.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "immutable-proof:1234567890"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
 					},
 					"400": {
 						"description": "The server cannot process the request, see the content for more details.",
@@ -9243,16 +9687,20 @@
 							"examples": {
 								"DocumentManagementCreateRequestExample": {
 									"value": {
-										"documentId": "2721000",
-										"documentIdFormat": "bol",
-										"documentCode": "unece:DocumentCodeList#705",
-										"blob": "SGVsbG8gV29ybGQ=",
-										"annotationObject": {
-											"@context": "https://schema.org",
-											"@type": "DigitalDocument",
-											"name": "myfile.pdf"
+										"document": {
+											"documentId": "2721000",
+											"documentIdFormat": "bol",
+											"documentCode": "unece:DocumentCodeList#705",
+											"annotationObject": {
+												"@context": "https://schema.org",
+												"@type": "DigitalDocument",
+												"name": "myfile.pdf"
+											}
 										},
-										"createAttestation": true
+										"blob": "SGVsbG8gV29ybGQ=",
+										"options": {
+											"includeAttestation": true
+										}
 									}
 								}
 							}
@@ -9467,9 +9915,9 @@
 			}
 		},
 		"/document-management/{auditableItemGraphDocumentId}": {
-			"put": {
-				"operationId": "DocumentManagementUpdate",
-				"summary": "Update a document in an auditable item graph vertex and add its content to blob storage.",
+			"patch": {
+				"operationId": "DocumentManagementUpdatePartial",
+				"summary": "Partially update a document in an auditable item graph vertex and add its content to blob storage.",
 				"tags": ["Document Management"],
 				"parameters": [
 					{
@@ -9490,22 +9938,24 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request to update a document as an auditable item graph vertex.",
+					"description": "Request to partially update a document as an auditable item graph vertex.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/DocumentManagementUpdateRequest"
+								"$ref": "#/components/schemas/DocumentManagementUpdatePartialRequest"
 							},
 							"examples": {
-								"DocumentManagementUpdateRequestExample": {
+								"DocumentManagementUpdatePartialRequestExample": {
 									"value": {
-										"blob": "SGVsbG8gV29ybGQ=",
-										"annotationObject": {
-											"@context": "https://schema.org",
-											"@type": "DigitalDocument",
-											"name": "myfile.pdf"
-										}
+										"document": {
+											"annotationObject": {
+												"@context": "https://schema.org",
+												"@type": "DigitalDocument",
+												"name": "myfile.pdf"
+											}
+										},
+										"blob": "SGVsbG8gV29ybGQ="
 									}
 								}
 							}
@@ -11795,6 +12245,93 @@
 				}
 			}
 		},
+		"/aig/{id}/proof": {
+			"delete": {
+				"operationId": "auditableItemGraphRemoveProof",
+				"summary": "Remove the notarization proof from all changesets of a graph vertex",
+				"tags": ["Auditable Item Graph"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "The id of the vertex whose proof should be removed.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "0101010101010101010101010101010101010101010101010101010101010101"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ais": {
 			"post": {
 				"operationId": "auditableItemStreamCreate",
@@ -13174,7 +13711,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The id of the stream to update the get in.",
+						"description": "The id of the stream to get the entry from.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -13185,7 +13722,7 @@
 					},
 					{
 						"name": "entryId",
-						"description": "The id of the entry to update.",
+						"description": "The id of the entry to get.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -14366,6 +14903,114 @@
 				}
 			}
 		},
+		"/ais/{id}/proof": {
+			"delete": {
+				"operationId": "auditableItemStreamRemoveProof",
+				"summary": "Remove the proof from a stream",
+				"tags": ["Auditable Item Stream"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "The id of the stream to remove the proof from.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "ais:1234567890"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The resource you tried to access does not exist, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NotFoundResponse"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "NotFoundError",
+											"message": "errorMessage",
+											"properties": {
+												"notFoundId": "1"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/synchronised-storage/sync-changeset": {
 			"post": {
 				"operationId": "synchronisedStorageSyncChangeSetRequest",
@@ -14588,11 +15233,16 @@
 						"schema": {
 							"type": "string"
 						}
-					}
-				],
-				"security": [
+					},
 					{
-						"jwtBearerAuthScheme": []
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "Bearer <trust-token>"
 					}
 				],
 				"requestBody": {
@@ -14694,24 +15344,6 @@
 							}
 						}
 					},
-					"401": {
-						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "UnauthorizedError",
-											"message": "errorMessage"
-										}
-									}
-								}
-							}
-						}
-					},
 					"500": {
 						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
 						"content": {
@@ -14749,11 +15381,16 @@
 						},
 						"style": "simple",
 						"example": "urn:uuid:dataset-123"
-					}
-				],
-				"security": [
+					},
 					{
-						"jwtBearerAuthScheme": []
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "Bearer <trust-token>"
 					}
 				],
 				"responses": {
@@ -14762,7 +15399,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/GetDatasetResponse"
+									"$ref": "#/components/schemas/DatasetGetResponse"
 								},
 								"examples": {
 									"getDatasetResponseExample": {
@@ -14799,8 +15436,8 @@
 							}
 						}
 					},
-					"401": {
-						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14809,8 +15446,161 @@
 								"examples": {
 									"exampleResponse": {
 										"value": {
-											"name": "UnauthorizedError",
+											"name": "InternalServerError",
 											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "removeDataset",
+				"summary": "Remove a dataset from the catalogue by ID",
+				"tags": ["Federated Catalogue"],
+				"parameters": [
+					{
+						"name": "datasetId",
+						"description": "The unique identifier of the dataset.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "urn:uuid:dataset-123"
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "Bearer <trust-token>"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The response payload for the remove dataset method.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolCatalogError"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/catalog/datasets": {
+			"post": {
+				"operationId": "setDataset",
+				"summary": "Insert or update a dataset in the catalogue",
+				"tags": ["Federated Catalogue"],
+				"parameters": [
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "Bearer <trust-token>"
+					}
+				],
+				"requestBody": {
+					"description": "The request parameters for the set dataset method.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "https://schema.twindev.org/dcat/DcatDataset"
+							},
+							"examples": {
+								"setDatasetRequestExample": {
+									"value": {
+										"@context": "https://w3id.org/dspace/2025/1/context.jsonld",
+										"@id": "urn:uuid:dataset-123",
+										"@type": "dcat:Dataset",
+										"dcterms:title": "Energy Consumption Data",
+										"dcterms:description": "Historical energy consumption data"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The response payload for the set dataset method.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolCatalogError"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
 										}
 									}
 								}
@@ -14903,24 +15693,6 @@
 							}
 						}
 					},
-					"422": {
-						"description": "The server cannot process the request, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "UnprocessableError",
-											"message": "errorMessage"
-										}
-									}
-								}
-							}
-						}
-					},
 					"500": {
 						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
 						"content": {
@@ -14960,14 +15732,9 @@
 						"example": "urn:x-activity-log:1234567"
 					}
 				],
-				"security": [
-					{
-						"jwtBearerAuthScheme": []
-					}
-				],
 				"responses": {
 					"200": {
-						"description": "Service Offering response",
+						"description": "Response containing a single activity log entry.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15009,24 +15776,6 @@
 											"properties": {
 												"foo": "bar"
 											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "UnauthorizedError",
-											"message": "errorMessage"
 										}
 									}
 								}
@@ -15228,6 +15977,15 @@
 				"summary": "Request Transfer Process (DSP)",
 				"tags": ["Transfer Process"],
 				"parameters": [
+					{
+						"name": "autoStart",
+						"description": "When \"true\", the provider immediately starts the requested transfer once it has been created.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
 					{
 						"name": "authorization",
 						"in": "header",
@@ -16469,7 +17227,7 @@
 					"description": "The request structure for creating a policy.",
 					"required": true,
 					"content": {
-						"application/json": {
+						"text/plain": {
 							"schema": {
 								"$ref": "#/components/schemas/PapCreateRequest"
 							},
@@ -16648,9 +17406,17 @@
 									"papQueryResponseExample": {
 										"value": [
 											{
-												"@context": "http://www.w3.org/ns/odrl.jsonld",
+												"@context": [
+													"http://www.w3.org/ns/odrl.jsonld",
+													{
+														"dateCreated": "https://schema.org/dateCreated",
+														"dateModified": "https://schema.org/dateModified"
+													}
+												],
 												"@type": "Set",
 												"@id": "urn:rights-management:abc123def456",
+												"dateCreated": "2025-09-03T00:00:00.000Z",
+												"dateModified": "2025-09-03T00:00:00.000Z",
 												"permission": [
 													{
 														"target": "http://example.com/asset/1",
@@ -16869,9 +17635,17 @@
 								"examples": {
 									"papGetResponseExample": {
 										"value": {
-											"@context": "http://www.w3.org/ns/odrl.jsonld",
+											"@context": [
+												"http://www.w3.org/ns/odrl.jsonld",
+												{
+													"dateCreated": "https://schema.org/dateCreated",
+													"dateModified": "https://schema.org/dateModified"
+												}
+											],
 											"@type": "Set",
 											"@id": "urn:rights-management:abc123def456",
+											"dateCreated": "2025-09-03T00:00:00.000Z",
+											"dateModified": "2025-09-03T00:00:00.000Z",
 											"permission": [
 												{
 													"target": "http://example.com/asset/1",
@@ -17058,14 +17832,22 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolAgreement"
+									"$ref": "#/components/schemas/RightsManagementAgreement"
 								},
 								"examples": {
 									"papGetResponseExample": {
 										"value": {
-											"@context": "http://www.w3.org/ns/odrl.jsonld",
+											"@context": [
+												"http://www.w3.org/ns/odrl.jsonld",
+												{
+													"dateCreated": "https://schema.org/dateCreated",
+													"dateModified": "https://schema.org/dateModified"
+												}
+											],
 											"@type": "Agreement",
 											"@id": "urn:rights-management:abc123def456",
+											"dateCreated": "2025-09-03T00:00:00.000Z",
+											"dateModified": "2025-09-03T00:00:00.000Z",
 											"permission": [
 												{
 													"target": "http://example.com/asset/1",
@@ -17169,14 +17951,22 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolOffer"
+									"$ref": "#/components/schemas/RightsManagementOffer"
 								},
 								"examples": {
 									"papGetResponseExample": {
 										"value": {
-											"@context": "http://www.w3.org/ns/odrl.jsonld",
+											"@context": [
+												"http://www.w3.org/ns/odrl.jsonld",
+												{
+													"dateCreated": "https://schema.org/dateCreated",
+													"dateModified": "https://schema.org/dateModified"
+												}
+											],
 											"@type": "Offer",
 											"@id": "urn:rights-management:abc123def456",
+											"dateCreated": "2025-09-03T00:00:00.000Z",
+											"dateModified": "2025-09-03T00:00:00.000Z",
 											"permission": [
 												{
 													"target": "http://example.com/asset/1",
@@ -17280,14 +18070,22 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolSet"
+									"$ref": "#/components/schemas/RightsManagementSet"
 								},
 								"examples": {
 									"papGetResponseExample": {
 										"value": {
-											"@context": "http://www.w3.org/ns/odrl.jsonld",
+											"@context": [
+												"http://www.w3.org/ns/odrl.jsonld",
+												{
+													"dateCreated": "https://schema.org/dateCreated",
+													"dateModified": "https://schema.org/dateModified"
+												}
+											],
 											"@type": "Set",
 											"@id": "urn:rights-management:abc123def456",
+											"dateCreated": "2025-09-03T00:00:00.000Z",
+											"dateModified": "2025-09-03T00:00:00.000Z",
 											"permission": [
 												{
 													"target": "http://example.com/asset/1",
@@ -18354,6 +19152,220 @@
 				}
 			}
 		},
+		"/rights-management/negotiations/admin": {
+			"post": {
+				"operationId": "pnapCreate",
+				"summary": "Pre-register a consumer-side policy negotiation entry",
+				"tags": ["Policy Negotiation Administration Point"],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"requestBody": {
+					"description": "The request structure for creating a policy negotiation entry.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PnapCreateRequest"
+							},
+							"examples": {
+								"pnapCreateRequestExample": {
+									"value": {
+										"id": "urn:contract-negotiation:consumer-pid"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The rest request ended in created response.",
+						"headers": {
+							"location": {
+								"schema": {
+									"type": "string"
+								},
+								"description": "e.g. urn:contract-negotiation:01970000-0000-7000-8000-000000000000"
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "pnapQuery",
+				"summary": "Query policy negotiations",
+				"tags": ["Policy Negotiation Administration Point"],
+				"parameters": [
+					{
+						"name": "state",
+						"description": "The state of the policy negotiations.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolContractNegotiationStateType"
+						},
+						"example": "ACCEPTED"
+					},
+					{
+						"name": "cursor",
+						"description": "The cursor for pagination.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "next-cursor"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The response structure for querying manual policy negotiations.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PnapQueryResponse"
+								},
+								"examples": {
+									"pnapQueryResponseExample": {
+										"value": [
+											{
+												"id": "pid",
+												"correlationId": "cid",
+												"dateCreated": "2025-09-03T00:00:00.000Z",
+												"state": "REQUESTED",
+												"organizationIdentity": "did:iota:123456789abcdefghi"
+											}
+										]
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "errorMessage",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "errorMessage"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/rights-management/negotiations/admin/{policyId}": {
 			"get": {
 				"operationId": "pnapGet",
@@ -18392,7 +19404,6 @@
 											"correlationId": "cid",
 											"dateCreated": "2025-09-03T00:00:00.000Z",
 											"state": "REQUESTED",
-											"nodeIdentity": "did:iota:nodexyz",
 											"organizationIdentity": "did:iota:123456789abcdefghi"
 										}
 									}
@@ -18496,7 +19507,6 @@
 										"correlationId": "cid",
 										"dateCreated": "2025-09-03T00:00:00.000Z",
 										"state": "REQUESTED",
-										"nodeIdentity": "did:iota:nodexyz",
 										"organizationIdentity": "did:iota:123456789abcdefghi"
 									}
 								}
@@ -18592,123 +19602,6 @@
 				"responses": {
 					"204": {
 						"description": "The rest request ended in success with no data."
-					},
-					"400": {
-						"description": "The server cannot process the request, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "GeneralError",
-											"message": "errorMessage",
-											"properties": {
-												"foo": "bar"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "UnauthorizedError",
-											"message": "errorMessage"
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								},
-								"examples": {
-									"exampleResponse": {
-										"value": {
-											"name": "InternalServerError",
-											"message": "errorMessage"
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/rights-management/negotiations/admin": {
-			"get": {
-				"operationId": "pnapQuery",
-				"summary": "Query policy negotiations",
-				"tags": ["Policy Negotiation Administration Point"],
-				"parameters": [
-					{
-						"name": "state",
-						"description": "The state of the policy negotiations.",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolContractNegotiationStateType"
-						},
-						"example": "ACCEPTED"
-					},
-					{
-						"name": "cursor",
-						"description": "The cursor for pagination.",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"type": "string"
-						},
-						"example": "next-cursor"
-					}
-				],
-				"security": [
-					{
-						"jwtBearerAuthScheme": []
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The response structure for querying manual policy negotiations.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PnapQueryResponse"
-								},
-								"examples": {
-									"pnapQueryResponseExample": {
-										"value": [
-											{
-												"id": "pid",
-												"correlationId": "cid",
-												"dateCreated": "2025-09-03T00:00:00.000Z",
-												"state": "REQUESTED",
-												"nodeIdentity": "did:iota:nodexyz",
-												"organizationIdentity": "did:iota:123456789abcdefghi"
-											}
-										]
-									}
-								}
-							}
-						}
 					},
 					"400": {
 						"description": "The server cannot process the request, see the content for more details.",
@@ -19607,6 +20500,10 @@
 					{
 						"const": "uint8array",
 						"description": "Uint8Array."
+					},
+					{
+						"const": "duration",
+						"description": "Duration in seconds."
 					}
 				]
 			},
@@ -19737,6 +20634,17 @@
 				"required": ["label", "rules"],
 				"description": "The data to be used in the store."
 			},
+			"DatasetGetResponse": {
+				"anyOf": [
+					{
+						"$ref": "https://schema.twindev.org/dcat/DcatDataset"
+					},
+					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolCatalogError"
+					}
+				],
+				"description": "The response payload containing the dataset or error."
+			},
 			"DataspaceAppDataset": {
 				"description": "Stored dataset record returned by the Control Plane's dataset CRUD surface.",
 				"type": "object",
@@ -19766,86 +20674,100 @@
 			"DocumentManagementCreateRequest": {
 				"type": "object",
 				"properties": {
-					"documentId": {
-						"type": "string",
-						"description": "The document id to create."
-					},
-					"documentIdFormat": {
-						"type": "string",
-						"description": "The format of the document identifier."
-					},
-					"documentCode": {
-						"$ref": "https://schema.twindev.org/unece/UneceDocumentCodeList"
+					"document": {
+						"$ref": "https://schema.twindev.org/documents/DocumentBase"
 					},
 					"blob": {
 						"type": "string",
-						"description": "The data to create the document with, in base64."
-					},
-					"annotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						"description": "The data to create the document with, either as base64-encoded content or an existing blob storage entry id."
 					},
 					"auditableItemGraphEdges": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"targetId": {
-									"type": "string"
-								},
-								"addAlias": {
-									"type": "boolean"
-								},
-								"aliasAnnotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["targetId"]
+							"$ref": "https://schema.twindev.org/documents/DocumentManagementEdgeEntry"
 						},
 						"description": "The auditable item graph vertices to connect the document to."
 					},
-					"createAttestation": {
-						"type": "boolean",
-						"description": "Flag to create an attestation for the document, defaults to false."
-					},
-					"addAlias": {
-						"type": "boolean",
-						"description": "Flag to add the document id as an alias to the aig vertex, defaults to true."
-					},
-					"aliasAnnotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+					"options": {
+						"type": "object",
+						"properties": {
+							"includeAttestation": {
+								"type": "boolean",
+								"description": "Flag to create an attestation for the document, defaults to false."
+							},
+							"includeAlias": {
+								"type": "boolean",
+								"description": "Flag to add the document id as an alias to the aig vertex, defaults to true."
+							},
+							"aliasAnnotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						},
+						"description": "Additional options for the create operation."
 					}
 				},
-				"required": ["documentId", "documentIdFormat", "documentCode", "blob"],
+				"required": ["document", "blob"],
 				"description": "The body parameters."
 			},
-			"DocumentManagementUpdateRequest": {
+			"DocumentManagementUpdatePartialRequest": {
 				"type": "object",
 				"properties": {
+					"document": {
+						"description": "The document base properties to update. annotationObject, documentIdFormat and documentCode are applied in-place to the current revision.",
+						"type": "object",
+						"properties": {
+							"documentIdFormat": {
+								"type": "string",
+								"description": "The format of the document id."
+							},
+							"documentCode": {
+								"$ref": "https://schema.twindev.org/unece/UneceDocumentCodeList"
+							},
+							"annotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						}
+					},
 					"blob": {
 						"type": "string",
-						"description": "The data to create the document with, in base64."
-					},
-					"annotationObject": {
-						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						"description": "The data to update the document with, either as base64-encoded content or an existing blob storage entry id."
 					},
 					"auditableItemGraphEdges": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"targetId": {
+						"type": "object",
+						"properties": {
+							"add": {
+								"type": "array",
+								"items": {
+									"$ref": "https://schema.twindev.org/documents/DocumentManagementEdgeEntry"
+								},
+								"description": "Connections to add; each entry creates a back-edge on the connected vertex."
+							},
+							"remove": {
+								"type": "array",
+								"items": {
 									"type": "string"
 								},
-								"addAlias": {
-									"type": "boolean"
-								},
-								"aliasAnnotationObject": {
-									"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-								}
-							},
-							"required": ["targetId"]
+								"description": "Target vertex IDs to disconnect; their back-edges are removed."
+							}
 						},
-						"description": "The auditable item graph vertices to connect the document to."
+						"description": "Explicit edge delta to apply. Use `add` to create new connections and `remove` to\ndisconnect existing ones by their target vertex id."
+					},
+					"options": {
+						"type": "object",
+						"properties": {
+							"includeAttestation": {
+								"type": "boolean",
+								"description": "Set to true to start attesting the document (even if originally created without attestation), or false to remove the existing attestation. Omit to leave attestation state unchanged."
+							},
+							"includeAlias": {
+								"type": "boolean",
+								"description": "Set to true to add the document id as an alias on the aig vertex, or false to remove it. Omit to leave alias state unchanged."
+							},
+							"aliasAnnotationObject": {
+								"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+							}
+						},
+						"description": "Additional options for the update operation."
 					}
 				},
 				"description": "The body parameters."
@@ -19901,17 +20823,6 @@
 					}
 				},
 				"required": ["type", "q"]
-			},
-			"GetDatasetResponse": {
-				"anyOf": [
-					{
-						"$ref": "https://schema.twindev.org/dcat/DcatDataset"
-					},
-					{
-						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolCatalogError"
-					}
-				],
-				"description": "The response payload containing the dataset or error."
 			},
 			"GetTransferProcessResponse": {
 				"oneOf": [
@@ -20483,7 +21394,7 @@
 					}
 				},
 				"required": ["tag"],
-				"description": "The data to be used in the minting."
+				"description": "The request body containing minting parameters."
 			},
 			"NftResolveResponse": {
 				"type": "object",
@@ -20508,7 +21419,7 @@
 					}
 				},
 				"required": ["issuer", "issuerIdentityId", "tag"],
-				"description": "The data that was resolved."
+				"description": "The resolved NFT data."
 			},
 			"NftTransferRequest": {
 				"type": "object",
@@ -20522,7 +21433,7 @@
 					}
 				},
 				"required": ["recipientAddress"],
-				"description": "The data to be used in the transfer."
+				"description": "The request body containing transfer parameters."
 			},
 			"NftUpdateRequest": {
 				"type": "object",
@@ -20531,7 +21442,7 @@
 						"description": "The metadata for the NFT."
 					}
 				},
-				"description": "The data to be used in the update."
+				"description": "The request body containing update parameters."
 			},
 			"NotFoundResponse": {
 				"type": "object",
@@ -20549,214 +21460,8 @@
 				"description": "The body which contains the error."
 			},
 			"PapCreateRequest": {
-				"description": "The body of the request - the policy to create (id will be auto-generated if not provided).",
-				"type": "object",
-				"properties": {
-					"@context": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlContextType"
-					},
-					"profile": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The profile(s) this policy conforms to.\nIRIs identifying the ODRL Profile(s)."
-					},
-					"assigner": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assigner of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"assignee": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assignee of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"target": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The target asset for the rule."
-					},
-					"action": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-							},
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-										},
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-										}
-									]
-								}
-							}
-						],
-						"description": "The action associated with the rule."
-					},
-					"inheritFrom": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The parent policy(ies) this policy inherits from.\nIRIs identifying the parent Policy(ies)."
-					},
-					"conflict": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlConflictStrategyType"
-					},
-					"permission": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-								}
-							}
-						],
-						"description": "The permissions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"prohibition": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-								}
-							}
-						],
-						"description": "The prohibitions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"obligation": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-								}
-							}
-						],
-						"description": "The obligations in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"@type": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPolicyType"
-					},
-					"@id": {
-						"type": "string",
-						"description": "Unique identifier for the policy."
-					}
-				},
-				"required": ["@context", "@type"]
+				"description": "The request structure for creating a policy.",
+				"type": "object"
 			},
 			"PapQueryResponse": {
 				"type": "array",
@@ -20764,6 +21469,17 @@
 					"$ref": "#/components/schemas/RightsManagementPolicy"
 				},
 				"description": "The body of the response."
+			},
+			"PnapCreateRequest": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The consumer-side negotiation identifier (DSP consumerPid)."
+					}
+				},
+				"required": ["id"],
+				"description": "The partial negotiation to pre-register."
 			},
 			"PnapQueryResponse": {
 				"type": "array",
@@ -20818,17 +21534,9 @@
 						"type": "string",
 						"description": "The public origin of the server that initiated or received this negotiation.\nUsed to construct callback URLs in subsequent async messages."
 					},
-					"tenantId": {
-						"type": "string",
-						"description": "The tenant id this negotiation belongs to."
-					},
-					"nodeIdentity": {
-						"type": "string",
-						"description": "The node identity (DID) used to sign trust payloads."
-					},
 					"organizationIdentity": {
 						"type": "string",
-						"description": "Organization identity (the org DID of the user who initiated or received\nthe negotiation, when a user context was available)."
+						"description": "Organization identity."
 					},
 					"offer": {
 						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolOffer"
@@ -20887,7 +21595,7 @@
 						"description": "Is manual intervention required to complete the negotiation?"
 					}
 				},
-				"required": ["id", "correlationId", "dateCreated", "state", "nodeIdentity"]
+				"required": ["id", "correlationId", "dateCreated", "state", "organizationIdentity"]
 			},
 			"RefreshTokenRequest": {
 				"type": "object",
@@ -20921,215 +21629,92 @@
 				],
 				"description": "Transfer Process (DSP compliant) with state REQUESTED, or error."
 			},
+			"RightsManagementAgreement": {
+				"description": "Agreement policy returned by PAP, including optional PAP-managed lifecycle metadata.",
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolAgreement"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
+					}
+				]
+			},
+			"RightsManagementOffer": {
+				"description": "Offer policy returned by PAP, including optional PAP-managed lifecycle metadata.",
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolOffer"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
+					}
+				]
+			},
 			"RightsManagementPolicy": {
 				"description": "Base type for any ODRL policy stored and managed by the TWIN rights-management PAP.",
 				"type": "object",
-				"properties": {
-					"@context": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlContextType"
+				"allOf": [
+					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolPolicy"
 					},
-					"profile": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The profile(s) this policy conforms to.\nIRIs identifying the ODRL Profile(s)."
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
 					},
-					"assigner": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assigner of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"assignee": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlParty"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPartyCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The assignee of the policy.\nApplies to all rules unless overridden at rule level."
-					},
-					"target": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAsset"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAssetCollection"
-										}
-									]
-								}
-							}
-						],
-						"description": "The target asset for the rule."
-					},
-					"action": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-							},
-							{
-								"type": "string"
-							},
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-							},
-							{
-								"type": "array",
-								"items": {
-									"anyOf": [
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlActionType"
-										},
-										{
-											"type": "string"
-										},
-										{
-											"$ref": "https://schema.twindev.org/w3c-odrl/OdrlAction"
-										}
-									]
-								}
-							}
-						],
-						"description": "The action associated with the rule."
-					},
-					"inheritFrom": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						],
-						"description": "The parent policy(ies) this policy inherits from.\nIRIs identifying the parent Policy(ies)."
-					},
-					"conflict": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlConflictStrategyType"
-					},
-					"permission": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPermission"
-								}
-							}
-						],
-						"description": "The permissions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"prohibition": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlProhibition"
-								}
-							}
-						],
-						"description": "The prohibitions in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"obligation": {
-						"anyOf": [
-							{
-								"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-							},
-							{
-								"type": "array",
-								"items": {
-									"$ref": "https://schema.twindev.org/w3c-odrl/OdrlDuty"
-								}
-							}
-						],
-						"description": "The obligations in the policy.\nAt least one of permission, prohibition, or obligation must be present."
-					},
-					"@id": {
-						"type": "string",
-						"description": "Unique identifier for the policy."
-					},
-					"@type": {
-						"$ref": "https://schema.twindev.org/w3c-odrl/OdrlPolicyType"
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
 					}
-				},
-				"required": ["@context", "@id", "@type"]
+				]
+			},
+			"RightsManagementPolicyMetadata": {
+				"description": "PAP-managed metadata attached to stored and returned ODRL policies.",
+				"type": "object",
+				"properties": {
+					"dateCreated": {
+						"type": "string",
+						"description": "schema.org dateCreated — ISO 8601 date-time set by PAP on create."
+					},
+					"dateModified": {
+						"type": "string",
+						"description": "schema.org dateModified — ISO 8601 date-time set by PAP on create and update."
+					}
+				}
+			},
+			"RightsManagementPolicyTrust": {
+				"description": "PAP-managed trust data attached to stored and returned ODRL policies.",
+				"type": "object",
+				"properties": {
+					"trustData": {
+						"type": "object",
+						"additionalProperties": {
+							"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
+						},
+						"description": "Trust verification data captured at the beginning of the negotiation."
+					}
+				}
+			},
+			"RightsManagementSet": {
+				"description": "Set policy returned by PAP, including optional PAP-managed lifecycle metadata.",
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "https://schema.twindev.org/dataspace-protocol/DataspaceProtocolSet"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyMetadata"
+					},
+					{
+						"$ref": "#/components/schemas/RightsManagementPolicyTrust"
+					}
+				]
 			},
 			"Rule": {
 				"description": "Rule defining how to extract data from an object.",
@@ -21542,15 +22127,7 @@
 				"properties": {
 					"identity": {
 						"type": "string",
-						"description": "The identity associated with the payload."
-					},
-					"tenantId": {
-						"type": "string",
-						"description": "The tenant that issued the payload, if multi-tenancy was active at generation time."
-					},
-					"organizationId": {
-						"type": "string",
-						"description": "The organisation that issued the payload, if an authenticated user context was available at generation time."
+						"description": "The organization identity associated with the payload."
 					},
 					"data": {
 						"type": "object",

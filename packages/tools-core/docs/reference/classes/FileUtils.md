@@ -18,7 +18,7 @@ Utility helpers for TypeScript file and directory paths.
 
 > `static` **fileExists**(`filePath`): `boolean`
 
-Does the file exist.
+Check whether a file exists at the given path.
 
 #### Parameters
 
@@ -40,7 +40,7 @@ True if the file exists.
 
 > `static` **readFile**(`filePath`): `string`
 
-Read the file.
+Read the entire contents of a file as UTF-8 text.
 
 #### Parameters
 
@@ -62,7 +62,7 @@ The file contents.
 
 > `static` **resolvePath**(`filePath`): `string`
 
-Resolve a path.
+Resolve a file path to an absolute path.
 
 #### Parameters
 
@@ -76,7 +76,7 @@ The file path.
 
 `string`
 
-The resolved path.
+The resolved absolute path.
 
 ***
 

@@ -916,6 +916,38 @@ describe("TypeScriptToSchema", () => {
 		});
 		expect(schema.properties?.withNoContext.required).toEqual(["label"]);
 		expect(schema.properties?.withNoContext.properties?.["@context"]).toBeUndefined();
+		expect(schema.properties?.withAliasesRequired.required).toEqual(["ex:name", "ex:value"]);
+		expect(schema.properties?.withAliasesRequired.properties?.["ex:name"].type).toEqual("string");
+		expect(schema.properties?.withAliasesRequired.properties?.["ex:value"].type).toEqual("number");
+		expect(schema.properties?.withAliasesOptional.required).toBeUndefined();
+		expect(schema.properties?.withAliasesOptional.properties?.["ex:name"].type).toEqual("string");
+		expect(schema.properties?.withAliasesMixed.required).toEqual(["ex:name"]);
+		expect(schema.properties?.withAliasesMixed.properties?.["ex:value"].type).toEqual("number");
+		expect(schema.properties?.withAliasesJsonLdKey.required).toEqual(["@type", "ex:name"]);
+		expect(schema.properties?.withAliasesJsonLdKey.properties?.["@type"].type).toEqual("string");
+		expect(schema.properties?.withAliasesJsonLdKey.properties?.["ex:name"].type).toEqual("string");
+		expect(schema.properties?.withAliasesContext.required).toEqual(["@context", "ex:name"]);
+		expect(schema.properties?.withAliasesContext.properties?.["@context"]).toEqual({
+			type: "array",
+			items: { type: "string" }
+		});
+		expect(schema.properties?.withAliasesContext.properties?.["ex:name"].type).toEqual("string");
+		expect(schema.properties?.withAliasesAllJsonLdKeys.required).toEqual([
+			"@context",
+			"@type",
+			"@id",
+			"ex:name"
+		]);
+		expect(schema.properties?.withAliasesAllJsonLdKeys.properties?.["@context"]).toEqual({
+			type: "array",
+			items: { type: "string" }
+		});
+		expect(schema.properties?.withAliasesAllJsonLdKeys.properties?.["@type"].type).toEqual(
+			"string"
+		);
+		expect(schema.properties?.withAliasesAllJsonLdKeys.properties?.["@id"].type).toEqual("string");
+		expect(schema.properties?.withObjectAliases.required).toEqual(["@type", "@id", "ex:name"]);
+		expect(schema.properties?.withObjectAliases.properties?.["ex:name"].type).toEqual("string");
 		expect(packageSchemas["@example.com/pkg"].Person).toEqual(testUtilityPersonSchema);
 	});
 

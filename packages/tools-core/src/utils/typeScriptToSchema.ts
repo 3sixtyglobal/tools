@@ -150,6 +150,7 @@ export class TypeScriptToSchema {
 	 * @param context The generation context.
 	 * @param schema The root schema to rewrite.
 	 * @param rootTitle The title of the root schema.
+	 * @internal
 	 */
 	private inlineEmbeddedSchemas(
 		context: ITypeScriptToSchemaContext,
@@ -167,6 +168,7 @@ export class TypeScriptToSchema {
 	 * @param rootTitle The title of the root schema.
 	 * @param ancestry Titles currently being expanded to avoid recursion cycles.
 	 * @returns True if inline embedding changed this node or a descendant.
+	 * @internal
 	 */
 	private inlineEmbeddedSchemasInNode(
 		context: ITypeScriptToSchemaContext,
@@ -247,6 +249,7 @@ export class TypeScriptToSchema {
 	/**
 	 * Flatten inline-expanded object allOf branches into the containing schema.
 	 * @param schema The schema to flatten.
+	 * @internal
 	 */
 	private flattenInlineAllOfBranches(schema: IJsonSchema): void {
 		if (!Is.array(schema.allOf) || schema.allOf.length === 0) {
@@ -304,6 +307,7 @@ export class TypeScriptToSchema {
 	 * Determine whether an allOf branch can be flattened into its parent after inline embedding.
 	 * @param branch The allOf branch.
 	 * @returns True if the branch is a plain object schema.
+	 * @internal
 	 */
 	private canFlattenInlineAllOfBranch(branch: IJsonSchema): boolean {
 		return Boolean(
@@ -322,6 +326,7 @@ export class TypeScriptToSchema {
 	 * @param embeddedSchema The source schema.
 	 * @param embeddedMode The embedding mode.
 	 * @returns The cloned schema.
+	 * @internal
 	 */
 	private createEmbeddedSchemaClone(
 		context: ITypeScriptToSchemaContext,
@@ -346,6 +351,7 @@ export class TypeScriptToSchema {
 	 * Replace the contents of a schema node while keeping the same object reference.
 	 * @param target The schema node to mutate.
 	 * @param replacement The replacement content.
+	 * @internal
 	 */
 	private replaceSchemaNode(target: IJsonSchema, replacement: IJsonSchema): void {
 		for (const key of Object.keys(target)) {
@@ -360,6 +366,7 @@ export class TypeScriptToSchema {
 	 * @param context The generation context.
 	 * @param schemaId The schema id to locate.
 	 * @returns The schema when found.
+	 * @internal
 	 */
 	private findSchemaById(
 		context: ITypeScriptToSchemaContext,
@@ -375,6 +382,7 @@ export class TypeScriptToSchema {
 	 * @param schema The embedded schema.
 	 * @param schemaId The canonical schema id.
 	 * @returns The local definition key.
+	 * @internal
 	 */
 	private getEmbeddedDefinitionKey(schema: IJsonSchema, schemaId: string): string {
 		return schema.title ?? schemaId.split("/").pop() ?? schemaId;
@@ -383,6 +391,7 @@ export class TypeScriptToSchema {
 	/**
 	 * Remove $comment fields from a schema tree.
 	 * @param schema The schema tree to clean.
+	 * @internal
 	 */
 	private removeSchemaComments(schema: IJsonSchema): void {
 		delete schema.$comment;

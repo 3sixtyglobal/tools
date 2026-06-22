@@ -26,14 +26,19 @@ on:
   workflow_dispatch:
     inputs:
       semverBump:
-        description: 'Version bump type for this production release'
+        description: 'Version bump type for this production release (ignored when customVersion is set)'
         required: true
         type: choice
         options:
-          - '⬆️ promote'
+          - '⬆️ promote next'
           - '🔧 patch'
           - '✨ minor'
           - '🚀 major'
+      customVersion:
+        description: 'Explicit version to release, e.g. 1.2.3. When set, overrides semverBump.'
+        required: false
+        type: string
+        default: ''
 
   pull_request:
     types: [closed]
@@ -48,6 +53,39 @@ concurrency:
 
 jobs:
   # ──────────────────────────────────────────────────────────────────────────
+  # GUARD – VALIDATE CUSTOM VERSION
+  # When customVersion is provided, validates it against the current production
+  # and prerelease manifests before any PRs are created. Checks:
+  #   • X.Y.Z format with each component ≤ 999
+  #   • Strictly greater than the current published production version
+  #   • At least equal to the current development (prerelease) version stripped
+  #   • Major version does not jump by more than 1 from current prod
+  # ──────────────────────────────────────────────────────────────────────────
+  validate-custom-version:
+    name: 'Guard · Validate custom version'
+    if: github.event_name == 'workflow_dispatch' && inputs.customVersion != ''
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Validate custom version against current manifests
+        run: node scripts/validate-custom-version.mjs prod "${{ inputs.customVersion }}"
+
+  # ──────────────────────────────────────────────────────────────────────────
   # PHASE 0 – MERGE NEXT INTO MAIN
   # Creates a branch from main and applies the exact diff of main → next as a
   # single signed commit. Using diff|apply rather than a merge algorithm
@@ -59,7 +97,12 @@ jobs:
   # ──────────────────────────────────────────────────────────────────────────
   merge-next-to-main:
     name: 'Phase 0 · Merge next into main'
-    if: github.event_name == 'workflow_dispatch'
+    needs: [validate-custom-version]
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      always() &&
+      !cancelled() &&
+      (needs.validate-custom-version.result == 'success' || needs.validate-custom-version.result == 'skipped')
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
@@ -135,6 +178,7 @@ jobs:
           PR_NUMBER=$(echo "$PR_URL" | grep -o '[0-9]\+$')
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+          echo "::notice title=Gate 0 – Next to Main PR::Approve and merge to continue the production release: $PR_URL"
           echo "Created PR #$PR_NUMBER: $PR_URL"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -162,47 +206,34 @@ jobs:
   gate-next-to-main:
     name: 'Gate 0 · Merge next into main PR'
     needs: merge-next-to-main
-    if: ${{ needs.merge-next-to-main.outputs.has_changes == 'true' }}
+    if: |
+      always() &&
+      !cancelled() &&
+      needs.merge-next-to-main.result == 'success' &&
+      needs.merge-next-to-main.outputs.has_changes == 'true'
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
     timeout-minutes: 360
     permissions:
+      contents: read
       pull-requests: read
 
     steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
       - name: Poll until next → main PR is merged
-        run: |
-          PR_NUMBER="${{ needs.merge-next-to-main.outputs.pr_number }}"
-          PR_URL="${{ needs.merge-next-to-main.outputs.pr_url }}"
-
-          echo "::notice title=Gate 0 – Next to Main PR::Approve and merge to continue the production release: $PR_URL"
-          echo ""
-          echo "Waiting for PR #$PR_NUMBER to be merged..."
-
-          while true; do
-            PR_JSON=$(gh pr view "$PR_NUMBER" \
-              --repo "${{ github.repository }}" \
-              --json state,mergedAt)
-
-            STATE=$(echo "$PR_JSON" | jq -r '.state')
-            MERGED_AT=$(echo "$PR_JSON" | jq -r '.mergedAt // empty')
-
-            if [ -n "$MERGED_AT" ]; then
-              echo "PR #$PR_NUMBER merged. Advancing to version preparation."
-              exit 0
-            fi
-
-            if [ "$STATE" = "CLOSED" ]; then
-              echo "::error title=Gate 0 Failed::PR #$PR_NUMBER ($PR_URL) was closed without merging. Production release aborted."
-              exit 1
-            fi
-
-            echo "PR #$PR_NUMBER is still open. Rechecking in 60 seconds..."
-            sleep 60
-          done
-        env:
-          GH_TOKEN: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.merge-next-to-main.outputs.pr_number }}
+          pr_url: ${{ needs.merge-next-to-main.outputs.pr_url }}
+          waiting_message: Waiting for PR #__PR_NUMBER__ to be merged...
+          success_message: PR #__PR_NUMBER__ merged. Advancing to version preparation.
+          closed_error_title: Gate 0 Failed
+          closed_error_message: PR #__PR_NUMBER__ (__PR_URL__) was closed without merging. Production release aborted.
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────────────────
   # PHASE 1 – PREPARE MAIN
@@ -210,12 +241,13 @@ jobs:
   # PR.
   # ──────────────────────────────────────────────────────────────────────────
   prepare-main:
-    name: 'Phase 1 · Prepare main branch'
-    needs: gate-next-to-main
+    name: 'Phase 1 · Prepare and build main branch'
+    needs: [merge-next-to-main, gate-next-to-main]
     if: |
       github.event_name == 'workflow_dispatch' &&
       always() &&
       !cancelled() &&
+      (needs.merge-next-to-main.result == 'success' || needs.merge-next-to-main.result == 'skipped') &&
       (needs.gate-next-to-main.result == 'success' || needs.gate-next-to-main.result == 'skipped')
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
@@ -233,21 +265,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
       - name: Resolve semver type
         id: resolve-semver
         run: |
-          INPUT="${{ inputs.semverBump }}"
-          case "$INPUT" in
-            *promote*) SEMVER_TYPE='promote' ;;
-            *patch*) SEMVER_TYPE='patch' ;;
-            *minor*) SEMVER_TYPE='minor' ;;
-            *major*) SEMVER_TYPE='major' ;;
-            *)
-              echo "::error::Unrecognised semver bump: $INPUT"
+          CUSTOM="${{ inputs.customVersion }}"
+          if [ -n "$CUSTOM" ]; then
+            if ! echo "$CUSTOM" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+              echo "::error::customVersion must be a valid semver string, e.g. 1.2.3 (got: $CUSTOM)"
               exit 1
-              ;;
-          esac
+            fi
+            SEMVER_TYPE='custom'
+          else
+            INPUT="${{ inputs.semverBump }}"
+            case "$INPUT" in
+              *promote*) SEMVER_TYPE='promote' ;;
+              *patch*) SEMVER_TYPE='patch' ;;
+              *minor*) SEMVER_TYPE='minor' ;;
+              *major*) SEMVER_TYPE='major' ;;
+              *)
+                echo "::error::Unrecognised semver bump: $INPUT"
+                exit 1
+                ;;
+            esac
+          fi
           echo "semver_type=$SEMVER_TYPE" >> $GITHUB_OUTPUT
 
       - name: Versions Prepare
@@ -256,11 +299,17 @@ jobs:
         with:
           branch: main
           semver_type: ${{ steps.resolve-semver.outputs.semver_type }}
+          custom_version: ${{ inputs.customVersion }}
           gpg_private_key: ${{ secrets.TWIN_GPG_PRIVATE_KEY }}
           gpg_key_id: ${{ secrets.TWIN_GPG_KEY_ID }}
           test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
+      - name: Announce main alignment PR
+        if: ${{ steps.versions-prepare.outputs.has_changes == 'true' && steps.versions-prepare.outputs.pr_url != '' }}
+        run: |
+          echo "::notice title=Gate 1 – Main Alignment PR::Approve and merge to continue the production release: ${{ steps.versions-prepare.outputs.pr_url }}"
 
       # Our self-hosted runner clears the workspace after local composite
       # actions, so restore the workflow ref before the job completes.
@@ -276,48 +325,35 @@ jobs:
   gate-main-alignment:
     name: 'Gate 1 · Merge main alignment PR'
     needs: prepare-main
-    if: ${{ needs.prepare-main.outputs.has_changes == 'true' }}
+    if: |
+      always() &&
+      !cancelled() &&
+      needs.prepare-main.result == 'success' &&
+      needs.prepare-main.outputs.has_changes == 'true'
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
     timeout-minutes: 360
     permissions:
+      contents: read
       pull-requests: read
 
     steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
       - name: Poll until main alignment PR is merged
-        run: |
-          PR_NUMBER="${{ needs.prepare-main.outputs.pr_number }}"
-          PR_URL="${{ needs.prepare-main.outputs.pr_url }}"
-
-          echo "::notice title=Gate 1 – Main Alignment PR::Approve and merge to continue the production release: $PR_URL"
-          echo ""
-          echo "Waiting for PR #$PR_NUMBER to be approved and merged..."
-
-          while true; do
-            PR_JSON=$(gh pr view "$PR_NUMBER" \
-              --repo "${{ github.repository }}" \
-              --json state,mergedAt)
-
-            STATE=$(echo "$PR_JSON" | jq -r '.state')
-            MERGED_AT=$(echo "$PR_JSON" | jq -r '.mergedAt // empty')
-
-            if [ -n "$MERGED_AT" ]; then
-              echo "PR #$PR_NUMBER merged. Advancing to release preparation."
-              exit 0
-            fi
-
-            if [ "$STATE" = "CLOSED" ]; then
-              echo "::error title=Gate 1 Failed::PR #$PR_NUMBER ($PR_URL) was closed without merging. Production release aborted."
-              echo "Re-run this workflow to restart."
-              exit 1
-            fi
-
-            echo "PR #$PR_NUMBER is still open. Rechecking in 60 seconds..."
-            sleep 60
-          done
-        env:
-          GH_TOKEN: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.prepare-main.outputs.pr_number }}
+          pr_url: ${{ needs.prepare-main.outputs.pr_url }}
+          waiting_message: Waiting for PR #__PR_NUMBER__ to be approved and merged...
+          success_message: PR #__PR_NUMBER__ merged. Advancing to release preparation.
+          closed_error_title: Gate 1 Failed
+          closed_error_message: PR #__PR_NUMBER__ (__PR_URL__) was closed without merging. Production release aborted.
+          closed_follow_up: Re-run this workflow to restart.
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────────────────
   # PHASE 2 – PREPARE RELEASE PR
@@ -350,18 +386,24 @@ jobs:
       - name: Resolve release type
         id: resolve-release
         run: |
-          INPUT="${{ inputs.semverBump }}"
-
-          case "$INPUT" in
-            *promote*) BRANCH='main'; SEMVER_TYPE='patch' ;;
-            *patch*) BRANCH='main'; SEMVER_TYPE='patch' ;;
-            *minor*) BRANCH='main'; SEMVER_TYPE='minor' ;;
-            *major*) BRANCH='main'; SEMVER_TYPE='major' ;;
-            *)
-              echo "::error::Unrecognised semver bump: $INPUT"
-              exit 1
-              ;;
-          esac
+          CUSTOM="${{ inputs.customVersion }}"
+          if [ -n "$CUSTOM" ]; then
+            # Release-As in the force commit overrides versioning strategy,
+            # so semver_type only needs to be a valid value here.
+            BRANCH='main'; SEMVER_TYPE='patch'
+          else
+            INPUT="${{ inputs.semverBump }}"
+            case "$INPUT" in
+              *promote*) BRANCH='main'; SEMVER_TYPE='patch' ;;
+              *patch*) BRANCH='main'; SEMVER_TYPE='patch' ;;
+              *minor*) BRANCH='main'; SEMVER_TYPE='minor' ;;
+              *major*) BRANCH='main'; SEMVER_TYPE='major' ;;
+              *)
+                echo "::error::Unrecognised semver bump: $INPUT"
+                exit 1
+                ;;
+            esac
+          fi
 
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           echo "semver_type=$SEMVER_TYPE" >> $GITHUB_OUTPUT
@@ -382,6 +424,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
+      - name: Announce release PR
+        if: ${{ steps.release-prepare.outputs.pr_url != '' }}
+        run: |
+          echo "::notice title=Gate 2 – Release PR::Review and merge to publish: ${{ steps.release-prepare.outputs.pr_url }}"
+
   # ──────────────────────────────────────────────────────────────────────────
   # GATE 2 – WAIT FOR RELEASE PR
   # Polls until the release PR (labelled autorelease: pending) is merged.
@@ -391,50 +438,40 @@ jobs:
   gate-release-pr:
     name: 'Gate 2 · Merge release PR'
     needs: prepare-release
+    if: |
+      always() &&
+      !cancelled() &&
+      needs.prepare-release.result == 'success' &&
+      needs.prepare-release.outputs.pr_number != ''
     runs-on:
       labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
       group: ${{ github.event.repository.private && 'twin' || 'default' }}
     timeout-minutes: 360
     permissions:
+      contents: read
       pull-requests: read
 
     steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
       - name: Poll until release PR is merged
-        run: |
-          PR_NUMBER="${{ needs.prepare-release.outputs.pr_number }}"
-          PR_URL="${{ needs.prepare-release.outputs.pr_url }}"
-
-          echo "::notice title=Gate 2 – Release PR::Review and merge to publish: $PR_URL"
-          echo ""
-          echo "Waiting for release PR #$PR_NUMBER to be approved and merged..."
-          echo "Once merged, packages will publish automatically and next will be realigned."
-
-          while true; do
-            PR_JSON=$(gh pr view "$PR_NUMBER" \
-              --repo "${{ github.repository }}" \
-              --json state,mergedAt)
-
-            STATE=$(echo "$PR_JSON" | jq -r '.state')
-            MERGED_AT=$(echo "$PR_JSON" | jq -r '.mergedAt // empty')
-
-            if [ -n "$MERGED_AT" ]; then
-              echo "Release PR #$PR_NUMBER merged."
-              echo "The Release workflow is now publishing packages to npm and creating GitHub releases."
-              echo "The next branch will be realigned automatically after publishing completes."
-              exit 0
-            fi
-
-            if [ "$STATE" = "CLOSED" ]; then
-              echo "::error title=Gate 2 Failed::Release PR #$PR_NUMBER ($PR_URL) was closed without merging. Publishing aborted."
-              echo "To recover: remove the 'autorelease: pending' label from the PR, then re-run this workflow."
-              exit 1
-            fi
-
-            echo "PR #$PR_NUMBER is still open. Rechecking in 60 seconds..."
-            sleep 60
-          done
-        env:
-          GH_TOKEN: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.prepare-release.outputs.pr_number }}
+          pr_url: ${{ needs.prepare-release.outputs.pr_url }}
+          waiting_message: |
+            Waiting for release PR #__PR_NUMBER__ to be approved and merged...
+            Once merged, packages will publish automatically and next will be realigned.
+          success_message: |
+            Release PR #__PR_NUMBER__ merged.
+            The Release workflow is now publishing packages to npm and creating GitHub releases.
+            The next branch will be realigned automatically after publishing completes.
+          closed_error_title: Gate 2 Failed
+          closed_error_message: Release PR #__PR_NUMBER__ (__PR_URL__) was closed without merging. Publishing aborted.
+          closed_follow_up: "To recover: remove the 'autorelease: pending' label from the PR, then re-run this workflow."
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────────────────
   # SUMMARY
@@ -470,7 +507,7 @@ jobs:
           echo "The Release workflow is now:"
           echo "  • Publishing packages to npm (latest tag)"
           echo "  • Creating GitHub releases"
-          echo "  • Realigning the next branch via Versions Prepare (PR will be opened for review)"
+          echo "  • Realigning the next branch (auto-merge enabled; merges when checks pass)"
 
   # ──────────────────────────────────────────────────────────────────────────
   # PHASE 3 – PUBLISH
@@ -547,13 +584,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Test Environment
-        shell: bash
-        run: |
-          if [ "${{ matrix.package }}" = "packages/messaging-connector-aws" ] || [ "${{ matrix.package }}" = "all" ]; then
-            echo "${{ secrets.TWIN_TEST_ENV_VARS }}" > /tmp/test_env_vars.txt
-          fi
-
-          echo "No setup required for this workflow."
+        uses: ./.github/workflows/setup-test-env
+        with:
+          package: ${{ matrix.package }}
+          test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
 
       - name: Remove Mono-Repo Node Modules
         run: |
@@ -641,10 +675,7 @@ jobs:
 
       - name: Teardown Test Environment
         if: always()
-        shell: bash
-        run: |
-          echo "No Docker test resources are created by setup-test-env in this repository."
-          rm -f /tmp/test_env_vars.txt
+        uses: ./.github/workflows/teardown-test-env
 
   publish-gh-releases:
     name: Publish GitHub Releases
@@ -715,12 +746,19 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
+    outputs:
+      pr_number: ${{ steps.versions-prepare.outputs.pr_number }}
+      pr_url: ${{ steps.versions-prepare.outputs.pr_url }}
+      has_changes: ${{ steps.versions-prepare.outputs.has_changes }}
 
     steps:
       - name: Checkout workflow ref
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
 
       - name: Versions Prepare for next
+        id: versions-prepare
         uses: ./.github/workflows/versions-prepare
         with:
           branch: next
@@ -729,3 +767,45 @@ jobs:
           test_env_vars: ${{ secrets.TWIN_TEST_ENV_VARS }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
+      - name: Enable auto-merge on next alignment PR
+        if: ${{ steps.versions-prepare.outputs.pr_number != '' }}
+        run: |
+          gh pr merge ${{ steps.versions-prepare.outputs.pr_number }} --auto --squash
+        env:
+          GH_TOKEN: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # GATE 3 – WAIT FOR NEXT ALIGNMENT PR
+  # Polls until the realignment PR for the next branch is merged. The PR is
+  # pre-approved and auto-merge is enabled, so it merges as soon as all
+  # required status checks pass. Skipped when versions-prepare was a no-op.
+  # ──────────────────────────────────────────────────────────────────────────
+  gate-realign-next:
+    name: 'Gate 3 · Merge next alignment PR'
+    needs: realign-next
+    if: ${{ needs.realign-next.outputs.has_changes == 'true' }}
+    runs-on:
+      labels: ${{ github.event.repository.private && 'self-hosted' || 'ubuntu-latest' }}
+      group: ${{ github.event.repository.private && 'twin' || 'default' }}
+    timeout-minutes: 360
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@v6
+
+      - name: Poll until next alignment PR is merged
+        uses: ./.github/workflows/wait-for-pr
+        with:
+          repo: ${{ github.repository }}
+          pr_number: ${{ needs.realign-next.outputs.pr_number }}
+          pr_url: ${{ needs.realign-next.outputs.pr_url }}
+          waiting_message: Waiting for next alignment PR #__PR_NUMBER__ to merge (auto-merge enabled)...
+          success_message: Next alignment PR #__PR_NUMBER__ merged. Next branch is realigned to the released version.
+          closed_error_title: Gate 3 Failed
+          closed_error_message: Next alignment PR #__PR_NUMBER__ (__PR_URL__) was closed without merging. Next branch realignment incomplete.
+          closed_follow_up: Re-run the Realign Next Branch job or manually merge the next alignment PR.
+          github_token: ${{ secrets.TWIN_GHA_RELEASE_TOKEN }}

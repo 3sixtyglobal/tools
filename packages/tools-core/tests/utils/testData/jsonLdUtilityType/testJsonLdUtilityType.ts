@@ -15,7 +15,9 @@ import type {
 	JsonLdObjectWithOptionalAtId,
 	JsonLdObjectWithOptionalId,
 	JsonLdObjectWithOptionalType,
-	JsonLdObjectWithType
+	JsonLdObjectWithType,
+	JsonLdWithAliases,
+	JsonLdObjectWithAliases
 } from "./jsonLdUtilities.js";
 import type { Person } from "../utilityType/testUtilityPerson.js";
 
@@ -152,4 +154,45 @@ export interface TestJsonLdUtilityType {
 	 * Removes context while keeping other fields.
 	 */
 	withNoContext: JsonLdObjectWithNoContext<{ "@context": string[]; label: string }>;
+
+	/**
+	 * Prefixes all non-JSON-LD keys with the given namespace; required keys stay required.
+	 */
+	withAliasesRequired: JsonLdWithAliases<{ name: string; value: number }, "ex">;
+
+	/**
+	 * Prefixes all non-JSON-LD keys; optional keys stay optional.
+	 */
+	withAliasesOptional: JsonLdWithAliases<{ name?: string; value?: number }, "ex">;
+
+	/**
+	 * Prefixes non-JSON-LD keys; preserves required/optional status of each key.
+	 */
+	withAliasesMixed: JsonLdWithAliases<{ name: string; value?: number }, "ex">;
+
+	/**
+	 * JSON-LD keys ("@...") are preserved as-is; non-JSON-LD keys are prefixed.
+	 */
+	withAliasesJsonLdKey: JsonLdWithAliases<{ "@type": string; name: string }, "ex">;
+
+	/**
+	 * "@context" is preserved as-is alongside a prefixed non-JSON-LD key.
+	 */
+	withAliasesContext: JsonLdWithAliases<{ "@context": string[]; name: string }, "ex">;
+
+	/**
+	 * All three JSON-LD keys ("@context", "@type", "@id") are preserved while non-JSON-LD keys are prefixed.
+	 */
+	withAliasesAllJsonLdKeys: JsonLdWithAliases<
+		{ "@context": string[]; "@type": string; "@id": string; name: string },
+		"ex"
+	>;
+
+	/**
+	 * Keeps only JSON-LD keys and aliased non-JSON-LD keys.
+	 */
+	withObjectAliases: JsonLdObjectWithAliases<
+		{ "@type": string; "@id": string; name: string },
+		"ex"
+	>;
 }

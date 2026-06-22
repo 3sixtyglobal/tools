@@ -399,6 +399,7 @@ export class MappedTypeSchemaResolver {
 	 * @param intrinsicName The intrinsic helper name.
 	 * @param value The input key value.
 	 * @returns The remapped key value.
+	 * @internal
 	 */
 	private static applyIntrinsicMappedTypeKeyRemap(
 		intrinsicName: string,

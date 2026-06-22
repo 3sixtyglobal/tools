@@ -1,10 +1,10 @@
 {
 	"name": "@twin.org/ts-to-jsonld-context",
-	"version": "0.0.3",
+	"version": "0.9.0-next.1",
 	"description": "Generate JSON-LD contexts from source model definitions",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/tools.git",
+		"url": "git+https://github.com/iotaledger/twin-tools.git",
 		"directory": "apps/ts-to-jsonld-context"
 	},
 	"author": "martyn.janes@iota.org",
@@ -29,28 +29,28 @@
 		"dist:no-test": "npm run clean && npm run build && npm run merge-locales"
 	},
 	"dependencies": {
-		"@twin.org/cli-core": "^0.0.3",
-		"@twin.org/core": "^0.0.3",
-		"@twin.org/nameof": "^0.0.3",
-		"@twin.org/tools-core": "^0.0.3",
-		"commander": "14.0.3",
+		"@twin.org/cli-core": "0.9.0-next.1",
+		"@twin.org/core": "0.9.0-next.1",
+		"@twin.org/nameof": "0.9.0-next.1",
+		"@twin.org/tools-core": "0.9.0-next.1",
+		"commander": "15.0.0",
 		"glob": "13.0.6",
 		"typescript": "6.0.3"
 	},
 	"devDependencies": {
-		"@twin.org/merge-locales": "^0.0.3",
-		"@twin.org/nameof-transformer": "^0.0.3",
-		"@twin.org/nameof-vitest-plugin": "^0.0.3",
-		"@twin.org/validate-locales": "^0.0.3",
-		"@types/node": "25.9.0",
-		"@vitest/coverage-v8": "4.1.6",
+		"@twin.org/merge-locales": "0.9.0-next.1",
+		"@twin.org/nameof-transformer": "0.9.0-next.1",
+		"@twin.org/nameof-vitest-plugin": "0.9.0-next.1",
+		"@twin.org/validate-locales": "0.9.0-next.1",
+		"@types/node": "26.0.0",
+		"@vitest/coverage-v8": "4.1.9",
 		"copyfiles": "2.4.1",
 		"nodemon": "3.1.14",
 		"rimraf": "6.1.3",
 		"ts-patch": "4.0.1",
 		"typedoc": "0.28.19",
-		"typedoc-plugin-markdown": "4.11.0",
-		"vitest": "4.1.6"
+		"typedoc-plugin-markdown": "4.12.0",
+		"vitest": "4.1.9"
 	},
 	"main": "./dist/es/index.js",
 	"types": "./dist/types/index.d.ts",
@@ -81,7 +81,7 @@
 		"tools"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/tools/issues"
+		"url": "git+https://github.com/iotaledger/twin-tools/issues"
 	},
 	"homepage": "https://twindev.org"
 }

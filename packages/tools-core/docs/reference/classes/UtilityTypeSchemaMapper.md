@@ -288,6 +288,36 @@ The mapped schema.
 
 ***
 
+### mapJsonLdWithAliasesUtilityType() {#mapjsonldwithaliasesutilitytype}
+
+> `static` **mapJsonLdWithAliasesUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
+
+Map `JsonLdWithAliases<T, Prefix>` (and `JsonLdObjectWithAliases<T, Prefix>`) to an object
+schema where non-JSON-LD property keys are renamed to `Prefix:key` and `@`-prefixed keys
+are preserved as-is.
+
+#### Parameters
+
+##### context
+
+[`ITypeScriptToSchemaContext`](../interfaces/ITypeScriptToSchemaContext.md)
+
+The generation context.
+
+##### typeNode
+
+`TypeReferenceNode`
+
+The type reference node.
+
+#### Returns
+
+`IJsonSchema` \| `undefined`
+
+The mapped schema.
+
+***
+
 ### mapObjectOrArrayUtilityType() {#mapobjectorarrayutilitytype}
 
 > `static` **mapObjectOrArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`

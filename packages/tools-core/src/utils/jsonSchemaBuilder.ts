@@ -45,6 +45,7 @@ export class JsonSchemaBuilder {
 
 	/**
 	 * Dictionary of TypeScript utility type names to their schema mapping handlers.
+	 * @internal
 	 */
 	private static readonly _utilityTypeHandlers: {
 		[key: string]: (
@@ -145,6 +146,10 @@ export class JsonSchemaBuilder {
 			UtilityTypeSchemaMapper.mapJsonLdObjectUtilityType(context, typeNode, {
 				keysToRemove: ["@context"]
 			}),
+		JsonLdWithAliases: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapJsonLdWithAliasesUtilityType(context, typeNode),
+		JsonLdObjectWithAliases: (context, typeNode) =>
+			UtilityTypeSchemaMapper.mapJsonLdWithAliasesUtilityType(context, typeNode),
 		SingleOccurrenceArray: (context, typeNode) =>
 			UtilityTypeSchemaMapper.mapSingleOccurrenceArrayUtilityType(context, typeNode),
 		ObjectOrArray: (context, typeNode) =>
