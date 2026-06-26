@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.9.1-next.1](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.9.1-next.0...ts-to-jsonld-context-v0.9.1-next.1) (2026-06-26)
+
+
+### Features
+
+* add support for default jsonld object properties ([c9e389a](https://github.com/iotaledger/twin-tools/commit/c9e389a7ae53f5059cfc708d8d2aabc998ede10b))
+* add support for default jsonld object properties ([0285bb5](https://github.com/iotaledger/twin-tools/commit/0285bb56e4520af80fb15ca7ce672f44215da44c))
+* added ts-to-jsonld-context tool ([#67](https://github.com/iotaledger/twin-tools/issues/67)) ([c808e84](https://github.com/iotaledger/twin-tools/commit/c808e84741e5010a166520e39565f4933dceba59))
+* json-ld-protected ([#77](https://github.com/iotaledger/twin-tools/issues/77)) ([77bdf8c](https://github.com/iotaledger/twin-tools/commit/77bdf8c0c524e99c7f5b2245aeac029594dd656f))
+* skip [@id](https://github.com/id) and [@type](https://github.com/type) properties ([c4c1dc3](https://github.com/iotaledger/twin-tools/commit/c4c1dc3a83fffc7f05c024daf148b0914f7db55a))
+* support id definition for properties, including ids coming from external LD Contexts ([#69](https://github.com/iotaledger/twin-tools/issues/69)) ([7afbb81](https://github.com/iotaledger/twin-tools/commit/7afbb810f5a9e88163fc3ec05fd4957e60c0ca22))
+* ts to schema ([#86](https://github.com/iotaledger/twin-tools/issues/86)) ([ffebda5](https://github.com/iotaledger/twin-tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+* typescript 6 update ([02d2e47](https://github.com/iotaledger/twin-tools/commit/02d2e47859a1d64c81e840626cc2d443816af45b))
+* update dependencies ([5bdd8be](https://github.com/iotaledger/twin-tools/commit/5bdd8becf9f08b35342ea8f298f74578951f4bac))
+* update json ld property support ([5ad0a3e](https://github.com/iotaledger/twin-tools/commit/5ad0a3e063623b4b85ae6d205fce771fadc6a110))
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/iotaledger/twin-tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+
+
+### Bug Fixes
+
+* namespace only properties to just include external reference ([c329eed](https://github.com/iotaledger/twin-tools/commit/c329eed27194888794595a5be7b8a00be7fdf67f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.9.1-next.0 to 0.9.1-next.1
+
 ## [0.9.0](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.9.0...ts-to-jsonld-context-v0.9.0) (2026-06-22)
 
 

@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/ts-to-openapi",
-	"version": "0.9.1-next.0",
+	"version": "0.9.1-next.1",
 	"description": "Generate OpenAPI specifications from REST route definitions",
 	"repository": {
 		"type": "git",
@@ -32,8 +32,8 @@
 		"@twin.org/cli-core": "next",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
-		"@twin.org/tools-core": "0.9.1-next.0",
-		"@twin.org/tools-models": "0.9.1-next.0",
+		"@twin.org/tools-core": "0.9.1-next.1",
+		"@twin.org/tools-models": "0.9.1-next.1",
 		"@twin.org/web": "next",
 		"commander": "15.0.0",
 		"glob": "13.0.6"

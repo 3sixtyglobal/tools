@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/ts-to-jsonld-context",
-	"version": "0.9.1-next.0",
+	"version": "0.9.1-next.1",
 	"description": "Generate JSON-LD contexts from source model definitions",
 	"repository": {
 		"type": "git",
@@ -32,7 +32,7 @@
 		"@twin.org/cli-core": "next",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
-		"@twin.org/tools-core": "0.9.1-next.0",
+		"@twin.org/tools-core": "0.9.1-next.1",
 		"commander": "15.0.0",
 		"glob": "13.0.6",
 		"typescript": "6.0.3"
