@@ -9056,7 +9056,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The rule id to set.",
+						"description": "The id of the rule group to set.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -9166,7 +9166,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The rule id to set.",
+						"description": "The id of the rule group to retrieve.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -9273,7 +9273,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "The rule id to remove.",
+						"description": "The id of the rule group to remove.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -10743,7 +10743,7 @@
 					},
 					{
 						"name": "conditions",
-						"description": "The conditions to filter the streams, JSON stringified IComparator[].",
+						"description": "The conditions to filter the streams, JSON stringified EntityCondition<IAuditableItemGraphVertex>.",
 						"in": "query",
 						"required": false,
 						"schema": {
@@ -15978,15 +15978,6 @@
 				"tags": ["Transfer Process"],
 				"parameters": [
 					{
-						"name": "autoStart",
-						"description": "When \"true\", the provider immediately starts the requested transfer once it has been created.",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"name": "authorization",
 						"in": "header",
 						"required": true,
@@ -20567,7 +20558,7 @@
 					}
 				},
 				"required": ["data"],
-				"description": "The params for the convert."
+				"description": "The request body containing the data to convert."
 			},
 			"DataProcessingConvertResponse": {
 				"description": "The converted data as an object."
@@ -20593,10 +20584,10 @@
 					}
 				},
 				"required": ["ruleGroupId", "data"],
-				"description": "The params for the extract."
+				"description": "The request body containing the data and rule group to use for extraction."
 			},
 			"DataProcessingExtractResponse": {
-				"description": "The extracted data in extended JSON format which keeps types like bigint, dates and uint8array intact.\nUse ObjectHelper.fromExtended to get the object with original types."
+				"description": "The extracted data in extended JSON format, preserving types such as bigint, dates, and Uint8Array."
 			},
 			"DataProcessingRuleGroupListResponse": {
 				"type": "object",
@@ -20614,7 +20605,7 @@
 					}
 				},
 				"required": ["entities"],
-				"description": "The response payload."
+				"description": "The response body containing the list of rule groups and optional pagination cursor."
 			},
 			"DataProcessingRuleGroupSetRequest": {
 				"type": "object",
@@ -20632,7 +20623,7 @@
 					}
 				},
 				"required": ["label", "rules"],
-				"description": "The data to be used in the store."
+				"description": "The rule group data to store."
 			},
 			"DatasetGetResponse": {
 				"anyOf": [
@@ -20812,7 +20803,7 @@
 						"description": "The query type."
 					},
 					"q": {
-						"description": "The representation of the query."
+						"description": "The representation of the query, optional depending on the query type."
 					},
 					"jsonLdContext": {
 						"type": "array",
@@ -20822,7 +20813,7 @@
 						"description": "The JSON-LD context to be applied over the query terms."
 					}
 				},
-				"required": ["type", "q"]
+				"required": ["type"]
 			},
 			"GetTransferProcessResponse": {
 				"oneOf": [
@@ -21722,12 +21713,11 @@
 				"properties": {
 					"source": {
 						"type": "string",
-						"description": "The path to the data in the document to extract.\nshould be in JSONPath format https://www.rfc-editor.org/rfc/rfc9535.html."
+						"description": "The JSONPath expression identifying the data to extract from the document."
 					},
 					"target": {
 						"type": "string",
-						"description": "The target path of where to store the extracted data.\nSupports simple dotted path notation, and numeric index notation.",
-						"examples": ["\"path.to.data\" or \"path.to.data.0\""]
+						"description": "The target path of where to store the extracted data, using dotted or numeric index notation."
 					},
 					"retainPathDepth": {
 						"type": "number",
@@ -22193,7 +22183,7 @@
 					}
 				},
 				"required": ["receipt", "id"],
-				"description": "The data that was stored."
+				"description": "The created verifiable storage item details."
 			},
 			"VerifiableStorageGetRequest": {
 				"type": "object",
@@ -22230,7 +22220,7 @@
 					}
 				},
 				"required": ["receipt"],
-				"description": "The data that was obtained."
+				"description": "The retrieved verifiable storage item contents."
 			},
 			"VerifiableStorageUpdateRequest": {
 				"type": "object",
