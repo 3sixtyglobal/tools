@@ -5,10 +5,4 @@
  * Default schema type names.
  */
 export type JsonSchemaTypeNames =
-	| "string"
-	| "number"
-	| "integer"
-	| "boolean"
-	| "null"
-	| "object"
-	| "array";
+	"string" | "number" | "integer" | "boolean" | "null" | "object" | "array";
