@@ -26,12 +26,12 @@
 		"httpstatuscode",
 		"nameof",
 		"openapi",
+		"Uncapitalize",
 		"Programatically",
 		"Stiftung",
 		"tspc",
 		"ttsc",
-		"ttypescript",
-		"Uncapitalize"
+		"ttypescript"
 	],
 	"ignoreRegExpList": [
 		"/from\\s+(['\"]).*\\1/",
@@ -40,7 +40,5 @@
 		"/^```shell[\\s\\S]*?```$/gm",
 		"/^```json[\\s\\S]*?```$/gm"
 	],
-	"ignoreWords": [
-		"Cunknown"
-	]
+	"ignoreWords": ["Cunknown"]
 }
