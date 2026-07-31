@@ -22,15 +22,16 @@
 		"abbrev",
 		"autorelease",
 		"Distinguisher",
+		"hotfixes",
 		"httpstatuscode",
 		"nameof",
 		"openapi",
-		"Uncapitalize",
 		"Programatically",
 		"Stiftung",
 		"tspc",
 		"ttsc",
-		"ttypescript"
+		"ttypescript",
+		"Uncapitalize"
 	],
 	"ignoreRegExpList": [
 		"/from\\s+(['\"]).*\\1/",
@@ -39,5 +40,7 @@
 		"/^```shell[\\s\\S]*?```$/gm",
 		"/^```json[\\s\\S]*?```$/gm"
 	],
-	"ignoreWords": ["Cunknown"]
+	"ignoreWords": [
+		"Cunknown"
+	]
 }
