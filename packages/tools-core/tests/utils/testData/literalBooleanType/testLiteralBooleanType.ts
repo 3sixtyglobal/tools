@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Coverage for boolean literal type nodes — true and false as distinct const types rather than the broad boolean keyword.
+ * Coverage for boolean literal type nodes - true and false as distinct const types rather than the broad boolean keyword.
  */
 export interface TestLiteralBooleanType {
 	/**

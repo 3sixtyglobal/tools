@@ -71,11 +71,13 @@
 											"components": [
 												{
 													"source": "Database",
-													"status": "ok"
+													"status": "ok",
+													"category": "connectivity"
 												},
 												{
 													"source": "Storage",
-													"status": "ok"
+													"status": "ok",
+													"category": "connectivity"
 												}
 											]
 										}
@@ -88,11 +90,13 @@
 												{
 													"source": "Database",
 													"status": "warning",
-													"description": "slowRunning"
+													"description": "slowRunning",
+													"category": "connectivity"
 												},
 												{
 													"source": "Storage",
-													"status": "ok"
+													"status": "ok",
+													"category": "connectivity"
 												}
 											]
 										}
@@ -104,12 +108,14 @@
 											"components": [
 												{
 													"source": "Database",
-													"status": "ok"
+													"status": "ok",
+													"category": "connectivity"
 												},
 												{
 													"source": "Storage",
 													"status": "error",
-													"description": "storageFull"
+													"description": "storageFull",
+													"category": "connectivity"
 												}
 											]
 										}
@@ -5461,8 +5467,14 @@
 						"type": "string",
 						"description": "The description of the component as an i18n key."
 					},
+					"category": {
+						"$ref": "#/components/schemas/HealthCategory"
+					},
 					"status": {
 						"$ref": "#/components/schemas/HealthStatus"
+					},
+					"error": {
+						"$ref": "#/components/schemas/Error"
 					},
 					"message": {
 						"type": "string",
@@ -5482,6 +5494,19 @@
 					}
 				},
 				"required": ["source", "status"]
+			},
+			"HealthCategory": {
+				"description": "The category of a health check.",
+				"anyOf": [
+					{
+						"const": "connectivity",
+						"description": "Connectivity health check for infrastructure connectors."
+					},
+					{
+						"const": "application",
+						"description": "Application health check for domain services."
+					}
+				]
 			},
 			"HealthStatus": {
 				"description": "The health status of the component.",

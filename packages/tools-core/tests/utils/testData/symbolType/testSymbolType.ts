@@ -14,17 +14,17 @@ export interface TestSymbolType {
 	regularString: string;
 
 	/**
-	 * A symbol-typed property — should be skipped with a symbolValuedProperty diagnostic.
+	 * A symbol-typed property - should be skipped with a symbolValuedProperty diagnostic.
 	 */
 	symbolTyped: symbol;
 
 	/**
-	 * A well-known symbol key — should be skipped with a symbolKeyedMember diagnostic.
+	 * A well-known symbol key - should be skipped with a symbolKeyedMember diagnostic.
 	 */
 	[Symbol.iterator]: string;
 
 	/**
-	 * A unique symbol const key — should be skipped with a symbolKeyedMember diagnostic.
+	 * A unique symbol const key - should be skipped with a symbolKeyedMember diagnostic.
 	 */
 	[uniqueKey]: boolean;
 

@@ -760,7 +760,7 @@ function prepareFinalSchemas(
 				if (Is.object<IJsonSchema>(props.body)) {
 					allSchemasMap[schema] = props.body;
 					// Body was extracted from a local API wrapper type; external reference
-					// patterns must not override this — the schema stays in components.
+					// patterns must not override this - the schema stays in components.
 					isLocalWrapper = true;
 				} else {
 					// Body is absent or a boolean schema (true = any, false = never).

@@ -1055,11 +1055,11 @@ export class JsonSchemaBuilder {
 				return { type: "null" };
 			}
 			if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) {
-				// true  (boolean true literal type — distinct from the boolean keyword type)
+				// true  (boolean true literal type - distinct from the boolean keyword type)
 				return { const: true };
 			}
 			if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) {
-				// false  (boolean false literal type — distinct from the boolean keyword type)
+				// false  (boolean false literal type - distinct from the boolean keyword type)
 				return { const: false };
 			}
 		}
@@ -3706,7 +3706,7 @@ export class JsonSchemaBuilder {
 					}
 				}
 
-				// Step 3: merge — base properties first, derived properties on top so that a
+				// Step 3: merge - base properties first, derived properties on top so that a
 				// derived type can override a base property (key order: base insertion order,
 				// values from the derived spread win for overlapping keys).
 				expandedSchema.properties = {
