@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.twindev.org/test/CrossCallConsumer",
+	"title": "CrossCallConsumer",
+	"description": "Consumer of the cross-call embedded type.",
+	"type": "object",
+	"properties": {
+		"first": {
+			"$ref": "#/$defs/CrossCallEmbedded"
+		},
+		"second": {
+			"$ref": "#/$defs/CrossCallEmbedded"
+		}
+	},
+	"required": ["first", "second"],
+	"$defs": {
+		"CrossCallEmbedded": {
+			"title": "CrossCallEmbedded",
+			"description": "Embedded type for cross-call sharing tests.",
+			"type": "object",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"value": {
+					"type": "number"
+				}
+			},
+			"required": ["label"]
+		}
+	}
+}

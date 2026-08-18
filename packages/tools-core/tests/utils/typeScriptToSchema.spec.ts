@@ -34,6 +34,8 @@ import testInterfaceExtendsUtilitySchema from "./testData/interfaceExtendsUtilit
 import testJsDocExampleTagSchema from "./testData/jsDocExampleTag/testJsDocExampleTag.json" with { type: "json" };
 import testJsonLdUtilityTypeSchema from "./testData/jsonLdUtilityType/testJsonLdUtilityType.json" with { type: "json" };
 import testBaseTypeSchema from "./testData/jsonSchemaEmbedded/BaseType.json" with { type: "json" };
+import crossCallConsumerSchema from "./testData/jsonSchemaEmbedded/CrossCallConsumer.json" with { type: "json" };
+import crossCallEmbeddedSchema from "./testData/jsonSchemaEmbedded/CrossCallEmbedded.json" with { type: "json" };
 import testConstrainedSchema from "./testData/jsonSchemaEmbedded/Constrained.json" with { type: "json" };
 import testConstrainedDefsSchema from "./testData/jsonSchemaEmbedded/ConstrainedDefs.json" with { type: "json" };
 import testExtendedSchema from "./testData/jsonSchemaEmbedded/Extended.json" with { type: "json" };
@@ -87,6 +89,7 @@ import testTypeSimpleUnionSchema from "./testData/typeSimpleUnion/testTypeSimple
 import testTypeUndefinedSchema from "./testData/typeUndefined/testTypeUndefined.json" with { type: "json" };
 import testUtilityPersonSchema from "./testData/utilityType/testUtilityPerson.json" with { type: "json" };
 import testUtilityTypeSchema from "./testData/utilityType/testUtilityType.json" with { type: "json" };
+import { EmbeddedSchemaMode } from "../../src/models/embeddedSchemaMode.js";
 import { TypeScriptToSchema } from "../../src/utils/typeScriptToSchema.js";
 
 function getSchemaByExpectedTitle(
@@ -1129,6 +1132,84 @@ describe("TypeScriptToSchema", () => {
 				testJsonSchemaEmbeddedLocalMappingSchema
 			],
 			["Thing", "UneceThingConstrained", "UsesConstrained"]
+		);
+	});
+
+	test("can propagate embedded:defs mode to a consumer processed in a later generateSchema call", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const embeddedSchemaModes: { [id: string]: EmbeddedSchemaMode } = {};
+
+		// Call 1: process the file that declares the embedded type.
+		// Its embeddedSchemaModes entry must survive into the next call.
+		const generatedSchemas1 = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCall.ts",
+			undefined,
+			embeddedSchemaModes
+		);
+
+		// Call 2: CrossCallEmbedded is already in packageSchemas so it is not re-parsed.
+		// Without the shared embeddedSchemaModes the embedding would be silently skipped.
+		const generatedSchemas2 = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCallConsumer.ts",
+			undefined,
+			embeddedSchemaModes
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas1,
+			[crossCallEmbeddedSchema],
+			["CrossCallEmbedded"]
+		);
+		expectGeneratedSchemasToMatch(
+			generatedSchemas2,
+			[crossCallEmbeddedSchema, crossCallConsumerSchema],
+			["CrossCallConsumer", "CrossCallEmbedded"]
+		);
+	});
+
+	test("can propagate embedded:defs mode when the consumer is processed before the declaring file", async () => {
+		const tsToSchema = new TypeScriptToSchema();
+		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
+		const embeddedSchemaModes: { [id: string]: EmbeddedSchemaMode } = {};
+
+		// Call 1: process the consumer first; CrossCallEmbedded is parsed as a dependency
+		// and its embedded mode is written into the shared map during this call.
+		const generatedSchemas1 = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCallConsumer.ts",
+			undefined,
+			embeddedSchemaModes
+		);
+
+		// Call 2: process the declaring file; CrossCallEmbedded may already be in packageSchemas
+		// but the embeddedSchemaModes entry is already present from Call 1.
+		const generatedSchemas2 = await tsToSchema.generateSchema(
+			"https://schema.twindev.org/test/",
+			"@example.com/pkg",
+			packageSchemas,
+			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCall.ts",
+			undefined,
+			embeddedSchemaModes
+		);
+
+		expectGeneratedSchemasToMatch(
+			generatedSchemas1,
+			[crossCallEmbeddedSchema, crossCallConsumerSchema],
+			["CrossCallConsumer", "CrossCallEmbedded"]
+		);
+		expectGeneratedSchemasToMatch(
+			generatedSchemas2,
+			[crossCallEmbeddedSchema],
+			["CrossCallEmbedded"]
 		);
 	});
 
