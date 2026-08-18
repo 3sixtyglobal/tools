@@ -16,7 +16,7 @@ Class for converting TypeScript types to JSON Schema.
 
 ### generateSchema() {#generateschema}
 
-> **generateSchema**(`namespace`, `packageName`, `schemas`, `sourceFileOrTypeName`, `options?`): `Promise`\<\{\[`id`: `string`\]: `IJsonSchema`; \}\>
+> **generateSchema**(`namespace`, `packageName`, `schemas`, `sourceFileOrTypeName`, `options?`, `embeddedSchemaModes?`): `Promise`\<\{\[`id`: `string`\]: `IJsonSchema`; \}\>
 
 Generates a JSON schema from a TypeScript source file or type name.
 
@@ -49,6 +49,11 @@ The source file to process or type name to resolve.
 [`ITypeScriptToSchemaOptions`](../interfaces/ITypeScriptToSchemaOptions.md)
 
 Additional generation options.
+
+##### embeddedSchemaModes?
+
+Shared map of schema ids to embedded modes; pass the same object
+across multiple calls so that annotations discovered in one call are visible in later calls.
 
 #### Returns
 
