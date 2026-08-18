@@ -34,10 +34,10 @@ import testInterfaceExtendsUtilitySchema from "./testData/interfaceExtendsUtilit
 import testJsDocExampleTagSchema from "./testData/jsDocExampleTag/testJsDocExampleTag.json" with { type: "json" };
 import testJsonLdUtilityTypeSchema from "./testData/jsonLdUtilityType/testJsonLdUtilityType.json" with { type: "json" };
 import testBaseTypeSchema from "./testData/jsonSchemaEmbedded/BaseType.json" with { type: "json" };
-import crossCallConsumerSchema from "./testData/jsonSchemaEmbedded/CrossCallConsumer.json" with { type: "json" };
-import crossCallEmbeddedSchema from "./testData/jsonSchemaEmbedded/CrossCallEmbedded.json" with { type: "json" };
 import testConstrainedSchema from "./testData/jsonSchemaEmbedded/Constrained.json" with { type: "json" };
 import testConstrainedDefsSchema from "./testData/jsonSchemaEmbedded/ConstrainedDefs.json" with { type: "json" };
+import crossCallConsumerSchema from "./testData/jsonSchemaEmbedded/CrossCallConsumer.json" with { type: "json" };
+import crossCallEmbeddedSchema from "./testData/jsonSchemaEmbedded/CrossCallEmbedded.json" with { type: "json" };
 import testExtendedSchema from "./testData/jsonSchemaEmbedded/Extended.json" with { type: "json" };
 import testExtendedDefsSchema from "./testData/jsonSchemaEmbedded/ExtendedDefs.json" with { type: "json" };
 import localMappedThingSchema from "./testData/jsonSchemaEmbedded/LocalMappedThing.json" with { type: "json" };
@@ -89,7 +89,7 @@ import testTypeSimpleUnionSchema from "./testData/typeSimpleUnion/testTypeSimple
 import testTypeUndefinedSchema from "./testData/typeUndefined/testTypeUndefined.json" with { type: "json" };
 import testUtilityPersonSchema from "./testData/utilityType/testUtilityPerson.json" with { type: "json" };
 import testUtilityTypeSchema from "./testData/utilityType/testUtilityType.json" with { type: "json" };
-import { EmbeddedSchemaMode } from "../../src/models/embeddedSchemaMode.js";
+import type { EmbeddedSchemaMode } from "../../src/models/embeddedSchemaMode.js";
 import { TypeScriptToSchema } from "../../src/utils/typeScriptToSchema.js";
 
 function getSchemaByExpectedTitle(
