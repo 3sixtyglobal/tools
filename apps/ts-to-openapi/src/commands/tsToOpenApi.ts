@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import { Constants, EmbeddedSchemaMode, TypeScriptToSchema } from "@twin.org/tools-core";
+import { Constants, type EmbeddedSchemaMode, TypeScriptToSchema } from "@twin.org/tools-core";
 import {
 	type IJsonSchema,
 	type IOpenApi,

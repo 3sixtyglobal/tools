@@ -800,9 +800,9 @@ describe("TypeScriptToSchema", () => {
 			"https://schema.twindev.org/test/Person"
 		);
 		const secondAnyOfItems = schema.properties?.objectOrArrayPersonType.anyOf?.[1].items;
-		expect(
-			typeof secondAnyOfItems === "object" && secondAnyOfItems ? secondAnyOfItems.$ref : undefined
-		).toEqual("https://schema.twindev.org/test/Person");
+		expect(Is.object(secondAnyOfItems) ? secondAnyOfItems.$ref : undefined).toEqual(
+			"https://schema.twindev.org/test/Person"
+		);
 		expect(schema.properties?.singleOccurrenceArrayType.type).toEqual("array");
 		expect(schema.properties?.singleOccurrenceArrayType.items).toEqual({
 			anyOf: [{ type: "string" }, { type: "number" }]

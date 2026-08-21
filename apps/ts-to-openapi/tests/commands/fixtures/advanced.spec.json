@@ -21729,6 +21729,10 @@
 					{
 						"const": "duration",
 						"description": "Duration in seconds."
+					},
+					{
+						"const": "array",
+						"description": "Array."
 					}
 				]
 			},
@@ -23284,7 +23288,7 @@
 						"$ref": "#/components/schemas/TelemetryMetricValue"
 					}
 				},
-				"required": ["metric", "value"],
+				"required": ["metric"],
 				"description": "The body parameters."
 			},
 			"TelemetryListResponse": {
