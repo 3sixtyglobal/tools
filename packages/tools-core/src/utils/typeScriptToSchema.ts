@@ -20,6 +20,8 @@ export class TypeScriptToSchema {
 	 * @param schemas The package schema map.
 	 * @param sourceFileOrTypeName The source file to process or type name to resolve.
 	 * @param options Additional generation options.
+	 * @param embeddedSchemaModes Shared map of schema ids to embedded modes; pass the same object
+	 * across multiple calls so that annotations discovered in one call are visible in later calls.
 	 * @returns The generated JSON schemas indexed by title.
 	 */
 	public async generateSchema(
@@ -27,7 +29,8 @@ export class TypeScriptToSchema {
 		packageName: string,
 		schemas: { [id: string]: { [id: string]: IJsonSchema } },
 		sourceFileOrTypeName: string,
-		options?: ITypeScriptToSchemaOptions
+		options?: ITypeScriptToSchemaOptions,
+		embeddedSchemaModes?: { [id: string]: EmbeddedSchemaMode }
 	): Promise<{ [id: string]: IJsonSchema }> {
 		const suppressPackageWarnings = (options?.suppressPackageWarnings ?? [])
 			.filter(packageNameToSkip => Is.stringValue(packageNameToSkip))
@@ -51,6 +54,7 @@ export class TypeScriptToSchema {
 			namespace,
 			packageName,
 			schemas,
+			embeddedSchemaModes,
 			options: filteredOptions
 		};
 

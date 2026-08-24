@@ -83,7 +83,7 @@ export class FileUtils {
 			return FileUtils.normalizeFilePath(path.resolve(baseDirectory, relativePath));
 		}
 
-		// Base was relative — resolve to absolute then express relative to CWD to preserve relative form
+		// Base was relative - resolve to absolute then express relative to CWD to preserve relative form
 		return FileUtils.normalizeFilePath(
 			path.relative(process.cwd(), path.resolve(baseDirectory, relativePath))
 		);

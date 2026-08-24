@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import { Constants, TypeScriptToSchema } from "@twin.org/tools-core";
+import { Constants, type EmbeddedSchemaMode, TypeScriptToSchema } from "@twin.org/tools-core";
 import {
 	type IJsonSchema,
 	type IOpenApi,
@@ -760,7 +760,7 @@ function prepareFinalSchemas(
 				if (Is.object<IJsonSchema>(props.body)) {
 					allSchemasMap[schema] = props.body;
 					// Body was extracted from a local API wrapper type; external reference
-					// patterns must not override this — the schema stays in components.
+					// patterns must not override this - the schema stays in components.
 					isLocalWrapper = true;
 				} else {
 					// Body is absent or a boolean schema (true = any, false = never).
@@ -1211,6 +1211,7 @@ async function generateSchemas(
 ): Promise<{ [packageName: string]: { [schemaName: string]: IJsonSchema } }> {
 	const typeScriptToSchema = new TypeScriptToSchema();
 	const allPackageSchemas: { [packageName: string]: { [schemaName: string]: IJsonSchema } } = {};
+	const embeddedSchemaModes: { [id: string]: EmbeddedSchemaMode } = {};
 
 	for (const files of modelDirWildcards) {
 		CLIDisplay.value(
@@ -1223,7 +1224,9 @@ async function generateSchemas(
 			"#/components/schemas/",
 			"@twin.org/ts-to-openapi",
 			allPackageSchemas,
-			files
+			files,
+			undefined,
+			embeddedSchemaModes
 		);
 	}
 

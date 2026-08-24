@@ -1,5 +1,80 @@
 # Changelog
 
+## [0.9.2-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.9.2-next.1...ts-to-openapi-v0.9.2-next.2) (2026-08-18)
+
+
+### Features
+
+* embedding schema not order dependent ([94d31d0](https://github.com/iotaledger/twin-tools/commit/94d31d0897d736a86ff66c8f1693ccea4251749a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.9.2-next.1 to 0.9.2-next.2
+    * @twin.org/tools-models bumped from 0.9.2-next.1 to 0.9.2-next.2
+
+## [0.9.2-next.1](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.9.2-next.0...ts-to-openapi-v0.9.2-next.1) (2026-08-07)
+
+
+### Features
+
+* add 'byte' to supported json-schema format values ([#122](https://github.com/iotaledger/twin-tools/issues/122)) ([54c2a27](https://github.com/iotaledger/twin-tools/commit/54c2a279c1fdc4f6779667e3deb3de3a199237ac))
+* add context id features ([#54](https://github.com/iotaledger/twin-tools/issues/54)) ([41ad65d](https://github.com/iotaledger/twin-tools/commit/41ad65d5ae33d0533d32a2864cd94e5c35e56c76))
+* add examples to json schema ([#109](https://github.com/iotaledger/twin-tools/issues/109)) ([def5b13](https://github.com/iotaledger/twin-tools/commit/def5b1312e7a0ffefe662fb14575cb655d1c0774))
+* add jsdoc default value to schema ([7886a84](https://github.com/iotaledger/twin-tools/commit/7886a84961e692d2054f223e2e99205a654b76a6))
+* add jsdoc tag validation ([971b8d3](https://github.com/iotaledger/twin-tools/commit/971b8d3817d40467bfd7549c99af602f0c590299))
+* add latest json schema features ([494293f](https://github.com/iotaledger/twin-tools/commit/494293f4252b9c7d4a20790ec157fc9d8c96c3d2))
+* add support for authentication property ([ba002c2](https://github.com/iotaledger/twin-tools/commit/ba002c2c641618ffe7664269179bca6e9fbc9655))
+* add support for auto expand types ([dd1e10a](https://github.com/iotaledger/twin-tools/commit/dd1e10a5b2fea6f80890ff6f3971f48e239cb4c1))
+* add ts-to-schema overrides ([3c54504](https://github.com/iotaledger/twin-tools/commit/3c5450468eb998204a75576b7791a7ca4027da62))
+* add validate-locales ([97bb11f](https://github.com/iotaledger/twin-tools/commit/97bb11fd9e6ed400e7fa69671075ba78f36ca6e6))
+* alternate path and query param schemas ([e7487e3](https://github.com/iotaledger/twin-tools/commit/e7487e3bf4ccee3f52245ca27bc7cc160ab391b8))
+* correctly handle auto expand types ([57fce0f](https://github.com/iotaledger/twin-tools/commit/57fce0f9ec4a0876665d70adc6e885f6feb3caf7))
+* eslint migration to flat config ([25acfcf](https://github.com/iotaledger/twin-tools/commit/25acfcf4c4e0c496fffeaf67659fe171bc15199a))
+* fix advanced test output ([cea65c6](https://github.com/iotaledger/twin-tools/commit/cea65c623c2f747b9e218ad2240f1cd84383040e))
+* generate schemas as individual entities ([9f372ab](https://github.com/iotaledger/twin-tools/commit/9f372abdfc27aba93b303c7b214991919c0c18c3))
+* improve auto expand types ([6181d1d](https://github.com/iotaledger/twin-tools/commit/6181d1daded1f91323195cf7efbc2f1881f38b41))
+* improve schema type name normalisation ([1a18b26](https://github.com/iotaledger/twin-tools/commit/1a18b267d87e9179bda01b396b256c450ae2889e))
+* improve type name normalisation ([1fe28e5](https://github.com/iotaledger/twin-tools/commit/1fe28e567593e46a41a833fbba95fe4cd958f525))
+* linting and dependency update ([669fa0b](https://github.com/iotaledger/twin-tools/commit/669fa0b305d73ff42641c19976be979a1c9bd324))
+* move package to framework repo ([4490bda](https://github.com/iotaledger/twin-tools/commit/4490bda472d4dc8ddfe931e2fce81f3411de9ab3))
+* remove auto expanded types from final output ([18e05dc](https://github.com/iotaledger/twin-tools/commit/18e05dc88f71a0a27b79d1d076b1261b42d2c4c2))
+* strip Omit types ([3a079f9](https://github.com/iotaledger/twin-tools/commit/3a079f9abe8127c5b44a2b9382babf2f19629d08))
+* tighten the types included with the regex matching ([e54909b](https://github.com/iotaledger/twin-tools/commit/e54909bded4a19d00560dd3ec783e9146580bda3))
+* ts to schema ([#86](https://github.com/iotaledger/twin-tools/issues/86)) ([ffebda5](https://github.com/iotaledger/twin-tools/commit/ffebda5f14ab5ec734bf37c9fb70a7ec3d4012c3))
+* typescript 6 update ([02d2e47](https://github.com/iotaledger/twin-tools/commit/02d2e47859a1d64c81e840626cc2d443816af45b))
+* update dependencies ([5bdd8be](https://github.com/iotaledger/twin-tools/commit/5bdd8becf9f08b35342ea8f298f74578951f4bac))
+* update http status map table ([#105](https://github.com/iotaledger/twin-tools/issues/105)) ([af7ecbb](https://github.com/iotaledger/twin-tools/commit/af7ecbbeb6b5dc9941a70e954729d2ac3c35d5db))
+* use jsdoc tags for json-ld markup ([1ea872e](https://github.com/iotaledger/twin-tools/commit/1ea872e07a1cc0e94178158a57383d64008e02e3))
+* use most recent JSON schema specs ([4598cbf](https://github.com/iotaledger/twin-tools/commit/4598cbf29f7b82dba4a9f3b19f81dfe66f5a6060))
+* use shared store mechanism ([#31](https://github.com/iotaledger/twin-tools/issues/31)) ([d9fe68b](https://github.com/iotaledger/twin-tools/commit/d9fe68b903d1268c7cb3c64772df5cb78fd63667))
+
+
+### Bug Fixes
+
+* correct type naming ([99980c5](https://github.com/iotaledger/twin-tools/commit/99980c58ac3f61be5df2fae0d00676532ada5a64))
+* fix locale resource name ([53ad5b5](https://github.com/iotaledger/twin-tools/commit/53ad5b56f19a5082f16a4f1e4a761e114dce8250))
+* missing type definitions when importing relative from dynamic node_modules ([52d9fc5](https://github.com/iotaledger/twin-tools/commit/52d9fc5f2618a09c02b9f5dbe585b37cf60c9f20))
+* output all referenced schemas for packages ([8c0580a](https://github.com/iotaledger/twin-tools/commit/8c0580a5c2c7c1f5b581401100a043950b54379a))
+* remove unused types ([#62](https://github.com/iotaledger/twin-tools/issues/62)) ([2da7f7b](https://github.com/iotaledger/twin-tools/commit/2da7f7b63ac2916744179ba122fb8ed80ed13ed4))
+* speed up schema generation ([#64](https://github.com/iotaledger/twin-tools/issues/64)) ([2dc1829](https://github.com/iotaledger/twin-tools/commit/2dc1829965cb5917d6672bc633e47788a361b071))
+* support json-ld with aliases type ([#127](https://github.com/iotaledger/twin-tools/issues/127)) ([1eb6c4f](https://github.com/iotaledger/twin-tools/commit/1eb6c4f00088955506c88f026cfaba6e1e1a61b7))
+* test updated fixtures ([ac2f0a2](https://github.com/iotaledger/twin-tools/commit/ac2f0a279fa806c463d96aa6e7bda447f4f03cca))
+* ts-to-openapi advanced test ([fcb96da](https://github.com/iotaledger/twin-tools/commit/fcb96da8af1aed5ebd0449389c1f5b4da2e175da))
+* update tests ([e9c3d42](https://github.com/iotaledger/twin-tools/commit/e9c3d4243a86ed8790d45c0c2358490ea2553762))
+* update tests with latest advanced output ([895f23b](https://github.com/iotaledger/twin-tools/commit/895f23b120b42f29fc6f028ff5600cbc5617400a))
+* updates tests ([6bebe7f](https://github.com/iotaledger/twin-tools/commit/6bebe7faeb83b12917e16a0b3a722a9d1fe242b9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/tools-core bumped from 0.9.2-next.0 to 0.9.2-next.1
+    * @twin.org/tools-models bumped from 0.9.2-next.0 to 0.9.2-next.1
+
 ## [0.9.1](https://github.com/iotaledger/twin-tools/compare/ts-to-openapi-v0.9.1...ts-to-openapi-v0.9.1) (2026-07-27)
 
 
