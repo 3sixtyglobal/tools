@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.2](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.9.2...ts-to-jsonld-context-v0.9.2) (2026-08-24)
+
+
+### Features
+
+* release to production ([ad24b7e](https://github.com/iotaledger/twin-tools/commit/ad24b7eb16784165b6c93b5c48788199f0e17526))
+* release to production ([#119](https://github.com/iotaledger/twin-tools/issues/119)) ([cc2828a](https://github.com/iotaledger/twin-tools/commit/cc2828a6c68466bfdeaf75b507bc980dddac2cf0))
+* release to production ([#134](https://github.com/iotaledger/twin-tools/issues/134)) ([2761a5d](https://github.com/iotaledger/twin-tools/commit/2761a5d6cc7ffb32fd3273446191e41b7052e627))
+* release to production ([#137](https://github.com/iotaledger/twin-tools/issues/137)) ([350bac3](https://github.com/iotaledger/twin-tools/commit/350bac331b587ff396f527f2f3b932736f547342))
+* release to production ([#141](https://github.com/iotaledger/twin-tools/issues/141)) ([d46568c](https://github.com/iotaledger/twin-tools/commit/d46568c8335c120deb3ba2e83133e208471c4eb0))
+* release to production ([#150](https://github.com/iotaledger/twin-tools/issues/150)) ([009a12c](https://github.com/iotaledger/twin-tools/commit/009a12c14ae26bf29a0b03e4cb4598ccf5bf919a))
+* release to production ([#158](https://github.com/iotaledger/twin-tools/issues/158)) ([2134437](https://github.com/iotaledger/twin-tools/commit/21344376505252c04cbb83d26e78330da3937968))
+
 ## [0.9.2-next.2](https://github.com/iotaledger/twin-tools/compare/ts-to-jsonld-context-v0.9.2-next.1...ts-to-jsonld-context-v0.9.2-next.2) (2026-08-18)
 
 
