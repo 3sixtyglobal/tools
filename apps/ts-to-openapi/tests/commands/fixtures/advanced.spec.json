@@ -6808,7 +6808,7 @@
 		"/telemetry/metric": {
 			"post": {
 				"operationId": "telemetryCreateMetric",
-				"summary": "Create a telemetry metric",
+				"summary": "Create one or more telemetry metrics",
 				"tags": ["Telemetry"],
 				"security": [
 					{
@@ -6816,12 +6816,12 @@
 					}
 				],
 				"requestBody": {
-					"description": "Create a new telemetry metric.",
+					"description": "Create one or more telemetry metrics.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/TelemetryMetric"
+								"$ref": "#/components/schemas/TelemetryCreateMetricRequest"
 							},
 							"examples": {
 								"telemetryCreateMetricRequestExample": {
@@ -6830,8 +6830,24 @@
 										"label": "My Counter",
 										"description": "This is my counter",
 										"type": 0,
-										"unit": "KG"
+										"unit": "KG",
+										"maxHistory": 1000
 									}
+								},
+								"telemetryCreateMetricsRequestExample": {
+									"value": [
+										{
+											"id": "my-counter",
+											"label": "My Counter",
+											"type": 0,
+											"maxHistory": 1000
+										},
+										{
+											"id": "my-gauge",
+											"label": "My Gauge",
+											"type": 2
+										}
+									]
 								}
 							}
 						}
@@ -23304,6 +23320,20 @@
 				},
 				"required": ["value"],
 				"description": "The data to be used in the update."
+			},
+			"TelemetryCreateMetricRequest": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/TelemetryMetric"
+					},
+					{
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/TelemetryMetric"
+						}
+					}
+				],
+				"description": "The data to be used in the create. A single metric fails if it already exists; an array\ndeclares the set that should exist, creating the ones that are missing."
 			},
 			"TelemetryGetMetricResponse": {
 				"type": "object",
