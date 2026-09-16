@@ -1363,21 +1363,17 @@ async function loadPackages(
 		tags: ITag[];
 	}[] = [];
 
-	let localNpmRoot = await CLIUtils.findNpmRoot(process.cwd());
-	localNpmRoot = localNpmRoot.replace(/[/\\]node_modules/, "");
-
 	const packages: string[] = [];
-	const localPackages: string[] = [];
+	const localPackageRoots: { [packageName: string]: string } = {};
 
 	for (const configRestRoutes of tsToOpenApiConfig.restRoutes) {
 		if (Is.stringValue(configRestRoutes.package)) {
-			const existsLocally = await CLIUtils.dirExists(
-				path.join(localNpmRoot, "node_modules", configRestRoutes.package)
+			const localPackageRoot = await CLIUtils.findPackageRoot(
+				configRestRoutes.package,
+				process.cwd()
 			);
-			if (existsLocally) {
-				if (!localPackages.includes(configRestRoutes.package)) {
-					localPackages.push(configRestRoutes.package);
-				}
+			if (Is.stringValue(localPackageRoot)) {
+				localPackageRoots[configRestRoutes.package] = localPackageRoot;
 			} else {
 				const version = configRestRoutes.version ?? "latest";
 				const newPackage = `${configRestRoutes.package}@${version}`;
@@ -1406,13 +1402,11 @@ async function loadPackages(
 		}
 
 		let rootFolder;
-		let npmResolveFolder;
 		if (Is.stringValue(packageName)) {
-			if (localPackages.includes(packageName)) {
-				npmResolveFolder = localNpmRoot;
-				rootFolder = path.join(localNpmRoot, "node_modules", packageName);
+			const localPackageRoot = localPackageRoots[packageName];
+			if (Is.stringValue(localPackageRoot)) {
+				rootFolder = localPackageRoot;
 			} else {
-				npmResolveFolder = outputWorkingDir;
 				rootFolder = path.join(outputWorkingDir, "node_modules", packageName);
 
 				const downloadedPackageExists = await CLIUtils.dirExists(rootFolder);
@@ -1425,7 +1419,6 @@ async function loadPackages(
 			}
 		} else {
 			rootFolder = path.resolve(packageRoot ?? "");
-			npmResolveFolder = rootFolder;
 		}
 
 		const pkgJson = (await CLIUtils.readJsonFile<IPackageJson>(
@@ -1446,15 +1439,17 @@ async function loadPackages(
 			}
 		}
 		if (pkgJson.dependencies) {
-			const nodeModulesFolder = await CLIUtils.findNpmRoot(npmResolveFolder);
 			for (const dep in pkgJson.dependencies) {
 				if (dep.startsWith("@twin.org")) {
-					for (const typeFolder of typeFolders) {
-						const typesDirDep = path.join(nodeModulesFolder, dep, "dist", "types", typeFolder);
-						if (await CLIUtils.dirExists(typesDirDep)) {
-							const newRoot = path.join(typesDirDep, "**/*.ts");
-							if (!typeRoots.includes(newRoot)) {
-								typeRoots.push(newRoot);
+					const depRootFolder = await CLIUtils.findPackageRoot(dep, rootFolder);
+					if (Is.stringValue(depRootFolder)) {
+						for (const typeFolder of typeFolders) {
+							const typesDirDep = path.join(depRootFolder, "dist", "types", typeFolder);
+							if (await CLIUtils.dirExists(typesDirDep)) {
+								const newRoot = path.join(typesDirDep, "**/*.ts");
+								if (!typeRoots.includes(newRoot)) {
+									typeRoots.push(newRoot);
+								}
 							}
 						}
 					}
