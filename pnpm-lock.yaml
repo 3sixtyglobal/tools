@@ -251,7 +251,7 @@ importers:
         specifier: next
         version: 0.10.1-next.12
       '@twin.org/tools-core':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../../packages/tools-core
       commander:
         specifier: 15.0.0
@@ -318,10 +318,10 @@ importers:
         specifier: next
         version: 0.10.1-next.12
       '@twin.org/tools-core':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../../packages/tools-core
       '@twin.org/tools-models':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../../packages/tools-models
       '@twin.org/web':
         specifier: next
@@ -391,10 +391,10 @@ importers:
         specifier: next
         version: 0.10.1-next.12
       '@twin.org/tools-core':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../../packages/tools-core
       '@twin.org/tools-models':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../../packages/tools-models
       ajv:
         specifier: 8.20.0
@@ -464,7 +464,7 @@ importers:
         specifier: next
         version: 0.10.1-next.12
       '@twin.org/tools-models':
-        specifier: 0.10.1-next.0
+        specifier: 0.10.1-next.1
         version: link:../tools-models
       glob:
         specifier: 13.0.6
