@@ -3,7 +3,9 @@
 		"commands": {
 			"ts-to-schema": {
 				"configFailed": "Configuration failed to load.",
-				"schemaNotFound": "Could not find the requested schema in the generated types \"{type}\"."
+				"schemaNotFound": "Could not find the requested schema in the generated types \"{type}\".",
+				"schemaNotExternal": "The schema \"{uri}\" is not one of the generated schemas or in an external namespace.",
+				"schemaFetchFailed": "Failed to fetch the external schema \"{uri}\", status \"{status}\"."
 			}
 		}
 	},
@@ -20,6 +22,10 @@
 				"output-folder": {
 					"param": "'<'output-folder'>'",
 					"description": "The folder to write the schema files."
+				},
+				"compiled-folder": {
+					"param": "[compiled-folder]",
+					"description": "The optional folder to write the compiled validators for the schemas."
 				}
 			},
 			"progress": {
@@ -28,12 +34,17 @@
 				"generatingSchema": "Generating Schema",
 				"writingSchemas": "Writing Schemas",
 				"writingSchema": "Writing Schema",
+				"compilingValidators": "Compiling Validators",
+				"fetchingSchema": "Fetching Schema",
+				"importingValidator": "Importing Validator",
+				"writingValidators": "Writing Validators",
 				"models": "Models"
 			},
 			"labels": {
 				"configJson": "Config JSON",
 				"outputFolder": "Output Folder",
-				"outputWorkingDir": "Output Working Directory"
+				"outputWorkingDir": "Output Working Directory",
+				"compiledFolder": "Compiled Folder"
 			}
 		}
 	}
