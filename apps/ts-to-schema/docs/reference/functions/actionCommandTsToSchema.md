@@ -1,6 +1,6 @@
 # Function: actionCommandTsToSchema()
 
-> **actionCommandTsToSchema**(`configFile`, `outputFolder`, `opts`): `Promise`\<`void`\>
+> **actionCommandTsToSchema**(`configFile`, `outputFolder`, `compiledFolder`, `opts`): `Promise`\<`void`\>
 
 Action the root command.
 
@@ -17,6 +17,12 @@ The optional configuration file.
 `string`
 
 The output folder for the schemas.
+
+### compiledFolder
+
+`string` \| `undefined`
+
+The optional output folder for the compiled validators of the schemas.
 
 ### opts
 
