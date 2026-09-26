@@ -34,6 +34,8 @@
 		"@twin.org/nameof": "next",
 		"@twin.org/tools-core": "0.10.1-next.0",
 		"@twin.org/tools-models": "0.10.1-next.0",
+		"ajv": "8.20.0",
+		"ajv-formats": "3.0.1",
 		"commander": "15.0.0",
 		"glob": "13.0.6"
 	},

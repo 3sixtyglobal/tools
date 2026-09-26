@@ -243,13 +243,13 @@ importers:
     dependencies:
       '@twin.org/cli-core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/tools-core':
         specifier: 0.10.1-next.0
         version: link:../../packages/tools-core
@@ -265,16 +265,16 @@ importers:
     devDependencies:
       '@twin.org/merge-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-transformer':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-vitest-plugin':
         specifier: next
-        version: 0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
+        version: 0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
       '@twin.org/validate-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@types/node':
         specifier: 26.6.2
         version: 26.6.2
@@ -310,13 +310,13 @@ importers:
     dependencies:
       '@twin.org/cli-core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/tools-core':
         specifier: 0.10.1-next.0
         version: link:../../packages/tools-core
@@ -325,7 +325,7 @@ importers:
         version: link:../../packages/tools-models
       '@twin.org/web':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       commander:
         specifier: 15.0.0
         version: 15.0.0
@@ -335,16 +335,16 @@ importers:
     devDependencies:
       '@twin.org/merge-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-transformer':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-vitest-plugin':
         specifier: next
-        version: 0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
+        version: 0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
       '@twin.org/validate-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@types/node':
         specifier: 26.6.2
         version: 26.6.2
@@ -383,19 +383,25 @@ importers:
     dependencies:
       '@twin.org/cli-core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/tools-core':
         specifier: 0.10.1-next.0
         version: link:../../packages/tools-core
       '@twin.org/tools-models':
         specifier: 0.10.1-next.0
         version: link:../../packages/tools-models
+      ajv:
+        specifier: 8.20.0
+        version: 8.20.0
+      ajv-formats:
+        specifier: 3.0.1
+        version: 3.0.1(ajv@8.20.0)
       commander:
         specifier: 15.0.0
         version: 15.0.0
@@ -405,16 +411,16 @@ importers:
     devDependencies:
       '@twin.org/merge-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-transformer':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-vitest-plugin':
         specifier: next
-        version: 0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
+        version: 0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
       '@twin.org/validate-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@types/node':
         specifier: 26.6.2
         version: 26.6.2
@@ -453,10 +459,10 @@ importers:
     dependencies:
       '@twin.org/core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/tools-models':
         specifier: 0.10.1-next.0
         version: link:../tools-models
@@ -469,13 +475,13 @@ importers:
     devDependencies:
       '@twin.org/nameof-transformer':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-vitest-plugin':
         specifier: next
-        version: 0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
+        version: 0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
       '@twin.org/validate-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@types/node':
         specifier: 26.6.2
         version: 26.6.2
@@ -511,20 +517,20 @@ importers:
     dependencies:
       '@twin.org/core':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
     devDependencies:
       '@twin.org/nameof-transformer':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@twin.org/nameof-vitest-plugin':
         specifier: next
-        version: 0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
+        version: 0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
       '@twin.org/validate-locales':
         specifier: next
-        version: 0.10.1-next.10
+        version: 0.10.1-next.12
       '@vitest/coverage-v8':
         specifier: 5.0.1
         version: 5.0.1(vitest@5.0.1)
@@ -1289,42 +1295,42 @@ packages:
     peerDependencies:
       eslint: '>=7.7.0'
 
-  '@twin.org/cli-core@0.10.1-next.10':
-    resolution: {integrity: sha512-G+i9ge3XzLyscOd32lKxoFiz10BRsL+jJG8rfFLTnGqRo0p50gxac7CCNmJlZdwpf5XYYMtYsqV5tBwX8fTQRw==}
+  '@twin.org/cli-core@0.10.1-next.12':
+    resolution: {integrity: sha512-gwiW4qR06cDNF9L7aXVbw171eHYq9Zla/0EYwNuq2nM3ZHy9snr0L5fr+jhmfvWMUGeutJ04rwGqzV5HIrljfQ==}
     engines: {node: '>=24.0.0'}
 
-  '@twin.org/core@0.10.1-next.10':
-    resolution: {integrity: sha512-VJe9xzydp1OtJ94aW2KFIMxzhxDp1fDopH1p6E7s/HZQjVsC8qJ32X1f7FlE0KFcxA3DfSdg7Ektg82La0J44g==}
+  '@twin.org/core@0.10.1-next.12':
+    resolution: {integrity: sha512-vtjh7GXpjP4BLKb6Qb7fc9bH1r+TC8/yun1AClK5EHkOPj9FAB4zq/Ol9jSlC0QCmeWMQqrhV3VeVIn/4WiRXQ==}
     engines: {node: '>=24.0.0'}
 
-  '@twin.org/crypto@0.10.1-next.10':
-    resolution: {integrity: sha512-sCl+2Syse8J2kUF3ly4crLN3kIXgc6eSA4zoeWl4csjKpOwG9/qAhHcapgzkp1YT9KXxlnBVI3en7CDNEj2PTg==}
+  '@twin.org/crypto@0.10.1-next.12':
+    resolution: {integrity: sha512-SxNMCybYSV2eOKjMiquiz8eoHONjbGOluTgt/hfo9SmCjIwQtrtr9o3OF6bUiOmj4DwE9jVqBrGlb3O1KV9NJg==}
     engines: {node: '>=24.0.0'}
 
-  '@twin.org/merge-locales@0.10.1-next.10':
-    resolution: {integrity: sha512-V8hHWLIfWL2OGqiYGeDRrNbCYd3joYBSwdy2E0iuWXc4tgpPszFBb+XJWVG0txdy8HQ/uOgWZYC19UbQYSgCzQ==}
-    engines: {node: '>=24.0.0'}
-    hasBin: true
-
-  '@twin.org/nameof-transformer@0.10.1-next.10':
-    resolution: {integrity: sha512-ZgGHsOXjodmFHn1DqpBskBpMsz1MndfZ9rytxz2vK4uGhTq4+OItUEr04THtBfRd5FTUpTOZ66nVMupmlPObHQ==}
-    engines: {node: '>=24.0.0'}
-
-  '@twin.org/nameof-vitest-plugin@0.10.1-next.10':
-    resolution: {integrity: sha512-bjXGQqpwz5jzwOKr1U6OvInIPUKZ+qIFp96hJZS+odu80LkHlxMEeYjrK34imzISeaP5qHInozfWuMt5B0cfdA==}
-    engines: {node: '>=24.0.0'}
-
-  '@twin.org/nameof@0.10.1-next.10':
-    resolution: {integrity: sha512-A5y6oUF2DBdqtsyw+UnHF8ngcHpnx2CLNqzKykGVKfxv5OeE4bVWWIXQPDgcC8+N5b/1pd4XNwNWA4Jpr2RK+g==}
-    engines: {node: '>=24.0.0'}
-
-  '@twin.org/validate-locales@0.10.1-next.10':
-    resolution: {integrity: sha512-MXcVGNzhuUVaCcvFCvr6tCnlCV/ftYCUr7LxNPmgCBtQur3HDNX6TKsZWX2ONuo+4DnBlDYf2kMex77Z0pmFjA==}
+  '@twin.org/merge-locales@0.10.1-next.12':
+    resolution: {integrity: sha512-ccgdE9kNj4GNk3d8Sebp3AgHHPjMIAnlLGdcbZnQ4PGDMkqgfMbiOXXljjv6Ij6x6xA3ayh40ejo9Cu2oZx2hQ==}
     engines: {node: '>=24.0.0'}
     hasBin: true
 
-  '@twin.org/web@0.10.1-next.10':
-    resolution: {integrity: sha512-UVbKlPveXGtHsu+xzva1AoHAl+UiF5xwzuhV234P1P9uEC3dxAaAmb3X4q+thYM0ey2octhcJ9Y0ndXcMpn4Hw==}
+  '@twin.org/nameof-transformer@0.10.1-next.12':
+    resolution: {integrity: sha512-QcUVoMT1pCNk3my2ySPBUfuXhLAQgISWykFz0BBAHhyUqFM46BwqQXohCQ7IAE9RtPUMuzoz2HyX72Q7CDu2kA==}
+    engines: {node: '>=24.0.0'}
+
+  '@twin.org/nameof-vitest-plugin@0.10.1-next.12':
+    resolution: {integrity: sha512-FbWAybTHX63ScXOujRXyg236GAmeByay2GVdcfVbLyCCmMGW1ExJ1cxU8BdWJPNoZNSM2mwvxqWytKnNBEI1QQ==}
+    engines: {node: '>=24.0.0'}
+
+  '@twin.org/nameof@0.10.1-next.12':
+    resolution: {integrity: sha512-YZSPVnjvxWcF/kN/6HaGK8Az3UtFQAbxdpA59KHhAYZW5mMKYEsESeWNPlmKgCAIgSU2voGz4sPhiaN0ErrCrw==}
+    engines: {node: '>=24.0.0'}
+
+  '@twin.org/validate-locales@0.10.1-next.12':
+    resolution: {integrity: sha512-KiYMfNXm5SEmnk4ho4kzwW825w3qCYA9owhGgGPs1fyOcttDtDgLeHGIt5xsTJE0QG8XMM5rrG851DtPYqjm+w==}
+    engines: {node: '>=24.0.0'}
+    hasBin: true
+
+  '@twin.org/web@0.10.1-next.12':
+    resolution: {integrity: sha512-eoccJsRv/INFpqxroz6v/alwcgxTzR83XPe7L1Gg1Esl02f2yVC4ZiDUbXbN+JQNEqQwpflIZ08/pEXA18ruCw==}
     engines: {node: '>=24.0.0'}
 
   '@tybys/wasm-util@0.10.4':
@@ -1602,6 +1608,14 @@ packages:
   agent-base@7.1.4:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
+
+  ajv-formats@3.0.1:
+    resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   ajv@6.15.0:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
@@ -1983,8 +1997,8 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dotenv@18.0.1:
-    resolution: {integrity: sha512-0eR4m4D/jH5eaI3evo2ZqqMii5mrTCR12v12VChdie6O1gPHs7XAjzTep0CWc1Bd+oNx3vVfbi734dK4zghigw==}
+  dotenv@18.0.2:
+    resolution: {integrity: sha512-wl0U3CxC0iobaryqEKpFJxzyp4AxQFYAKj/WWszXZr87vVHLi2yJv2syax5Vxt+u02xqNgE277rsc3lOKg9sPg==}
     engines: {node: '>=12'}
     hasBin: true
 
@@ -4328,21 +4342,21 @@ snapshots:
     dependencies:
       eslint: 10.11.0(jiti@2.6.1)(supports-color@10.2.2)
 
-  '@twin.org/cli-core@0.10.1-next.10':
+  '@twin.org/cli-core@0.10.1-next.12':
     dependencies:
-      '@twin.org/core': 0.10.1-next.10
-      '@twin.org/nameof': 0.10.1-next.10
+      '@twin.org/core': 0.10.1-next.12
+      '@twin.org/nameof': 0.10.1-next.12
       chalk: 6.0.0
       commander: 15.0.0
-      dotenv: 18.0.1
+      dotenv: 18.0.2
 
-  '@twin.org/core@0.10.1-next.10':
+  '@twin.org/core@0.10.1-next.12':
     dependencies:
-      '@twin.org/nameof': 0.10.1-next.10
+      '@twin.org/nameof': 0.10.1-next.12
       intl-messageformat: 12.1.2
       rfc6902: 5.3.0
 
-  '@twin.org/crypto@0.10.1-next.10':
+  '@twin.org/crypto@0.10.1-next.12':
     dependencies:
       '@noble/ciphers': 2.4.0
       '@noble/curves': 2.4.0
@@ -4350,25 +4364,25 @@ snapshots:
       '@scure/base': 2.4.0
       '@scure/bip32': 2.4.0
       '@scure/bip39': 2.4.0
-      '@twin.org/core': 0.10.1-next.10
-      '@twin.org/nameof': 0.10.1-next.10
+      '@twin.org/core': 0.10.1-next.12
+      '@twin.org/nameof': 0.10.1-next.12
       micro-key-producer: 0.10.2
 
-  '@twin.org/merge-locales@0.10.1-next.10':
+  '@twin.org/merge-locales@0.10.1-next.12':
     dependencies:
-      '@twin.org/cli-core': 0.10.1-next.10
-      '@twin.org/core': 0.10.1-next.10
-      '@twin.org/nameof': 0.10.1-next.10
+      '@twin.org/cli-core': 0.10.1-next.12
+      '@twin.org/core': 0.10.1-next.12
+      '@twin.org/nameof': 0.10.1-next.12
       commander: 15.0.0
       glob: 13.0.6
 
-  '@twin.org/nameof-transformer@0.10.1-next.10':
+  '@twin.org/nameof-transformer@0.10.1-next.12':
     dependencies:
       typescript: 6.0.3
 
-  '@twin.org/nameof-vitest-plugin@0.10.1-next.10(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))':
+  '@twin.org/nameof-vitest-plugin@0.10.1-next.12(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))':
     dependencies:
-      '@twin.org/nameof-transformer': 0.10.1-next.10
+      '@twin.org/nameof-transformer': 0.10.1-next.12
       vitest: 5.0.1(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.2)(jiti@2.6.1))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -4385,23 +4399,23 @@ snapshots:
       - msw
       - vite
 
-  '@twin.org/nameof@0.10.1-next.10': {}
+  '@twin.org/nameof@0.10.1-next.12': {}
 
-  '@twin.org/validate-locales@0.10.1-next.10':
+  '@twin.org/validate-locales@0.10.1-next.12':
     dependencies:
-      '@twin.org/cli-core': 0.10.1-next.10
-      '@twin.org/core': 0.10.1-next.10
-      '@twin.org/nameof': 0.10.1-next.10
-      '@twin.org/nameof-transformer': 0.10.1-next.10
+      '@twin.org/cli-core': 0.10.1-next.12
+      '@twin.org/core': 0.10.1-next.12
+      '@twin.org/nameof': 0.10.1-next.12
+      '@twin.org/nameof-transformer': 0.10.1-next.12
       commander: 15.0.0
       glob: 13.0.6
       typescript: 6.0.3
 
-  '@twin.org/web@0.10.1-next.10':
+  '@twin.org/web@0.10.1-next.12':
     dependencies:
-      '@twin.org/core': 0.10.1-next.10
-      '@twin.org/crypto': 0.10.1-next.10
-      '@twin.org/nameof': 0.10.1-next.10
+      '@twin.org/core': 0.10.1-next.12
+      '@twin.org/crypto': 0.10.1-next.12
+      '@twin.org/nameof': 0.10.1-next.12
       jose: 6.2.12
 
   '@tybys/wasm-util@0.10.4':
@@ -4647,6 +4661,10 @@ snapshots:
   acorn@8.18.0: {}
 
   agent-base@7.1.4: {}
+
+  ajv-formats@3.0.1(ajv@8.20.0):
+    optionalDependencies:
+      ajv: 8.20.0
 
   ajv@6.15.0:
     dependencies:
@@ -5080,7 +5098,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@18.0.1: {}
+  dotenv@18.0.2: {}
 
   electron-to-chromium@1.5.433: {}
 
