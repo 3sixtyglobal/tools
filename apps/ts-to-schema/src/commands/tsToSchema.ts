@@ -7,6 +7,7 @@ import { GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
 import { TypeScriptToSchema } from "@twin.org/tools-core";
 import type { IJsonSchema } from "@twin.org/tools-models";
 import type { Command } from "commander";
+import { compileValidators } from "./compileValidators.js";
 import type { ITsToSchemaConfig } from "../models/ITsToSchemaConfig.js";
 
 /**
@@ -23,8 +24,12 @@ export function buildCommandTsToSchema(program: Command): void {
 			I18n.formatMessage("commands.ts-to-schema.options.output-folder.param"),
 			I18n.formatMessage("commands.ts-to-schema.options.output-folder.description")
 		)
-		.action(async (config, outputFolder, opts) => {
-			await actionCommandTsToSchema(config, outputFolder, opts);
+		.argument(
+			I18n.formatMessage("commands.ts-to-schema.options.compiled-folder.param"),
+			I18n.formatMessage("commands.ts-to-schema.options.compiled-folder.description")
+		)
+		.action(async (config, outputFolder, compiledFolder, opts) => {
+			await actionCommandTsToSchema(config, outputFolder, compiledFolder, opts);
 		});
 }
 
@@ -32,11 +37,13 @@ export function buildCommandTsToSchema(program: Command): void {
  * Action the root command.
  * @param configFile The optional configuration file.
  * @param outputFolder The output folder for the schemas.
+ * @param compiledFolder The optional output folder for the compiled validators of the schemas.
  * @param opts The options for the command.
  */
 export async function actionCommandTsToSchema(
 	configFile: string,
 	outputFolder: string,
+	compiledFolder: string | undefined,
 	opts: unknown
 ): Promise<void> {
 	let outputWorkingDir: string | undefined;
@@ -56,6 +63,15 @@ export async function actionCommandTsToSchema(
 			I18n.formatMessage("commands.ts-to-schema.labels.outputWorkingDir"),
 			outputWorkingDir
 		);
+		const fullCompiledFolder = Is.stringValue(compiledFolder)
+			? path.resolve(compiledFolder)
+			: undefined;
+		if (Is.stringValue(fullCompiledFolder)) {
+			CLIDisplay.value(
+				I18n.formatMessage("commands.ts-to-schema.labels.compiledFolder"),
+				fullCompiledFolder
+			);
+		}
 		CLIDisplay.break();
 
 		try {
@@ -75,7 +91,11 @@ export async function actionCommandTsToSchema(
 		await mkdir(outputWorkingDir, { recursive: true });
 		CLIDisplay.break();
 
-		await tsToSchema(config ?? {}, fullOutputFolder, outputWorkingDir);
+		const schemas = await tsToSchema(config ?? {}, fullOutputFolder, outputWorkingDir);
+
+		if (Is.stringValue(fullCompiledFolder)) {
+			await compileValidators(config, schemas, fullCompiledFolder, process.cwd());
+		}
 
 		CLIDisplay.break();
 		CLIDisplay.done();
@@ -93,12 +113,13 @@ export async function actionCommandTsToSchema(
  * @param config The configuration for the app.
  * @param outputFolder The location of the folder to output the JSON schemas.
  * @param workingDirectory The folder the app was run from.
+ * @returns The schemas written.
  */
 export async function tsToSchema(
 	config: ITsToSchemaConfig,
 	outputFolder: string,
 	workingDirectory: string
-): Promise<void> {
+): Promise<IJsonSchema[]> {
 	CLIDisplay.break();
 	CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.writingSchemas"));
 
@@ -106,6 +127,7 @@ export async function tsToSchema(
 	const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 	let combinedSchemas: { [id: string]: IJsonSchema } = {};
+	const writtenSchemas: IJsonSchema[] = [];
 	for (const typeSource of config.types) {
 		const typeSourceParts = typeSource.split("/");
 		const typeName = StringHelper.pascalCase(
@@ -158,5 +180,8 @@ export async function tsToSchema(
 			1
 		);
 		await writeFile(filename, `${content}\n`);
+		writtenSchemas.push(schemaObject);
 	}
+
+	return writtenSchemas;
 }

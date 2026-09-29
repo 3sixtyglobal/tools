@@ -1,7 +1,7 @@
 {
-	"packages/tools-models": "0.9.3-next.1",
-	"packages/tools-core": "0.9.3-next.1",
-	"apps/ts-to-openapi": "0.9.3-next.1",
-	"apps/ts-to-schema": "0.9.3-next.1",
-	"apps/ts-to-jsonld-context": "0.9.3-next.1"
+	"packages/tools-models": "0.10.1-next.1",
+	"packages/tools-core": "0.10.1-next.1",
+	"apps/ts-to-openapi": "0.10.1-next.1",
+	"apps/ts-to-schema": "0.10.1-next.1",
+	"apps/ts-to-jsonld-context": "0.10.1-next.1"
 }
