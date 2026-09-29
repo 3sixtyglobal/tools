@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/tools-models",
-	"version": "0.10.1-next.1",
+	"version": "0.11.1-next.0",
 	"description": "Shared models for tooling packages",
 	"repository": {
 		"type": "git",
