@@ -18,3 +18,7 @@ Together, these modules support a consistent workflow for producing OpenAPI spec
 ## Contributing
 
 To contribute to this package see the guidelines for building and publishing in [CONTRIBUTING](./CONTRIBUTING.md)
+
+## Origin
+
+This repository is derived from the original [iotaledger/twin-tools](https://github.com/iotaledger/twin-tools) repository.
