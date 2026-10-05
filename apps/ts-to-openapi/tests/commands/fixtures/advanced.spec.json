@@ -16528,6 +16528,17 @@
 				"operationId": "activityStreamNotify",
 				"summary": "Notify of a new Activity",
 				"tags": ["Dataspace Data Plane"],
+				"parameters": [
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple"
+					}
+				],
 				"requestBody": {
 					"description": "Activity Stream Notify Request.",
 					"required": true,
@@ -16617,7 +16628,7 @@
 				"parameters": [
 					{
 						"name": "id",
-						"description": "",
+						"description": "The ID of the entry to get.",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -16625,6 +16636,15 @@
 						},
 						"style": "simple",
 						"example": "urn:x-activity-log:1234567"
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple"
 					}
 				],
 				"responses": {
@@ -16703,6 +16723,74 @@
 				"operationId": "dataspaceDataPlaneGetDataAssetEntities",
 				"summary": "Get Data Asset Entities",
 				"tags": ["Dataspace Data Plane"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "The ID of the entity(ies) to get. (comma separated list)",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "urn:ucr:24PLP051219453I002610799053311"
+					},
+					{
+						"name": "type",
+						"description": "The type of the entity to get.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "https://vocabulary.uncefact.org/Consignment"
+					},
+					{
+						"name": "consumerPid",
+						"description": "The consumer Process ID from the DSP Transfer Process.\nMandatory - used to determine the Dataset, Distribution, and Agreement.\nThe datasetId is resolved from the Transfer Process using this ID.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "urn:uuid:consumer-pid-12345"
+					},
+					{
+						"name": "dataServiceId",
+						"description": "The Id of the data service that offers the data asset",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "limit",
+						"description": "The maximum number of entities to retrieve.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "cursor",
+						"description": "Cursor to control pagination.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple"
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Response containing data asset entities with optional pagination Link header.",
@@ -16776,6 +16864,35 @@
 				"operationId": "dataspaceDataPlaneQueryDataAsset",
 				"summary": "Query Data Asset",
 				"tags": ["Dataspace Data Plane"],
+				"parameters": [
+					{
+						"name": "cursor",
+						"description": "Opaque cursor token for pagination.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "limit",
+						"description": "Maximum number of items to return.",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple"
+					}
+				],
 				"requestBody": {
 					"description": "Request to query data asset entities.",
 					"required": true,
