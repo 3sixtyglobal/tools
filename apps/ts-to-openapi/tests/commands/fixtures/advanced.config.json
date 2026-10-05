@@ -79,15 +79,7 @@
 			"version": "next"
 		},
 		{
-			"package": "@twin.org/synchronised-storage-service",
-			"version": "next"
-		},
-		{
 			"package": "@twin.org/federated-catalogue-service",
-			"version": "next"
-		},
-		{
-			"package": "@twin.org/dataspace-data-plane-service",
 			"version": "next"
 		},
 		{
