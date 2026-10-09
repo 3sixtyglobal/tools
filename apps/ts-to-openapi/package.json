@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/ts-to-openapi",
-	"version": "0.20.0-next.0",
+	"version": "0.20.0-next.1",
 	"description": "Generate OpenAPI specifications from REST route definitions",
 	"repository": {
 		"type": "git",
@@ -32,8 +32,8 @@
 		"@3sixty/cli-core": "next",
 		"@3sixty/core": "next",
 		"@3sixty/nameof": "next",
-		"@3sixty/tools-core": "0.20.0-next.0",
-		"@3sixty/tools-models": "0.20.0-next.0",
+		"@3sixty/tools-core": "0.20.0-next.1",
+		"@3sixty/tools-models": "0.20.0-next.1",
 		"@3sixty/web": "next",
 		"commander": "15.0.0",
 		"glob": "13.0.6"
