@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/JsDocExampleTagTest",
+	"$id": "https://schema.3sixty.global/test/JsDocExampleTagTest",
 	"description": "Test interface for JSDoc example tag support.",
 	"title": "JsDocExampleTagTest",
 	"type": "object",

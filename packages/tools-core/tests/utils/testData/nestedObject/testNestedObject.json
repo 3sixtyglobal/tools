@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestNestedObject",
+	"$id": "https://schema.3sixty.global/test/TestNestedObject",
 	"description": "Nested objects with inline schema expansion.",
 	"title": "TestNestedObject",
 	"type": "object",

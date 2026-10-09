@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/Person",
+	"$id": "https://schema.3sixty.global/test/Person",
 	"title": "Person",
 	"description": "Person should be inlined into referencing schemas.",
 	"type": "object",

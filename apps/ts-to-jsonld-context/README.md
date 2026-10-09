@@ -1,11 +1,11 @@
-# TWIN TypeScript to JSON-LD Context
+# 3Sixty TypeScript to JSON-LD Context
 
 This app generates JSON-LD contexts from source model definitions so semantic data can be published and consumed with predictable linked data terms.
 
 ## Installation
 
 ```shell
-npm install -D @twin.org/ts-to-jsonld-context
+npm install -D @3sixty/ts-to-jsonld-context
 ```
 
 ## Usage

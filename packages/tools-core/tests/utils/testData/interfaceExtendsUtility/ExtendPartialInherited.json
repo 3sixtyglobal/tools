@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ExtendPartialInherited",
+	"$id": "https://schema.3sixty.global/test/ExtendPartialInherited",
 	"title": "ExtendPartialInherited",
 	"description": "Interface extending Partial of the doubly-inherited interface, testing that all inherited properties are optional.",
 	"type": "object",

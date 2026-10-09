@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TypeObjectIntersection",
+	"$id": "https://schema.3sixty.global/test/TypeObjectIntersection",
 	"description": "Interface with an intersection-typed property.",
 	"title": "TypeObjectIntersection",
 	"type": "object",
@@ -15,7 +15,7 @@
 			"required": ["firstName"],
 			"allOf": [
 				{
-					"$ref": "https://schema.twindev.org/test/Person"
+					"$ref": "https://schema.3sixty.global/test/Person"
 				}
 			],
 			"description": "Person extended inline with a first name."

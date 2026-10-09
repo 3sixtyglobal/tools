@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ExtendedDefs",
+	"$id": "https://schema.3sixty.global/test/ExtendedDefs",
 	"title": "ExtendedDefs",
 	"type": "object",
 	"properties": {
@@ -20,7 +20,7 @@
 			"type": "object",
 			"allOf": [
 				{
-					"$ref": "https://schema.twindev.org/test/BaseType"
+					"$ref": "https://schema.3sixty.global/test/BaseType"
 				}
 			],
 			"properties": {

@@ -1,17 +1,17 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestConditionalType",
+	"$id": "https://schema.3sixty.global/test/TestConditionalType",
 	"description": "Test conditional type handling.",
 	"title": "TestConditionalType",
 	"type": "object",
 	"properties": {
 		"objectResult": {
 			"description": "Reference to object conditional type.",
-			"$ref": "https://schema.twindev.org/test/ConditionalObject"
+			"$ref": "https://schema.3sixty.global/test/ConditionalObject"
 		},
 		"primitiveResult": {
 			"description": "Reference to primitive conditional type.",
-			"$ref": "https://schema.twindev.org/test/ConditionalPrimitive"
+			"$ref": "https://schema.3sixty.global/test/ConditionalPrimitive"
 		}
 	},
 	"required": ["objectResult", "primitiveResult"]

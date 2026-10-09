@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ConditionalObject",
+	"$id": "https://schema.3sixty.global/test/ConditionalObject",
 	"description": "Conditional type resolving to object branches.",
 	"title": "ConditionalObject",
 	"anyOf": [

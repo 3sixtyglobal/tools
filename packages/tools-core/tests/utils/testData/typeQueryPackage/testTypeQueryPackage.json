@@ -1,12 +1,12 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestTypeQueryPackage",
+	"$id": "https://schema.3sixty.global/test/TestTypeQueryPackage",
 	"description": "Coverage for package-imported const-object type query references.",
 	"title": "TestTypeQueryPackage",
 	"type": "object",
 	"properties": {
 		"context": {
-			"const": "https://schema.twindev.org/json-ld/types.jsonld",
+			"const": "https://schema.3sixty.global/json-ld/types.jsonld",
 			"description": "Package-imported type query should resolve to a const schema value."
 		}
 	},

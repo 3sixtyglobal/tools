@@ -7,14 +7,14 @@ Use this CLI to generate an OpenAPI document from TypeScript REST route metadata
 To install and run the CLI locally use the following commands:
 
 ```shell
-npm install @twin.org/ts-to-openapi -g
+npm install @3sixty/ts-to-openapi -g
 ts-to-openapi
 ```
 
 or run directly using NPX:
 
 ```shell
-npx "@twin.org/ts-to-openapi"
+npx "@3sixty/ts-to-openapi"
 ```
 
 ## Help
@@ -48,12 +48,12 @@ Config JSON: config.json
 Output API JSON: output.json
 Loading Config JSON: config.json
 Creating security schemas
-Loading Modules: @twin.org/logging-service@next @twin.org/identity-service@next
+Loading Modules: @3sixty/logging-service@next @3sixty/identity-service@next
 
-Reading Package JSON: @twin.org/logging-service
-Importing Module: @twin.org/logging-service
-Reading Package JSON: @twin.org/identity-service
-Importing Module: @twin.org/identity-service
+Reading Package JSON: @3sixty/logging-service
+Importing Module: @3sixty/logging-service
+Reading Package JSON: @3sixty/identity-service
+Importing Module: @3sixty/identity-service
   Route loggingEntryCreate POST /logging/
   Route loggingListEntries GET /logging/
   Route identityCreate POST /identity/
@@ -62,29 +62,29 @@ Importing Module: @twin.org/identity-service
   Route identitiesList GET /identity/
 
 Generating Schemas
-Processing Models //work/node_modules/@twin.org/api-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/core/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/core/dist/types/errors/**/*.ts
-Processing Models //work/node_modules/@twin.org/entity/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/logging-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/services/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/web/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/web/dist/types/errors/**/*.ts
-Processing Models //work/node_modules/@twin.org/identity-service/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/api-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/core/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/core/dist/types/errors/**/*.ts
-Processing Models //work/node_modules/@twin.org/crypto/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/entity/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/entity-storage-connector-memory/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/entity-storage-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/identity-connector-entity-storage/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/identity-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/services/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/vault-connector-entity-storage/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/vault-models/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/web/dist/types/models/**/*.ts
-Processing Models //work/node_modules/@twin.org/web/dist/types/errors/**/*.ts
+Processing Models //work/node_modules/@3sixty/api-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/core/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/core/dist/types/errors/**/*.ts
+Processing Models //work/node_modules/@3sixty/entity/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/logging-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/services/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/web/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/web/dist/types/errors/**/*.ts
+Processing Models //work/node_modules/@3sixty/identity-service/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/api-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/core/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/core/dist/types/errors/**/*.ts
+Processing Models //work/node_modules/@3sixty/crypto/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/entity/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/entity-storage-connector-memory/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/entity-storage-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/identity-connector-entity-storage/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/identity-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/services/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/vault-connector-entity-storage/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/vault-models/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/web/dist/types/models/**/*.ts
+Processing Models //work/node_modules/@3sixty/web/dist/types/errors/**/*.ts
 
 Finalising Schemas
 Writing Output: output.json
@@ -96,8 +96,8 @@ The generated `output.json` should be:
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "TWIN - Test Endpoints",
-    "description": "REST API for TWIN - Test Endpoints.",
+    "title": "3Sixty - Test Endpoints",
+    "description": "REST API for 3Sixty - Test Endpoints.",
     "version": "1.0.0",
     "license": {
       "name": "Apache 2.0 License",
@@ -826,23 +826,23 @@ You can also use the package programatically as follows:
 
 ```typescript
 import { rm, mkdir } from 'node:fs/promises';
-import { CLI, type ITsToOpenApiConfig } from '@twin.org/ts-to-openapi';
+import { CLI, type ITsToOpenApiConfig } from '@3sixty/ts-to-openapi';
 
 const config: ITsToOpenApiConfig = {
-  title: 'TWIN - Test Endpoints',
+  title: '3Sixty - Test Endpoints',
   version: '1.0.0',
-  description: 'REST API for TWIN - Test Endpoints.',
+  description: 'REST API for 3Sixty - Test Endpoints.',
   licenseName: 'Apache 2.0 License',
   licenseUrl: 'https://opensource.org/licenses/Apache-2.0',
   servers: ['https://localhost'],
   authMethods: ['jwtBearer'],
   restRoutes: [
     {
-      package: '@twin.org/logging-service',
+      package: '@3sixty/logging-service',
       version: 'next'
     },
     {
-      package: '@twin.org/identity-service',
+      package: '@3sixty/identity-service',
       version: 'next'
     }
   ]

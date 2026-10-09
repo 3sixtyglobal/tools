@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestSignatureMembers",
+	"$id": "https://schema.3sixty.global/test/TestSignatureMembers",
 	"description": "Coverage for ignored method and call signatures.",
 	"title": "TestSignatureMembers",
 	"type": "object",

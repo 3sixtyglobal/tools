@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ThreeWayChoice",
+	"$id": "https://schema.3sixty.global/test/ThreeWayChoice",
 	"description": "Three-branch never-discriminated object union.",
 	"title": "ThreeWayChoice",
 	"oneOf": [

@@ -11,7 +11,7 @@ export interface ITsToJsonLdContextConfig {
 	prefix: string;
 
 	/**
-	 * The base URL for the context e.g. https://schema.twindev.org/common/
+	 * The base URL for the context e.g. https://schema.3sixty.global/common/
 	 */
 	contextUrl: string;
 

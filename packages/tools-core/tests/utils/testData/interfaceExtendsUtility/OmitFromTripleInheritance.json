@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/OmitFromTripleInheritance",
+	"$id": "https://schema.3sixty.global/test/OmitFromTripleInheritance",
 	"title": "OmitFromTripleInheritance",
 	"description": "Interface extending Omit of a triply-inherited type, testing deep comment propagation.",
 	"type": "object",

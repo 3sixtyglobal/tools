@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/OmitOptionalityReverseBaseA",
+	"$id": "https://schema.3sixty.global/test/OmitOptionalityReverseBaseA",
 	"description": "Base interface for required-to-optional redefinition test.",
 	"title": "OmitOptionalityReverseBaseA",
 	"type": "object",

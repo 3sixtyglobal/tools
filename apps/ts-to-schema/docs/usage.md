@@ -7,14 +7,14 @@ Use this CLI to turn TypeScript model definitions into JSON Schema files for val
 To install and run the CLI locally use the following commands:
 
 ```shell
-npm install @twin.org/ts-to-schema -g
+npm install @3sixty/ts-to-schema -g
 ts-to-schema
 ```
 
 or run directly using NPX:
 
 ```shell
-npx "@twin.org/ts-to-schema"
+npx "@3sixty/ts-to-schema"
 ```
 
 ## Help
@@ -38,7 +38,7 @@ Options:
 
 ```json
 {
-  "baseUrl": "https://schema.twindev.org/my-namespace/",
+  "baseUrl": "https://schema.3sixty.global/my-namespace/",
   "sourceFiles": ["./dist/types/*.d.ts"],
   "types": ["MyType1", "MyType2"],
   "suppressPackageWarnings": ["jose"]

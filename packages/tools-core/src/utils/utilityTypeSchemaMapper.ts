@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Is, JsonHelper, ObjectHelper } from "@twin.org/core";
-import type { IJsonSchema } from "@twin.org/tools-models";
+import { Is, JsonHelper, ObjectHelper } from "@3sixty/core";
+import type { IJsonSchema } from "@3sixty/tools-models";
 import * as ts from "typescript";
 import { JsonSchemaBuilder } from "./jsonSchemaBuilder.js";
 import { ObjectTransformer } from "./objectTransformer.js";
@@ -651,7 +651,7 @@ export class UtilityTypeSchemaMapper {
 
 		// Fallback: return a reference using a common JSON-LD namespace
 		return {
-			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+			$ref: "https://schema.3sixty.global/json-ld/JsonLdContextDefinitionRoot"
 		};
 	}
 

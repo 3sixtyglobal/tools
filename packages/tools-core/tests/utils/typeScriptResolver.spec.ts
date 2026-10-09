@@ -3,9 +3,9 @@
 import { Resolver } from "../../src/utils/resolver.js";
 
 describe("Resolver", () => {
-	test("can resolve IPatchOperation from @twin.org/core", async () => {
+	test("can resolve IPatchOperation from @3sixty/core", async () => {
 		const resolvedDeclaration = Resolver.resolveTypeDeclarationAst(
-			"@twin.org/core",
+			"@3sixty/core",
 			"IPatchOperation"
 		);
 
@@ -14,20 +14,14 @@ describe("Resolver", () => {
 	});
 
 	test("returns undefined for unknown types", async () => {
-		const resolvedDeclaration = Resolver.resolveTypeDeclarationAst(
-			"@twin.org/core",
-			"IDoesNotExist"
-		);
+		const resolvedDeclaration = Resolver.resolveTypeDeclarationAst("@3sixty/core", "IDoesNotExist");
 
 		expect(resolvedDeclaration).toBeUndefined();
 	});
 
 	test("uses cache for repeated type lookups", async () => {
-		const firstResolution = Resolver.resolveTypeDeclarationAst("@twin.org/core", "IPatchOperation");
-		const secondResolution = Resolver.resolveTypeDeclarationAst(
-			"@twin.org/core",
-			"IPatchOperation"
-		);
+		const firstResolution = Resolver.resolveTypeDeclarationAst("@3sixty/core", "IPatchOperation");
+		const secondResolution = Resolver.resolveTypeDeclarationAst("@3sixty/core", "IPatchOperation");
 
 		expect(firstResolution).toBeDefined();
 		expect(secondResolution).toBe(firstResolution);

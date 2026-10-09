@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/DoubleInheritanceC",
+	"$id": "https://schema.3sixty.global/test/DoubleInheritanceC",
 	"title": "DoubleInheritanceC",
 	"description": "Derived interface that omits prop1 from B (which extends A).",
 	"type": "object",

@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ObjectOrArray } from "@twin.org/core";
+import type { ObjectOrArray } from "@3sixty/core";
 
 /**
  * Represents a Question with an inclusive list of possible answers, but not an exclusive list.

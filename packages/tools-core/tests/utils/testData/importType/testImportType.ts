@@ -9,5 +9,5 @@ export interface TestImportType {
 	 * Imported type reference from external package.
 	 */
 	// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-	operation: import("@twin.org/core").IPatchOperation;
+	operation: import("@3sixty/core").IPatchOperation;
 }

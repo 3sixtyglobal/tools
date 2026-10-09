@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay } from "@twin.org/cli-core";
+import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
 import type { ITsToOpenApiConfig } from "../src/models/ITsToOpenApiConfig.js";
 
@@ -53,9 +53,9 @@ describe("CLI", () => {
 	test("Can run with command line arguments and valid empty config", async () => {
 		const cli = new CLI();
 		const config: ITsToOpenApiConfig = {
-			title: "TWIN - Test Endpoints",
+			title: "3Sixty - Test Endpoints",
 			version: "1.0.0",
-			description: "REST API for TWIN - Test Endpoints.",
+			description: "REST API for 3Sixty - Test Endpoints.",
 			licenseName: "Apache 2.0 License",
 			licenseUrl: "https://opensource.org/licenses/Apache-2.0",
 			servers: ["https://localhost"],

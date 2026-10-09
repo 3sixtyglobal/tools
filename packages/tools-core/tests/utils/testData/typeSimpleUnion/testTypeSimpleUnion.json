@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TypeSimpleUnion",
+	"$id": "https://schema.3sixty.global/test/TypeSimpleUnion",
 	"description": "A simple union type alias.",
 	"title": "TypeSimpleUnion",
 	"oneOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]

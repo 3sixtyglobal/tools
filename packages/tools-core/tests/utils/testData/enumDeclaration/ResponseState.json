@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ResponseState",
+	"$id": "https://schema.3sixty.global/test/ResponseState",
 	"description": "Response state represented as a string enum declaration.",
 	"title": "ResponseState",
 	"anyOf": [{ "const": "success" }, { "const": "failed" }]

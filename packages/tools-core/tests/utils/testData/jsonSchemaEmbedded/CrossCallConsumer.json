@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/CrossCallConsumer",
+	"$id": "https://schema.3sixty.global/test/CrossCallConsumer",
 	"title": "CrossCallConsumer",
 	"description": "Consumer of the cross-call embedded type.",
 	"type": "object",

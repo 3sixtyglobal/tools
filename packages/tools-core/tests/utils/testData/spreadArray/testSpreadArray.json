@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/SpreadTest",
+	"$id": "https://schema.3sixty.global/test/SpreadTest",
 	"description": "Array spread and tuple combinations.",
 	"title": "SpreadTest",
 	"type": "object",
@@ -73,11 +73,11 @@
 			"description": "Mixed tuple/array union with spread combinations using objects.",
 			"anyOf": [
 				{
-					"$ref": "https://schema.twindev.org/test/TestObjectA"
+					"$ref": "https://schema.3sixty.global/test/TestObjectA"
 				},
 				{
 					"type": "array",
-					"prefixItems": [{ "$ref": "https://schema.twindev.org/test/TestObjectA" }],
+					"prefixItems": [{ "$ref": "https://schema.3sixty.global/test/TestObjectA" }],
 					"items": false,
 					"minItems": 1,
 					"maxItems": 1
@@ -85,11 +85,11 @@
 				{
 					"type": "array",
 					"prefixItems": [
-						{ "$ref": "https://schema.twindev.org/test/TestObjectB" },
-						{ "$ref": "https://schema.twindev.org/test/TestObjectA" }
+						{ "$ref": "https://schema.3sixty.global/test/TestObjectB" },
+						{ "$ref": "https://schema.3sixty.global/test/TestObjectA" }
 					],
 					"items": {
-						"$ref": "https://schema.twindev.org/test/TestObjectB"
+						"$ref": "https://schema.3sixty.global/test/TestObjectB"
 					},
 					"minItems": 2
 				},
@@ -97,12 +97,12 @@
 					"type": "array",
 					"items": {
 						"anyOf": [
-							{ "$ref": "https://schema.twindev.org/test/TestObjectB" },
-							{ "$ref": "https://schema.twindev.org/test/TestObjectA" }
+							{ "$ref": "https://schema.3sixty.global/test/TestObjectB" },
+							{ "$ref": "https://schema.3sixty.global/test/TestObjectA" }
 						]
 					},
 					"minItems": 2,
-					"contains": { "$ref": "https://schema.twindev.org/test/TestObjectA" },
+					"contains": { "$ref": "https://schema.3sixty.global/test/TestObjectA" },
 					"minContains": 1,
 					"maxContains": 1
 				}

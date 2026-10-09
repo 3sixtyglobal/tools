@@ -1,4 +1,4 @@
-# @twin.org/ts-to-jsonld-context
+# @3sixty/ts-to-jsonld-context
 
 ## Classes
 

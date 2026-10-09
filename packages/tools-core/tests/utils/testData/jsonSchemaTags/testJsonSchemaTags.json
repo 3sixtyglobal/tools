@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/CustomJsonSchemaTagsTest",
+	"$id": "https://schema.3sixty.global/test/CustomJsonSchemaTagsTest",
 	"$comment": "Schema comment from json-schema tags.",
 	"description": "Custom description from json-schema tags.",
 	"title": "CustomJsonSchemaTagsTest",
@@ -235,7 +235,7 @@
 		},
 		"idTag": {
 			"type": "string",
-			"$id": "https://schema.twindev.org/test/property-id"
+			"$id": "https://schema.3sixty.global/test/property-id"
 		}
 	}
 }

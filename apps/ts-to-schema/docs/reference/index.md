@@ -1,4 +1,4 @@
-# @twin.org/ts-to-schema
+# @3sixty/ts-to-schema
 
 ## Classes
 

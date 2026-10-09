@@ -5,7 +5,7 @@
  * Example using @json-schema tags.
  * @json-schema title:CustomJsonSchemaTagsTest
  * @json-schema description:Custom description from json-schema tags.
- * @json-schema id:https://schema.twindev.org/test/CustomJsonSchemaTagsTest
+ * @json-schema id:https://schema.3sixty.global/test/CustomJsonSchemaTagsTest
  * @json-schema comment:Schema comment from json-schema tags.
  */
 export interface JsonSchemaTagsTest {
@@ -204,7 +204,7 @@ export interface JsonSchemaTagsTest {
 	descriptionTag?: string;
 
 	/**
-	 * @json-schema id:https://schema.twindev.org/test/property-id
+	 * @json-schema id:https://schema.3sixty.global/test/property-id
 	 */
 	idTag?: string;
 }

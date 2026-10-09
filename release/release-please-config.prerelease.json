@@ -10,6 +10,7 @@
 	"versioning": "prerelease",
 	"prerelease": true,
 	"prerelease-type": "next",
+	"last-release-sha": "0297b9ea6ce780a8ce82e8f5f5467b981abaca61",
 	"packages": {
 		"packages/tools-models": {
 			"package-name": "tools-models",

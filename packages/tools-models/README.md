@@ -1,11 +1,11 @@
-# TWIN Tools Models
+# 3Sixty Tools Models
 
 This package provides shared models for tooling packages.
 
 ## Installation
 
 ```shell
-npm install @twin.org/tools-models
+npm install @3sixty/tools-models
 ```
 
 ## Examples

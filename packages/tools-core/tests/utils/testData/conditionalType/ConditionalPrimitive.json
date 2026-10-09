@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ConditionalPrimitive",
+	"$id": "https://schema.3sixty.global/test/ConditionalPrimitive",
 	"description": "Conditional type resolving to primitive branches.",
 	"title": "ConditionalPrimitive",
 	"anyOf": [{ "type": "string" }, { "type": "number" }]

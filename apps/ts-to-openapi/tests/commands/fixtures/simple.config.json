@@ -7,7 +7,7 @@
 	"servers": ["https://node-api.twindev.org"],
 	"restRoutes": [
 		{
-			"package": "@twin.org/api-service",
+			"package": "@3sixty/api-service",
 			"version": "next"
 		}
 	],

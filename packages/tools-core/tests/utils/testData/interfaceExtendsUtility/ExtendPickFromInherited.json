@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ExtendPickFromInherited",
+	"$id": "https://schema.3sixty.global/test/ExtendPickFromInherited",
 	"title": "ExtendPickFromInherited",
 	"description": "Interface extending Pick from a doubly-inherited type, testing the Pick utility path with inherited comments.",
 	"type": "object",

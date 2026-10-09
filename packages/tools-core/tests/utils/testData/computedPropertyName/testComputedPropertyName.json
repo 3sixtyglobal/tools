@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestComputedPropertyName",
+	"$id": "https://schema.3sixty.global/test/TestComputedPropertyName",
 	"description": "Test computable and non-computable computed property names.",
 	"title": "TestComputedPropertyName",
 	"type": "object",

@@ -7,14 +7,14 @@ Use this CLI to derive JSON-LD context mappings from annotated TypeScript interf
 To install and run the CLI locally use the following commands:
 
 ```shell
-npm install @twin.org/ts-to-jsonld-context -g
+npm install @3sixty/ts-to-jsonld-context -g
 ts-to-jsonld-context
 ```
 
 or run directly using NPX:
 
 ```shell
-npx "@twin.org/ts-to-jsonld-context"
+npx "@3sixty/ts-to-jsonld-context"
 ```
 
 ## Help
@@ -166,10 +166,10 @@ produces
 ```json
 {
   "prefix": "twin-ais",
-  "contextUrl": "https://schema.twindev.org/ais/",
+  "contextUrl": "https://schema.3sixty.global/ais/",
   "additionalContextUrls": {
-    "twin-common": "https://schema.twindev.org/common/",
-    "twin-immutable-proof": "https://schema.twindev.org/immutable-proof/",
+    "twin-common": "https://schema.3sixty.global/common/",
+    "twin-immutable-proof": "https://schema.3sixty.global/immutable-proof/",
     "schema": "http://schema.org/"
   },
   "fixedMappings": {

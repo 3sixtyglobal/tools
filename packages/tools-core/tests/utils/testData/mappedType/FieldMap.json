@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/FieldMap",
+	"$id": "https://schema.3sixty.global/test/FieldMap",
 	"description": "Generic mapped type with fixed keys.",
 	"title": "FieldMap",
 	"type": "object",

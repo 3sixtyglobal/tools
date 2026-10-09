@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestAddress",
+	"$id": "https://schema.3sixty.global/test/TestAddress",
 	"description": "Test address information.",
 	"title": "TestAddress",
 	"type": "object",

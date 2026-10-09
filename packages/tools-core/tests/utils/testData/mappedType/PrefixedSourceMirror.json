@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/PrefixedSourceMirror",
+	"$id": "https://schema.3sixty.global/test/PrefixedSourceMirror",
 	"description": "Mapped type remapping source keys with a template literal.",
 	"title": "PrefixedSourceMirror",
 	"type": "object",

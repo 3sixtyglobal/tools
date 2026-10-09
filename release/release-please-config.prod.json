@@ -8,6 +8,7 @@
 	"release-type": "node",
 	"initial-version": "0.0.1",
 	"versioning": "default",
+	"last-release-sha": "1834925df9a75b479d0a872f8e365e556c3a77d7",
 	"packages": {
 		"packages/tools-models": {
 			"package-name": "tools-models",

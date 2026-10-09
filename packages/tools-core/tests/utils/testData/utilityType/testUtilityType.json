@@ -1,12 +1,12 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestUtilityType",
+	"$id": "https://schema.3sixty.global/test/TestUtilityType",
 	"description": "Utility type wrapper using Partial, Omit, Required and Pick on an imported type.",
 	"title": "TestUtilityType",
 	"type": "object",
 	"properties": {
 		"fullType": {
-			"$ref": "https://schema.twindev.org/test/Person",
+			"$ref": "https://schema.3sixty.global/test/Person",
 			"description": "Full person information."
 		},
 		"partialType": {
@@ -139,7 +139,7 @@
 			"anyOf": [{ "const": "walking" }, { "const": "running" }]
 		},
 		"nonNullablePersonType": {
-			"$ref": "https://schema.twindev.org/test/Person",
+			"$ref": "https://schema.3sixty.global/test/Person",
 			"description": "Non-nullable view of person object."
 		},
 		"recordStringNumberType": {
@@ -166,7 +166,7 @@
 			"description": "Record view of person objects.",
 			"type": "object",
 			"additionalProperties": {
-				"$ref": "https://schema.twindev.org/test/Person"
+				"$ref": "https://schema.3sixty.global/test/Person"
 			}
 		},
 		"combinedType": {
@@ -188,8 +188,8 @@
 		"objectOrArrayPersonType": {
 			"description": "Object or array of persons.",
 			"anyOf": [
-				{ "$ref": "https://schema.twindev.org/test/Person" },
-				{ "type": "array", "items": { "$ref": "https://schema.twindev.org/test/Person" } }
+				{ "$ref": "https://schema.3sixty.global/test/Person" },
+				{ "type": "array", "items": { "$ref": "https://schema.3sixty.global/test/Person" } }
 			]
 		},
 		"singleOccurrenceArrayType": {
@@ -207,7 +207,7 @@
 			"description": "Non-empty array of persons with a single string occurrence.",
 			"type": "array",
 			"items": {
-				"anyOf": [{ "$ref": "https://schema.twindev.org/test/Person" }, { "type": "string" }]
+				"anyOf": [{ "$ref": "https://schema.3sixty.global/test/Person" }, { "type": "string" }]
 			},
 			"contains": { "type": "string" },
 			"minContains": 1,

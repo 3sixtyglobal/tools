@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestOptionalProps",
+	"$id": "https://schema.3sixty.global/test/TestOptionalProps",
 	"description": "Mixed optional and required props.",
 	"title": "TestOptionalProps",
 	"type": "object",

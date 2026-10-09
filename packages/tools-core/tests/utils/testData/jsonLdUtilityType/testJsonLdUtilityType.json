@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestJsonLdUtilityType",
+	"$id": "https://schema.3sixty.global/test/TestJsonLdUtilityType",
 	"description": "JSON-LD utility type wrapper using JsonLdObject utilities.",
 	"title": "TestJsonLdUtilityType",
 	"type": "object",
@@ -337,7 +337,7 @@
 					"type": "string"
 				},
 				"@context": {
-					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+					"$ref": "https://schema.3sixty.global/json-ld/JsonLdContextDefinitionRoot"
 				}
 			},
 			"required": ["name", "@context"]
@@ -385,7 +385,7 @@
 					"type": "string"
 				},
 				"@context": {
-					"$ref": "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+					"$ref": "https://schema.3sixty.global/json-ld/JsonLdContextDefinitionRoot"
 				}
 			},
 			"required": ["name"]

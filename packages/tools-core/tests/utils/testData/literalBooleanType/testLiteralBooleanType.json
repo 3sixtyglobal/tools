@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestLiteralBooleanType",
+	"$id": "https://schema.3sixty.global/test/TestLiteralBooleanType",
 	"title": "TestLiteralBooleanType",
 	"description": "Coverage for boolean literal type nodes - true and false as distinct const types rather than the broad boolean keyword.",
 	"type": "object",

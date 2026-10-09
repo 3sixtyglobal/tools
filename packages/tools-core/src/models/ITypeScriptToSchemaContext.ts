@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJsonSchema } from "@twin.org/tools-models";
+import type { IJsonSchema } from "@3sixty/tools-models";
 import type * as ts from "typescript";
 import type { EmbeddedSchemaMode } from "./embeddedSchemaMode.js";
 import type { ITypeScriptToSchemaOptions } from "./ITypeScriptToSchemaOptions.js";

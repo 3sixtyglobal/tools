@@ -1,4 +1,4 @@
-# @twin.org/ts-to-openapi
+# @3sixty/ts-to-openapi
 
 ## Classes
 

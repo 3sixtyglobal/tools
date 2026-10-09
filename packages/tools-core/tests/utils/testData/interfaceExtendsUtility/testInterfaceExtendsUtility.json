@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestInterfaceUtility",
+	"$id": "https://schema.3sixty.global/test/TestInterfaceUtility",
 	"description": "Derived interface extending multiple base interfaces using utility methods.",
 	"title": "TestInterfaceUtility",
 	"type": "object",

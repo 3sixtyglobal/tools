@@ -1,11 +1,11 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/Constrained",
+	"$id": "https://schema.3sixty.global/test/Constrained",
 	"title": "Constrained",
 	"type": "object",
 	"allOf": [
 		{
-			"$ref": "https://schema.twindev.org/test/BaseType"
+			"$ref": "https://schema.3sixty.global/test/BaseType"
 		}
 	],
 	"properties": {

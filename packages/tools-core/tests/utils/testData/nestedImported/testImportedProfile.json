@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/ImportedProfile",
+	"$id": "https://schema.3sixty.global/test/ImportedProfile",
 	"description": "Imported profile type.",
 	"title": "ImportedProfile",
 	"type": "object",
@@ -11,7 +11,7 @@
 		},
 		"settings": {
 			"description": "Optional imported settings.",
-			"$ref": "https://schema.twindev.org/test/ImportedSettings"
+			"$ref": "https://schema.3sixty.global/test/ImportedSettings"
 		}
 	},
 	"required": ["email"]

@@ -5,7 +5,7 @@ This package exports the shared interfaces and constants used by the generator l
 ## Define A JSON Schema Document
 
 ```ts
-import type { IJsonSchema, JsonSchemaTypeNames } from '@twin.org/tools-models';
+import type { IJsonSchema, JsonSchemaTypeNames } from '@3sixty/tools-models';
 
 const schemaType: JsonSchemaTypeNames = 'object';
 
@@ -29,7 +29,7 @@ const productSchema: IJsonSchema = {
 `JsonSchemaTagNames` lists the tag names recognised by the schema builders after alias mapping. This is useful when validating custom documentation tags before handing source files to the generator.
 
 ```ts
-import { JsonSchemaTagNames } from '@twin.org/tools-models';
+import { JsonSchemaTagNames } from '@3sixty/tools-models';
 
 const supportedTags = new Set(JsonSchemaTagNames);
 
@@ -41,7 +41,7 @@ if (supportedTags.has('minimum')) {
 ## Define An OpenAPI Document
 
 ```ts
-import type { IOpenApi } from '@twin.org/tools-models';
+import type { IOpenApi } from '@3sixty/tools-models';
 
 const openApiDocument: IOpenApi = {
   openapi: '3.1.1',

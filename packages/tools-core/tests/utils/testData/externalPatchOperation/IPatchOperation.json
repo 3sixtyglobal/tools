@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/core/PatchOperation",
+	"$id": "https://schema.3sixty.global/core/PatchOperation",
 	"description": "Interface describing a patch operation to add a property.",
 	"title": "PatchOperation",
 	"type": "object",

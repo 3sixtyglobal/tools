@@ -1,17 +1,17 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestOneOfDiscrimination",
+	"$id": "https://schema.3sixty.global/test/TestOneOfDiscrimination",
 	"description": "Test oneOf discrimination for 2 and 3 union branches.",
 	"title": "TestOneOfDiscrimination",
 	"type": "object",
 	"properties": {
 		"twoWay": {
 			"description": "Two-way discriminated union.",
-			"$ref": "https://schema.twindev.org/test/TwoWayChoice"
+			"$ref": "https://schema.3sixty.global/test/TwoWayChoice"
 		},
 		"threeWay": {
 			"description": "Three-way discriminated union.",
-			"$ref": "https://schema.twindev.org/test/ThreeWayChoice"
+			"$ref": "https://schema.3sixty.global/test/ThreeWayChoice"
 		}
 	},
 	"required": ["twoWay", "threeWay"]

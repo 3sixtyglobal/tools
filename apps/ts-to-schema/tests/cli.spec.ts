@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay } from "@twin.org/cli-core";
+import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
 import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig.js";
 
@@ -88,7 +88,7 @@ describe("CLI", () => {
 	test("Can run with command line arguments and valid config", async () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
-			baseUrl: "https://schema.twindev.org/my-namespace/",
+			baseUrl: "https://schema.3sixty.global/my-namespace/",
 			types: JSON_LD_TYPES
 		};
 
@@ -107,7 +107,7 @@ describe("CLI", () => {
 	test("Can run with command line arguments and valid config with external linked", async () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
-			baseUrl: "https://schema.twindev.org/my-namespace/",
+			baseUrl: "https://schema.3sixty.global/my-namespace/",
 			types: ["./tests/testData/IExternalElement.d.ts"],
 			externalReferences: {
 				IJsonLdNodeObject: "https://example.com/IJsonLdDocument"
@@ -129,7 +129,7 @@ describe("CLI", () => {
 	test("Can run with command line arguments and compile the validators", async () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
-			baseUrl: "https://schema.twindev.org/my-namespace/",
+			baseUrl: "https://schema.3sixty.global/my-namespace/",
 			types: JSON_LD_TYPES
 		};
 
@@ -159,7 +159,7 @@ describe("CLI", () => {
 	test("Can compile formats using the formats from data-core", async () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
-			baseUrl: "https://schema.twindev.org/my-namespace/",
+			baseUrl: "https://schema.3sixty.global/my-namespace/",
 			types: ["./tests/testData/ITestFormats.ts"]
 		};
 
@@ -177,7 +177,7 @@ describe("CLI", () => {
 		const codeFile = path.join(TEST_COMPILED_FORMATS_FOLDER, "validators.ts");
 		const code = await readFile(codeFile, "utf8");
 		const dataCoreImport =
-			'import { type ICompiledValidator, JsonSchemaFormats } from "@twin.org/data-core";';
+			'import { type ICompiledValidator, JsonSchemaFormats } from "@3sixty/data-core";';
 		expect(code).toContain(dataCoreImport);
 		expect(code).not.toContain("ajv-formats");
 
@@ -198,7 +198,7 @@ describe("CLI", () => {
 	test("Can compile a list of const values using its as const object", async () => {
 		const cli = new CLI();
 		const config: ITsToSchemaConfig = {
-			baseUrl: "https://schema.twindev.org/my-namespace/",
+			baseUrl: "https://schema.3sixty.global/my-namespace/",
 			types: ["./tests/testData/testCodes.ts", "./tests/testData/testNumericCodes.ts"]
 		};
 

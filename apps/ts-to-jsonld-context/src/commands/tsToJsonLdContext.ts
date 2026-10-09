@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
+import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@3sixty/core";
 import type { Command } from "commander";
 import ts from "typescript";
 import type { IJsonLdProps } from "../models/IJsonLdProps.js";

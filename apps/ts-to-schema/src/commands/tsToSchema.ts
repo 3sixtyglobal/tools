@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
-import { TypeScriptToSchema } from "@twin.org/tools-core";
-import type { IJsonSchema } from "@twin.org/tools-models";
+import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
+import { GeneralError, I18n, Is, StringHelper } from "@3sixty/core";
+import { TypeScriptToSchema } from "@3sixty/tools-core";
+import type { IJsonSchema } from "@3sixty/tools-models";
 import type { Command } from "commander";
 import { compileValidators } from "./compileValidators.js";
 import type { ITsToSchemaConfig } from "../models/ITsToSchemaConfig.js";

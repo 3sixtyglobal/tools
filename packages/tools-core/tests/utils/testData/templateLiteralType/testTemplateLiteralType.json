@@ -1,17 +1,17 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestTemplateLiteralType",
+	"$id": "https://schema.3sixty.global/test/TestTemplateLiteralType",
 	"description": "Test template literal type handling.",
 	"title": "TestTemplateLiteralType",
 	"type": "object",
 	"properties": {
 		"userId": {
 			"description": "Generic user id pattern.",
-			"$ref": "https://schema.twindev.org/test/UserId"
+			"$ref": "https://schema.3sixty.global/test/UserId"
 		},
 		"eventKey": {
 			"description": "Finite event key pattern.",
-			"$ref": "https://schema.twindev.org/test/EventKey"
+			"$ref": "https://schema.3sixty.global/test/EventKey"
 		}
 	},
 	"required": ["userId", "eventKey"]

@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/BaseType",
+	"$id": "https://schema.3sixty.global/test/BaseType",
 	"title": "BaseType",
 	"type": "object",
 	"properties": {

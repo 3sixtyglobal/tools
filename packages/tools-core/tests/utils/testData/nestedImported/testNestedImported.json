@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestNestedImported",
+	"$id": "https://schema.3sixty.global/test/TestNestedImported",
 	"description": "Root schema that references an imported nested object.",
 	"title": "TestNestedImported",
 	"type": "object",
@@ -11,7 +11,7 @@
 		},
 		"profile": {
 			"description": "Imported profile object.",
-			"$ref": "https://schema.twindev.org/test/ImportedProfile"
+			"$ref": "https://schema.3sixty.global/test/ImportedProfile"
 		}
 	},
 	"required": ["id", "profile"]

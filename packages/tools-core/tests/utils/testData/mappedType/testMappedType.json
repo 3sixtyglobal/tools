@@ -1,33 +1,33 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestMappedType",
+	"$id": "https://schema.3sixty.global/test/TestMappedType",
 	"description": "Test mapped type handling.",
 	"title": "TestMappedType",
 	"type": "object",
 	"properties": {
 		"fieldMap": {
 			"description": "Fixed-key mapped type.",
-			"$ref": "https://schema.twindev.org/test/FieldMap"
+			"$ref": "https://schema.3sixty.global/test/FieldMap"
 		},
 		"mirror": {
 			"description": "Source-preserving mapped type.",
-			"$ref": "https://schema.twindev.org/test/SourceMirror"
+			"$ref": "https://schema.3sixty.global/test/SourceMirror"
 		},
 		"optionalFieldMap": {
 			"description": "Optional mapped type.",
-			"$ref": "https://schema.twindev.org/test/OptionalFieldMap"
+			"$ref": "https://schema.3sixty.global/test/OptionalFieldMap"
 		},
 		"prefixedMirror": {
 			"description": "Template remapped source keys.",
-			"$ref": "https://schema.twindev.org/test/PrefixedSourceMirror"
+			"$ref": "https://schema.3sixty.global/test/PrefixedSourceMirror"
 		},
 		"uppercaseMirror": {
 			"description": "Unresolved remapped source keys with safe fallback.",
-			"$ref": "https://schema.twindev.org/test/UppercaseSourceMirror"
+			"$ref": "https://schema.3sixty.global/test/UppercaseSourceMirror"
 		},
 		"filteredMirror": {
 			"description": "Conditionally filtered source keys.",
-			"$ref": "https://schema.twindev.org/test/FilteredSourceMirror"
+			"$ref": "https://schema.3sixty.global/test/FilteredSourceMirror"
 		}
 	},
 	"required": [

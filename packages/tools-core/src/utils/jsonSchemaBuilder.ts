@@ -7,9 +7,9 @@ import {
 	JsonHelper,
 	ObjectHelper,
 	StringHelper
-} from "@twin.org/core";
-import { nameof } from "@twin.org/nameof";
-import { type IJsonSchema, JsonSchemaTagNames } from "@twin.org/tools-models";
+} from "@3sixty/core";
+import { nameof } from "@3sixty/nameof";
+import { type IJsonSchema, JsonSchemaTagNames } from "@3sixty/tools-models";
 import * as ts from "typescript";
 import { Constants } from "./constants.js";
 import { DiagnosticReporter } from "./diagnosticReporter.js";

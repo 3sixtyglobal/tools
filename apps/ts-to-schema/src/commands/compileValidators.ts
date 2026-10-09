@@ -3,9 +3,9 @@
 import { access, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { CLIDisplay } from "@twin.org/cli-core";
-import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
-import type { IJsonSchema } from "@twin.org/tools-models";
+import { CLIDisplay } from "@3sixty/cli-core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@3sixty/core";
+import type { IJsonSchema } from "@3sixty/tools-models";
 import Ajv2020, { type KeywordCxt } from "ajv/dist/2020.js";
 import { type Code, Name, strConcat } from "ajv/dist/compile/codegen/index.js";
 import type { SchemaEnv } from "ajv/dist/compile/index.js";
@@ -208,8 +208,8 @@ export async function compileValidators(
 		1
 	);
 	const dataCoreImport = new RegExp(`\\b${FORMATS_EXPORT}\\b`).test(code)
-		? `import { type ICompiledValidator, ${FORMATS_EXPORT} } from "@twin.org/data-core";`
-		: 'import type { ICompiledValidator } from "@twin.org/data-core";';
+		? `import { type ICompiledValidator, ${FORMATS_EXPORT} } from "@3sixty/data-core";`
+		: 'import type { ICompiledValidator } from "@3sixty/data-core";';
 	await writeFile(codeFile, `${HEADER}\n${dataCoreImport}\n${code}\n`);
 }
 
@@ -324,7 +324,7 @@ async function readExternalSchemas(
 	const dependencies = Object.keys({
 		...packageJson.dependencies,
 		...packageJson.devDependencies
-	}).filter(d => d.startsWith("@twin.org/"));
+	}).filter(d => d.startsWith("@3sixty/"));
 
 	for (const dependency of dependencies) {
 		const dependencyFolder = path.join(packageFolder, "node_modules", dependency);

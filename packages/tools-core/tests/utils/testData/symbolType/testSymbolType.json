@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestSymbolType",
+	"$id": "https://schema.3sixty.global/test/TestSymbolType",
 	"description": "Test symbol-typed property values and symbol-keyed members.\nSymbol-based members should be skipped with diagnostics.",
 	"title": "TestSymbolType",
 	"type": "object",

@@ -8,7 +8,7 @@ Configuration for the tool.
 
 > **baseUrl**: `string`
 
-The base url for the type references e.g. https://schema.twindev.org/my-namespace/.
+The base url for the type references e.g. https://schema.3sixty.global/my-namespace/.
 
 ***
 

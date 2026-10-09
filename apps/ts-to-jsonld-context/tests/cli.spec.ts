@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay } from "@twin.org/cli-core";
+import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
 import type { ITsToJsonLdContextConfig } from "../src/models/ITsToJsonLdContextConfig.js";
 
@@ -59,7 +59,7 @@ describe("CLI", () => {
 		const cli = new CLI();
 		const config: ITsToJsonLdContextConfig = {
 			prefix: "twin-common",
-			contextUrl: "https://schema.twindev.org/common/",
+			contextUrl: "https://schema.3sixty.global/common/",
 			additionalContextUrls: {
 				schema: "http://schema.org/"
 			},
@@ -118,7 +118,7 @@ describe("CLI", () => {
 
 		const config: ITsToJsonLdContextConfig = {
 			prefix: "twin-test",
-			contextUrl: "https://schema.twindev.org/test/",
+			contextUrl: "https://schema.3sixty.global/test/",
 			fixedMappings: {
 				id: "@id",
 				type: "@type"
@@ -150,7 +150,7 @@ describe("CLI", () => {
 
 		const config: ITsToJsonLdContextConfig = {
 			prefix: "twin-supply-chain",
-			contextUrl: "https://schema.twindev.org/supply-chain",
+			contextUrl: "https://schema.3sixty.global/supply-chain",
 			additionalContextUrls: {
 				unece: "https://vocabulary.uncefact.org/",
 				dcterms: "http://purl.org/dc/terms/",

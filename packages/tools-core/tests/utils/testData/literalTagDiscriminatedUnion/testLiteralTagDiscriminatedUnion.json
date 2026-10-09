@@ -1,14 +1,14 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TypeLiteralTagDiscriminatedUnion",
+	"$id": "https://schema.3sixty.global/test/TypeLiteralTagDiscriminatedUnion",
 	"description": "Classic literal-tag discriminated union.",
 	"title": "TypeLiteralTagDiscriminatedUnion",
 	"oneOf": [
 		{
-			"$ref": "https://schema.twindev.org/test/AlphaBranch"
+			"$ref": "https://schema.3sixty.global/test/AlphaBranch"
 		},
 		{
-			"$ref": "https://schema.twindev.org/test/BetaBranch"
+			"$ref": "https://schema.3sixty.global/test/BetaBranch"
 		}
 	]
 }

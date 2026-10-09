@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/FilteredSourceMirror",
+	"$id": "https://schema.3sixty.global/test/FilteredSourceMirror",
 	"description": "Mapped type filtering keys via a conditional extends check against a literal union.",
 	"title": "FilteredSourceMirror",
 	"type": "object",

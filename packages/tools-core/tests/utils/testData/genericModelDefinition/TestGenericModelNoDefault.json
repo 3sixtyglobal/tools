@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestGenericModelNoDefault",
+	"$id": "https://schema.3sixty.global/test/TestGenericModelNoDefault",
 	"description": "Generic interface model without a default type parameter.",
 	"title": "TestGenericModelNoDefault",
 	"type": "object",

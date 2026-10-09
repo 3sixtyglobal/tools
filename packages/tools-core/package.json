@@ -1,10 +1,10 @@
 {
-	"name": "@twin.org/tools-core",
-	"version": "0.11.1-next.0",
+	"name": "@3sixty/tools-core",
+	"version": "0.20.0-next.0",
 	"description": "Shared utilities and models for tooling packages",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/3sixtyglobal/twin-tools.git",
+		"url": "git+https://github.com/3sixtyglobal/tools.git",
 		"directory": "packages/tools-core"
 	},
 	"author": "martyn.janes@iota.org",
@@ -28,16 +28,16 @@
 		"dist:no-test": "pnpm run clean && concurrently -g -n build,locales,types \"pnpm run build\" \"pnpm run validate-locales\" \"pnpm run test:build\""
 	},
 	"dependencies": {
-		"@twin.org/core": "next",
-		"@twin.org/nameof": "next",
-		"@twin.org/tools-models": "0.11.1-next.0",
+		"@3sixty/core": "next",
+		"@3sixty/nameof": "next",
+		"@3sixty/tools-models": "0.20.0-next.0",
 		"glob": "13.0.6",
 		"typescript": "6.0.3"
 	},
 	"devDependencies": {
-		"@twin.org/nameof-transformer": "next",
-		"@twin.org/nameof-vitest-plugin": "next",
-		"@twin.org/validate-locales": "next",
+		"@3sixty/nameof-transformer": "next",
+		"@3sixty/nameof-vitest-plugin": "next",
+		"@3sixty/validate-locales": "next",
 		"@types/node": "26.6.2",
 		"@vitest/coverage-v8": "5.0.1",
 		"concurrently": "10.0.5",
@@ -77,7 +77,7 @@
 		"utilities"
 	],
 	"bugs": {
-		"url": "git+https://github.com/3sixtyglobal/twin-tools/issues"
+		"url": "git+https://github.com/3sixtyglobal/tools/issues"
 	},
-	"homepage": "https://twindev.org"
+	"homepage": "https://3sixty.global"
 }

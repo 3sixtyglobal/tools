@@ -137,7 +137,7 @@ export class RegEx {
 	 * Convert a glob wildcard pattern to a RegExp.
 	 * All regex metacharacters in the pattern are escaped first, then each * is replaced with .*.
 	 * The resulting expression is anchored with ^ and $ for full-string matching.
-	 * @param pattern The wildcard pattern, e.g. *Operation or @twin.org/*.
+	 * @param pattern The wildcard pattern, e.g. *Operation or @3sixty/*.
 	 * @returns The compiled RegExp.
 	 * @internal
 	 */

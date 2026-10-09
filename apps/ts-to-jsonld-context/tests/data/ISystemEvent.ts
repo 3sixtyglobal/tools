@@ -9,7 +9,7 @@ export interface ISystemEvent {
 	/**
 	 * JSON-LD Context.
 	 */
-	"@context": "https://schema.twindev.org/supply-chain";
+	"@context": "https://schema.3sixty.global/supply-chain";
 
 	/**
 	 * The id

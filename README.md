@@ -1,4 +1,4 @@
-# TWIN Tools
+# 3Sixty Tools
 
 This repository provides a focused set of tooling modules and command line apps that help teams define interfaces once and generate reliable outputs for documentation, integration, and data exchange. The projects are designed to reduce repetition across services by turning source models and route definitions into reusable artefacts.
 

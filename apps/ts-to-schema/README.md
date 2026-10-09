@@ -1,11 +1,11 @@
-# TWIN TypeScript to Schema
+# 3Sixty TypeScript to Schema
 
 This app generates JSON Schemas from source model definitions to support validation, interoperability, and stable data contracts across services.
 
 ## Installation
 
 ```shell
-npm install -D @twin.org/ts-to-schema
+npm install -D @3sixty/ts-to-schema
 ```
 
 ## Usage

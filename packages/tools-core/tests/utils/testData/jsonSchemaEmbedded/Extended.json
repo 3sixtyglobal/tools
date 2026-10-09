@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/Extended",
+	"$id": "https://schema.3sixty.global/test/Extended",
 	"title": "Extended",
 	"type": "object",
 	"properties": {

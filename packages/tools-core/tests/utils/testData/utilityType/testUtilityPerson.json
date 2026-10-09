@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/Person",
+	"$id": "https://schema.3sixty.global/test/Person",
 	"description": "Full person model for utility type tests.",
 	"title": "Person",
 	"type": "object",

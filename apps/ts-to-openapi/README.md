@@ -1,11 +1,11 @@
-# TWIN TypeScript to OpenApi
+# 3Sixty TypeScript to OpenApi
 
 This app generates OpenAPI specifications from REST route definitions so API contracts can be shared, validated, and published with a consistent structure.
 
 ## Installation
 
 ```shell
-npm install -D @twin.org/ts-to-openapi
+npm install -D @3sixty/ts-to-openapi
 ```
 
 ## Usage

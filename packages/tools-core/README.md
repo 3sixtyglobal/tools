@@ -1,11 +1,11 @@
-# TWIN Tools Core
+# 3Sixty Tools Core
 
 This package provides shared utilities and models for tooling packages. It centralises common behaviours so command line apps and supporting modules can build on one dependable foundation.
 
 ## Installation
 
 ```shell
-npm install @twin.org/tools-core
+npm install @3sixty/tools-core
 ```
 
 ## Examples

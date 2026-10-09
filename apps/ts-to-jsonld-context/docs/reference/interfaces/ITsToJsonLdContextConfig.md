@@ -16,7 +16,7 @@ The prefix to use for the context e.g. twin-common.
 
 > **contextUrl**: `string`
 
-The base URL for the context e.g. https://schema.twindev.org/common/
+The base URL for the context e.g. https://schema.3sixty.global/common/
 
 ***
 

@@ -1,4 +1,4 @@
-# @twin.org/tools-core
+# @3sixty/tools-core
 
 ## Classes
 

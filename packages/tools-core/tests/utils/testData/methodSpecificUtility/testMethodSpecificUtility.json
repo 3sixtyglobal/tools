@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestMethodSpecificUtility",
+	"$id": "https://schema.3sixty.global/test/TestMethodSpecificUtility",
 	"description": "Coverage for method-specific utility and callable helper types.",
 	"title": "TestMethodSpecificUtility",
 	"type": "object",

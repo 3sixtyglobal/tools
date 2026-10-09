@@ -3,10 +3,10 @@
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { CLIDisplay, CLIUtils } from "@twin.org/cli-core";
-import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@twin.org/core";
-import { nameof } from "@twin.org/nameof";
-import { Constants, type EmbeddedSchemaMode, TypeScriptToSchema } from "@twin.org/tools-core";
+import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
+import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@3sixty/core";
+import { nameof } from "@3sixty/nameof";
+import { Constants, type EmbeddedSchemaMode, TypeScriptToSchema } from "@3sixty/tools-core";
 import {
 	type IJsonSchema,
 	type IOpenApi,
@@ -20,8 +20,8 @@ import {
 	OpenApiConstants,
 	type OpenApiParameterLocation,
 	type OpenApiParameterStyle
-} from "@twin.org/tools-models";
-import { HttpStatusCode, MimeTypes } from "@twin.org/web";
+} from "@3sixty/tools-models";
+import { HttpStatusCode, MimeTypes } from "@3sixty/web";
 import type { Command } from "commander";
 import {
 	HTTP_STATUS_CODE_MAP,
@@ -1222,7 +1222,7 @@ async function generateSchemas(
 
 		await typeScriptToSchema.generateSchema(
 			"#/components/schemas/",
-			"@twin.org/ts-to-openapi",
+			"@3sixty/ts-to-openapi",
 			allPackageSchemas,
 			files,
 			undefined,
@@ -1440,7 +1440,7 @@ async function loadPackages(
 		}
 		if (pkgJson.dependencies) {
 			for (const dep in pkgJson.dependencies) {
-				if (dep.startsWith("@twin.org")) {
+				if (dep.startsWith("@3sixty")) {
 					const depRootFolder = await CLIUtils.findPackageRoot(dep, rootFolder);
 					if (Is.stringValue(depRootFolder)) {
 						for (const typeFolder of typeFolders) {

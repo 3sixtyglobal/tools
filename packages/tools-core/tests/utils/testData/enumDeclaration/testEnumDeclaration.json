@@ -1,17 +1,17 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestEnumDeclaration",
+	"$id": "https://schema.3sixty.global/test/TestEnumDeclaration",
 	"description": "Test enum declaration handling.",
 	"title": "TestEnumDeclaration",
 	"type": "object",
 	"properties": {
 		"state": {
 			"description": "Enum declaration reference.",
-			"$ref": "https://schema.twindev.org/test/ResponseState"
+			"$ref": "https://schema.3sixty.global/test/ResponseState"
 		},
 		"code": {
 			"description": "Numeric enum declaration reference.",
-			"$ref": "https://schema.twindev.org/test/ResponseCode"
+			"$ref": "https://schema.3sixty.global/test/ResponseCode"
 		}
 	},
 	"required": ["state", "code"]

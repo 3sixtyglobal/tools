@@ -1,15 +1,15 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestInterface",
+	"$id": "https://schema.3sixty.global/test/TestInterface",
 	"description": "Derived interface extending multiple base interfaces.",
 	"title": "TestInterface",
 	"type": "object",
 	"allOf": [
 		{
-			"$ref": "https://schema.twindev.org/test/TestInterfaceBaseA"
+			"$ref": "https://schema.3sixty.global/test/TestInterfaceBaseA"
 		},
 		{
-			"$ref": "https://schema.twindev.org/test/TestInterfaceBaseB"
+			"$ref": "https://schema.3sixty.global/test/TestInterfaceBaseB"
 		}
 	],
 	"properties": {

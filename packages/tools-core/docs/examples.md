@@ -5,8 +5,8 @@ This package provides the lower-level building blocks used by the CLI applicatio
 ## Generate Schemas From TypeScript
 
 ```ts
-import type { IJsonSchema } from '@twin.org/tools-models';
-import { TypeScriptToSchema } from '@twin.org/tools-core';
+import type { IJsonSchema } from '@3sixty/tools-models';
+import { TypeScriptToSchema } from '@3sixty/tools-core';
 
 const converter = new TypeScriptToSchema();
 const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
@@ -24,8 +24,8 @@ console.log(Object.keys(generatedSchemas));
 When you already know the exported type you want, pass the type name instead of a file path. The helper resolves the declaration and returns the generated schema for that type together with any dependent schemas.
 
 ```ts
-import type { IJsonSchema } from '@twin.org/tools-models';
-import { TypeScriptToSchema } from '@twin.org/tools-core';
+import type { IJsonSchema } from '@3sixty/tools-models';
+import { TypeScriptToSchema } from '@3sixty/tools-core';
 
 const converter = new TypeScriptToSchema();
 const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
@@ -45,8 +45,8 @@ const requestSchema = generatedSchemas.DemoRequest;
 `TypeScriptSchemaObjectTransformer` helps when you need to adapt object schemas produced by the builder for utility types such as `Pick` and `Omit`, or when you want cleaner description text before serialising the result.
 
 ```ts
-import type { IJsonSchema } from '@twin.org/tools-models';
-import { TypeScriptSchemaObjectTransformer } from '@twin.org/tools-core';
+import type { IJsonSchema } from '@3sixty/tools-models';
+import { TypeScriptSchemaObjectTransformer } from '@3sixty/tools-core';
 
 const transformer = new TypeScriptSchemaObjectTransformer();
 
@@ -68,8 +68,8 @@ const personSummarySchema = transformer.pickKeysFromObjectSchema(personSchema, [
 If your schema descriptions come from multiline source comments, `normalizeSchemaDescriptions` removes duplicated whitespace while keeping intentional line breaks intact.
 
 ```ts
-import type { IJsonSchema } from '@twin.org/tools-models';
-import { TypeScriptSchemaObjectTransformer } from '@twin.org/tools-core';
+import type { IJsonSchema } from '@3sixty/tools-models';
+import { TypeScriptSchemaObjectTransformer } from '@3sixty/tools-core';
 
 const transformer = new TypeScriptSchemaObjectTransformer();
 

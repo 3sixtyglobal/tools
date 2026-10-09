@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestJsonSchemaEmbedded",
+	"$id": "https://schema.3sixty.global/test/TestJsonSchemaEmbedded",
 	"title": "TestJsonSchemaEmbedded",
 	"description": "Root schema referencing an embedded type.",
 	"type": "object",

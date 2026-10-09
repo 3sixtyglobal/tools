@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestTypeQuery",
+	"$id": "https://schema.3sixty.global/test/TestTypeQuery",
 	"description": "Coverage for type query references.",
 	"title": "TestTypeQuery",
 	"type": "object",

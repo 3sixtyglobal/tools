@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0.
 import * as fs from "node:fs";
 import path from "node:path";
-import { Is } from "@twin.org/core";
-import type { IJsonSchema } from "@twin.org/tools-models";
+import { Is } from "@3sixty/core";
+import type { IJsonSchema } from "@3sixty/tools-models";
 import testComputedPropertyNameSchema from "./testData/computedPropertyName/testComputedPropertyName.json" with { type: "json" };
 import testConditionalObjectSchema from "./testData/conditionalType/ConditionalObject.json" with { type: "json" };
 import testConditionalPrimitiveSchema from "./testData/conditionalType/ConditionalPrimitive.json" with { type: "json" };
@@ -132,7 +132,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/primitives/testPrimitives.ts"
@@ -152,7 +152,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/multiple/testMultiple.ts"
@@ -166,7 +166,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/interfaceExtends/testInterfaceExtends.ts"
@@ -182,7 +182,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/interfaceExtendsUtility/testInterfaceExtendsUtility.ts"
@@ -227,13 +227,13 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/interfaceExtendsUtility/testInterfaceExtendsUtilityActivity.ts",
 			{
 				externalReferences: {
-					"JsonLd(.*)": "https://schema.twindev.org/json-ld/JsonLd$1"
+					"JsonLd(.*)": "https://schema.3sixty.global/json-ld/JsonLd$1"
 				}
 			}
 		);
@@ -245,7 +245,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/enumAsConst/testEnumAsConst.ts"
@@ -257,7 +257,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/enumDeclaration/testEnumDeclaration.txt"
@@ -273,7 +273,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeSimple/testTypeSimple.ts"
@@ -285,7 +285,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/genericModelDefinition/testGenericModelDefinition.ts"
@@ -301,7 +301,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/conditionalType/testConditionalType.ts"
@@ -317,7 +317,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeSimpleUnion/testTypeSimpleUnion.ts"
@@ -329,7 +329,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeObjectUnion/testTypeObjectUnion.ts"
@@ -341,7 +341,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/literalTagDiscriminatedUnion/testLiteralTagDiscriminatedUnion.ts"
@@ -357,7 +357,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/oneOfDiscrimination/testOneOfDiscrimination.ts"
@@ -373,7 +373,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/discriminatedUnion/IQuestion.ts"
@@ -413,7 +413,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeNull/testTypeNull.ts"
@@ -425,7 +425,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeUndefined/testTypeUndefined.ts"
@@ -437,7 +437,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeKeywordVariants/testTypeKeywordVariants.ts"
@@ -449,7 +449,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typedArray/testTypedArray.ts"
@@ -461,7 +461,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeOperators/testTypeOperators.ts"
@@ -477,7 +477,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/indexedAccessType/testIndexedAccessType.ts"
@@ -493,7 +493,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/templateLiteralType/testTemplateLiteralType.ts"
@@ -509,7 +509,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/mappedType/testMappedType.ts"
@@ -546,7 +546,7 @@ describe("TypeScriptToSchema", () => {
 			[];
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/computedPropertyName/testComputedPropertyName.ts",
@@ -569,7 +569,7 @@ describe("TypeScriptToSchema", () => {
 			[];
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/symbolType/testSymbolType.ts",
@@ -600,7 +600,7 @@ describe("TypeScriptToSchema", () => {
 			[];
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/diagnosticsCoverage/testDiagnosticsCoverage.ts",
@@ -638,7 +638,7 @@ describe("TypeScriptToSchema", () => {
 			[];
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/methodSpecificUtility/testMethodSpecificUtility.ts",
@@ -676,7 +676,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeSimpleIntersection/testTypeSimpleIntersection.ts"
@@ -688,7 +688,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeObjectIntersection/testTypeObjectIntersection.ts"
@@ -705,7 +705,7 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedPersonSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/utilityType/testUtilityPerson.ts"
@@ -713,7 +713,7 @@ describe("TypeScriptToSchema", () => {
 		expectGeneratedSchemasToMatch(generatedPersonSchemas, [testUtilityPersonSchema]);
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/utilityType/testUtilityType.ts"
@@ -777,7 +777,7 @@ describe("TypeScriptToSchema", () => {
 			{ const: "running" }
 		]);
 		expect(schema.properties?.nonNullablePersonType.$ref).toEqual(
-			"https://schema.twindev.org/test/Person"
+			"https://schema.3sixty.global/test/Person"
 		);
 		expect(schema.properties?.recordStringNumberType.type).toEqual("object");
 		expect(schema.properties?.recordStringNumberType.additionalProperties).toEqual({
@@ -791,17 +791,17 @@ describe("TypeScriptToSchema", () => {
 		expect(schema.properties?.recordFixedKeysType.required).toEqual(["id", "label"]);
 		expect(schema.properties?.recordPersonType.type).toEqual("object");
 		expect(schema.properties?.recordPersonType.additionalProperties).toEqual({
-			$ref: "https://schema.twindev.org/test/Person"
+			$ref: "https://schema.3sixty.global/test/Person"
 		});
 		expect(schema.properties?.combinedType.required).toEqual(["id"]);
 		expect(schema.properties?.objectOrArrayType.anyOf).toHaveLength(2);
 		expect(schema.properties?.objectOrArrayPersonType.anyOf).toHaveLength(2);
 		expect(schema.properties?.objectOrArrayPersonType.anyOf?.[0].$ref).toEqual(
-			"https://schema.twindev.org/test/Person"
+			"https://schema.3sixty.global/test/Person"
 		);
 		const secondAnyOfItems = schema.properties?.objectOrArrayPersonType.anyOf?.[1].items;
 		expect(Is.object(secondAnyOfItems) ? secondAnyOfItems.$ref : undefined).toEqual(
-			"https://schema.twindev.org/test/Person"
+			"https://schema.3sixty.global/test/Person"
 		);
 		expect(schema.properties?.singleOccurrenceArrayType.type).toEqual("array");
 		expect(schema.properties?.singleOccurrenceArrayType.items).toEqual({
@@ -813,7 +813,7 @@ describe("TypeScriptToSchema", () => {
 		expect(schema.properties?.singleOccurrenceArrayType.minItems).toEqual(1);
 		expect(schema.properties?.singleOccurrenceArrayPersonType.type).toEqual("array");
 		expect(schema.properties?.singleOccurrenceArrayPersonType.items).toEqual({
-			anyOf: [{ $ref: "https://schema.twindev.org/test/Person" }, { type: "string" }]
+			anyOf: [{ $ref: "https://schema.3sixty.global/test/Person" }, { type: "string" }]
 		});
 		expect(schema.properties?.singleOccurrenceArrayPersonType.contains).toEqual({
 			type: "string"
@@ -829,7 +829,7 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedPersonSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/utilityType/testUtilityPerson.ts"
@@ -837,7 +837,7 @@ describe("TypeScriptToSchema", () => {
 		expectGeneratedSchemasToMatch(generatedPersonSchemas, [testUtilityPersonSchema]);
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonLdUtilityType/testJsonLdUtilityType.ts"
@@ -898,7 +898,7 @@ describe("TypeScriptToSchema", () => {
 		});
 		expect(schema.properties?.withoutContext.required).toEqual(["name", "@context"]);
 		expect(schema.properties?.withoutContext.properties?.["@context"]).toEqual({
-			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+			$ref: "https://schema.3sixty.global/json-ld/JsonLdContextDefinitionRoot"
 		});
 		expect(schema.properties?.withCustomContext.required).toEqual(["name", "@context"]);
 		expect(schema.properties?.withCustomContext.properties?.["@context"]).toEqual({
@@ -915,7 +915,7 @@ describe("TypeScriptToSchema", () => {
 		});
 		expect(schema.properties?.withOptionalContextNoSource.required).toEqual(["name"]);
 		expect(schema.properties?.withOptionalContextNoSource.properties?.["@context"]).toEqual({
-			$ref: "https://schema.twindev.org/json-ld/JsonLdContextDefinitionRoot"
+			$ref: "https://schema.3sixty.global/json-ld/JsonLdContextDefinitionRoot"
 		});
 		expect(schema.properties?.withNoContext.required).toEqual(["label"]);
 		expect(schema.properties?.withNoContext.properties?.["@context"]).toBeUndefined();
@@ -959,7 +959,7 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonLdUtilityType/testJsonLdUtilityTypeLocalImport.ts"
@@ -986,7 +986,7 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/utilityType/*.ts"
@@ -1004,7 +1004,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/optionalProps/testOptionalProps.ts"
@@ -1016,7 +1016,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsDocExampleTag/testJsDocExampleTag.ts"
@@ -1037,7 +1037,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaTags/testJsonSchemaTags.ts"
@@ -1049,7 +1049,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbedded.ts"
@@ -1066,7 +1066,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedInline.ts"
@@ -1083,7 +1083,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedConstrainedInline.ts"
@@ -1100,7 +1100,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedConstrainedDefs.ts"
@@ -1117,11 +1117,11 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedLocalMapping.ts",
-			{ externalReferences: { "IUnece(.*)": "https://schema.twindev.org/unece/Unece$1" } }
+			{ externalReferences: { "IUnece(.*)": "https://schema.3sixty.global/unece/Unece$1" } }
 		);
 
 		expectGeneratedSchemasToMatch(
@@ -1143,7 +1143,7 @@ describe("TypeScriptToSchema", () => {
 		// Call 1: process the file that declares the embedded type.
 		// Its embeddedSchemaModes entry must survive into the next call.
 		const generatedSchemas1 = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCall.ts",
@@ -1154,7 +1154,7 @@ describe("TypeScriptToSchema", () => {
 		// Call 2: CrossCallEmbedded is already in packageSchemas so it is not re-parsed.
 		// Without the shared embeddedSchemaModes the embedding would be silently skipped.
 		const generatedSchemas2 = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCallConsumer.ts",
@@ -1182,7 +1182,7 @@ describe("TypeScriptToSchema", () => {
 		// Call 1: process the consumer first; CrossCallEmbedded is parsed as a dependency
 		// and its embedded mode is written into the shared map during this call.
 		const generatedSchemas1 = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCallConsumer.ts",
@@ -1193,7 +1193,7 @@ describe("TypeScriptToSchema", () => {
 		// Call 2: process the declaring file; CrossCallEmbedded may already be in packageSchemas
 		// but the embeddedSchemaModes entry is already present from Call 1.
 		const generatedSchemas2 = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/jsonSchemaEmbedded/testJsonSchemaEmbeddedCrossCall.ts",
@@ -1219,7 +1219,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaInvalidTags/testJsonSchemaInvalidTags.ts"
@@ -1233,7 +1233,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaConstraintMismatch/testArrayConstraintMismatch.ts"
@@ -1247,7 +1247,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaConstraintMismatch/testNumericConstraintMismatch.ts"
@@ -1261,7 +1261,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaConstraintMismatch/testStringConstraintMismatch.ts"
@@ -1275,7 +1275,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaConstraintMismatch/testObjectConstraintMismatch.ts"
@@ -1289,7 +1289,7 @@ describe("TypeScriptToSchema", () => {
 
 		await expect(
 			tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				packageSchemas,
 				"tests/utils/testData/jsonSchemaConstraintMismatch/testInvalidFormatValue.ts"
@@ -1303,7 +1303,7 @@ describe("TypeScriptToSchema", () => {
 		const diagnostics: { code: string; properties?: { [key: string]: unknown } }[] = [];
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/disallowedTypes/testDisallowedTypes.ts",
@@ -1355,7 +1355,7 @@ describe("TypeScriptToSchema", () => {
 		] as const) {
 			const diagnostics: { code: string; properties?: { [key: string]: unknown } }[] = [];
 			const generatedSchemas = await tsToSchema.generateSchema(
-				"https://schema.twindev.org/test/",
+				"https://schema.3sixty.global/test/",
 				"@example.com/pkg",
 				{},
 				sourcePath,
@@ -1378,7 +1378,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/spreadArray/testSpreadArray.ts"
@@ -1394,7 +1394,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/signatureMembers/testSignatureMembers.ts"
@@ -1406,7 +1406,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/importType/testImportType.ts"
@@ -1418,7 +1418,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeQuery/testTypeQuery.ts"
@@ -1430,7 +1430,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/typeQueryQualified/testTypeQueryQualified.ts"
@@ -1453,7 +1453,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/literalBooleanType/testLiteralBooleanType.ts"
@@ -1468,7 +1468,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/nestedObject/testNestedObject.ts"
@@ -1480,7 +1480,7 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/nestedImported/testNestedImported.ts"
@@ -1494,12 +1494,12 @@ describe("TypeScriptToSchema", () => {
 		expect(packageSchemas["@example.com/pkg"].ImportedSettings).toEqual(testImportedSettingsSchema);
 	});
 
-	test("can generate a ref for IPatchOperation from @twin.org/core across namespaces", async () => {
+	test("can generate a ref for IPatchOperation from @3sixty/core across namespaces", async () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/externalPatchOperation/testExternalPatchOperation.ts"
@@ -1510,13 +1510,13 @@ describe("TypeScriptToSchema", () => {
 			testExternalPatchOperationSchema
 		);
 		expect(secondSchema.properties?.operation).toEqual({
-			$ref: "https://schema.twindev.org/test/PatchOperation",
+			$ref: "https://schema.3sixty.global/test/PatchOperation",
 			description: "The patch operation from the framework package."
 		});
-		expect(packageSchemas["@twin.org/core"]?.PatchOperation?.$id).toBe(
-			"https://schema.twindev.org/test/PatchOperation"
+		expect(packageSchemas["@3sixty/core"]?.PatchOperation?.$id).toBe(
+			"https://schema.3sixty.global/test/PatchOperation"
 		);
-		expect(packageSchemas["@twin.org/core"].IPatchOperation).toBeUndefined();
+		expect(packageSchemas["@3sixty/core"].IPatchOperation).toBeUndefined();
 		expect(packageSchemas["@example.com/pkg"].TestExternalPatchOperation).toEqual(secondSchema);
 		expect(packageSchemas["@example.com/pkg"].PatchOperation).toBeUndefined();
 	});
@@ -1526,50 +1526,50 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/externalPatchOperation/testExternalPatchOperation.ts",
-			{ externalReferences: { "@twin.org/core": "https://schema.twindev.org/mapped/" } }
+			{ externalReferences: { "@3sixty/core": "https://schema.3sixty.global/mapped/" } }
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [], ["TestExternalPatchOperation"]);
 		const schema = getSchemaByExpectedTitle(generatedSchemas, testExternalPatchOperationSchema);
 
 		expect(schema.properties?.operation).toEqual({
-			$ref: "https://schema.twindev.org/mapped/PatchOperation",
+			$ref: "https://schema.3sixty.global/mapped/PatchOperation",
 			description: "The patch operation from the framework package."
 		});
-		expect(packageSchemas["@twin.org/core"]?.PatchOperation?.$id).toBe(
-			"https://schema.twindev.org/mapped/PatchOperation"
+		expect(packageSchemas["@3sixty/core"]?.PatchOperation?.$id).toBe(
+			"https://schema.3sixty.global/mapped/PatchOperation"
 		);
 	});
 
 	test("can prefer existing package schema over reference mapping namespace", async () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {
-			"@twin.org/core": {
+			"@3sixty/core": {
 				PatchOperation: {
-					$id: "https://schema.twindev.org/existing/PatchOperation"
+					$id: "https://schema.3sixty.global/existing/PatchOperation"
 				}
 			}
 		};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/externalPatchOperation/testExternalPatchOperation.ts",
-			{ externalReferences: { "@twin.org/core": "https://schema.twindev.org/mapped/" } }
+			{ externalReferences: { "@3sixty/core": "https://schema.3sixty.global/mapped/" } }
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [], ["TestExternalPatchOperation"]);
 		const schema = getSchemaByExpectedTitle(generatedSchemas, testExternalPatchOperationSchema);
 
 		expect(schema.properties?.operation).toEqual({
-			$ref: "https://schema.twindev.org/existing/PatchOperation",
+			$ref: "https://schema.3sixty.global/existing/PatchOperation",
 			description: "The patch operation from the framework package."
 		});
-		expect(packageSchemas["@twin.org/core"]?.PatchOperation?.$id).toBe(
-			"https://schema.twindev.org/existing/PatchOperation"
+		expect(packageSchemas["@3sixty/core"]?.PatchOperation?.$id).toBe(
+			"https://schema.3sixty.global/existing/PatchOperation"
 		);
 	});
 
@@ -1578,21 +1578,21 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/externalPatchOperation/testExternalPatchOperation.ts",
-			{ externalReferences: { "*Operation": "https://schema.twindev.org/wildcard/" } }
+			{ externalReferences: { "*Operation": "https://schema.3sixty.global/wildcard/" } }
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [], ["TestExternalPatchOperation"]);
 		const schema = getSchemaByExpectedTitle(generatedSchemas, testExternalPatchOperationSchema);
 
 		expect(schema.properties?.operation).toEqual({
-			$ref: "https://schema.twindev.org/wildcard/PatchOperation",
+			$ref: "https://schema.3sixty.global/wildcard/PatchOperation",
 			description: "The patch operation from the framework package."
 		});
-		expect(packageSchemas["@twin.org/core"]?.PatchOperation?.$id).toBe(
-			"https://schema.twindev.org/wildcard/PatchOperation"
+		expect(packageSchemas["@3sixty/core"]?.PatchOperation?.$id).toBe(
+			"https://schema.3sixty.global/wildcard/PatchOperation"
 		);
 	});
 
@@ -1601,21 +1601,21 @@ describe("TypeScriptToSchema", () => {
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/test/",
+			"https://schema.3sixty.global/test/",
 			"@example.com/pkg",
 			packageSchemas,
 			"tests/utils/testData/externalPatchOperation/testExternalPatchOperation.ts",
-			{ externalReferences: { "/.*Operation$/": "https://schema.twindev.org/regex/" } }
+			{ externalReferences: { "/.*Operation$/": "https://schema.3sixty.global/regex/" } }
 		);
 		expectGeneratedSchemasToMatch(generatedSchemas, [], ["TestExternalPatchOperation"]);
 		const schema = getSchemaByExpectedTitle(generatedSchemas, testExternalPatchOperationSchema);
 
 		expect(schema.properties?.operation).toEqual({
-			$ref: "https://schema.twindev.org/regex/PatchOperation",
+			$ref: "https://schema.3sixty.global/regex/PatchOperation",
 			description: "The patch operation from the framework package."
 		});
-		expect(packageSchemas["@twin.org/core"]?.PatchOperation?.$id).toBe(
-			"https://schema.twindev.org/regex/PatchOperation"
+		expect(packageSchemas["@3sixty/core"]?.PatchOperation?.$id).toBe(
+			"https://schema.3sixty.global/regex/PatchOperation"
 		);
 	});
 
@@ -1623,8 +1623,8 @@ describe("TypeScriptToSchema", () => {
 		const tsToSchema = new TypeScriptToSchema();
 		const packageSchemas: { [id: string]: { [id: string]: IJsonSchema } } = {};
 		const generatedSchemas = await tsToSchema.generateSchema(
-			"https://schema.twindev.org/json-ld/",
-			"@twin.org/data-json-ld",
+			"https://schema.3sixty.global/json-ld/",
+			"@3sixty/data-json-ld",
 			packageSchemas,
 			"tests/utils/testData/jsonLd/*.ts"
 		);

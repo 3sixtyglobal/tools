@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/OmitRedefinitionBaseA",
+	"$id": "https://schema.3sixty.global/test/OmitRedefinitionBaseA",
 	"description": "Base interface for redefinition test.",
 	"title": "OmitRedefinitionBaseA",
 	"type": "object",

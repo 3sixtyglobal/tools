@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schema.twindev.org/test/TestTypeQueryQualified",
+	"$id": "https://schema.3sixty.global/test/TestTypeQueryQualified",
 	"title": "TestTypeQueryQualified",
 	"description": "Coverage for qualified typeof type queries that resolve a named property of a local const object.",
 	"type": "object",
