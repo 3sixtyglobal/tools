@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/ts-to-schema",
-	"version": "0.20.0-next.0",
+	"version": "0.20.0-next.1",
 	"description": "Generate JSON Schemas from source model definitions",
 	"repository": {
 		"type": "git",
@@ -32,8 +32,8 @@
 		"@3sixty/cli-core": "next",
 		"@3sixty/core": "next",
 		"@3sixty/nameof": "next",
-		"@3sixty/tools-core": "0.20.0-next.0",
-		"@3sixty/tools-models": "0.20.0-next.0",
+		"@3sixty/tools-core": "0.20.0-next.1",
+		"@3sixty/tools-models": "0.20.0-next.1",
 		"ajv": "8.20.0",
 		"ajv-formats": "3.0.1",
 		"commander": "15.0.0",

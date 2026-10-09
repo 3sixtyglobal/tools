@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/ts-to-jsonld-context",
-	"version": "0.20.0-next.0",
+	"version": "0.20.0-next.1",
 	"description": "Generate JSON-LD contexts from source model definitions",
 	"repository": {
 		"type": "git",
@@ -32,7 +32,7 @@
 		"@3sixty/cli-core": "next",
 		"@3sixty/core": "next",
 		"@3sixty/nameof": "next",
-		"@3sixty/tools-core": "0.20.0-next.0",
+		"@3sixty/tools-core": "0.20.0-next.1",
 		"commander": "15.0.0",
 		"glob": "13.0.6",
 		"typescript": "6.0.3"
