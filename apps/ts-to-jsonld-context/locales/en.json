@@ -18,14 +18,20 @@
 				"output-file": {
 					"param": "'<'output-file'>'",
 					"description": "The file to write the JSON-LD Context to."
+				},
+				"incremental": {
+					"param": "--incremental [cache-file]",
+					"description": "Skip the generation when the inputs and output are unchanged since the last run, recorded in the cache file, which defaults to .cache/ts-to-jsonld-context.json."
 				}
 			},
 			"progress": {
-				"loadingConfigJson": "Loading Config JSON"
+				"loadingConfigJson": "Loading Config JSON",
+				"upToDate": "JSON-LD Context is up to date, skipping generation"
 			},
 			"labels": {
 				"configJson": "Config JSON",
 				"outputFile": "Output File",
+				"cacheFile": "Cache File",
 				"writingOutputFile": "Writing Output File",
 				"model": "Model",
 				"property": "Property"

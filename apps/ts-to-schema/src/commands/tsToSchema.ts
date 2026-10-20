@@ -2,13 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { GeneralError, I18n, Is, StringHelper } from "@3sixty/core";
-import { TypeScriptToSchema } from "@3sixty/tools-core";
+import { IncrementalBuild, TypeScriptToSchema } from "@3sixty/tools-core";
 import type { IJsonSchema } from "@3sixty/tools-models";
 import type { Command } from "commander";
 import { compileValidators } from "./compileValidators.js";
 import type { ITsToSchemaConfig } from "../models/ITsToSchemaConfig.js";
+
+/**
+ * The default location of the incremental cache, relative to the working directory.
+ */
+export const DEFAULT_CACHE_FILE = ".cache/ts-to-schema.json";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -28,6 +34,10 @@ export function buildCommandTsToSchema(program: Command): void {
 			I18n.formatMessage("commands.ts-to-schema.options.compiled-folder.param"),
 			I18n.formatMessage("commands.ts-to-schema.options.compiled-folder.description")
 		)
+		.option(
+			I18n.formatMessage("commands.ts-to-schema.options.incremental.param"),
+			I18n.formatMessage("commands.ts-to-schema.options.incremental.description")
+		)
 		.action(async (config, outputFolder, compiledFolder, opts) => {
 			await actionCommandTsToSchema(config, outputFolder, compiledFolder, opts);
 		});
@@ -39,19 +49,26 @@ export function buildCommandTsToSchema(program: Command): void {
  * @param outputFolder The output folder for the schemas.
  * @param compiledFolder The optional output folder for the compiled validators of the schemas.
  * @param opts The options for the command.
+ * @param opts.incremental Skip the generation when unchanged, optionally with the cache file.
  */
 export async function actionCommandTsToSchema(
 	configFile: string,
 	outputFolder: string,
 	compiledFolder: string | undefined,
-	opts: unknown
+	opts: { incremental?: boolean | string }
 ): Promise<void> {
+	const incremental = opts?.incremental;
+	const packageFolder = process.cwd();
+	const fullOutputFolder = path.resolve(outputFolder);
+	const outputFolders = [IncrementalBuild.relativePath(packageFolder, fullOutputFolder)];
+	// Only the files the tool writes, other tools can write to the same folders.
+	const outputs = [`${outputFolders[0]}/*.json`];
+	let incrementalCache: { cacheFile: string; inputs: string } | undefined;
 	let outputWorkingDir: string | undefined;
 	try {
 		let config: ITsToSchemaConfig | undefined;
 
 		const fullConfigFile = path.resolve(configFile);
-		const fullOutputFolder = path.resolve(outputFolder);
 		outputWorkingDir = path.join(fullOutputFolder, "working");
 
 		CLIDisplay.value(I18n.formatMessage("commands.ts-to-schema.labels.configJson"), fullConfigFile);
@@ -71,6 +88,15 @@ export async function actionCommandTsToSchema(
 				I18n.formatMessage("commands.ts-to-schema.labels.compiledFolder"),
 				fullCompiledFolder
 			);
+			const compiledRelative = IncrementalBuild.relativePath(packageFolder, fullCompiledFolder);
+			outputFolders.push(compiledRelative);
+			outputs.push(`${compiledRelative}/*.ts`);
+		}
+		const cacheFile = Is.empty(incremental)
+			? undefined
+			: path.resolve(Is.stringValue(incremental) ? incremental : DEFAULT_CACHE_FILE);
+		if (Is.stringValue(cacheFile)) {
+			CLIDisplay.value(I18n.formatMessage("commands.ts-to-schema.labels.cacheFile"), cacheFile);
 		}
 		CLIDisplay.break();
 
@@ -85,6 +111,25 @@ export async function actionCommandTsToSchema(
 
 		if (Is.empty(config)) {
 			throw new GeneralError("commands", "commands.ts-to-schema.configFailed");
+		}
+
+		if (Is.stringValue(cacheFile)) {
+			const toolFolder = await IncrementalBuild.findPackageFolder(fileURLToPath(import.meta.url));
+			const inputs = await IncrementalBuild.hashInputs({
+				packageFolder,
+				toolFolder,
+				files: [fullConfigFile],
+				types: config?.types ?? [],
+				ignore: outputFolders.map(f => `${f}/**`),
+				values: outputFolders
+			});
+			if (await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs)) {
+				CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.upToDate"));
+				CLIDisplay.break();
+				CLIDisplay.done();
+				return;
+			}
+			incrementalCache = { cacheFile, inputs };
 		}
 
 		CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.creatingWorkingDir"));
@@ -105,6 +150,15 @@ export async function actionCommandTsToSchema(
 				await rm(outputWorkingDir, { recursive: true });
 			}
 		} catch {}
+	}
+
+	if (incrementalCache) {
+		await IncrementalBuild.writeCache(
+			incrementalCache.cacheFile,
+			incrementalCache.inputs,
+			packageFolder,
+			outputs
+		);
 	}
 }
 

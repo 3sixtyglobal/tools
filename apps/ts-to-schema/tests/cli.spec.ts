@@ -1,9 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
+import { DEFAULT_CACHE_FILE } from "../src/commands/tsToSchema.js";
 import type { ITsToSchemaConfig } from "../src/models/ITsToSchemaConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
@@ -13,6 +14,10 @@ const TEST_OUTPUT_FOLDER = path.join(TEST_DATA_LOCATION, "output");
 const TEST_COMPILED_FOLDER = path.join(TEST_DATA_LOCATION, "compiled");
 const TEST_COMPILED_CODES_FOLDER = path.join(TEST_DATA_LOCATION, "compiled-codes");
 const TEST_COMPILED_FORMATS_FOLDER = path.join(TEST_DATA_LOCATION, "compiled-formats");
+const TEST_INCREMENTAL_SOURCE_FOLDER = path.join(TEST_DATA_LOCATION, "incremental-source");
+const TEST_INCREMENTAL_OUTPUT_FOLDER = path.join(TEST_DATA_LOCATION, "incremental-output");
+const TEST_INCREMENTAL_COMPILED_FOLDER = path.join(TEST_DATA_LOCATION, "incremental-compiled");
+const TEST_INCREMENTAL_CACHE_FILE = path.join(TEST_DATA_LOCATION, "incremental.cache.json");
 const JSON_LD_TYPES = [
 	"./tests/testData/jsonLd/IJsonLdObject.ts",
 	"./tests/testData/jsonLd/IJsonLdDocument.ts",
@@ -56,6 +61,10 @@ describe("CLI", () => {
 		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
 		await rm(TEST_COMPILED_FOLDER, { recursive: true, force: true });
 		await rm(TEST_COMPILED_CODES_FOLDER, { recursive: true, force: true });
+		await rm(TEST_INCREMENTAL_SOURCE_FOLDER, { recursive: true, force: true });
+		await rm(TEST_INCREMENTAL_OUTPUT_FOLDER, { recursive: true, force: true });
+		await rm(TEST_INCREMENTAL_COMPILED_FOLDER, { recursive: true, force: true });
+		await rm(TEST_INCREMENTAL_CACHE_FILE, { force: true });
 	});
 
 	beforeEach(() => {
@@ -248,5 +257,102 @@ describe("CLI", () => {
 				message: "must match a schema in anyOf"
 			}
 		]);
+	});
+
+	describe("Incremental", () => {
+		const sourceFile = path.join(TEST_INCREMENTAL_SOURCE_FOLDER, "testCodes.ts");
+		const schemaFile = path.join(TEST_INCREMENTAL_OUTPUT_FOLDER, "TestCodes.json");
+		const configFile = path.join(TEST_CONFIG_LOCATION, "incremental.json");
+
+		/**
+		 * Run the CLI with the incremental option.
+		 * @param cacheFile The cache file to pass, or undefined to use the default.
+		 * @returns The exit code.
+		 */
+		async function runIncremental(cacheFile?: string): Promise<number> {
+			const cli = new CLI();
+			return cli.run(
+				[
+					"node",
+					"script",
+					configFile,
+					TEST_INCREMENTAL_OUTPUT_FOLDER,
+					TEST_INCREMENTAL_COMPILED_FOLDER,
+					"--incremental",
+					...(cacheFile ? [cacheFile] : [])
+				],
+				"./dist/locales",
+				{
+					overrideOutputWidth: 1000
+				}
+			);
+		}
+
+		beforeAll(async () => {
+			await mkdir(TEST_INCREMENTAL_SOURCE_FOLDER, { recursive: true });
+			await copyFile("./tests/testData/testCodes.ts", sourceFile);
+			const config: ITsToSchemaConfig = {
+				baseUrl: "https://schema.3sixty.global/my-namespace/",
+				types: [`./${path.relative(process.cwd(), sourceFile).replace(/\\/g, "/")}`]
+			};
+			await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
+		});
+
+		test("Can write the cache when generating the schemas", async () => {
+			await rm(TEST_INCREMENTAL_CACHE_FILE, { force: true });
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+
+			const cache = JSON.parse(await readFile(TEST_INCREMENTAL_CACHE_FILE, "utf8"));
+			expect(cache.inputs).toMatch(/^[\da-f]{64}$/);
+			expect(Object.keys(cache.outputs)).toEqual([
+				"tests/.tmp/incremental-compiled/validators.ts",
+				"tests/.tmp/incremental-output/TestCodes.json"
+			]);
+		});
+
+		test("Can skip the generation when nothing has changed", async () => {
+			const before = await stat(schemaFile);
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const after = await stat(schemaFile);
+			expect(after.mtimeMs).toEqual(before.mtimeMs);
+		});
+
+		test("Can regenerate when a source file has changed", async () => {
+			const source = await readFile(sourceFile, "utf8");
+			await writeFile(sourceFile, source.replace('Second: "second"', 'Second: "changed"'));
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const content = await readFile(schemaFile, "utf8");
+			expect(content).toContain('"changed"');
+		});
+
+		test("Can regenerate when an output has been removed", async () => {
+			await rm(schemaFile);
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			await expect(access(schemaFile)).resolves.toBeUndefined();
+		});
+
+		test("Can regenerate when an output has been edited", async () => {
+			await writeFile(schemaFile, "{}");
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const content = await readFile(schemaFile, "utf8");
+			expect(content).toContain('"changed"');
+		});
+
+		test("Can use the default cache file", async () => {
+			const defaultCacheFile = path.resolve(DEFAULT_CACHE_FILE);
+			await rm(defaultCacheFile, { force: true });
+			try {
+				const res = await runIncremental();
+				expect(res).toEqual(0);
+				await expect(access(defaultCacheFile)).resolves.toBeUndefined();
+			} finally {
+				await rm(defaultCacheFile, { force: true });
+			}
+		});
 	});
 });

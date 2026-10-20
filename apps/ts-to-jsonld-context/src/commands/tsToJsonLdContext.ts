@@ -2,12 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@3sixty/core";
+import { IncrementalBuild } from "@3sixty/tools-core";
 import type { Command } from "commander";
 import ts from "typescript";
 import type { IJsonLdProps } from "../models/IJsonLdProps.js";
 import type { ITsToJsonLdContextConfig } from "../models/ITsToJsonLdContextConfig.js";
+
+/**
+ * The default location of the incremental cache, relative to the working directory.
+ */
+export const DEFAULT_CACHE_FILE = ".cache/ts-to-jsonld-context.json";
 
 /**
  * Build the root command to be consumed by the CLI.
@@ -23,6 +30,10 @@ export function buildCommandTsToJsonLdContext(program: Command): void {
 			I18n.formatMessage("commands.ts-to-jsonld-context.options.output-file.param"),
 			I18n.formatMessage("commands.ts-to-jsonld-context.options.output-file.description")
 		)
+		.option(
+			I18n.formatMessage("commands.ts-to-jsonld-context.options.incremental.param"),
+			I18n.formatMessage("commands.ts-to-jsonld-context.options.incremental.description")
+		)
 		.action(async (config, outputFile, opts) => {
 			await actionCommandTsToJsonLdContext(config, outputFile, opts);
 		});
@@ -33,16 +44,23 @@ export function buildCommandTsToJsonLdContext(program: Command): void {
  * @param configFile The optional configuration file.
  * @param outputFile The output file for the schema.
  * @param opts The options for the command.
+ * @param opts.incremental Skip the generation when unchanged, optionally with the cache file.
  */
 export async function actionCommandTsToJsonLdContext(
 	configFile: string,
 	outputFile: string,
-	opts: unknown
+	opts: { incremental?: boolean | string }
 ): Promise<void> {
 	let config: ITsToJsonLdContextConfig | undefined;
 
+	const packageFolder = process.cwd();
 	const fullConfigFile = path.resolve(configFile);
 	const fullOutputFile = path.resolve(outputFile);
+	const outputs = [IncrementalBuild.relativePath(packageFolder, fullOutputFile)];
+	const incremental = opts?.incremental;
+	const cacheFile = Is.empty(incremental)
+		? undefined
+		: path.resolve(Is.stringValue(incremental) ? incremental : DEFAULT_CACHE_FILE);
 
 	CLIDisplay.value(
 		I18n.formatMessage("commands.ts-to-jsonld-context.labels.configJson"),
@@ -52,6 +70,12 @@ export async function actionCommandTsToJsonLdContext(
 		I18n.formatMessage("commands.ts-to-jsonld-context.labels.outputFile"),
 		fullOutputFile
 	);
+	if (Is.stringValue(cacheFile)) {
+		CLIDisplay.value(
+			I18n.formatMessage("commands.ts-to-jsonld-context.labels.cacheFile"),
+			cacheFile
+		);
+	}
 	CLIDisplay.break();
 
 	try {
@@ -74,7 +98,29 @@ export async function actionCommandTsToJsonLdContext(
 
 	CLIDisplay.break();
 
+	let inputs: string | undefined;
+	if (Is.stringValue(cacheFile)) {
+		const toolFolder = await IncrementalBuild.findPackageFolder(fileURLToPath(import.meta.url));
+		inputs = await IncrementalBuild.hashInputs({
+			packageFolder,
+			toolFolder,
+			files: [fullConfigFile],
+			types: config?.types ?? [],
+			values: outputs
+		});
+		if (await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs)) {
+			CLIDisplay.task(I18n.formatMessage("commands.ts-to-jsonld-context.progress.upToDate"));
+			CLIDisplay.break();
+			CLIDisplay.done();
+			return;
+		}
+	}
+
 	await tsToJsonLdContext(config ?? {}, fullOutputFile);
+
+	if (Is.stringValue(cacheFile) && Is.stringValue(inputs)) {
+		await IncrementalBuild.writeCache(cacheFile, inputs, packageFolder, outputs);
+	}
 
 	CLIDisplay.break();
 	CLIDisplay.done();
