@@ -1,5 +1,5 @@
 {
-	"name": "@3sixty/tools",
+	"name": "3sixty-tools",
 	"version": "0.0.0",
 	"description": "Tooling workspace for generating API specs, schemas, and JSON-LD contexts",
 	"repository": {
