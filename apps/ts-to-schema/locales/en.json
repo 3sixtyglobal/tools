@@ -26,6 +26,10 @@
 				"compiled-folder": {
 					"param": "[compiled-folder]",
 					"description": "The optional folder to write the compiled validators for the schemas."
+				},
+				"incremental": {
+					"param": "--incremental [cache-file]",
+					"description": "Skip the generation when the inputs and outputs are unchanged since the last run, recorded in the cache file, which defaults to .cache/ts-to-schema.json."
 				}
 			},
 			"progress": {
@@ -38,13 +42,15 @@
 				"fetchingSchema": "Fetching Schema",
 				"importingValidator": "Importing Validator",
 				"writingValidators": "Writing Validators",
-				"models": "Models"
+				"models": "Models",
+				"upToDate": "Schemas are up to date, skipping generation"
 			},
 			"labels": {
 				"configJson": "Config JSON",
 				"outputFolder": "Output Folder",
 				"outputWorkingDir": "Output Working Directory",
-				"compiledFolder": "Compiled Folder"
+				"compiledFolder": "Compiled Folder",
+				"cacheFile": "Cache File"
 			}
 		}
 	}

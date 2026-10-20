@@ -1,9 +1,10 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, rm, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
+import { DEFAULT_CACHE_FILE } from "../src/commands/tsToJsonLdContext.js";
 import type { ITsToJsonLdContextConfig } from "../src/models/ITsToJsonLdContextConfig.js";
 
 const TEST_DATA_LOCATION = path.resolve(path.join(__dirname, ".tmp"));
@@ -13,6 +14,7 @@ const TEST_OUTPUT_FOLDER = path.join(TEST_DATA_LOCATION, "output");
 const TEST_LOCALES_LOCATION = path.resolve("./dist/locales");
 const TEST_FIXTURE_CONFIG_FILE = path.join(__dirname, "data", "config.json");
 const TEST_FIXTURE_OUTPUT_FILE = path.join(__dirname, "data", "context.jsonld");
+const TEST_INCREMENTAL_CACHE_FILE = path.join(TEST_DATA_LOCATION, "incremental.cache.json");
 let writeBuffer: string[] = [];
 let errorBuffer: string[] = [];
 
@@ -26,6 +28,7 @@ describe("CLI", () => {
 	afterAll(async () => {
 		await rm(TEST_CONFIG_LOCATION, { recursive: true, force: true });
 		await rm(TEST_WORKING_LOCATION, { recursive: true, force: true });
+		await rm(TEST_INCREMENTAL_CACHE_FILE, { force: true });
 	});
 
 	beforeEach(() => {
@@ -180,5 +183,107 @@ describe("CLI", () => {
 		const generatedContext = JSON.parse(await readFile(outputFile, "utf8"));
 		expect(generatedContext["@context"].sch).toBeUndefined();
 		expect(generatedContext["@context"].unused).toBeUndefined();
+	});
+
+	describe("Incremental", () => {
+		const typeFile = path.join(TEST_WORKING_LOCATION, "IIncremental.ts");
+		const outputFile = path.join(TEST_WORKING_LOCATION, "incremental.context.jsonld");
+		const configFile = path.join(TEST_CONFIG_LOCATION, "incremental.config.json");
+
+		/**
+		 * Write the type the context is generated from.
+		 * @param propertyId The JSON-LD id of its property.
+		 */
+		async function writeType(propertyId: string): Promise<void> {
+			await writeFile(
+				typeFile,
+				`export interface IIncremental {
+	/**
+	 * @json-ld id:${propertyId}
+	 */
+	name: string;
+}
+`
+			);
+		}
+
+		/**
+		 * Run the CLI with the incremental option.
+		 * @param cacheFile The cache file to pass, or undefined to use the default.
+		 * @returns The exit code.
+		 */
+		async function runIncremental(cacheFile?: string): Promise<number> {
+			const cli = new CLI();
+			return cli.run(
+				[
+					"node",
+					"script",
+					configFile,
+					outputFile,
+					"--incremental",
+					...(cacheFile ? [cacheFile] : [])
+				],
+				TEST_LOCALES_LOCATION,
+				{
+					overrideOutputWidth: 1000
+				}
+			);
+		}
+
+		beforeAll(async () => {
+			await writeType("firstName");
+			const config: ITsToJsonLdContextConfig = {
+				prefix: "twin-test",
+				contextUrl: "https://schema.3sixty.global/test/",
+				types: [typeFile]
+			};
+			await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
+		});
+
+		test("Can write the cache when generating the context", async () => {
+			await rm(TEST_INCREMENTAL_CACHE_FILE, { force: true });
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+
+			const cache = JSON.parse(await readFile(TEST_INCREMENTAL_CACHE_FILE, "utf8"));
+			expect(cache.inputs).toMatch(/^[\da-f]{64}$/);
+			expect(Object.keys(cache.outputs)).toEqual(["tests/.tmp/work/incremental.context.jsonld"]);
+		});
+
+		test("Can skip the generation when nothing has changed", async () => {
+			const before = await stat(outputFile);
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const after = await stat(outputFile);
+			expect(after.mtimeMs).toEqual(before.mtimeMs);
+		});
+
+		test("Can regenerate when a source file has changed", async () => {
+			await writeType("lastName");
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const generatedContext = JSON.parse(await readFile(outputFile, "utf8"));
+			expect(generatedContext["@context"].name).toEqual({ "@id": "twin-test:lastName" });
+		});
+
+		test("Can regenerate when the output has been edited", async () => {
+			await writeFile(outputFile, "{}");
+			const res = await runIncremental(TEST_INCREMENTAL_CACHE_FILE);
+			expect(res).toEqual(0);
+			const generatedContext = JSON.parse(await readFile(outputFile, "utf8"));
+			expect(generatedContext["@context"].name).toEqual({ "@id": "twin-test:lastName" });
+		});
+
+		test("Can use the default cache file", async () => {
+			const defaultCacheFile = path.resolve(DEFAULT_CACHE_FILE);
+			await rm(defaultCacheFile, { force: true });
+			try {
+				const res = await runIncremental();
+				expect(res).toEqual(0);
+				await expect(access(defaultCacheFile)).resolves.toBeUndefined();
+			} finally {
+				await rm(defaultCacheFile, { force: true });
+			}
+		});
 	});
 });
