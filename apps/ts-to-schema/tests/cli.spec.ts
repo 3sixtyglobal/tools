@@ -304,6 +304,7 @@ describe("CLI", () => {
 			expect(res).toEqual(0);
 
 			const cache = JSON.parse(await readFile(TEST_INCREMENTAL_CACHE_FILE, "utf8"));
+			expect(cache.toolVersion).toMatch(/^\d+\.\d+\.\d+/);
 			expect(cache.inputs).toMatch(/^[\da-f]{64}$/);
 			expect(Object.keys(cache.outputs)).toEqual([
 				"tests/.tmp/incremental-compiled/validators.ts",

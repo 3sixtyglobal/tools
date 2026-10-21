@@ -6,6 +6,11 @@
  */
 export interface IIncrementalCache {
 	/**
+	 * The version of the tool, a different version always regenerates the outputs.
+	 */
+	toolVersion?: string;
+
+	/**
 	 * The hash of the inputs.
 	 */
 	inputs: string;

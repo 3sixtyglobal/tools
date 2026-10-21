@@ -11,11 +11,6 @@ export interface IIncrementalInputs {
 	packageFolder: string;
 
 	/**
-	 * The folder of the tool, its code is hashed so changing the tool regenerates the outputs.
-	 */
-	toolFolder: string;
-
-	/**
 	 * Files whose contents are inputs, such as the configuration.
 	 */
 	files: string[];

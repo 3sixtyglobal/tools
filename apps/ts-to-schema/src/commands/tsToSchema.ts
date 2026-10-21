@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { GeneralError, I18n, Is, StringHelper } from "@3sixty/core";
 import { IncrementalBuild, TypeScriptToSchema } from "@3sixty/tools-core";
@@ -39,7 +38,7 @@ export function buildCommandTsToSchema(program: Command): void {
 			I18n.formatMessage("commands.ts-to-schema.options.incremental.description")
 		)
 		.action(async (config, outputFolder, compiledFolder, opts) => {
-			await actionCommandTsToSchema(config, outputFolder, compiledFolder, opts);
+			await actionCommandTsToSchema(config, outputFolder, compiledFolder, opts, program.version());
 		});
 }
 
@@ -50,12 +49,14 @@ export function buildCommandTsToSchema(program: Command): void {
  * @param compiledFolder The optional output folder for the compiled validators of the schemas.
  * @param opts The options for the command.
  * @param opts.incremental Skip the generation when unchanged, optionally with the cache file.
+ * @param toolVersion The version of the tool, a change regenerates incremental outputs.
  */
 export async function actionCommandTsToSchema(
 	configFile: string,
 	outputFolder: string,
 	compiledFolder: string | undefined,
-	opts: { incremental?: boolean | string }
+	opts: { incremental?: boolean | string },
+	toolVersion?: string
 ): Promise<void> {
 	const incremental = opts?.incremental;
 	const packageFolder = process.cwd();
@@ -114,16 +115,16 @@ export async function actionCommandTsToSchema(
 		}
 
 		if (Is.stringValue(cacheFile)) {
-			const toolFolder = await IncrementalBuild.findPackageFolder(fileURLToPath(import.meta.url));
 			const inputs = await IncrementalBuild.hashInputs({
 				packageFolder,
-				toolFolder,
 				files: [fullConfigFile],
 				types: config?.types ?? [],
 				ignore: outputFolders.map(f => `${f}/**`),
 				values: outputFolders
 			});
-			if (await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs)) {
+			if (
+				await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs, toolVersion)
+			) {
 				CLIDisplay.task(I18n.formatMessage("commands.ts-to-schema.progress.upToDate"));
 				CLIDisplay.break();
 				CLIDisplay.done();
@@ -157,7 +158,8 @@ export async function actionCommandTsToSchema(
 			incrementalCache.cacheFile,
 			incrementalCache.inputs,
 			packageFolder,
-			outputs
+			outputs,
+			toolVersion
 		);
 	}
 }

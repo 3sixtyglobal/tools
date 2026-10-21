@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { GeneralError, I18n, Is, ObjectHelper, StringHelper } from "@3sixty/core";
 import { IncrementalBuild } from "@3sixty/tools-core";
@@ -35,7 +34,7 @@ export function buildCommandTsToJsonLdContext(program: Command): void {
 			I18n.formatMessage("commands.ts-to-jsonld-context.options.incremental.description")
 		)
 		.action(async (config, outputFile, opts) => {
-			await actionCommandTsToJsonLdContext(config, outputFile, opts);
+			await actionCommandTsToJsonLdContext(config, outputFile, opts, program.version());
 		});
 }
 
@@ -45,11 +44,13 @@ export function buildCommandTsToJsonLdContext(program: Command): void {
  * @param outputFile The output file for the schema.
  * @param opts The options for the command.
  * @param opts.incremental Skip the generation when unchanged, optionally with the cache file.
+ * @param toolVersion The version of the tool, a change regenerates incremental outputs.
  */
 export async function actionCommandTsToJsonLdContext(
 	configFile: string,
 	outputFile: string,
-	opts: { incremental?: boolean | string }
+	opts: { incremental?: boolean | string },
+	toolVersion?: string
 ): Promise<void> {
 	let config: ITsToJsonLdContextConfig | undefined;
 
@@ -100,15 +101,13 @@ export async function actionCommandTsToJsonLdContext(
 
 	let inputs: string | undefined;
 	if (Is.stringValue(cacheFile)) {
-		const toolFolder = await IncrementalBuild.findPackageFolder(fileURLToPath(import.meta.url));
 		inputs = await IncrementalBuild.hashInputs({
 			packageFolder,
-			toolFolder,
 			files: [fullConfigFile],
 			types: config?.types ?? [],
 			values: outputs
 		});
-		if (await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs)) {
+		if (await IncrementalBuild.isUpToDate(cacheFile, inputs, packageFolder, outputs, toolVersion)) {
 			CLIDisplay.task(I18n.formatMessage("commands.ts-to-jsonld-context.progress.upToDate"));
 			CLIDisplay.break();
 			CLIDisplay.done();
@@ -119,7 +118,7 @@ export async function actionCommandTsToJsonLdContext(
 	await tsToJsonLdContext(config ?? {}, fullOutputFile);
 
 	if (Is.stringValue(cacheFile) && Is.stringValue(inputs)) {
-		await IncrementalBuild.writeCache(cacheFile, inputs, packageFolder, outputs);
+		await IncrementalBuild.writeCache(cacheFile, inputs, packageFolder, outputs, toolVersion);
 	}
 
 	CLIDisplay.break();
