@@ -7,7 +7,6 @@ import { IncrementalBuild } from "../../src/utils/incrementalBuild.js";
 
 const TEST_FOLDER = path.resolve(path.join(__dirname, "..", ".tmp", "incremental"));
 const TEST_PACKAGE_FOLDER = path.join(TEST_FOLDER, "package");
-const TEST_TOOL_FOLDER = path.join(TEST_FOLDER, "tool");
 const TEST_OUTSIDE_FILE = path.join(TEST_FOLDER, "IOutside.ts");
 const TEST_CACHE_FILE = path.join(TEST_FOLDER, "cache", "incremental.json");
 const TEST_OUTPUTS = ["src/output/*.json"];
@@ -20,7 +19,6 @@ const TEST_OUTPUTS = ["src/output/*.json"];
 function createInputs(types: string[]): IIncrementalInputs {
 	return {
 		packageFolder: TEST_PACKAGE_FOLDER,
-		toolFolder: TEST_TOOL_FOLDER,
 		files: [path.join(TEST_PACKAGE_FOLDER, "config.json")],
 		types,
 		ignore: ["src/output/**"],
@@ -33,12 +31,10 @@ describe("IncrementalBuild", () => {
 		await rm(TEST_FOLDER, { recursive: true, force: true });
 		await mkdir(path.join(TEST_PACKAGE_FOLDER, "src", "models"), { recursive: true });
 		await mkdir(path.join(TEST_PACKAGE_FOLDER, "src", "output"), { recursive: true });
-		await mkdir(TEST_TOOL_FOLDER, { recursive: true });
 		await writeFile(path.join(TEST_PACKAGE_FOLDER, "package.json"), '{ "name": "test" }');
 		await writeFile(path.join(TEST_PACKAGE_FOLDER, "config.json"), "{}");
 		await writeFile(path.join(TEST_PACKAGE_FOLDER, "src", "models", "IModel.ts"), "export {};");
 		await writeFile(path.join(TEST_PACKAGE_FOLDER, "src", "output", "Model.json"), "{}");
-		await writeFile(path.join(TEST_TOOL_FOLDER, "package.json"), '{ "name": "tool" }');
 		await writeFile(TEST_OUTSIDE_FILE, "export {};");
 	});
 
@@ -70,10 +66,17 @@ describe("IncrementalBuild", () => {
 		expect(after).not.toEqual(before);
 	});
 
-	test("can change the hash when the tool changes", async () => {
+	test("can change the hash when the version of a dependency changes", async () => {
 		const inputs = createInputs(["./src/models/IModel.ts"]);
+		const dependencyFolder = path.join(TEST_PACKAGE_FOLDER, "node_modules", "tool");
+		await mkdir(dependencyFolder, { recursive: true });
+		await writeFile(
+			path.join(TEST_PACKAGE_FOLDER, "package.json"),
+			'{ "name": "test", "devDependencies": { "tool": "1.0.0" } }'
+		);
+		await writeFile(path.join(dependencyFolder, "package.json"), '{ "version": "1.0.0" }');
 		const before = await IncrementalBuild.hashInputs(inputs);
-		await writeFile(path.join(TEST_TOOL_FOLDER, "package.json"), '{ "name": "tool", "v": 2 }');
+		await writeFile(path.join(dependencyFolder, "package.json"), '{ "version": "2.0.0" }');
 		const after = await IncrementalBuild.hashInputs(inputs);
 		expect(after).not.toEqual(before);
 	});
@@ -124,6 +127,34 @@ describe("IncrementalBuild", () => {
 			TEST_OUTPUTS
 		);
 		expect(upToDate).toEqual(false);
+	});
+
+	test("can fail the up to date check when the tool version has changed", async () => {
+		await IncrementalBuild.writeCache(
+			TEST_CACHE_FILE,
+			"inputs",
+			TEST_PACKAGE_FOLDER,
+			TEST_OUTPUTS,
+			"1.0.0"
+		);
+		expect(
+			await IncrementalBuild.isUpToDate(
+				TEST_CACHE_FILE,
+				"inputs",
+				TEST_PACKAGE_FOLDER,
+				TEST_OUTPUTS,
+				"1.0.0"
+			)
+		).toEqual(true);
+		expect(
+			await IncrementalBuild.isUpToDate(
+				TEST_CACHE_FILE,
+				"inputs",
+				TEST_PACKAGE_FOLDER,
+				TEST_OUTPUTS,
+				"2.0.0"
+			)
+		).toEqual(false);
 	});
 
 	test("can fail the up to date check when an output has changed or been removed", async () => {

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { access, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { Converter, Is } from "@3sixty/core";
 import { Sha256 } from "@3sixty/crypto";
 import { glob } from "glob";
@@ -17,7 +16,7 @@ import type { IIncrementalInputs } from "../models/IIncrementalInputs.js";
 export class IncrementalBuild {
 	/**
 	 * Hash the inputs which determine the outputs of a tool: the values, the files, the source files
-	 * of the types, the dependencies of the package and the code of the tool and of this package.
+	 * of the types and the dependencies of the package, which include the tool.
 	 * @param inputs The inputs to hash.
 	 * @returns The hash of the inputs.
 	 */
@@ -52,35 +51,25 @@ export class IncrementalBuild {
 
 		await IncrementalBuild.hashDependencies(hash, inputs.packageFolder);
 
-		const toolsCoreFolder = await IncrementalBuild.findPackageFolder(
-			fileURLToPath(import.meta.url)
-		);
-		for (const folder of [inputs.toolFolder, toolsCoreFolder]) {
-			await IncrementalBuild.hashFiles(
-				hash,
-				folder,
-				["package.json", "dist/es/**/*.js", "src/**/*.ts"],
-				[]
-			);
-		}
-
 		return Converter.bytesToHex(hash.digest());
 	}
 
 	/**
-	 * Is the last run recorded in the cache still up to date, the inputs have to match and the
-	 * outputs must be exactly the files it wrote.
+	 * Is the last run recorded in the cache still up to date, the tool version and inputs have to
+	 * match and the outputs must be exactly the files it wrote.
 	 * @param cacheFile The cache file.
 	 * @param inputs The hash of the current inputs.
 	 * @param packageFolder The folder of the package.
 	 * @param outputs Patterns relative to the package for the outputs of the tool.
+	 * @param toolVersion The version of the tool.
 	 * @returns True if the outputs are up to date.
 	 */
 	public static async isUpToDate(
 		cacheFile: string,
 		inputs: string,
 		packageFolder: string,
-		outputs: string[]
+		outputs: string[],
+		toolVersion?: string
 	): Promise<boolean> {
 		let cache: IIncrementalCache;
 		try {
@@ -90,7 +79,7 @@ export class IncrementalBuild {
 			return false;
 		}
 
-		if (cache.inputs !== inputs || !Is.object(cache.outputs)) {
+		if (cache.toolVersion !== toolVersion || cache.inputs !== inputs || !Is.object(cache.outputs)) {
 			return false;
 		}
 
@@ -108,15 +97,18 @@ export class IncrementalBuild {
 	 * @param inputs The hash of the inputs.
 	 * @param packageFolder The folder of the package.
 	 * @param outputs Patterns relative to the package for the outputs of the tool.
+	 * @param toolVersion The version of the tool.
 	 */
 	public static async writeCache(
 		cacheFile: string,
 		inputs: string,
 		packageFolder: string,
-		outputs: string[]
+		outputs: string[],
+		toolVersion?: string
 	): Promise<void> {
 		const outputHashes = await IncrementalBuild.hashOutputs(packageFolder, outputs);
 		const cache: IIncrementalCache = {
+			toolVersion,
 			inputs,
 			outputs: outputHashes
 		};
