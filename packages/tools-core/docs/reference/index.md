@@ -8,6 +8,7 @@
 - [Enum](classes/Enum.md)
 - [FileUtils](classes/FileUtils.md)
 - [ImportTypeQuerySchemaResolver](classes/ImportTypeQuerySchemaResolver.md)
+- [IncrementalBuild](classes/IncrementalBuild.md)
 - [IndexSignaturePatternResolver](classes/IndexSignaturePatternResolver.md)
 - [IntersectionSchemaMerger](classes/IntersectionSchemaMerger.md)
 - [JsDoc](classes/JsDoc.md)
@@ -22,6 +23,8 @@
 
 ## Interfaces
 
+- [IIncrementalCache](interfaces/IIncrementalCache.md)
+- [IIncrementalInputs](interfaces/IIncrementalInputs.md)
 - [ITypeScriptToSchemaContext](interfaces/ITypeScriptToSchemaContext.md)
 - [ITypeScriptToSchemaDiagnostics](interfaces/ITypeScriptToSchemaDiagnostics.md)
 - [ITypeScriptToSchemaOptions](interfaces/ITypeScriptToSchemaOptions.md)

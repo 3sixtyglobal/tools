@@ -12,6 +12,7 @@
 ## Variables
 
 - [COMPILED\_VALIDATOR\_PREFIX](variables/COMPILED_VALIDATOR_PREFIX.md)
+- [DEFAULT\_CACHE\_FILE](variables/DEFAULT_CACHE_FILE.md)
 
 ## Functions
 

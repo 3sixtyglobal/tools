@@ -26,9 +26,13 @@ The optional output folder for the compiled validators of the schemas.
 
 ### opts
 
-`unknown`
-
 The options for the command.
+
+#### incremental?
+
+`string` \| `boolean`
+
+Skip the generation when unchanged, optionally with the cache file.
 
 ## Returns
 
