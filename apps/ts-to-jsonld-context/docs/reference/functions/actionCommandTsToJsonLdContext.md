@@ -1,6 +1,6 @@
 # Function: actionCommandTsToJsonLdContext()
 
-> **actionCommandTsToJsonLdContext**(`configFile`, `outputFile`, `opts`): `Promise`\<`void`\>
+> **actionCommandTsToJsonLdContext**(`configFile`, `outputFile`, `opts`, `toolVersion?`): `Promise`\<`void`\>
 
 Action the root command.
 
@@ -27,6 +27,12 @@ The options for the command.
 `string` \| `boolean`
 
 Skip the generation when unchanged, optionally with the cache file.
+
+### toolVersion?
+
+`string`
+
+The version of the tool, a change regenerates incremental outputs.
 
 ## Returns
 

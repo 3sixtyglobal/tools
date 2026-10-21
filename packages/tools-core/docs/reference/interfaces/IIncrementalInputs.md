@@ -12,14 +12,6 @@ The folder of the package the tool is run for, its dependencies are hashed.
 
 ***
 
-### toolFolder {#toolfolder}
-
-> **toolFolder**: `string`
-
-The folder of the tool, its code is hashed so changing the tool regenerates the outputs.
-
-***
-
 ### files {#files}
 
 > **files**: `string`[]
