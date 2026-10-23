@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { rm, mkdir, writeFile } from "node:fs/promises";
+import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay } from "@3sixty/cli-core";
+import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
 import type { ITsToOpenApiConfig } from "../src/models/ITsToOpenApiConfig.js";
 
@@ -69,5 +69,47 @@ describe("CLI", () => {
 			overrideOutputWidth: 1000
 		});
 		expect(res).toEqual(0);
+	});
+
+	test("Installs packages not found locally from the release channel of the tool", async () => {
+		const pkg = JSON.parse(await readFile(path.resolve(__dirname, "../package.json"), "utf8")) as {
+			version: string;
+		};
+		const installs: string[][] = [];
+		const runShellCmd = vi.spyOn(CLIUtils, "runShellCmd").mockImplementation(async (app, args) => {
+			installs.push([app, ...args]);
+		});
+
+		const cli = new CLI();
+		const config: ITsToOpenApiConfig = {
+			title: "3Sixty - Test Endpoints",
+			version: "1.0.0",
+			description: "REST API for 3Sixty - Test Endpoints.",
+			licenseName: "Apache 2.0 License",
+			licenseUrl: "https://opensource.org/licenses/Apache-2.0",
+			servers: ["https://localhost"],
+			authMethods: ["jwtBearer"],
+			restRoutes: [{ package: "@3sixty/not-installed-service" }]
+		};
+
+		const configFile = path.join(TEST_CONFIG_LOCATION, "config.json");
+		await writeFile(configFile, JSON.stringify(config, undefined, "\t"));
+
+		try {
+			// The install is mocked so loading the package afterwards fails.
+			const res = await cli.run(
+				["node", "script", configFile, TEST_OUTPUT_FILE],
+				"./dist/locales",
+				{
+					overrideOutputWidth: 1000
+				}
+			);
+			expect(res).toEqual(1);
+		} finally {
+			runShellCmd.mockRestore();
+		}
+
+		const tag = pkg.version.includes("-next") ? "next" : "latest";
+		expect(installs).toEqual([["npm", "install", `@3sixty/not-installed-service@${tag}`]]);
 	});
 });
