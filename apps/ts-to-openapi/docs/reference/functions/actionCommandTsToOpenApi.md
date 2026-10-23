@@ -1,6 +1,6 @@
 # Function: actionCommandTsToOpenApi()
 
-> **actionCommandTsToOpenApi**(`configFile`, `outputFile`, `opts`): `Promise`\<`void`\>
+> **actionCommandTsToOpenApi**(`configFile`, `outputFile`, `opts`, `packageVersion?`): `Promise`\<`void`\>
 
 Action the root command.
 
@@ -23,6 +23,12 @@ The output file for the generation OpenApi spec.
 `unknown`
 
 The options for the command.
+
+### packageVersion?
+
+`string`
+
+The npm version or tag for packages without one, defaults to latest.
 
 ## Returns
 
