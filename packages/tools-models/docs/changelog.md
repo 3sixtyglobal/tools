@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.3...tools-models-v0.20.0-next.4) (2026-10-23)
+
+
+### Features
+
+* updated ts compile ([b995854](https://github.com/3sixtyglobal/tools/commit/b99585463cec952f4d09cdd287970c47cc2124da))
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.2...tools-models-v0.20.0-next.3) (2026-10-21)
 
 

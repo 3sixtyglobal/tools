@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/tools/compare/ts-to-openapi-v0.20.0-next.3...ts-to-openapi-v0.20.0-next.4) (2026-10-23)
+
+
+### Features
+
+* updated ts compile ([b995854](https://github.com/3sixtyglobal/tools/commit/b99585463cec952f4d09cdd287970c47cc2124da))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/tools-core bumped from 0.20.0-next.3 to 0.20.0-next.4
+    * @3sixty/tools-models bumped from 0.20.0-next.3 to 0.20.0-next.4
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/tools/compare/ts-to-openapi-v0.20.0-next.2...ts-to-openapi-v0.20.0-next.3) (2026-10-21)
 
 
