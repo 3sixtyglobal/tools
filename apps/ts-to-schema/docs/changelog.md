@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.20.0-next.5](https://github.com/3sixtyglobal/tools/compare/ts-to-schema-v0.20.0-next.4...ts-to-schema-v0.20.0-next.5) (2026-10-23)
+
+
+### Features
+
+* install ts-to-openapi packages from the tool release channel ([#24](https://github.com/3sixtyglobal/tools/issues/24)) ([c77d3c6](https://github.com/3sixtyglobal/tools/commit/c77d3c6db0ff186f503e580125878a4b17336174))
+* updated ts compile ([7330dff](https://github.com/3sixtyglobal/tools/commit/7330dffa182ee0fd0e6f3cd7d412efc30c734746))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/tools-core bumped from 0.20.0-next.4 to 0.20.0-next.5
+    * @3sixty/tools-models bumped from 0.20.0-next.4 to 0.20.0-next.5
+
 ## [0.20.0-next.4](https://github.com/3sixtyglobal/tools/compare/ts-to-schema-v0.20.0-next.3...ts-to-schema-v0.20.0-next.4) (2026-10-23)
 
 

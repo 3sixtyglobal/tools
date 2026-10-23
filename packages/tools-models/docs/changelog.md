@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.5](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.4...tools-models-v0.20.0-next.5) (2026-10-23)
+
+
+### Features
+
+* install ts-to-openapi packages from the tool release channel ([#24](https://github.com/3sixtyglobal/tools/issues/24)) ([c77d3c6](https://github.com/3sixtyglobal/tools/commit/c77d3c6db0ff186f503e580125878a4b17336174))
+
 ## [0.20.0-next.4](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.3...tools-models-v0.20.0-next.4) (2026-10-23)
 
 
