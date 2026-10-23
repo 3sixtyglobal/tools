@@ -36,6 +36,8 @@ The package name.
 
 ##### schemas
 
+\{\[`id`: `string`\]: `object`; \}
+
 The package schema map.
 
 ##### sourceFileOrTypeName
@@ -51,6 +53,8 @@ The source file to process or type name to resolve.
 Additional generation options.
 
 ##### embeddedSchemaModes?
+
+\{\[`id`: `string`\]: [`EmbeddedSchemaMode`](../type-aliases/EmbeddedSchemaMode.md); \}
 
 Shared map of schema ids to embedded modes; pass the same object
 across multiple calls so that annotations discovered in one call are visible in later calls.

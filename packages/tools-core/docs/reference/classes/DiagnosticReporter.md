@@ -42,6 +42,8 @@ The diagnostic code.
 
 ##### properties?
 
+\{\[`key`: `string`\]: `unknown`; \}
+
 The values to substitute into the localised message.
 
 #### Returns
