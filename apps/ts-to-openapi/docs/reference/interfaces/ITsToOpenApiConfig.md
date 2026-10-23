@@ -76,7 +76,7 @@ The package containing the routes.
 
 > `optional` **version?**: `string`
 
-The version of the package to use, defaults to latest.
+The version of the package to use, defaults to next for a next build of the tool, otherwise latest.
 
 #### packageRoot?
 
