@@ -4,7 +4,7 @@ import { deepStrictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
 import { mkdir, readFile, rm } from "node:fs/promises";
 import path from "node:path";
-import { CLIDisplay } from "@3sixty/cli-core";
+import { CLIDisplay, CLIUtils } from "@3sixty/cli-core";
 import { Is } from "@3sixty/core";
 import { tsToOpenApi } from "../../src/commands/tsToOpenApi.js";
 import type { ITsToOpenApiConfig } from "../../src/models/ITsToOpenApiConfig.js";
@@ -78,6 +78,71 @@ describe("TSToOpenApi", () => {
 
 		const res = await tsToOpenApi(config, TEST_OUTPUT_FILE2, TEST_WORKING_LOCATION);
 		expect(res).toEqual(undefined);
+	});
+
+	test("Installs packages not found locally with the default version unless the route sets one", async () => {
+		const installs: string[][] = [];
+		const runShellCmd = vi.spyOn(CLIUtils, "runShellCmd").mockImplementation(async (app, args) => {
+			installs.push([app, ...args]);
+		});
+
+		const config: ITsToOpenApiConfig = {
+			title: "3Sixty - Test Endpoints",
+			version: "1.0.0",
+			description: "REST API for 3Sixty - Test Endpoints.",
+			licenseName: "Apache 2.0 License",
+			licenseUrl: "https://opensource.org/licenses/Apache-2.0",
+			servers: ["https://localhost"],
+			authMethods: ["jwtBearer"],
+			restRoutes: [
+				{ package: "@3sixty/not-installed-service" },
+				{ package: "@3sixty/not-installed-pinned-service", version: "1.2.3" }
+			]
+		};
+
+		try {
+			// The install is mocked so loading the packages afterwards fails.
+			await expect(
+				tsToOpenApi(config, TEST_OUTPUT_FILE2, TEST_WORKING_LOCATION, "next")
+			).rejects.toThrow();
+		} finally {
+			runShellCmd.mockRestore();
+		}
+
+		expect(installs).toEqual([
+			[
+				"npm",
+				"install",
+				"@3sixty/not-installed-service@next",
+				"@3sixty/not-installed-pinned-service@1.2.3"
+			]
+		]);
+	});
+
+	test("Installs packages not found locally with latest when no default version is given", async () => {
+		const installs: string[][] = [];
+		const runShellCmd = vi.spyOn(CLIUtils, "runShellCmd").mockImplementation(async (app, args) => {
+			installs.push([app, ...args]);
+		});
+
+		const config: ITsToOpenApiConfig = {
+			title: "3Sixty - Test Endpoints",
+			version: "1.0.0",
+			description: "REST API for 3Sixty - Test Endpoints.",
+			licenseName: "Apache 2.0 License",
+			licenseUrl: "https://opensource.org/licenses/Apache-2.0",
+			servers: ["https://localhost"],
+			authMethods: ["jwtBearer"],
+			restRoutes: [{ package: "@3sixty/not-installed-service" }]
+		};
+
+		try {
+			await expect(tsToOpenApi(config, TEST_OUTPUT_FILE2, TEST_WORKING_LOCATION)).rejects.toThrow();
+		} finally {
+			runShellCmd.mockRestore();
+		}
+
+		expect(installs).toEqual([["npm", "install", "@3sixty/not-installed-service@latest"]]);
 	});
 
 	test.runIf(IS_NEXT && FIXTURE_PACKAGES_PUBLISHED)("Can generate simple spec", async () => {

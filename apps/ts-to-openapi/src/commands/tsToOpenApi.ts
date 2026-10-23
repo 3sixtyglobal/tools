@@ -41,6 +41,9 @@ import type { ITsToOpenApiConfigEntryPoint } from "../models/ITsToOpenApiConfigE
  * @param program The command to build on.
  */
 export function buildCommandTsToOpenApi(program: Command): void {
+	// Packages not found locally are installed from the same release channel as the tool.
+	const packageVersion = (program.version() ?? "").includes("-next") ? "next" : "latest";
+
 	program
 		.argument(
 			I18n.formatMessage("commands.ts-to-openapi.options.config.param"),
@@ -51,7 +54,7 @@ export function buildCommandTsToOpenApi(program: Command): void {
 			I18n.formatMessage("commands.ts-to-openapi.options.output-file.description")
 		)
 		.action(async (config, outputFile, opts) => {
-			await actionCommandTsToOpenApi(config, outputFile, opts);
+			await actionCommandTsToOpenApi(config, outputFile, opts, packageVersion);
 		});
 }
 
@@ -60,11 +63,13 @@ export function buildCommandTsToOpenApi(program: Command): void {
  * @param configFile The optional configuration file.
  * @param outputFile The output file for the generation OpenApi spec.
  * @param opts The options for the command.
+ * @param packageVersion The npm version or tag for packages without one, defaults to latest.
  */
 export async function actionCommandTsToOpenApi(
 	configFile: string,
 	outputFile: string,
-	opts: unknown
+	opts: unknown,
+	packageVersion?: string
 ): Promise<void> {
 	let outputWorkingDir: string | undefined;
 	try {
@@ -105,7 +110,7 @@ export async function actionCommandTsToOpenApi(
 		await mkdir(outputWorkingDir, { recursive: true });
 		CLIDisplay.break();
 
-		await tsToOpenApi(config ?? {}, fullOutputFile, outputWorkingDir);
+		await tsToOpenApi(config ?? {}, fullOutputFile, outputWorkingDir, packageVersion);
 
 		CLIDisplay.break();
 		CLIDisplay.done();
@@ -123,11 +128,13 @@ export async function actionCommandTsToOpenApi(
  * @param config The configuration for the app.
  * @param outputFile The location of the file to output the OpenAPI spec.
  * @param workingDirectory The folder the app was run from.
+ * @param packageVersion The npm version or tag for packages without one, defaults to latest.
  */
 export async function tsToOpenApi(
 	config: ITsToOpenApiConfig,
 	outputFile: string,
-	workingDirectory: string
+	workingDirectory: string,
+	packageVersion?: string
 ): Promise<void> {
 	await writeFile(
 		path.join(workingDirectory, "package.json"),
@@ -169,7 +176,7 @@ export async function tsToOpenApi(
 	const responseCodes: string[] = [];
 	const inputResults: IInputResult[] = [];
 	const typeRoots: string[] = [];
-	const restRoutesAndTags = await loadPackages(config, workingDirectory, typeRoots);
+	const restRoutesAndTags = await loadPackages(config, workingDirectory, typeRoots, packageVersion);
 
 	for (const restRouteAndTag of restRoutesAndTags) {
 		const paths = await processPackageRestDetails(restRouteAndTag.restRoutes);
@@ -1345,13 +1352,15 @@ function tidySchemaProperties(value: unknown, removeRefDescriptions: boolean): v
  * @param tsToOpenApiConfig The app config.
  * @param outputWorkingDir The working directory.
  * @param typeRoots The model roots.
+ * @param packageVersion The npm version or tag for packages without one, defaults to latest.
  * @returns The routes and tags for each package.
  * @internal
  */
 async function loadPackages(
 	tsToOpenApiConfig: ITsToOpenApiConfig,
 	outputWorkingDir: string,
-	typeRoots: string[]
+	typeRoots: string[],
+	packageVersion?: string
 ): Promise<
 	{
 		restRoutes: IRestRoute[];
@@ -1375,7 +1384,7 @@ async function loadPackages(
 			if (Is.stringValue(localPackageRoot)) {
 				localPackageRoots[configRestRoutes.package] = localPackageRoot;
 			} else {
-				const version = configRestRoutes.version ?? "latest";
+				const version = configRestRoutes.version ?? packageVersion ?? "latest";
 				const newPackage = `${configRestRoutes.package}@${version}`;
 				if (!packages.includes(newPackage)) {
 					packages.push(`${configRestRoutes.package}@${version}`);
