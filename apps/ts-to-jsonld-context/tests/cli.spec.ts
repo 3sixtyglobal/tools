@@ -1,6 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import { access, rm, mkdir, readFile, stat, writeFile } from "node:fs/promises";
+import { rm, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIDisplay } from "@3sixty/cli-core";
 import { CLI } from "../src/cli.js";
@@ -280,7 +281,7 @@ describe("CLI", () => {
 			try {
 				const res = await runIncremental();
 				expect(res).toEqual(0);
-				await expect(access(defaultCacheFile)).resolves.toBeUndefined();
+				await expect(stat(defaultCacheFile)).resolves.toBeDefined();
 			} finally {
 				await rm(defaultCacheFile, { force: true });
 			}
