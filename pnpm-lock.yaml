@@ -243,10 +243,10 @@ importers:
     dependencies:
       '@3sixty/cli-core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/tools-core':
         specifier: 0.20.0-next.5
         version: link:../../packages/tools-core
@@ -259,16 +259,16 @@ importers:
     devDependencies:
       '@3sixty/merge-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -298,13 +298,13 @@ importers:
     dependencies:
       '@3sixty/cli-core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/tools-core':
         specifier: 0.20.0-next.5
         version: link:../../packages/tools-core
@@ -313,23 +313,23 @@ importers:
         version: link:../../packages/tools-models
       '@3sixty/web':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       commander:
         specifier: 15.0.0
         version: 15.0.0
     devDependencies:
       '@3sixty/merge-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -362,10 +362,10 @@ importers:
     dependencies:
       '@3sixty/cli-core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/tools-core':
         specifier: 0.20.0-next.5
         version: link:../../packages/tools-core
@@ -384,16 +384,16 @@ importers:
     devDependencies:
       '@3sixty/merge-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -426,13 +426,13 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/crypto':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/tools-models':
         specifier: 0.20.0-next.5
         version: link:../tools-models
@@ -445,13 +445,13 @@ importers:
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
+        version: 0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -481,13 +481,13 @@ importers:
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.2(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.3(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.2
+        version: 0.20.0-next.3
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -515,44 +515,44 @@ importers:
 
 packages:
 
-  '@3sixty/cli-core@0.20.0-next.2':
-    resolution: {integrity: sha512-b9WwgWVJOqCHQBqoaWOXuWSJ2qBrWEsy1hARkMrUOtWe0sy0DnmLf4+8pVyQZgvb96pZtWWTgqZpAH2nKqi9kg==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/cli-core@0.20.0-next.3':
+    resolution: {integrity: sha512-IvYdSvHzZvaTXTPTFjUmrTClAnECRB+YN9qv7AGV9LgHgzGMuFXrJ6tgc9p6stVf62Vm+iVjjkI3WJ0C2HNkPA==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/core@0.20.0-next.2':
-    resolution: {integrity: sha512-zoILg1ni4GXeWGvSJMJbL4YcMJmtO+/U4BqQo6EzyRu/ChgKfWi9mZoMawCsn4iZh0R6w3Dm8pqQhyaZX+dVJg==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/core@0.20.0-next.3':
+    resolution: {integrity: sha512-u/QDbF9UPMI1563+KBJdllAGHHlJTPfCCS32LLi+aYSIoU/QlY7/VIAh2Nt7pPyYxSVe6NocZur9EtzJwHaG0Q==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/crypto@0.20.0-next.2':
-    resolution: {integrity: sha512-0tLDaAs5j3NDob9PcmTGP7SBBr2BUnmmgj7/EuvGZNXB1qDV9+ZlYbI2R6KSf8FtGs+S1VsOohgRoqIIBoGvgQ==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/crypto@0.20.0-next.3':
+    resolution: {integrity: sha512-/PkDVB8Xk+Y2bywUJUlNyEizpS6ukr1W5OrRaxqz2tlaNHOmBLgNvqM869sOc1RQfo372gpGeIFcEEEILbm86A==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/merge-locales@0.20.0-next.2':
-    resolution: {integrity: sha512-DVrQnxdHYzs03ZZUhfU2Ut5FIB+nTysW9eA5MVEdFd49Ea3sW850uGgtFSZBFd8EbgQkFZBda93QdeInDFG+Dg==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/merge-locales@0.20.0-next.3':
+    resolution: {integrity: sha512-ovuXPCIQJFK5P2mZsA3kXH0dFb3NxkAD/rxqIaC0bTVFeYvONiruqHRLjOkSIHKLIb+uu9TbRT5SP3CmyQh5DQ==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
-  '@3sixty/nameof-transformer@0.20.0-next.2':
-    resolution: {integrity: sha512-5bcCOCohanUx81q/R3Q7KeirNbJJpysFv+PO+yb3Tq8J6xbujAEilG8xQc41zszVBOI9LbQcSmppn2FEKhMMJw==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/nameof-transformer@0.20.0-next.3':
+    resolution: {integrity: sha512-Vj37zG3lbQlP/H+XdB9MrOBgKU9AWZ8HW24UtV7gKrv0I4I7hr0VAxm96t8D02XaiwdIJSDWucUEKAc4eB85OQ==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.2':
-    resolution: {integrity: sha512-BNVlzVpobTayWnS01pX83dSGu/edZepztxOojmXHWLrxYfLM9iUeDRniHcH3VdZqz5hm3Sp6UH66BcqUqVcgOw==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.3':
+    resolution: {integrity: sha512-T2gZtzqtpcbITjyRxI5oL7/jUb8KPM4o6nndpXCg0BrUYYfpHqxHYHsTb6DMaIouy7aJQJe2X3mKwezgHpCneQ==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/nameof@0.20.0-next.2':
-    resolution: {integrity: sha512-isPi+GgUWa/B3+gtLbPm3HJ5yaMJrp2uMlzLIkC2aBGQGC2jFmDk5HSmbpJg7mhQf38YomwI6AzC2JaZcL1XWQ==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/nameof@0.20.0-next.3':
+    resolution: {integrity: sha512-0rAyMO8N0HbrTZ1Y3H5NbmqAgIgiPT/YbjfR6c9qsS5kf0BNz9zXv0dFx43mlSSMZilATxot1u8aBls8Sra/xw==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/validate-locales@0.20.0-next.2':
-    resolution: {integrity: sha512-YdHAAyTWrsSv1OWwU//FBpn4YgW1S3z7PYHczcr/GXdfZ26ormHug6Bk9nugtJVb/1MVGkvk4nsq6LtdbsO70w==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/validate-locales@0.20.0-next.3':
+    resolution: {integrity: sha512-UR2WaP1OLp1PynYYy2Hhhi9LKABeqJW8noPhfkiXEYkmiuyQp5kxYcZw2ySLiTsM0/rQuu1X+onHo9DsGDq/pQ==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
-  '@3sixty/web@0.20.0-next.2':
-    resolution: {integrity: sha512-fnX4iTbgaUa5x8RzppQ+GqvP4xex38M8kK48X0YGLMBfKBoU4iolZl1w4WXxRIipVjjZKvr51Bwwf0TW5UGcMg==}
-    engines: {node: '>=24.0.0'}
+  '@3sixty/web@0.20.0-next.3':
+    resolution: {integrity: sha512-VqKMGWuZSiGJwezKCbi7zsfF4cyhLlvmXpUDvzq/vX21MNY2agX/4ilBzcWgqC52riE4YENY591dOPHaiFRjjA==}
+    engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -3611,24 +3611,23 @@ packages:
 
 snapshots:
 
-  '@3sixty/cli-core@0.20.0-next.2':
+  '@3sixty/cli-core@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/core': 0.20.0-next.3
       chalk: 6.0.1
       commander: 15.0.0
       dotenv: 18.0.8
 
-  '@3sixty/core@0.20.0-next.2':
+  '@3sixty/core@0.20.0-next.3':
     dependencies:
-      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/nameof': 0.20.0-next.3
       intl-messageformat: 12.1.4
       rfc6902: 5.3.0
 
-  '@3sixty/crypto@0.20.0-next.2':
+  '@3sixty/crypto@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/core': 0.20.0-next.3
+      '@3sixty/nameof': 0.20.0-next.3
       '@noble/ciphers': 2.4.0
       '@noble/curves': 2.4.0
       '@noble/hashes': 2.4.0
@@ -3637,22 +3636,20 @@ snapshots:
       '@scure/bip39': 2.4.0
       micro-key-producer: 0.10.2
 
-  '@3sixty/merge-locales@0.20.0-next.2':
+  '@3sixty/merge-locales@0.20.0-next.3':
     dependencies:
-      '@3sixty/cli-core': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/cli-core': 0.20.0-next.3
+      '@3sixty/core': 0.20.0-next.3
       commander: 15.0.0
-      glob: 13.0.6
 
-  '@3sixty/nameof-transformer@0.20.0-next.2':
+  '@3sixty/nameof-transformer@0.20.0-next.3':
     dependencies:
       typescript: 6.0.3
       typescript-native: typescript@7.1.0-beta
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.2(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.3(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.2
+      '@3sixty/nameof-transformer': 0.20.0-next.3
       vitest: 5.0.5(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -3669,9 +3666,9 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0)(yaml@2.9.1))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.2
+      '@3sixty/nameof-transformer': 0.20.0-next.3
       vitest: 5.0.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -3688,9 +3685,9 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.2(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.3(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.2
+      '@3sixty/nameof-transformer': 0.20.0-next.3
       vitest: 5.0.5(@types/node@26.6.5)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.5)(jiti@2.7.0))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -3707,23 +3704,23 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof@0.20.0-next.2': {}
+  '@3sixty/nameof@0.20.0-next.3': {}
 
-  '@3sixty/validate-locales@0.20.0-next.2':
+  '@3sixty/validate-locales@0.20.0-next.3':
     dependencies:
-      '@3sixty/cli-core': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.2
-      '@3sixty/nameof-transformer': 0.20.0-next.2
+      '@3sixty/cli-core': 0.20.0-next.3
+      '@3sixty/core': 0.20.0-next.3
+      '@3sixty/nameof': 0.20.0-next.3
+      '@3sixty/nameof-transformer': 0.20.0-next.3
       commander: 15.0.0
       glob: 13.0.6
       typescript: 6.0.3
 
-  '@3sixty/web@0.20.0-next.2':
+  '@3sixty/web@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.2
-      '@3sixty/crypto': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/core': 0.20.0-next.3
+      '@3sixty/crypto': 0.20.0-next.3
+      '@3sixty/nameof': 0.20.0-next.3
       jose: 6.2.12
 
   '@babel/code-frame@7.29.7':
