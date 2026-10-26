@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.6](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.5...tools-models-v0.20.0-next.6) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#27](https://github.com/3sixtyglobal/tools/issues/27)) ([e84b155](https://github.com/3sixtyglobal/tools/commit/e84b15581fb162b705a777c2ddf593cc57e6b573))
+
 ## [0.20.0-next.5](https://github.com/3sixtyglobal/tools/compare/tools-models-v0.20.0-next.4...tools-models-v0.20.0-next.5) (2026-10-23)
 
 
