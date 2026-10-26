@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.20.0-next.6](https://github.com/3sixtyglobal/tools/compare/ts-to-jsonld-context-v0.20.0-next.5...ts-to-jsonld-context-v0.20.0-next.6) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#27](https://github.com/3sixtyglobal/tools/issues/27)) ([e84b155](https://github.com/3sixtyglobal/tools/commit/e84b15581fb162b705a777c2ddf593cc57e6b573))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/tools-core bumped from 0.20.0-next.5 to 0.20.0-next.6
+
 ## [0.20.0-next.5](https://github.com/3sixtyglobal/tools/compare/ts-to-jsonld-context-v0.20.0-next.4...ts-to-jsonld-context-v0.20.0-next.5) (2026-10-23)
 
 
