@@ -24,10 +24,7 @@ export type IJsonLdDocument =
 	| IJsonLdNodeObject
 	| IJsonLdNodeObject[]
 	| {
-			"@context"?: IJsonLdContextDefinitionRoot | undefined;
+			"@context"?: IJsonLdContextDefinitionRoot;
 			"@graph"?:
-				| IJsonLdValueObject
-				| IJsonLdNodeObject
-				| (IJsonLdValueObject | IJsonLdNodeObject)[]
-				| undefined;
+				IJsonLdValueObject | IJsonLdNodeObject | (IJsonLdValueObject | IJsonLdNodeObject)[];
 	  };

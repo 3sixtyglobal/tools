@@ -23,6 +23,6 @@ export type IJsonLdDocument =
 	| IJsonLdNodeObject
 	| IJsonLdNodeObject[]
 	| {
-			"@context"?: IJsonLdKeyword["@context"] | undefined;
-			"@graph"?: IJsonLdKeyword["@graph"] | undefined;
+			"@context"?: IJsonLdKeyword["@context"];
+			"@graph"?: IJsonLdKeyword["@graph"];
 	  };

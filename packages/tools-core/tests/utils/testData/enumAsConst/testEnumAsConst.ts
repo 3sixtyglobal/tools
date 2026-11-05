@@ -4,7 +4,6 @@
 /**
  * The test enum as const.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TestEnumAsConst = {
 	/**
 	 * OK.

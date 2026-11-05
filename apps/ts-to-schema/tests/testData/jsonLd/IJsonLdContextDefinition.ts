@@ -19,18 +19,16 @@ export interface IJsonLdContextDefinition {
 		| IJsonLdExpandedTermDefinition
 		| IJsonLdContextDefinition[keyof IJsonLdContextDefinition];
 
-	"@base"?: IJsonLdKeyword["@base"] | undefined;
-	"@direction"?: IJsonLdKeyword["@direction"] | undefined;
-	"@import"?: IJsonLdKeyword["@import"] | undefined;
-	"@language"?: IJsonLdKeyword["@language"] | undefined;
-	"@propagate"?: IJsonLdKeyword["@propagate"] | undefined;
-	"@protected"?: IJsonLdKeyword["@protected"] | undefined;
-	"@type"?:
-		| {
-				"@container": "@set";
-				"@protected"?: IJsonLdKeyword["@protected"] | undefined;
-		  }
-		| undefined;
-	"@version"?: IJsonLdKeyword["@version"] | undefined;
-	"@vocab"?: IJsonLdKeyword["@vocab"] | undefined;
+	"@base"?: IJsonLdKeyword["@base"];
+	"@direction"?: IJsonLdKeyword["@direction"];
+	"@import"?: IJsonLdKeyword["@import"];
+	"@language"?: IJsonLdKeyword["@language"];
+	"@propagate"?: IJsonLdKeyword["@propagate"];
+	"@protected"?: IJsonLdKeyword["@protected"];
+	"@type"?: {
+		"@container": "@set";
+		"@protected"?: IJsonLdKeyword["@protected"];
+	};
+	"@version"?: IJsonLdKeyword["@version"];
+	"@vocab"?: IJsonLdKeyword["@vocab"];
 }

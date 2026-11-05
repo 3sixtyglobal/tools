@@ -13,5 +13,5 @@ import type { IJsonLdKeyword } from "./IJsonLdKeyword.js";
  */
 export interface IJsonLdSetObject {
 	"@set": IJsonLdKeyword["@set"];
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
+	"@index"?: IJsonLdKeyword["@index"];
 }

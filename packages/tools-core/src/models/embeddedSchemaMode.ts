@@ -4,7 +4,6 @@
 /**
  * The available embedded schema modes.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EmbeddedSchemaMode = {
 	/**
 	 * Referenced schemas are added to the "defs" section of the root schema.

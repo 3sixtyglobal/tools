@@ -119,7 +119,9 @@ export async function actionCommandTsToOpenApi(
 			if (outputWorkingDir) {
 				await rm(outputWorkingDir, { recursive: true });
 			}
-		} catch {}
+		} catch {
+			// The working directory may not exist.
+		}
 	}
 }
 
@@ -279,7 +281,7 @@ export async function tsToOpenApi(
 					if (Is.stringValue(responseType.mimeType)) {
 						mimeType = responseType.mimeType;
 					} else if (isBinaryOctetStream) {
-						mimeType = "application/octet-stream";
+						mimeType = MimeTypes.OctetStream;
 					} else {
 						const hasBody = Is.notEmpty(responseSchema?.properties?.body);
 						if (hasBody) {
@@ -679,7 +681,9 @@ async function finaliseOutput(
 
 	try {
 		await mkdir(path.dirname(outputFile), { recursive: true });
-	} catch {}
+	} catch {
+		// The directory may already exist.
+	}
 	await writeFile(outputFile, `${JSON.stringify(openApi, undefined, "\t")}\n`);
 }
 

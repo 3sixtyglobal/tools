@@ -13,5 +13,5 @@ import type { IJsonLdKeyword } from "./IJsonLdKeyword.js";
  */
 export interface IJsonLdListObject {
 	"@list": IJsonLdKeyword["@list"];
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
+	"@index"?: IJsonLdKeyword["@index"];
 }

@@ -19,6 +19,7 @@
 		"changelog.md"
 	],
 	"words": [
+		"3sixtyglobal",
 		"abbrev",
 		"autorelease",
 		"Distinguisher",
@@ -27,12 +28,12 @@
 		"iotaledger",
 		"nameof",
 		"openapi",
-		"Uncapitalize",
 		"Programatically",
 		"Stiftung",
 		"tspc",
 		"ttsc",
-		"ttypescript"
+		"ttypescript",
+		"Uncapitalize"
 	],
 	"ignoreRegExpList": [
 		"/from\\s+(['\"]).*\\1/",

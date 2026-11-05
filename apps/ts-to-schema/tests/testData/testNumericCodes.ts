@@ -4,7 +4,6 @@
 /**
  * Test codes with integer like keys, which Object.values lists first.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TestNumericCodes = {
 	/**
 	 * The named code.

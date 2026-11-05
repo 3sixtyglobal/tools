@@ -14,7 +14,7 @@ import type { IJsonLdNodeObject } from "./IJsonLdNodeObject.js";
  */
 export interface IJsonLdGraphObject {
 	"@graph": IJsonLdNodeObject | IJsonLdNodeObject[];
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
-	"@id"?: IJsonLdKeyword["@id"] | undefined;
-	"@context"?: IJsonLdKeyword["@context"] | undefined;
+	"@index"?: IJsonLdKeyword["@index"];
+	"@id"?: IJsonLdKeyword["@id"];
+	"@context"?: IJsonLdKeyword["@context"];
 }

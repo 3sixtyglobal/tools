@@ -8,7 +8,7 @@ export interface TestTypeUndefined {
 	/**
 	 * Keeps the string branch and drops undefined.
 	 */
-	stringOrUndefined: string | undefined;
+	stringOrUndefined?: string;
 
 	/**
 	 * Keeps the string branch and drops void.
@@ -19,7 +19,7 @@ export interface TestTypeUndefined {
 	/**
 	 * Keeps the null branch and drops undefined.
 	 */
-	nullOrUndefined: null | undefined;
+	nullOrUndefined?: null;
 
 	/**
 	 * Keeps the null branch and drops void.

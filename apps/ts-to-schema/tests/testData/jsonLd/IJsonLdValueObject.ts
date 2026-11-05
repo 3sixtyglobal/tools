@@ -15,13 +15,13 @@ import type { IJsonLdKeyword } from "./IJsonLdKeyword.js";
  * @see https://www.w3.org/TR/json-ld11/#value-objects
  */
 export type IJsonLdValueObject = {
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
-	"@context"?: IJsonLdKeyword["@context"] | undefined;
+	"@index"?: IJsonLdKeyword["@index"];
+	"@context"?: IJsonLdKeyword["@context"];
 } & (
 	| {
 			"@value": IJsonLdKeyword["@value"];
-			"@language"?: IJsonLdKeyword["@language"] | undefined;
-			"@direction"?: IJsonLdKeyword["@direction"] | undefined;
+			"@language"?: IJsonLdKeyword["@language"];
+			"@direction"?: IJsonLdKeyword["@direction"];
 	  }
 	| {
 			"@value": IJsonLdKeyword["@value"];

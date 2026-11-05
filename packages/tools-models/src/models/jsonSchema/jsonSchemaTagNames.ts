@@ -4,7 +4,6 @@
 /**
  * Supported @json-schema tag keys (after alias mapping).
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const JsonSchemaTagNames: string[] = [
 	"$schema",
 	"$id",

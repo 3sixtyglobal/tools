@@ -521,7 +521,7 @@ function extractJsonLdProps(tags: { tag: string; value: string }[]): IJsonLdProp
 
 /**
  * Extract the base interface name from a type reference using the AST.
- * Handles utility types like Omit<InterfaceName, "deleted"> by extracting the first type argument.
+ * Handles utility types like Omit&lt;InterfaceName, "deleted"&gt; by extracting the first type argument.
  * @param type The type reference expression node.
  * @param sourceFile The source file for extracting text.
  * @returns The base interface name.

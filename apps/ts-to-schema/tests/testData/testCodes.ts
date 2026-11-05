@@ -4,7 +4,6 @@
 /**
  * Test codes defined by an as const object.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TestCodes = {
 	/**
 	 * The first code.

@@ -150,7 +150,9 @@ export async function actionCommandTsToSchema(
 			if (outputWorkingDir) {
 				await rm(outputWorkingDir, { recursive: true });
 			}
-		} catch {}
+		} catch {
+			// The working directory may not exist.
+		}
 	}
 
 	if (incrementalCache) {

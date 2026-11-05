@@ -15,12 +15,12 @@ import type { IJsonLdNodeObject } from "./IJsonLdNodeObject.js";
  * @see https://www.w3.org/TR/json-ld11/#node-objects
  */
 export interface IJsonLdObject {
-	"@context"?: IJsonLdKeyword["@context"] | undefined;
-	"@id"?: IJsonLdKeyword["@id"] | undefined;
-	"@included"?: IJsonLdKeyword["@included"] | undefined;
-	"@graph"?: IJsonLdNodeObject | IJsonLdNodeObject[] | undefined;
-	"@nest"?: IJsonLdJsonObject | IJsonLdJsonObject[] | undefined;
-	"@type"?: IJsonLdKeyword["@type"] | IJsonLdKeyword["@type"][] | undefined;
-	"@reverse"?: { [key: string]: IJsonLdKeyword["@reverse"] } | undefined;
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
+	"@context"?: IJsonLdKeyword["@context"];
+	"@id"?: IJsonLdKeyword["@id"];
+	"@included"?: IJsonLdKeyword["@included"];
+	"@graph"?: IJsonLdNodeObject | IJsonLdNodeObject[];
+	"@nest"?: IJsonLdJsonObject | IJsonLdJsonObject[];
+	"@type"?: IJsonLdKeyword["@type"] | IJsonLdKeyword["@type"][];
+	"@reverse"?: { [key: string]: IJsonLdKeyword["@reverse"] };
+	"@index"?: IJsonLdKeyword["@index"];
 }

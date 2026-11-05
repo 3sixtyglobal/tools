@@ -15,21 +15,21 @@ import type { IJsonLdKeyword } from "./IJsonLdKeyword.js";
  * @see https://www.w3.org/TR/json-ld11/#expanded-term-definition
  */
 export type IJsonLdExpandedTermDefinition = {
-	"@type"?: "@id" | "@json" | "@none" | "@vocab" | string | undefined;
-	"@language"?: IJsonLdKeyword["@language"] | undefined;
-	"@index"?: IJsonLdKeyword["@index"] | undefined;
-	"@context"?: IJsonLdContextDefinition | undefined;
-	"@prefix"?: IJsonLdKeyword["@prefix"] | undefined;
-	"@propagate"?: IJsonLdKeyword["@propagate"] | undefined;
-	"@protected"?: IJsonLdKeyword["@protected"] | undefined;
+	"@type"?: "@id" | "@json" | "@none" | "@vocab" | string;
+	"@language"?: IJsonLdKeyword["@language"];
+	"@index"?: IJsonLdKeyword["@index"];
+	"@context"?: IJsonLdContextDefinition;
+	"@prefix"?: IJsonLdKeyword["@prefix"];
+	"@propagate"?: IJsonLdKeyword["@propagate"];
+	"@protected"?: IJsonLdKeyword["@protected"];
 } & (
 	| {
-			"@id"?: IJsonLdKeyword["@id"] | null | undefined;
-			"@nest"?: "@nest" | string | undefined;
-			"@container"?: IJsonLdKeyword["@container"] | undefined;
+			"@id"?: IJsonLdKeyword["@id"] | null;
+			"@nest"?: "@nest" | string;
+			"@container"?: IJsonLdKeyword["@container"];
 	  }
 	| {
 			"@reverse": IJsonLdKeyword["@reverse"];
-			"@container"?: "@set" | "@index" | null | undefined;
+			"@container"?: "@set" | "@index" | null;
 	  }
 );
