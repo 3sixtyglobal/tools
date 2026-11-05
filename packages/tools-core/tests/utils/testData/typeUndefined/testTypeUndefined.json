@@ -22,5 +22,5 @@
 			"type": "null"
 		}
 	},
-	"required": ["stringOrUndefined", "stringOrVoid", "nullOrUndefined", "nullOrVoid"]
+	"required": ["stringOrVoid", "nullOrVoid"]
 }
