@@ -18,7 +18,7 @@ Static utility-type schema mapping helpers.
 
 > `static` **mapPartialUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Partial<T>` to an object schema with no required properties.
+Map `Partial&lt;T&gt;` to an object schema with no required properties.
 
 #### Parameters
 
@@ -46,7 +46,7 @@ The mapped schema.
 
 > `static` **mapRequiredUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Required<T>` to an object schema with all properties required.
+Map `Required&lt;T&gt;` to an object schema with all properties required.
 
 #### Parameters
 
@@ -74,7 +74,7 @@ The mapped schema.
 
 > `static` **mapPickUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Pick<T, K>` to an object schema with selected keys preserved.
+Map `Pick&lt;T, K&gt;` to an object schema with selected keys preserved.
 
 #### Parameters
 
@@ -102,7 +102,7 @@ The mapped schema.
 
 > `static` **mapOmitUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Omit<T, K>` to an object schema with selected keys removed.
+Map `Omit&lt;T, K&gt;` to an object schema with selected keys removed.
 
 #### Parameters
 
@@ -130,7 +130,7 @@ The mapped schema.
 
 > `static` **mapExcludeUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Exclude<T, U>` to a schema that removes `U` members from `T`.
+Map `Exclude&lt;T, U&gt;` to a schema that removes `U` members from `T`.
 
 #### Parameters
 
@@ -158,7 +158,7 @@ The mapped schema.
 
 > `static` **mapExtractUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Extract<T, U>` to a schema that keeps `U` members from `T`.
+Map `Extract&lt;T, U&gt;` to a schema that keeps `U` members from `T`.
 
 #### Parameters
 
@@ -186,7 +186,7 @@ The mapped schema.
 
 > `static` **mapNonNullableUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `NonNullable<T>` by removing `null` and `undefined` branches from `T`.
+Map `NonNullable&lt;T&gt;` by removing `null` and `undefined` branches from `T`.
 
 #### Parameters
 
@@ -214,7 +214,7 @@ The mapped schema.
 
 > `static` **mapRecordUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `Record<K, V>` to an object schema with key constraints where possible.
+Map `Record&lt;K, V&gt;` to an object schema with key constraints where possible.
 
 #### Parameters
 
@@ -292,7 +292,7 @@ The mapped schema.
 
 > `static` **mapJsonLdWithAliasesUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `JsonLdWithAliases<T, Prefix>` (and `JsonLdObjectWithAliases<T, Prefix>`) to an object
+Map `JsonLdWithAliases&lt;T, Prefix&gt;` (and `JsonLdObjectWithAliases&lt;T, Prefix&gt;`) to an object
 schema where non-JSON-LD property keys are renamed to `Prefix:key` and `@`-prefixed keys
 are preserved as-is.
 
@@ -322,7 +322,7 @@ The mapped schema.
 
 > `static` **mapObjectOrArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `ObjectOrArray<T>` to a schema accepting `T` or `T[]`.
+Map `ObjectOrArray&lt;T&gt;` to a schema accepting `T` or `T[]`.
 
 #### Parameters
 
@@ -350,7 +350,7 @@ The mapped schema.
 
 > `static` **mapSingleOccurrenceArrayUtilityType**(`context`, `typeNode`): `IJsonSchema` \| `undefined`
 
-Map `SingleOccurrenceArray<T, U>` to a non-empty array containing exactly one `U`.
+Map `SingleOccurrenceArray&lt;T, U&gt;` to a non-empty array containing exactly one `U`.
 
 #### Parameters
 
