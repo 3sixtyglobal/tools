@@ -48,4 +48,16 @@ describe("FileUtils", () => {
 		expect(sourceFiles.some(file => file.endsWith("testUtilityPerson.ts"))).toBe(true);
 		expect(sourceFiles.some(file => file.endsWith("testUtilityType.ts"))).toBe(true);
 	});
+
+	test("does not treat a directory as a file", async () => {
+		expect(FileUtils.fileExists("tests/utils/testData")).toBe(false);
+	});
+
+	test("can resolve a directory import to its index file", async () => {
+		const resolvedPath = FileUtils.resolveImportSourceFilePath(
+			"tests/utils/testData/directoryImport/source.ts",
+			"./models"
+		);
+		expect(resolvedPath).toBe("tests/utils/testData/directoryImport/models/index.ts");
+	});
 });

@@ -1,6 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
 
@@ -11,10 +12,10 @@ export class FileUtils {
 	/**
 	 * Check whether a file exists at the given path.
 	 * @param filePath The file path.
-	 * @returns True if the file exists.
+	 * @returns True if a file, not a directory, exists.
 	 */
 	public static fileExists(filePath: string): boolean {
-		return existsSync(filePath);
+		return statSync(filePath, { throwIfNoEntry: false })?.isFile() ?? false;
 	}
 
 	/**
