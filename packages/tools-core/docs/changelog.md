@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.20.0-next.7](https://github.com/3sixtyglobal/tools/compare/tools-core-v0.20.0-next.6...tools-core-v0.20.0-next.7) (2026-11-06)
+
+
+### Features
+
+* release to next [skip ci] ([#31](https://github.com/3sixtyglobal/tools/issues/31)) ([391e9c3](https://github.com/3sixtyglobal/tools/commit/391e9c339cef40b8f797a322bdb67fa157cc3298))
+
+
+### Bug Fixes
+
+* do not treat directories as files when resolving imports ([277c4ee](https://github.com/3sixtyglobal/tools/commit/277c4ee53f64119d9c07fe96bce96e565948c88c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/tools-models bumped from 0.20.0-next.6 to 0.20.0-next.7
+
 ## [0.20.0-next.6](https://github.com/3sixtyglobal/tools/compare/tools-core-v0.20.0-next.5...tools-core-v0.20.0-next.6) (2026-10-26)
 
 

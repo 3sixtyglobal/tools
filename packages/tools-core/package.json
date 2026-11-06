@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/tools-core",
-	"version": "0.20.0-next.6",
+	"version": "0.20.0-next.7",
 	"description": "Shared utilities and models for tooling packages",
 	"repository": {
 		"type": "git",
@@ -34,7 +34,7 @@
 		"@3sixty/core": "next",
 		"@3sixty/crypto": "next",
 		"@3sixty/nameof": "next",
-		"@3sixty/tools-models": "0.20.0-next.6",
+		"@3sixty/tools-models": "0.20.0-next.7",
 		"glob": "14.0.3",
 		"typescript": "6.0.3"
 	},
