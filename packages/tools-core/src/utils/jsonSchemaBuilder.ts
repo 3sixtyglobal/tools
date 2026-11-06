@@ -41,7 +41,7 @@ export class JsonSchemaBuilder {
 	/**
 	 * Runtime name for the class.
 	 */
-	public static readonly CLASS_NAME: string = nameof(JsonSchemaBuilder);
+	public static readonly CLASS_NAME: string = nameof<JsonSchemaBuilder>();
 
 	/**
 	 * Dictionary of TypeScript utility type names to their schema mapping handlers.
