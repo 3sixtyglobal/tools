@@ -32,7 +32,7 @@ The file path.
 
 `boolean`
 
-True if the file exists.
+True if a file, not a directory, exists.
 
 ***
 
