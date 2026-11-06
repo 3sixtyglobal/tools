@@ -4,7 +4,7 @@
 /**
  * Derived interface extending multiple base interfaces.
  */
-export interface TestInterface extends TestInterfaceBaseA, TestInterfaceBaseB {
+export interface ITestInterface extends ITestInterfaceBaseA, ITestInterfaceBaseB {
 	/**
 	 * Derived interface identifier.
 	 */
@@ -14,7 +14,7 @@ export interface TestInterface extends TestInterfaceBaseA, TestInterfaceBaseB {
 /**
  * Base interface A.
  */
-export interface TestInterfaceBaseA {
+export interface ITestInterfaceBaseA {
 	/**
 	 * Base A field.
 	 */
@@ -24,7 +24,7 @@ export interface TestInterfaceBaseA {
 /**
  * Base interface B.
  */
-export interface TestInterfaceBaseB {
+export interface ITestInterfaceBaseB {
 	/**
 	 * Base B field.
 	 */

@@ -4,8 +4,8 @@
 /**
  * Derived interface extending multiple base interfaces using utility methods.
  */
-export interface TestInterfaceUtility
-	extends Omit<TestInterfaceUtilityBaseA, "baseA2">, Pick<TestInterfaceUtilityBaseB, "baseB"> {
+export interface ITestInterfaceUtility
+	extends Omit<ITestInterfaceUtilityBaseA, "baseA2">, Pick<ITestInterfaceUtilityBaseB, "baseB"> {
 	/**
 	 * Derived interface identifier.
 	 */
@@ -15,7 +15,7 @@ export interface TestInterfaceUtility
 /**
  * Base interface A.
  */
-export interface TestInterfaceUtilityBaseA {
+export interface ITestInterfaceUtilityBaseA {
 	/**
 	 * Base A field.
 	 */
@@ -30,7 +30,7 @@ export interface TestInterfaceUtilityBaseA {
 /**
  * Base interface B.
  */
-export interface TestInterfaceUtilityBaseB {
+export interface ITestInterfaceUtilityBaseB {
 	/**
 	 * Base B field.
 	 */
@@ -45,7 +45,7 @@ export interface TestInterfaceUtilityBaseB {
 /**
  * Base interface for redefinition test.
  */
-export interface OmitRedefinitionBaseA {
+export interface IOmitRedefinitionBaseA {
 	/**
 	 * Required field from base.
 	 */
@@ -60,7 +60,7 @@ export interface OmitRedefinitionBaseA {
 /**
  * Derived interface that omits prop2 from base and redefines it as required.
  */
-export interface OmitRedefinitionFaceB extends Omit<OmitRedefinitionBaseA, "prop2"> {
+export interface IOmitRedefinitionFaceB extends Omit<IOmitRedefinitionBaseA, "prop2"> {
 	/**
 	 * Redefined prop2 as required boolean instead of optional.
 	 */
@@ -70,7 +70,7 @@ export interface OmitRedefinitionFaceB extends Omit<OmitRedefinitionBaseA, "prop
 /**
  * Base interface for required-to-optional redefinition test.
  */
-export interface OmitOptionalityReverseBaseA {
+export interface IOmitOptionalityReverseBaseA {
 	/**
 	 * Required field that remains inherited.
 	 */
@@ -85,7 +85,7 @@ export interface OmitOptionalityReverseBaseA {
 /**
  * Derived interface that omits prop2 from base and redefines it as optional.
  */
-export interface OmitOptionalityReverseFaceB extends Omit<OmitOptionalityReverseBaseA, "prop2"> {
+export interface IOmitOptionalityReverseFaceB extends Omit<IOmitOptionalityReverseBaseA, "prop2"> {
 	/**
 	 * Redefined prop2 as optional boolean instead of required.
 	 */
@@ -95,7 +95,7 @@ export interface OmitOptionalityReverseFaceB extends Omit<OmitOptionalityReverse
 /**
  * Base interface for double inheritance test.
  */
-export interface DoubleInheritanceA {
+export interface IDoubleInheritanceA {
 	/**
 	 * The context for the policy.
 	 */
@@ -125,7 +125,7 @@ export interface DoubleInheritanceA {
 /**
  * Intermediate interface extending A.
  */
-export interface DoubleInheritanceB extends DoubleInheritanceA {
+export interface IDoubleInheritanceB extends IDoubleInheritanceA {
 	/**
 	 * The type must be "Offer".
 	 */
@@ -140,7 +140,7 @@ export interface DoubleInheritanceB extends DoubleInheritanceA {
 /**
  * Derived interface that omits prop1 from B (which extends A).
  */
-export interface DoubleInheritanceC extends Omit<DoubleInheritanceB, "uid" | "@context"> {
+export interface IDoubleInheritanceC extends Omit<IDoubleInheritanceB, "uid" | "@context"> {
 	/**
 	 * Unique identifier for the offer.
 	 */
@@ -150,7 +150,7 @@ export interface DoubleInheritanceC extends Omit<DoubleInheritanceB, "uid" | "@c
 /**
  * Base interface for three-level inheritance test.
  */
-export interface TripleBaseA {
+export interface ITripleBaseA {
 	/**
 	 * A top-level required field.
 	 */
@@ -165,7 +165,7 @@ export interface TripleBaseA {
 /**
  * Middle interface extending TripleBaseA.
  */
-export interface TripleMidB extends TripleBaseA {
+export interface ITripleMidB extends ITripleBaseA {
 	/**
 	 * Mid-level required field.
 	 */
@@ -175,7 +175,7 @@ export interface TripleMidB extends TripleBaseA {
 /**
  * Top interface extending TripleMidB.
  */
-export interface TripleTopC extends TripleMidB {
+export interface ITripleTopC extends ITripleMidB {
 	/**
 	 * Top-level required field.
 	 */
@@ -185,7 +185,7 @@ export interface TripleTopC extends TripleMidB {
 /**
  * Interface extending Omit of a triply-inherited type, testing deep comment propagation.
  */
-export interface OmitFromTripleInheritance extends Omit<TripleTopC, "a2"> {
+export interface IOmitFromTripleInheritance extends Omit<ITripleTopC, "a2"> {
 	/**
 	 * Own required field.
 	 */
@@ -195,7 +195,7 @@ export interface OmitFromTripleInheritance extends Omit<TripleTopC, "a2"> {
 /**
  * Interface extending Pick from a doubly-inherited type, testing the Pick utility path with inherited comments.
  */
-export interface ExtendPickFromInherited extends Pick<DoubleInheritanceB, "@type" | "profile"> {
+export interface IExtendPickFromInherited extends Pick<IDoubleInheritanceB, "@type" | "profile"> {
 	/**
 	 * Own required field.
 	 */
@@ -205,7 +205,7 @@ export interface ExtendPickFromInherited extends Pick<DoubleInheritanceB, "@type
 /**
  * Interface extending Partial of the doubly-inherited interface, testing that all inherited properties are optional.
  */
-export interface ExtendPartialInherited extends Partial<DoubleInheritanceB> {
+export interface IExtendPartialInherited extends Partial<IDoubleInheritanceB> {
 	/**
 	 * Own required field.
 	 */
@@ -215,7 +215,7 @@ export interface ExtendPartialInherited extends Partial<DoubleInheritanceB> {
 /**
  * Interface extending Required of the doubly-inherited interface, testing that all properties become required including those that were optional in the ancestry chain.
  */
-export interface ExtendRequiredInherited extends Required<DoubleInheritanceB> {
+export interface IExtendRequiredInherited extends Required<IDoubleInheritanceB> {
 	/**
 	 * Own required field.
 	 */

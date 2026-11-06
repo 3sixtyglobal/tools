@@ -4,7 +4,7 @@
 /**
  * Nested objects with inline schema expansion.
  */
-export interface TestNestedObject {
+export interface ITestNestedObject {
 	/**
 	 * Primary id.
 	 */

@@ -4,7 +4,7 @@
 /**
  * Test interface for JSDoc example tag support.
  */
-export interface JsDocExampleTagTest {
+export interface IJsDocExampleTagTest {
 	/**
 	 * A string property with a single example.
 	 * @example "hello"

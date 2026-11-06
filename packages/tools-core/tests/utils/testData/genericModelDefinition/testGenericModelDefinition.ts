@@ -4,7 +4,7 @@
 /**
  * Generic interface model using a default type parameter.
  */
-export interface TestGenericModel<T = string> {
+export interface ITestGenericModel<T = string> {
 	/**
 	 * Direct generic property.
 	 */
@@ -26,7 +26,7 @@ export interface TestGenericModel<T = string> {
 /**
  * Generic interface model without a default type parameter.
  */
-export interface TestGenericModelNoDefault<T> {
+export interface ITestGenericModelNoDefault<T> {
 	/**
 	 * Direct unresolved generic property.
 	 */

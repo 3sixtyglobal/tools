@@ -5,7 +5,7 @@ import type { JsonLdContexts } from "./jsonLdContexts.js";
 /**
  * Coverage for package-imported const-object type query references.
  */
-export interface TestTypeQueryPackage {
+export interface ITestTypeQueryPackage {
 	/**
 	 * Package-imported type query should resolve to a const schema value.
 	 */

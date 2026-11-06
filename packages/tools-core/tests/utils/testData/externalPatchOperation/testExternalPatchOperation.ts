@@ -6,7 +6,7 @@ import type { IPatchOperation } from "@3sixty/core";
 /**
  * Uses an external framework type.
  */
-export interface TestExternalPatchOperation {
+export interface ITestExternalPatchOperation {
 	/**
 	 * The patch operation from the framework package.
 	 */

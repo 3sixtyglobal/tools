@@ -14,7 +14,7 @@ export type EventKey = `event-${"created" | "deleted"}`;
 /**
  * Test template literal type handling.
  */
-export interface TestTemplateLiteralType {
+export interface ITestTemplateLiteralType {
 	/**
 	 * Generic user id pattern.
 	 */

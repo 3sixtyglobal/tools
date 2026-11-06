@@ -11,7 +11,7 @@ const keyInlineTemplate = `value_${"x"}` as const;
 /**
  * Test computable and non-computable computed property names.
  */
-export interface TestComputedPropertyName {
+export interface ITestComputedPropertyName {
 	/**
 	 * A key resolved from a const identifier.
 	 */

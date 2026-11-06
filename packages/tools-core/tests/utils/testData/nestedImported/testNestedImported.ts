@@ -5,7 +5,7 @@ import type { IImportedProfile } from "./testNestedImportedTypes.js";
 /**
  * Root schema that references an imported nested object.
  */
-export interface TestNestedImported {
+export interface ITestNestedImported {
 	/**
 	 * Entity id.
 	 */

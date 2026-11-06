@@ -1,37 +1,37 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { ObjectOrArray, SingleOccurrenceArray } from "@3sixty/core";
-import type { Person } from "./testUtilityPerson.js";
+import type { IPerson } from "./testUtilityPerson.js";
 
 /**
  * Utility type wrapper using Partial, Omit, Required and Pick on an imported type.
  */
 
-export interface TestUtilityType {
+export interface ITestUtilityType {
 	/**
 	 * Full person information.
 	 */
-	fullType: Person;
+	fullType: IPerson;
 
 	/**
 	 * Partial view of person information.
 	 */
-	partialType: Partial<Person>;
+	partialType: Partial<IPerson>;
 
 	/**
 	 * Omitted view of person information.
 	 */
-	omitType: Omit<Person, "label">;
+	omitType: Omit<IPerson, "label">;
 
 	/**
 	 * Required view of person information.
 	 */
-	requiredType: Required<Person>;
+	requiredType: Required<IPerson>;
 
 	/**
 	 * Picked view of person information.
 	 */
-	pickType: Pick<Person, "id" | "label">;
+	pickType: Pick<IPerson, "id" | "label">;
 
 	/**
 	 * Excluded view of person status.
@@ -64,7 +64,7 @@ export interface TestUtilityType {
 	/**
 	 * Non-nullable view of person object.
 	 */
-	nonNullablePersonType: NonNullable<Person | null>;
+	nonNullablePersonType: NonNullable<IPerson | null>;
 
 	/**
 	 * Record view with arbitrary string keys.
@@ -80,12 +80,12 @@ export interface TestUtilityType {
 	/**
 	 * Record view of person objects.
 	 */
-	recordPersonType: { [key: string]: Person };
+	recordPersonType: { [key: string]: IPerson };
 
 	/**
 	 * Combined view of person information.
 	 */
-	combinedType: Omit<Pick<Person, "id" | "label">, "label">;
+	combinedType: Omit<Pick<IPerson, "id" | "label">, "label">;
 
 	/**
 	 * Object or array of strings.
@@ -95,7 +95,7 @@ export interface TestUtilityType {
 	/**
 	 * Object or array of persons.
 	 */
-	objectOrArrayPersonType: ObjectOrArray<Person>;
+	objectOrArrayPersonType: ObjectOrArray<IPerson>;
 
 	/**
 	 * Non-empty array of strings with a single number occurrence.
@@ -105,5 +105,5 @@ export interface TestUtilityType {
 	/**
 	 * Non-empty array of persons with a single string occurrence.
 	 */
-	singleOccurrenceArrayPersonType: SingleOccurrenceArray<Person, string>;
+	singleOccurrenceArrayPersonType: SingleOccurrenceArray<IPerson, string>;
 }

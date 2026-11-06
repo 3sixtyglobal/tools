@@ -4,7 +4,7 @@
 /**
  * Test null type handling.
  */
-export interface TestTypeNull {
+export interface ITestTypeNull {
 	/**
 	 * Can be a string or null.
 	 */

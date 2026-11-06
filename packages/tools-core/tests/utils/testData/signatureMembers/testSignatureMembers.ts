@@ -4,7 +4,7 @@
 /**
  * Coverage for ignored method and call signatures.
  */
-export interface TestSignatureMembers {
+export interface ITestSignatureMembers {
 	/**
 	 * Call signatures are intentionally ignored.
 	 * @param input The input value.

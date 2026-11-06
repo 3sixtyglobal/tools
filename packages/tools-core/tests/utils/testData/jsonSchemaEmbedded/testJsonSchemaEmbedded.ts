@@ -4,16 +4,16 @@
 /**
  * Root schema referencing an embedded type.
  */
-export interface TestJsonSchemaEmbedded {
-	user: Person;
-	manager: Person;
+export interface ITestJsonSchemaEmbedded {
+	user: IPerson;
+	manager: IPerson;
 }
 
 /**
  * Person should be inlined into referencing schemas.
  * @json-schema embedded:defs
  */
-export interface Person {
+export interface IPerson {
 	name: string;
 	age?: number;
 }

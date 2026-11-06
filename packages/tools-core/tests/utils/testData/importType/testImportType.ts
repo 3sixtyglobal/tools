@@ -4,7 +4,7 @@
 /**
  * Coverage for import type references.
  */
-export interface TestImportType {
+export interface ITestImportType {
 	/**
 	 * Imported type reference from external package.
 	 */

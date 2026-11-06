@@ -4,7 +4,7 @@
 /**
  * Example applying an unrecognised format value to a string property.
  */
-export interface TestInvalidFormatValue {
+export interface ITestInvalidFormatValue {
 	/**
 	 * A string property annotated with an invalid format value.
 	 * @json-schema format:not-a-real-format

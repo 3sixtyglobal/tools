@@ -22,7 +22,7 @@ export type ConditionalPrimitive<T> = T extends string ? string : number;
 /**
  * Test conditional type handling.
  */
-export interface TestConditionalType {
+export interface ITestConditionalType {
 	/**
 	 * Reference to object conditional type.
 	 */

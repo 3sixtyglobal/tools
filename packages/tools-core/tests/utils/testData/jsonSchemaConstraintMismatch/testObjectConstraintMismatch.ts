@@ -4,7 +4,7 @@
 /**
  * Example applying an object constraint to a non-object property.
  */
-export interface TestObjectConstraintMismatch {
+export interface ITestObjectConstraintMismatch {
 	/**
 	 * A string property incorrectly annotated with minProperties.
 	 * @json-schema minProperties:1

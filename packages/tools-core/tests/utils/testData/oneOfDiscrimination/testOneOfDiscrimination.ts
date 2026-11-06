@@ -37,7 +37,7 @@ export type ThreeWayChoice =
 /**
  * Test oneOf discrimination for 2 and 3 union branches.
  */
-export interface TestOneOfDiscrimination {
+export interface ITestOneOfDiscrimination {
 	/**
 	 * Two-way discriminated union.
 	 */

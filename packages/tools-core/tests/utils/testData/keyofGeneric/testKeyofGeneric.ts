@@ -4,7 +4,7 @@
 /**
  * Coverage for unresolved generic keyof operands.
  */
-export interface TestKeyofGeneric<T extends object> {
+export interface ITestKeyofGeneric<T extends object> {
 	/**
 	 * Generic keyof operand cannot be fully resolved to concrete keys.
 	 */

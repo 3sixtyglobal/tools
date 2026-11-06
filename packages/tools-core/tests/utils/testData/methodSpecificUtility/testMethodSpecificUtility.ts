@@ -6,7 +6,7 @@ type FunctionLike = (input: string) => number;
 /**
  * Coverage for method-specific utility and callable helper types.
  */
-export interface TestMethodSpecificUtility {
+export interface ITestMethodSpecificUtility {
 	awaitedType: Awaited<Promise<string>>;
 	returnType: ReturnType<FunctionLike>;
 	parametersType: Parameters<FunctionLike>;

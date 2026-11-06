@@ -4,7 +4,7 @@
 /**
  * Test undefined type handling.
  */
-export interface TestTypeUndefined {
+export interface ITestTypeUndefined {
 	/**
 	 * Keeps the string branch and drops undefined.
 	 */

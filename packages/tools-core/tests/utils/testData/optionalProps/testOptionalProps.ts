@@ -4,7 +4,7 @@
 /**
  * Mixed optional and required props.
  */
-export interface TestOptionalProps {
+export interface ITestOptionalProps {
 	/**
 	 * Required string.
 	 */

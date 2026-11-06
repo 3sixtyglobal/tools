@@ -4,7 +4,7 @@
 /**
  * Branch with literal type discriminator alpha.
  */
-interface AlphaBranch {
+interface IAlphaBranch {
 	/**
 	 * Branch discriminator.
 	 */
@@ -19,7 +19,7 @@ interface AlphaBranch {
 /**
  * Branch with literal type discriminator beta.
  */
-interface BetaBranch {
+interface IBetaBranch {
 	/**
 	 * Branch discriminator.
 	 */
@@ -34,4 +34,4 @@ interface BetaBranch {
 /**
  * Classic literal-tag discriminated union.
  */
-export type TypeLiteralTagDiscriminatedUnion = AlphaBranch | BetaBranch;
+export type TypeLiteralTagDiscriminatedUnion = IAlphaBranch | IBetaBranch;

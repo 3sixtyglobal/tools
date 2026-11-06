@@ -10,7 +10,7 @@ const inferredTuple = [1, ...[2, 3]] as const;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inferredFn = (x: string): number => x.length;
 
-export interface TestDiagnosticsCoverage {
+export interface ITestDiagnosticsCoverage {
 	(input: number): string;
 	fnProp: (input: string) => number;
 	inferredObj: typeof inferredObject;

@@ -4,7 +4,7 @@
 /**
  * Test primitives.
  */
-export interface TestPrimitives {
+export interface ITestPrimitives {
 	/**
 	 * A string value.
 	 */

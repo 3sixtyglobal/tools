@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 
-interface IndexedAccessSource {
+interface IIndexedAccessSource {
 	id: string;
 	count: number;
 	status?: "active" | "disabled";
@@ -13,29 +13,29 @@ interface IndexedAccessSource {
 /**
  * Test indexed access type handling.
  */
-export interface TestIndexedAccessType {
+export interface ITestIndexedAccessType {
 	/**
 	 * Single indexed string key.
 	 */
-	idValue: IndexedAccessSource["id"];
+	idValue: IIndexedAccessSource["id"];
 
 	/**
 	 * Single indexed number key.
 	 */
-	countValue: IndexedAccessSource["count"];
+	countValue: IIndexedAccessSource["count"];
 
 	/**
 	 * Indexed union of keys.
 	 */
-	unionValue: IndexedAccessSource["id" | "count"];
+	unionValue: IIndexedAccessSource["id" | "count"];
 
 	/**
 	 * Indexed optional source key.
 	 */
-	optionalStatus: IndexedAccessSource["status"];
+	optionalStatus: IIndexedAccessSource["status"];
 
 	/**
 	 * Indexed object-valued key.
 	 */
-	nestedValue: IndexedAccessSource["nested"];
+	nestedValue: IIndexedAccessSource["nested"];
 }

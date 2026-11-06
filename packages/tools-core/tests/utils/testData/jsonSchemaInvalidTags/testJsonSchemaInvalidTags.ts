@@ -5,6 +5,6 @@
  * Example using invalid @json-schema tags.
  * @json-schema invalidKeyword:true
  */
-export interface TestJsonSchemaInvalidTags {
+export interface ITestJsonSchemaInvalidTags {
 	value: string;
 }

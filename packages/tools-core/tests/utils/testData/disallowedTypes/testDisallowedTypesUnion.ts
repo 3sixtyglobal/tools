@@ -4,7 +4,7 @@
 /**
  * Disallowed types inside union branches should still throw.
  */
-export interface TestDisallowedTypesUnion {
+export interface ITestDisallowedTypesUnion {
 	/**
 	 * Disallowed bigint literal branch.
 	 */

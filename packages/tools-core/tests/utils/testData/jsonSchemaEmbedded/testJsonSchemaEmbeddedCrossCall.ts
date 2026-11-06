@@ -5,7 +5,7 @@
  * Embedded type for cross-call sharing tests.
  * @json-schema embedded:defs
  */
-export interface CrossCallEmbedded {
+export interface ICrossCallEmbedded {
 	label: string;
 	value?: number;
 }

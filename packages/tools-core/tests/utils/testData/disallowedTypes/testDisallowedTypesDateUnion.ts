@@ -4,6 +4,6 @@
 /**
  * Date type in a union branch should be rejected.
  */
-export interface TestDisallowedTypesDateUnion {
+export interface ITestDisallowedTypesDateUnion {
 	value: number | Date;
 }

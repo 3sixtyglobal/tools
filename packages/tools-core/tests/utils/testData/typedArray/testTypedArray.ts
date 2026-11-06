@@ -4,7 +4,7 @@
 /**
  * Coverage for native typed array references.
  */
-export interface TestTypedArray {
+export interface ITestTypedArray {
 	arrayBuffer: ArrayBuffer;
 	sharedArrayBuffer: SharedArrayBuffer;
 	// eslint-disable-next-line @typescript-eslint/array-type

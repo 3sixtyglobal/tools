@@ -25,7 +25,7 @@ const SOME_CONFIG = { timeout: 5000, name: "default" };
 /**
  * Coverage for type query references.
  */
-export interface TestTypeQuery {
+export interface ITestTypeQuery {
 	/**
 	 * Type query fallback for runtime value references.
 	 */

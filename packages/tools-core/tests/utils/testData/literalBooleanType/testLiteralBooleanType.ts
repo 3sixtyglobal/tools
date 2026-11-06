@@ -4,7 +4,7 @@
 /**
  * Coverage for boolean literal type nodes - true and false as distinct const types rather than the broad boolean keyword.
  */
-export interface TestLiteralBooleanType {
+export interface ITestLiteralBooleanType {
 	/**
 	 * Literal true type maps to a const true schema.
 	 */

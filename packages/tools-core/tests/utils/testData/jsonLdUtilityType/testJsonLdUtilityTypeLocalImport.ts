@@ -6,7 +6,7 @@ import type { ITestLocalAgreement } from "./testLocalAgreement.js";
 /**
  * Validates JsonLdObjectWithNoContext for a base type imported from a local file.
  */
-export interface TestJsonLdUtilityTypeLocalImport {
+export interface ITestJsonLdUtilityTypeLocalImport {
 	/**
 	 * Agreement with @context removed.
 	 */

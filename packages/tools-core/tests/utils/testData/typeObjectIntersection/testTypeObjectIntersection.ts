@@ -14,7 +14,7 @@ export interface IPerson {
 /**
  * Interface with an intersection-typed property.
  */
-export interface TypeObjectIntersection {
+export interface ITypeObjectIntersection {
 	/**
 	 * Person extended inline with a first name.
 	 */

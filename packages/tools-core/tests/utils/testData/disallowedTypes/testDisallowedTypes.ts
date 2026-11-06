@@ -4,7 +4,7 @@
 /**
  * Types in this model are intentionally unsupported.
  */
-export interface TestDisallowedTypes {
+export interface ITestDisallowedTypes {
 	/**
 	 * Disallowed date/time alias.
 	 */

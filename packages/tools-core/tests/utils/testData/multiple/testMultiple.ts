@@ -4,7 +4,7 @@
 /**
  * Test person details.
  */
-export interface TestPerson {
+export interface ITestPerson {
 	/**
 	 * The person's name.
 	 */
@@ -19,7 +19,7 @@ export interface TestPerson {
 /**
  * Test address information.
  */
-export interface TestAddress {
+export interface ITestAddress {
 	/**
 	 * The street address.
 	 */

@@ -19,16 +19,16 @@ import type {
 	JsonLdWithAliases,
 	JsonLdObjectWithAliases
 } from "./jsonLdUtilities.js";
-import type { Person } from "../utilityType/testUtilityPerson.js";
+import type { IPerson } from "../utilityType/testUtilityPerson.js";
 
 /**
  * JSON-LD utility type wrapper using JsonLdObject utilities.
  */
-export interface TestJsonLdUtilityType {
+export interface ITestJsonLdUtilityType {
 	/**
 	 * Uses existing id property from Person.
 	 */
-	withExistingId: JsonLdObjectWithId<Person>;
+	withExistingId: JsonLdObjectWithId<IPerson>;
 
 	/**
 	 * Uses at-id from inline object and normalises to id.
@@ -43,17 +43,17 @@ export interface TestJsonLdUtilityType {
 	/**
 	 * Uses explicit custom id type.
 	 */
-	withCustomId: JsonLdObjectWithId<Person, number>;
+	withCustomId: JsonLdObjectWithId<IPerson, number>;
 
 	/**
 	 * Uses existing id property and normalises to at-id.
 	 */
-	withAtIdFromId: JsonLdObjectWithAtId<Person>;
+	withAtIdFromId: JsonLdObjectWithAtId<IPerson>;
 
 	/**
 	 * Uses optional at-id inferred from existing id.
 	 */
-	withOptionalAtId: JsonLdObjectWithOptionalAtId<Person>;
+	withOptionalAtId: JsonLdObjectWithOptionalAtId<IPerson>;
 
 	/**
 	 * Removes at-id while keeping other fields.
@@ -63,7 +63,7 @@ export interface TestJsonLdUtilityType {
 	/**
 	 * Uses optional id inferred from existing id.
 	 */
-	withOptionalId: JsonLdObjectWithOptionalId<Person>;
+	withOptionalId: JsonLdObjectWithOptionalId<IPerson>;
 
 	/**
 	 * Uses optional id default when no id fields exist.
@@ -73,7 +73,7 @@ export interface TestJsonLdUtilityType {
 	/**
 	 * Removes id while keeping other fields.
 	 */
-	withNoId: JsonLdObjectWithNoId<Person>;
+	withNoId: JsonLdObjectWithNoId<IPerson>;
 
 	/**
 	 * Uses existing type property from inline object.

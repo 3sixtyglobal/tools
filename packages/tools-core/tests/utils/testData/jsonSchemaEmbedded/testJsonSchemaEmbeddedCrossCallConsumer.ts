@@ -1,11 +1,11 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { CrossCallEmbedded } from "./testJsonSchemaEmbeddedCrossCall.js";
+import type { ICrossCallEmbedded } from "./testJsonSchemaEmbeddedCrossCall.js";
 
 /**
  * Consumer of the cross-call embedded type.
  */
-export interface CrossCallConsumer {
-	first: CrossCallEmbedded;
-	second: CrossCallEmbedded;
+export interface ICrossCallConsumer {
+	first: ICrossCallEmbedded;
+	second: ICrossCallEmbedded;
 }

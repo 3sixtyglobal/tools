@@ -4,6 +4,6 @@
 /**
  * bigint keyword in a union branch should be rejected.
  */
-export interface TestDisallowedTypesBigIntUnion {
+export interface ITestDisallowedTypesBigIntUnion {
 	value: string | bigint;
 }

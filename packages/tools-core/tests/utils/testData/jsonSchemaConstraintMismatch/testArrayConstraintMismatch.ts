@@ -4,7 +4,7 @@
 /**
  * Example applying an array constraint to a non-array property.
  */
-export interface TestArrayConstraintMismatch {
+export interface ITestArrayConstraintMismatch {
 	/**
 	 * A string property incorrectly annotated with minItems.
 	 * @json-schema minItems:1

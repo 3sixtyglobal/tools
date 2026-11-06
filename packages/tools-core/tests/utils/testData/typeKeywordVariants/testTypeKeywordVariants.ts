@@ -4,7 +4,7 @@
 /**
  * Test object and boolean keyword variants.
  */
-export interface TestTypeKeywordVariants {
+export interface ITestTypeKeywordVariants {
 	/**
 	 * Object keyword should map to object type.
 	 */

@@ -4,7 +4,7 @@
 /**
  * Full person model for utility type tests.
  */
-export interface Person {
+export interface IPerson {
 	/**
 	 * The unique identifier.
 	 */

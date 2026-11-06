@@ -8,7 +8,7 @@
  * @json-schema id:https://schema.3sixty.global/test/CustomJsonSchemaTagsTest
  * @json-schema comment:Schema comment from json-schema tags.
  */
-export interface JsonSchemaTagsTest {
+export interface IJsonSchemaTagsTest {
 	/**
 	 * Timestamp in RFC 3339 format.
 	 * @json-schema format:date-time

@@ -4,7 +4,7 @@
 /**
  * Array spread and tuple combinations.
  */
-export interface SpreadTest {
+export interface ISpreadTest {
 	/**
 	 * A simple homogeneous array.
 	 */
@@ -34,20 +34,20 @@ export interface SpreadTest {
 	 * Mixed tuple/array union with spread combinations using objects.
 	 */
 	spreadCombinedObject:
-		| TestObjectA
-		| [TestObjectA]
-		| [TestObjectB, TestObjectA, ...TestObjectB[]]
-		| [...TestObjectB[], TestObjectA, TestObjectB];
+		| ITestObjectA
+		| [ITestObjectA]
+		| [ITestObjectB, ITestObjectA, ...ITestObjectB[]]
+		| [...ITestObjectB[], ITestObjectA, ITestObjectB];
 }
 
-export interface TestObjectA {
+export interface ITestObjectA {
 	/**
 	 * A simple title field.
 	 */
 	title: string;
 }
 
-export interface TestObjectB {
+export interface ITestObjectB {
 	/**
 	 * A simple description field.
 	 */

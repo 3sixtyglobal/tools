@@ -3,7 +3,7 @@
 
 type FieldKeys = "id" | "label";
 
-interface SourceModel {
+interface ISourceModel {
 	id: string;
 	count: number;
 	active?: boolean;
@@ -17,7 +17,7 @@ export type FieldMap = { [K in FieldKeys]: number };
 /**
  * Homomorphic mapped type preserving source properties.
  */
-export type SourceMirror = { [K in keyof SourceModel]: SourceModel[K] };
+export type SourceMirror = { [K in keyof ISourceModel]: ISourceModel[K] };
 
 /**
  * Optional mapped type with fixed keys.
@@ -27,26 +27,26 @@ export type OptionalFieldMap = { [K in FieldKeys]?: string };
 /**
  * Mapped type remapping source keys with a template literal.
  */
-export type PrefixedSourceMirror = { [K in keyof SourceModel as `api_${K}`]: SourceModel[K] };
+export type PrefixedSourceMirror = { [K in keyof ISourceModel as `api_${K}`]: ISourceModel[K] };
 
 /**
  * Mapped type remapping source keys with a conditional uppercase transform.
  */
 export type UppercaseSourceMirror = {
-	[K in keyof SourceModel as K extends string ? Uppercase<K> : never]: SourceModel[K];
+	[K in keyof ISourceModel as K extends string ? Uppercase<K> : never]: ISourceModel[K];
 };
 
 /**
  * Mapped type filtering keys via a conditional extends check against a literal union.
  */
 export type FilteredSourceMirror = {
-	[K in keyof SourceModel as K extends "id" | "count" ? K : never]: SourceModel[K];
+	[K in keyof ISourceModel as K extends "id" | "count" ? K : never]: ISourceModel[K];
 };
 
 /**
  * Test mapped type handling.
  */
-export interface TestMappedType {
+export interface ITestMappedType {
 	/**
 	 * Fixed-key mapped type.
 	 */

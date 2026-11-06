@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 
-interface TypeOperatorSource {
+interface ITypeOperatorSource {
 	id: string;
 	label: string;
 	score: number;
@@ -11,7 +11,7 @@ interface TypeOperatorSource {
 /**
  * Test readonly and keyof type operators.
  */
-export interface TestTypeOperators {
+export interface ITestTypeOperators {
 	/**
 	 * Readonly array should map as a regular array schema.
 	 */
@@ -25,10 +25,10 @@ export interface TestTypeOperators {
 	/**
 	 * Pick using keyof should include all source properties.
 	 */
-	pickFromKeyof: Pick<TypeOperatorSource, keyof TypeOperatorSource>;
+	pickFromKeyof: Pick<ITypeOperatorSource, keyof ITypeOperatorSource>;
 
 	/**
 	 * Omit using keyof should remove all source properties.
 	 */
-	omitFromKeyof: Omit<TypeOperatorSource, keyof TypeOperatorSource>;
+	omitFromKeyof: Omit<ITypeOperatorSource, keyof ITypeOperatorSource>;
 }

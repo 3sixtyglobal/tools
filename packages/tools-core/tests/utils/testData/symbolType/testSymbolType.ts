@@ -7,7 +7,7 @@ const uniqueKey: unique symbol = Symbol("uniqueKey");
  * Test symbol-typed property values and symbol-keyed members.
  * Symbol-based members should be skipped with diagnostics.
  */
-export interface TestSymbolType {
+export interface ITestSymbolType {
 	/**
 	 * A regular string property that should appear in the schema.
 	 */

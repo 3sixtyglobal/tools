@@ -4,7 +4,7 @@
 /**
  * Example applying a string constraint to a non-string property.
  */
-export interface TestStringConstraintMismatch {
+export interface ITestStringConstraintMismatch {
 	/**
 	 * A number property incorrectly annotated with minLength.
 	 * @json-schema minLength:1
