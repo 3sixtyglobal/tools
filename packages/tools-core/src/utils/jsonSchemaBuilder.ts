@@ -377,7 +377,7 @@ export class JsonSchemaBuilder {
 		const exampleTagComments = JsDoc.getNodeTagComments(node, "example");
 		if (exampleTagComments.length > 0) {
 			const parsedExamples = exampleTagComments.map(v => JsDoc.parseTagValue(v));
-			schema.examples = Array.isArray(schema.examples)
+			schema.examples = Is.array(schema.examples)
 				? [...parsedExamples, ...schema.examples]
 				: parsedExamples;
 		}
