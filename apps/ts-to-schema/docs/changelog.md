@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.7](https://github.com/3sixtyglobal/tools/compare/ts-to-schema-v0.20.0-next.6...ts-to-schema-v0.20.0-next.7) (2026-11-06)
+
+
+### Features
+
+* release to next [skip ci] ([#31](https://github.com/3sixtyglobal/tools/issues/31)) ([391e9c3](https://github.com/3sixtyglobal/tools/commit/391e9c339cef40b8f797a322bdb67fa157cc3298))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/tools-core bumped from 0.20.0-next.6 to 0.20.0-next.7
+    * @3sixty/tools-models bumped from 0.20.0-next.6 to 0.20.0-next.7
+
 ## [0.20.0-next.6](https://github.com/3sixtyglobal/tools/compare/ts-to-schema-v0.20.0-next.5...ts-to-schema-v0.20.0-next.6) (2026-10-26)
 
 
